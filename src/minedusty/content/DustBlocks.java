@@ -50,7 +50,6 @@ public class DustBlocks {
 			breakSound = Sounds.rockBreak;
 			breakEffect = Fx.breakProp;
 			mapColor = Color.valueOf("706f74");
-			size = 2;
 			customShadow = true;
 			variants = 2;
 		}};
@@ -60,7 +59,7 @@ public class DustBlocks {
 		//turrets
 
 		grinder = new GenericCrafter("grinder"){{
-            requirements(Category.crafting, with(Items.copper, 30, Items.lead, 25));
+            requirements(Category.crafting, with(Items.copper, 30, Items.lead, 25, Items.silicon, 50));
             outputItem = new ItemStack(DustItems.dustquartz, 1);
             craftEffect = Fx.pulverize;
             craftTime = 40f;
