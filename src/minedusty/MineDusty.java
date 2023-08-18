@@ -27,7 +27,7 @@ public class MineDusty extends Mod{
         Events.on(ClientLoadEvent.class, e -> {
             //show dialog upon startup
             Time.runTask(10f, () -> {
-                BaseDialog dialog = new BaseDialog("frog");
+                BaseDialog dialog = new BaseDialog("warn");
                 dialog.cont.add("A spooky Warning").row();
                 dialog.cont.image(Core.atlas.find("minedusty-frog.png")).pad(20f).row();
 				dialog.cont.add("[gray]Please note that this mod (Minedusty) is unstable.[]").row();

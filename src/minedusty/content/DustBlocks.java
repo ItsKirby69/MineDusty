@@ -75,23 +75,25 @@ public class DustBlocks {
             consumeItem(DustItems.quartz, 1);
             consumePower(0.50f);
         }};
-
-        quartzSmelter = new GenericCrafter("quartz-smelter"){{
-            requirements(Category.crafting, with(Items.copper, 30, Items.lead, 25, Items.silicon, 50));
+	
+        quartzSmelter = new AttributeCrafter("quartz-smelter"){{
+            requirements(Category.crafting, with(Items.copper, 100, Items.metaglass, 50, Items.lead, 35, Items.silicon, 60));
             craftEffect = Fx.smeltsmoke;
-            outputItem = new ItemStack(DustItems.rosequartz, 1);
-            craftTime = 40f;
-            size = 2;
+            outputItem = new ItemStack(DustItems.rosequartz, 2);
+            craftTime = 90f;
+            size = 3;
             hasPower = true;
             hasLiquids = false;
+            itemCapacity = 20;
+            boostScale = 0.15f;
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.07f;
 
             consumeItems(with(Items.coal, 1, Items.silicon, 2, Items.thorium, 1));
-            consumePower(0.50f);
+            consumePower(2.50f);
         }};
-	
+
 
 		//deco blocks
 		aliveTree = new TreeBlock("alive-tree");
