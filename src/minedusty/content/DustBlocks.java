@@ -35,7 +35,7 @@ public class DustBlocks {
 	//Walls
 	//Drills
 	//Productions
-	grinder, quartzSmelter
+	grinder, quartzSmelter,
 	//Props
 	largeBoulder, aliveTree,
 	//ores
