@@ -18,12 +18,12 @@ public class DustItems {
 
 	public static void load(){
 		//quartz can be made using silicon and a machine. idk what yet.
-		quartz = new Item("FunnyWhiteCrystal", pal2.quartz){{
+		quartz = new Item("ore-quartz", pal2.quartz){{
 			flammability = 0.25f;
 			hardness = 2;
 		}};
 		//quartz needs a machine to create pink quartz.
-		rosequartz = new Item("FunnyPinkCrystal", pal2.rosequartz){{
+		rosequartz = new Item("ore-pink-quartz", pal2.rosequartz){{
 			flammability = 0.25f;
 			hardness = 2;
 		}};
