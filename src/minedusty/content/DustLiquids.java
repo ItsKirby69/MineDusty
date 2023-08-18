@@ -1,5 +1,5 @@
 package minedusty.content;
 
-public class DustItems {
+public class DustLiquids {
 	
 }
