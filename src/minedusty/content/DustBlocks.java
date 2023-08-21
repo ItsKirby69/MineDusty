@@ -7,6 +7,7 @@ import arc.util.*;
 
 import mindustry.*;
 import mindustry.content.*;
+import mindustry.content.Blocks.*;
 import mindustry.entities.bullet.FlakBulletType;
 import mindustry.entities.effect.*;
 import mindustry.entities.pattern.*;
@@ -14,7 +15,9 @@ import mindustry.game.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.type.unit.*;
 import mindustry.world.*;
+import mindustry.world.blocks.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.environment.*;
@@ -28,6 +31,7 @@ import mindustry.world.meta.*;
 import static minedusty.MineDusty.*;
 import static mindustry.type.ItemStack.*;
 
+//TODO, MAKE SURE TREE BLOCK IS VARIANT ONCE FIX IS MADE
 public class DustBlocks {
 	public static Block 
 	//Turrets
@@ -37,7 +41,7 @@ public class DustBlocks {
 	//Productions
 	grinder, quartzSmelter,
 	//Props
-	largeBoulder, aliveTree, flower,
+	largeBoulder, aliveTree1, aliveTree2, flower,
 	//ores
 	oreQuartz;
 	//add more categories
@@ -54,16 +58,14 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
-		aliveTree = new TreeBlock("alive-tree"){{
-			variants = 2;
-		}};
+		aliveTree1 = new TreeBlock("alive-tree1");
+
+		aliveTree2 = new TreeBlock("alive-tree2");
 
 		flower = new Prop("bloom-flower"){{
-			hasShadow = true;
-			instantDeconstruct = true;
 			breakSound = Sounds.plantBreak;
-			breakEffect = Fx.breakProp;
 			mapColor = Color.valueOf("74d660");
+			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			variants = 2;
 		}};
 
