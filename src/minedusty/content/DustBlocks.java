@@ -60,10 +60,12 @@ public class DustBlocks {
 
 		aliveTree1 = new TreeBlock("alive-tree1"){{
 			hasShadow = true;
+			customShadow = true;
 		}};
 
 		aliveTree2 = new TreeBlock("alive-tree2"){{
 			hasShadow = true;
+			customShadow = true;
 		}};
 
 		flower = new Prop("bloom-flower"){{
