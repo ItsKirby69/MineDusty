@@ -60,6 +60,7 @@ public class DustBlocks {
 
 		flower = new Prop("bloom-flower"){{
 			hasShadow = true;
+			customShadow = true;
 			instantDeconstruct = true;
 			breakSound = Sounds.plantBreak;
 			breakEffect = Fx.breakProp;
