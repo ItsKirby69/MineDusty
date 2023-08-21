@@ -58,9 +58,8 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
-		flower = new Prop("bloom-flower"){{
+		flower = new seaBush("bloom-flower"){{
 			hasShadow = true;
-			customShadow = true;
 			instantDeconstruct = true;
 			breakSound = Sounds.plantBreak;
 			breakEffect = Fx.breakProp;
