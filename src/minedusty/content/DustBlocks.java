@@ -58,7 +58,7 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
-		flower = new SeaBush("bloom-flower"){{
+		flower = new Seaweed("bloom-flower"){{
 			hasShadow = true;
 			instantDeconstruct = true;
 			breakSound = Sounds.plantBreak;
