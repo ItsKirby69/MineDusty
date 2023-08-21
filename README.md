@@ -1,4 +1,4 @@
-![Logo](assets/icon-git.png?align=center)
+![Logo](sprites/icon-git.png?align=center)
 
 # MineDusty
 A new reboot of my old project. Mod is for experimental use. Hopefully this will actually be a cohesive mod. Contact me through Discord! `itsdakirby69`
