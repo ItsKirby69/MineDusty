@@ -58,13 +58,13 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
-		flower = new Seaweed("bloom-flower"){{
+		flower = new Prop("bloom-flower"){{
 			hasShadow = true;
 			instantDeconstruct = true;
 			breakSound = Sounds.plantBreak;
 			breakEffect = Fx.breakProp;
 			mapColor = Color.valueOf("74d660");
-			//variants = 5; or smnth
+			variants = 2;
 		}};
 
 		
