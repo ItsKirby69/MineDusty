@@ -54,6 +54,21 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
+		aliveTree = new TreeBlock("alive-tree"){{
+			variants = 2;
+		}};
+
+		flower = new Prop("bloom-flower"){{
+			hasShadow = true;
+			instantDeconstruct = true;
+			breakSound = Sounds.plantBreak;
+			breakEffect = Fx.breakProp;
+			mapColor = Color.valueOf("74d660");
+			//variants = 5; or smnth
+		}}
+
+		
+
 		//idea to add quartz walls that deflect lazers or smthn
 		//function numbers (speed, damage)
 		//turrets
@@ -94,9 +109,6 @@ public class DustBlocks {
             consumePower(2.50f);
         }};
 
-
-		//deco blocks
-		aliveTree = new TreeBlock("alive-tree");
 
 		//ores
 		oreQuartz = new OreBlock("ore-quartz", DustItems.quartz){{
