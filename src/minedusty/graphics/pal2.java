@@ -1,7 +1,6 @@
 package minedusty.graphics;
 
 import arc.graphics.Color;
-import mindustry.graphics.*;
 
 public class pal2 {
 	public static Color
