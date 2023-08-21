@@ -65,7 +65,7 @@ public class DustBlocks {
 			breakEffect = Fx.breakProp;
 			mapColor = Color.valueOf("74d660");
 			//variants = 5; or smnth
-		}}
+		}};
 
 		
 
