@@ -58,9 +58,13 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
-		aliveTree1 = new TreeBlock("alive-tree1");
+		aliveTree1 = new TreeBlock("alive-tree1"){{
+			hasShadow = true;
+		}};
 
-		aliveTree2 = new TreeBlock("alive-tree2");
+		aliveTree2 = new TreeBlock("alive-tree2"){{
+			hasShadow = true;
+		}};
 
 		flower = new Prop("bloom-flower"){{
 			breakSound = Sounds.plantBreak;
