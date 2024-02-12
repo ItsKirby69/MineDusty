@@ -13,15 +13,13 @@ main: "minedusty.MineDusty"
 #the mod description as seen in the mod dialog
 description: "A java mod by itsdakirby69. Very descriptive yes..."
 
-subtitle: "Putting random stuff together to see what happens"
+subtitle: "i uhh.. i fo. forgor"
 
 #the mod version
 version: 1
 
 #the minimum game build required to run this mod
 minGameVersion: 145
-
-hidden: false
 
 #this is a java mod
 java: true
