@@ -27,7 +27,7 @@ public class MineDusty extends Mod{
                 BaseDialog dialog = new BaseDialog("warn");
                 dialog.cont.add("A spooky Warning").row();
                 dialog.cont.image(Core.atlas.find("minedusty-frog.png")).pad(20f).row();
-				dialog.cont.add("[gray]Please note that this mod (Minedusty) is unstable.[]").row();
+				dialog.cont.add("[gray]Please note that this mod (Minedusty) is potentially unstable.[]").row();
 				dialog.cont.add("[scarlet]Contact me through discord[] [brick]itsdakirby69[] [scarlet]for any bugs that occur[]").row();
 				dialog.cont.add("[gray]Mess around with the mod and have fun :)[]").row();
                 dialog.cont.button("Got it fam", dialog::hide).size(150f, 50f);

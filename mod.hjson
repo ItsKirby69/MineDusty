@@ -16,7 +16,8 @@ description: "A java mod by itsdakirby69. Very descriptive yes..."
 subtitle: "Putting random stuff together to see what happens"
 
 #the mod version
-version: 0.1
+
+version: 1
 
 #the minimum game build required to run this mod
 minGameVersion: 145
