@@ -75,7 +75,6 @@ public class DustBlocks {
 			breakSound = Sounds.plantBreak;
 			mapColor = Color.valueOf("74d660");
 			hasShadow = true;
-			customShadow = true;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			variants = 2;
 		}};
@@ -84,7 +83,6 @@ public class DustBlocks {
 			breakSound = Sounds.plantBreak;
 			mapColor = Color.valueOf("74d660");
 			hasShadow = true;
-			customShadow = true;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			variants = 2;
 		}};
