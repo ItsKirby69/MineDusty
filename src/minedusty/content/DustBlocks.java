@@ -41,7 +41,7 @@ public class DustBlocks {
 	//Productions
 	grinder, quartzSmelter,
 	//Props
-	largeBoulder, aliveTree1, aliveTree2, flower,
+	largeBoulder, aliveTree, bflower, flower,
 	//ores
 	oreQuartz;
 	//add more categories
@@ -58,19 +58,33 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
-		aliveTree1 = new TreeBlock("alive-tree1"){{
+		aliveTree = new TreeBlock("alive-tree"){{
+			variants = 2;
+			mapColor = Color.valueOf("74d660");
 			hasShadow = true;
 			customShadow = true;
 		}};
 
-		aliveTree2 = new TreeBlock("alive-tree2"){{
-			hasShadow = true;
-			customShadow = true;
-		}};
+		//aliveTree = new TreeBlock("alive-tree2"){{
+		//	mapColor = Color.valueOf("74d660");
+		//	hasShadow = true;
+		//	customShadow = true;
+		//}};
 
-		flower = new Prop("bloom-flower"){{
+		bflower = new Prop("bloom-flower"){{
 			breakSound = Sounds.plantBreak;
 			mapColor = Color.valueOf("74d660");
+			hasShadow = true;
+			customShadow = true;
+			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
+			variants = 2;
+		}};
+
+		flower = new Prop("flower"){{
+			breakSound = Sounds.plantBreak;
+			mapColor = Color.valueOf("74d660");
+			hasShadow = true;
+			customShadow = true;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			variants = 2;
 		}};
@@ -98,7 +112,7 @@ public class DustBlocks {
             consumeItem(DustItems.quartz, 1);
             consumePower(0.50f);
         }};
-	
+
         quartzSmelter = new AttributeCrafter("quartz-smelter"){{
             requirements(Category.crafting, with(Items.copper, 100, Items.metaglass, 50, Items.lead, 35, Items.silicon, 60));
             craftEffect = Fx.smeltsmoke;
