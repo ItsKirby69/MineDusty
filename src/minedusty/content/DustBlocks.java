@@ -77,6 +77,7 @@ public class DustBlocks {
 			hasShadow = true;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			variants = 1;
+			lobesMin = 10;
 		}};
 
 		//flower = new Prop("flower"){{
