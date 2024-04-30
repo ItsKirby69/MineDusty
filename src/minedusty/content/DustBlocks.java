@@ -41,7 +41,7 @@ public class DustBlocks {
 	//Productions
 	grinder, quartzSmelter,
 	//Props
-	largeBoulder, aliveTree, bflower, flower,
+	largeBoulder, aliveTree, bushy, flower,
 	//ores
 	oreQuartz;
 	//add more categories
@@ -71,13 +71,15 @@ public class DustBlocks {
 		//	customShadow = true;
 		//}};
 
-		bflower = new SeaBush("bloom-flower"){{
+		bushy = new SeaBush("bush"){{
 			breakSound = Sounds.plantBreak;
 			mapColor = Color.valueOf("74d660");
 			hasShadow = true;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			variants = 1;
-			lobesMin = 10;
+			lobesMin = 17;
+			magMin = 2;
+			magMax = 3;
 		}};
 
 		//flower = new Prop("flower"){{
