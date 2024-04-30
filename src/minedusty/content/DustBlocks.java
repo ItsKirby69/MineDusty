@@ -59,7 +59,7 @@ public class DustBlocks {
 		}};
 
 		aliveTree = new TreeBlock("alive-tree"){{
-			variants = 2;
+			variants = 1;
 			mapColor = Color.valueOf("74d660");
 			hasShadow = true;
 			customShadow = true;
@@ -71,21 +71,21 @@ public class DustBlocks {
 		//	customShadow = true;
 		//}};
 
-		bflower = new Prop("bloom-flower"){{
+		bflower = new SeaBush("bloom-flower"){{
 			breakSound = Sounds.plantBreak;
 			mapColor = Color.valueOf("74d660");
 			hasShadow = true;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			variants = 2;
+			variants = 1;
 		}};
 
-		flower = new Prop("flower"){{
-			breakSound = Sounds.plantBreak;
-			mapColor = Color.valueOf("74d660");
-			hasShadow = true;
-			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			variants = 2;
-		}};
+		//flower = new Prop("flower"){{
+		//	breakSound = Sounds.plantBreak;
+		//	mapColor = Color.valueOf("74d660");
+		//	hasShadow = true;
+		//	Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
+		//	variants = 2;
+		//}};
 
 		
 
