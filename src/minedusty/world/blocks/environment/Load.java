@@ -4,6 +4,6 @@ public @interface Load {
 
 	String value();
 
-	String fallback();
+	String fallback() default "";
 
 }

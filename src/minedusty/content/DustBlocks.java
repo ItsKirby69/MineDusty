@@ -8,8 +8,8 @@ import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
-import minedusty.world.blocks.environment.GreenBush;
-import minedusty.world.blocks.environment.GreenTreeBlock;
+import minedusty.world.blocks.environment.LivingBush;
+import minedusty.world.blocks.environment.LivingTreeBlock;
 
 import static mindustry.type.ItemStack.*;
 
@@ -40,17 +40,17 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
-		aliveTree = new TreeBlock("alive-tree"){{
-			variants = 1;
+		aliveTree = new LivingTreeBlock("alive-tree"){{
 			mapColor = Color.valueOf("74d660");
+			hasShadow = true;
 		}};
 
-		Bushy = new GreenBush("bush"){{
+		Bushy = new LivingBush("bush"){{
 			breakSound = Sounds.plantBreak;
 			mapColor = Color.valueOf("74d660");
 			hasShadow = true;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			variants = 2;
+			variants = 1;
 			lobesMin = 15;
 			magMin = 2;
 			magMax = 3;

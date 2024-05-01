@@ -6,20 +6,29 @@ import arc.util.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 
-public class GreenBush extends Prop{
-    public @Load(value = "@-bottom", fallback = "@") TextureRegion botRegion;
-    public @Load(value = "@-center", fallback = "") TextureRegion centerRegion;
+import static arc.Core.atlas;
 
-    public int lobesMin = 7, lobesMax = 7;
+public class LivingBush extends Prop{
+	public TextureRegion botRegion;
+	public TextureRegion centerRegion;
+
+    public LivingBush(String name){
+        super(name);
+		variants = 0;
+    }
+
+	@Override
+	public void load(){
+		super.load();
+		botRegion = atlas.find(name + "-bot");
+		centerRegion = atlas.find(name + "-center");
+	}
+
+    public int lobesMin = 13, lobesMax = 13;
     public float botAngle = 60f, origin = 0.1f;
     public float sclMin = 30f, sclMax = 50f, magMin = 5f, magMax = 15f, timeRange = 40f, spread = 0f;
 
     static Rand rand = new Rand();
-
-    public GreenBush(String name){
-        super(name);
-        variants = 0;
-    }
 
     @Override
     public void drawBase(Tile tile){
