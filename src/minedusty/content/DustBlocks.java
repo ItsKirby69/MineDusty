@@ -1,34 +1,16 @@
 package minedusty.content;
 
 import arc.graphics.*;
-import arc.graphics.g2d.*;
-import arc.struct.*;
-import arc.util.*;
-
-import mindustry.*;
 import mindustry.content.*;
-import mindustry.content.Blocks.*;
-import mindustry.entities.bullet.FlakBulletType;
-import mindustry.entities.effect.*;
-import mindustry.entities.pattern.*;
-import mindustry.game.*;
 import mindustry.gen.*;
-import mindustry.graphics.*;
 import mindustry.type.*;
-import mindustry.type.unit.*;
 import mindustry.world.*;
-import mindustry.world.blocks.*;
-import mindustry.world.blocks.defense.*;
-import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.environment.*;
-import mindustry.world.blocks.logic.*;
-import mindustry.world.blocks.payloads.*;
 import mindustry.world.blocks.production.*;
-import mindustry.world.blocks.storage.*;
 import mindustry.world.draw.*;
-import mindustry.world.meta.*;
+import minedusty.world.blocks.environment.GreenBush;
+import minedusty.world.blocks.environment.GreenTreeBlock;
 
-import static minedusty.MineDusty.*;
 import static mindustry.type.ItemStack.*;
 
 //TODO, MAKE SURE TREE BLOCK IS VARIANT ONCE FIX IS MADE
@@ -41,7 +23,7 @@ public class DustBlocks {
 	//Productions
 	grinder, quartzSmelter,
 	//Props
-	largeBoulder, aliveTree, bushy, flower,
+	largeBoulder, aliveTree, Bushy, miniBushy, flower,
 	//ores
 	oreQuartz;
 	//add more categories
@@ -61,23 +43,15 @@ public class DustBlocks {
 		aliveTree = new TreeBlock("alive-tree"){{
 			variants = 1;
 			mapColor = Color.valueOf("74d660");
-			hasShadow = true;
-			customShadow = true;
 		}};
 
-		//aliveTree = new TreeBlock("alive-tree2"){{
-		//	mapColor = Color.valueOf("74d660");
-		//	hasShadow = true;
-		//	customShadow = true;
-		//}};
-
-		bushy = new SeaBush("bush"){{
+		Bushy = new GreenBush("bush"){{
 			breakSound = Sounds.plantBreak;
 			mapColor = Color.valueOf("74d660");
 			hasShadow = true;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			variants = 1;
-			lobesMin = 17;
+			variants = 2;
+			lobesMin = 15;
 			magMin = 2;
 			magMax = 3;
 		}};
@@ -89,8 +63,6 @@ public class DustBlocks {
 		//	Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 		//	variants = 2;
 		//}};
-
-		
 
 		//idea to add quartz walls that deflect lazers or smthn
 		//function numbers (speed, damage)

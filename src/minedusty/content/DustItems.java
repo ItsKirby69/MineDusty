@@ -1,17 +1,7 @@
 package minedusty.content;
 
-import arc.*;
-import arc.graphics.*;
 import minedusty.graphics.*;
 import mindustry.type.Item;
-//import mindustry.Item;
-//import minedusty.ui.*;
-import mindustry.*;
-import mindustry.content.Items;
-import mindustry.game.*;
-import mindustry.graphics.*;
-import mindustry.type.*;
-
 
 public class DustItems {
 	public static Item quartz, rosequartz, dustquartz;
