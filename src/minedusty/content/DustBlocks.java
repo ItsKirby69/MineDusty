@@ -23,7 +23,7 @@ public class DustBlocks {
 	//Productions
 	grinder, quartzSmelter,
 	//Props
-	largeBoulder, aliveTree, Bushy, miniBushy, flower,
+	largeBoulder, aliveTree, shrub, miniBushy, flower,
 	//ores
 	oreQuartz;
 	//add more categories
@@ -42,15 +42,13 @@ public class DustBlocks {
 
 		aliveTree = new LivingTreeBlock("alive-tree"){{
 			mapColor = Color.valueOf("74d660");
-			hasShadow = true;
+			//variants = 2;
 		}};
 
-		Bushy = new LivingBush("bush"){{
-			breakSound = Sounds.plantBreak;
+		shrub = new LivingBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
-			hasShadow = true;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			variants = 1;
+			variants = 2;
 			lobesMin = 15;
 			magMin = 2;
 			magMax = 3;
