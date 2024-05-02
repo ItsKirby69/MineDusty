@@ -16,14 +16,6 @@ public class LivingBush extends Prop{
 	public TextureRegion[] botRegion;
 	public TextureRegion[] centerRegion;
 
-    public LivingBush(String name){
-        super(name);
-		variants = 0;
-		hasShadow = true;
-		breakSound = Sounds.plantBreak;
-
-    }
-
 	@Override
 	public void load(){
 		super.load();
@@ -33,13 +25,20 @@ public class LivingBush extends Prop{
 
 		for(int i = 0; i < sprites; i++){
 			regions[i] = atlas.find(name + i, name);
-			botRegion[i] = atlas.find(name + "-bot" + i, name);
-			centerRegion[i] = atlas.find(name + "-center" + i, name);
+			botRegion[i] = atlas.find(name + i + "-bot", name);
+			centerRegion[i] = atlas.find(name + i + "-center", name);
 		}
 	}
 
+	public LivingBush(String name){
+        super(name);
+		variants = 0;
+		hasShadow = true;
+		breakSound = Sounds.plantBreak;
+    }
+
     public int lobesMin = 13, lobesMax = 13;
-    public float botAngle = 60f, origin = 0.1f;
+    public float botAngle = 60f, origin = 0.3f;
     public float sclMin = 30f, sclMax = 50f, magMin = 5f, magMax = 15f, timeRange = 40f, spread = 0f;
 
     static Rand rand = new Rand();
@@ -57,7 +56,7 @@ public class LivingBush extends Prop{
         for(int i = 0; i < lobes; i++){
             float ba =  i / (float)lobes * 360f + offset + rand.range(spread), angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
             float w = region.width * region.scl(), h = region.height * region.scl();
-            var region = Angles.angleDist(ba, 225f) <= botAngle ? botRegion[sprite] : this.region;
+            var region = Angles.angleDist(ba, 225f) <= botAngle ? botRegion[sprite] : regions[sprite];
 
             Draw.rect(region,
                 tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, tile.worldy() - Angles.trnsy(angle, origin),
@@ -66,8 +65,8 @@ public class LivingBush extends Prop{
                 angle
             );
         }
-
-        if(centerRegion[sprite].found()){
+		
+        if(centerRegion[sprite] != null && centerRegion[sprite].found()){
             Draw.rect(centerRegion[sprite], tile.worldx(), tile.worldy());
         }
     }

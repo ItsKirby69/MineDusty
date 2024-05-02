@@ -49,7 +49,7 @@ public class DustBlocks {
 			mapColor = Color.valueOf("74d660");
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			variants = 2;
-			lobesMin = 15;
+			lobesMin = 20;
 			magMin = 2;
 			magMax = 3;
 		}};
