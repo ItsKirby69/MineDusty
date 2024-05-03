@@ -114,18 +114,30 @@ public class DustBlocks {
 			supportsOverlay = true;
 		}};
 
-		sandytropicalwater = new ShallowLiquid("trop-sand-water"){{
+		sandytropicalwater = new Floor("trop-sand-water"){{
 			speedMultiplier = 0.8f;
+			liquidDrop = Liquids.water;
+			//liquidMultiplier = 1f;
+			isLiquid = true;
+			status = StatusEffects.wet;
 			statusDuration = 50f;
+			cacheLayer = CacheLayer.water;
 			albedo = 0.9f;
 			supportsOverlay = true;
+			shallow = true;
 		}};
 
-		dacitetropicalwater = new ShallowLiquid("trop-dacite-water"){{
+		dacitetropicalwater = new Floor("trop-dacite-water"){{
 			speedMultiplier = 0.8f;
+			liquidDrop = Liquids.water;
+			//liquidMultiplier = 1f;
+			isLiquid = true;
+			status = StatusEffects.wet;
 			statusDuration = 50f;
+			cacheLayer = CacheLayer.water;
 			albedo = 0.9f;
 			supportsOverlay = true;
+			shallow = true;
 		}};
 		
 
