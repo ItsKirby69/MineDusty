@@ -87,24 +87,25 @@ public class DustBlocks {
 		// TILES AND FLOORING
 		//
 
-		tropicalwater = new Floor("trop-shallow-water"){{
-			variants = 0;
-			speedMultiplier = 0.5f;
-			liquidDrop = Liquids.water;
-			liquidMultiplier = 1f;
-			isLiquid = true;
-			status = StatusEffects.wet;
-			statusDuration = 90f;
-			cacheLayer = CacheLayer.water;
-			albedo = 0.9f;
-			supportsOverlay = true;
-		}};
-
 		deeptropicalwater = new Floor("trop-deep-water"){{
 			variants = 0;
 			speedMultiplier = 0.5f;
 			liquidDrop = Liquids.water;
-			liquidMultiplier = 1f;
+			liquidMultiplier = 1.5f;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 120f;
+			drownTime = 200f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+			supportsOverlay = true;
+		}};
+
+		tropicalwater = new Floor("trop-shallow-water"){{
+			variants = 0;
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.water;
+			//liquidMultiplier = 1f;
 			isLiquid = true;
 			status = StatusEffects.wet;
 			statusDuration = 90f;
@@ -113,28 +114,16 @@ public class DustBlocks {
 			supportsOverlay = true;
 		}};
 
-		sandytropicalwater = new Floor("trop-sand-water"){{
-			variants = 0;
-			speedMultiplier = 0.5f;
-			liquidDrop = Liquids.water;
-			liquidMultiplier = 1f;
-			isLiquid = true;
-			status = StatusEffects.wet;
-			statusDuration = 90f;
-			cacheLayer = CacheLayer.water;
+		sandytropicalwater = new ShallowLiquid("trop-sand-water"){{
+			speedMultiplier = 0.8f;
+			statusDuration = 50f;
 			albedo = 0.9f;
 			supportsOverlay = true;
 		}};
 
-		dacitetropicalwater = new Floor("trop-dacite-water"){{
-			variants = 0;
-			speedMultiplier = 0.5f;
-			liquidDrop = Liquids.water;
-			liquidMultiplier = 1f;
-			isLiquid = true;
-			status = StatusEffects.wet;
-			statusDuration = 90f;
-			cacheLayer = CacheLayer.water;
+		dacitetropicalwater = new ShallowLiquid("trop-dacite-water"){{
+			speedMultiplier = 0.8f;
+			statusDuration = 50f;
 			albedo = 0.9f;
 			supportsOverlay = true;
 		}};
