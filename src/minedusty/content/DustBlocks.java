@@ -3,13 +3,13 @@ package minedusty.content;
 import arc.graphics.*;
 import mindustry.content.*;
 import mindustry.gen.*;
+import mindustry.graphics.CacheLayer;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
-import minedusty.world.blocks.environment.LivingBush;
-import minedusty.world.blocks.environment.LivingTreeBlock;
+import minedusty.world.blocks.environment.*;
 
 import static mindustry.type.ItemStack.*;
 
@@ -18,12 +18,16 @@ public class DustBlocks {
 	public static Block 
 	//Turrets
 	scatterSilo, 
-	//Walls
+	//Blocks
+	//Tiles
+	tropicalwater, sandytropicalwater,
+	deeptropicalwater, dacitetropicalwater,
 	//Drills
 	//Productions
 	grinder, quartzSmelter,
 	//Props
 	largeBoulder, aliveTree, shrub, miniBushy, flower,
+	lilypad, largelilypad,
 	//ores
 	oreQuartz;
 	//add more categories
@@ -43,16 +47,98 @@ public class DustBlocks {
 		aliveTree = new LivingTreeBlock("alive-tree"){{
 			mapColor = Color.valueOf("74d660");
 			//variants = 2;
+			sprites = 2;
 		}};
 
-		shrub = new LivingBush("shrub"){{
+		shrub = new SeaBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
+			breakSound = Sounds.plantBreak;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			variants = 2;
-			lobesMin = 20;
-			magMin = 2;
-			magMax = 3;
+			lobesMin = 5;
+			lobesMax = 6;
+			magMin = 4;
+			magMax = 6;
+			sclMin = 20f;
+			sclMax = 60f;
+			timeRange = 50f;
 		}};
+
+		lilypad = new Prop("lily-pad"){{
+			mapColor = Color.valueOf("74d660");
+			breakSound = Sounds.plantBreak;
+			hasShadow = true;
+			customShadow = true;
+			targetable = false;
+			variants = 3;
+			rotate = true;
+		}};
+		
+		largelilypad = new Prop("large-lily-pad"){{
+			mapColor = Color.valueOf("74d660");
+			breakSound = Sounds.plantBreak;
+			hasShadow = true;
+			customShadow = true;
+			targetable = false;
+			rotate = true;
+			//variants = 3;
+		}};
+		
+		//
+		// TILES AND FLOORING
+		//
+
+		tropicalwater = new Floor("trop-shallow-water"){{
+			variants = 0;
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.water;
+			liquidMultiplier = 1f;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 90f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+			supportsOverlay = true;
+		}};
+
+		deeptropicalwater = new Floor("trop-deep-water"){{
+			variants = 0;
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.water;
+			liquidMultiplier = 1f;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 90f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+			supportsOverlay = true;
+		}};
+
+		sandytropicalwater = new Floor("trop-sand-water"){{
+			variants = 0;
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.water;
+			liquidMultiplier = 1f;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 90f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+			supportsOverlay = true;
+		}};
+
+		dacitetropicalwater = new Floor("trop-dacite-water"){{
+			variants = 0;
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.water;
+			liquidMultiplier = 1f;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 90f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+			supportsOverlay = true;
+		}};
+		
 
 		//flower = new Prop("flower"){{
 		//	breakSound = Sounds.plantBreak;
@@ -65,7 +151,8 @@ public class DustBlocks {
 		//idea to add quartz walls that deflect lazers or smthn
 		//function numbers (speed, damage)
 		//turrets
-
+		
+		/* 
 		grinder = new GenericCrafter("grinder"){{
             requirements(Category.crafting, with(Items.copper, 30, Items.lead, 25, Items.silicon, 50));
             outputItem = new ItemStack(DustItems.dustquartz, 1);
@@ -109,7 +196,7 @@ public class DustBlocks {
             oreThreshold = 0.847f;
             oreScale = 25.580953f;
 			variants = 3;
-		}};
+		}};*/
 
 		
 	}

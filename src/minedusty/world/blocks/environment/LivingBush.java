@@ -25,8 +25,8 @@ public class LivingBush extends Prop{
 
 		for(int i = 0; i < sprites; i++){
 			regions[i] = atlas.find(name + i, name);
-			botRegion[i] = atlas.find(name + i + "-bot", name);
-			centerRegion[i] = atlas.find(name + i + "-center", name);
+			botRegion[i] = atlas.find(name + "-bot" + i, name);
+			centerRegion[i] = atlas.find(name + "-center" + i, name);
 		}
 	}
 
