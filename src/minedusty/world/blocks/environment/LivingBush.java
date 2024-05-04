@@ -8,15 +8,11 @@ import mindustry.gen.Sounds;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 
-import static arc.Core.atlas;
+import static arc.Core.*;
 
-import arc.Core;
+public class LivingBush extends SeaBush{
 
-public class LivingBush extends Prop{
-
-	public TextureRegion[] variantRegions;
-	public TextureRegion[] bottomRegions;
-	public TextureRegion[] centerRegions;
+	public TextureRegion[] RRegions, bottomRegions, centerRegions;
 
 	public LivingBush(String name){
 		this(name, 3);
@@ -32,22 +28,22 @@ public class LivingBush extends Prop{
 	public void load(){
 		super.load();
 		if(variants > 0){
-			variantRegions = new TextureRegion[variants];
+			RRegions = new TextureRegion[variants];
 			bottomRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
-				variantRegions[i] = Core.atlas.find(name + (i + 1));
-				bottomRegions[i] = Core.atlas.find(name + "-bot" + (i + 1));
-				centerRegions[i] = Core.atlas.find(name + "-center" + (i + 1));
+				RRegions[i] = atlas.find(name + (i + 1));
+				bottomRegions[i] = atlas.find(name + "-bot" + (i + 1));
+				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
 			}
 		}else{
-			variantRegions = new TextureRegion[1];
-			variantRegions[0] = Core.atlas.find(name);
+			RRegions = new TextureRegion[1];
+			RRegions[0] = atlas.find(name);
 			bottomRegions = new TextureRegion[1];
-			bottomRegions[0] = Core.atlas.find(name + "-bot");
+			bottomRegions[0] = atlas.find(name + "-bot");
 			centerRegions = new TextureRegion[1];
-			centerRegions[0] = Core.atlas.find(name + "-center");
+			centerRegions[0] = atlas.find(name + "-center");
 		}
 		//int size = (int)(8 / Draw.scl);
 		region = variantRegions[0];
@@ -58,8 +54,6 @@ public class LivingBush extends Prop{
     public float sclMin = 30f, sclMax = 50f, magMin = 5f, magMax = 15f, timeRange = 40f, spread = 0f;
 
     static Rand rand = new Rand();
-
-	
 
     @Override
     public void drawBase(Tile tile){
@@ -72,9 +66,9 @@ public class LivingBush extends Prop{
         for(int i = 0; i < lobes; i++){
             float ba =  i / (float)lobes * 360f + offset + rand.range(spread), angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
             float w = region.width * region.scl(), h = region.height * region.scl();
-            var region = Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : variantRegions[sprite];
+            //var region = 
 
-            Draw.rect(region,
+            Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : RRegions[sprite],
                 tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, tile.worldy() - Angles.trnsy(angle, origin),
                 w, h,
                 origin*4f, h/2f,

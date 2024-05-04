@@ -14,11 +14,8 @@ import arc.Core;
 
 public class LivingTreeBlock extends TreeBlock{
 
-	public TextureRegion[] variantRegions;
-	public TextureRegion[] topRegions;
-	public TextureRegion[] centerRegions;
-	public TextureRegion[] shadowRegions;
-
+	public TextureRegion[] variantRegions, topRegions, centerRegions, shadowRegions;
+	
 	public LivingTreeBlock(String name){
 		this(name, 3);
 	}

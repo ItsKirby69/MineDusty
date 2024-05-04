@@ -50,17 +50,16 @@ public class DustBlocks {
 			//sprites = 2;
 		}};
 
-		shrub = new LivingBush("shrub", 2){{
+		shrub = new SeaBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
 			breakSound = Sounds.plantBreak;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			//lobesMin = 5;
-			lobesMax = 2;
+			lobesMin = 5;
+			lobesMax = 6;
 			magMin = 4;
 			magMax = 6;
-			//sclMin = 20f;
-			//sclMax = 60f;
-			//timeRange = 50f;
+			sclMin = 20f;
+			sclMax = 60f;
 		}};
 
 		lilypad = new Prop("lily-pad"){{
