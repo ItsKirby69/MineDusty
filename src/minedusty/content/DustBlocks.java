@@ -44,13 +44,13 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
-		aliveTree = new LivingTreeBlock("alive-tree"){{
+		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
 			//variants = 2;
-			sprites = 2;
+			//sprites = 2;
 		}};
 
-		shrub = new SeaBush("shrub"){{
+		shrub = new LivingBush("shrub", 2){{
 			mapColor = Color.valueOf("74d660");
 			breakSound = Sounds.plantBreak;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
@@ -60,7 +60,7 @@ public class DustBlocks {
 			magMax = 6;
 			sclMin = 20f;
 			sclMax = 60f;
-			timeRange = 50f;
+			//timeRange = 50f;
 		}};
 
 		lilypad = new Prop("lily-pad"){{
