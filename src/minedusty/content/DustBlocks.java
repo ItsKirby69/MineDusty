@@ -58,8 +58,8 @@ public class DustBlocks {
 			lobesMax = 6;
 			magMin = 4;
 			magMax = 6;
-			sclMin = 20f;
-			sclMax = 60f;
+			//sclMin = 20f;
+			//sclMax = 60f;
 			//timeRange = 50f;
 		}};
 

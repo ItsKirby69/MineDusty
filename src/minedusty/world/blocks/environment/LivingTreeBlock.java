@@ -72,8 +72,6 @@ public class LivingTreeBlock extends TreeBlock{
 		region = variantRegions[0];
 	}
 
-	static Rand rand = new Rand();
-
 	@Override
 	public void drawBase(Tile tile) {
 		Mathf.rand.setSeed(tile.pos());

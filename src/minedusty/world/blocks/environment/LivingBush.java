@@ -72,7 +72,6 @@ public class LivingBush extends Prop{
     @Override
     public void drawBase(Tile tile){
 		Mathf.rand.setSeed(tile.pos());
-		//int sprite = Mathf.randomSeed(id, 0, sprites - 1);
 		int sprite = variant(tile.x, tile.y);
 
         float offset = rand.random(180f);
