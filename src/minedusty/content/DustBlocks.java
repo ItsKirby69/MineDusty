@@ -54,8 +54,8 @@ public class DustBlocks {
 			mapColor = Color.valueOf("74d660");
 			breakSound = Sounds.plantBreak;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			lobesMin = 5;
-			lobesMax = 6;
+			//lobesMin = 5;
+			lobesMax = 2;
 			magMin = 4;
 			magMax = 6;
 			//sclMin = 20f;

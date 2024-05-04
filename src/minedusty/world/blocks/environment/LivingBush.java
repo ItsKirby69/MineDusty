@@ -13,7 +13,6 @@ import static arc.Core.atlas;
 import arc.Core;
 
 public class LivingBush extends Prop{
-	public int sprites = 2;
 
 	public TextureRegion[] variantRegions;
 	public TextureRegion[] bottomRegions;
@@ -32,15 +31,6 @@ public class LivingBush extends Prop{
 	@Override
 	public void load(){
 		super.load();
-		/*regions = new TextureRegion[sprites];
-		botRegion = new TextureRegion[sprites];
-		centerRegion = new TextureRegion[sprites];
-
-		for(int i = 0; i < sprites; i++){
-			regions[i] = atlas.find(name + i, name);
-			botRegion[i] = atlas.find(name + "-bot" + i, name);
-			centerRegion[i] = atlas.find(name + "-center" + i, name);
-		}*/
 		if(variants > 0){
 			variantRegions = new TextureRegion[variants];
 			bottomRegions = new TextureRegion[variants];
@@ -69,6 +59,8 @@ public class LivingBush extends Prop{
 
     static Rand rand = new Rand();
 
+	
+
     @Override
     public void drawBase(Tile tile){
 		Mathf.rand.setSeed(tile.pos());
@@ -76,7 +68,6 @@ public class LivingBush extends Prop{
 
         float offset = rand.random(180f);
         int lobes = rand.random(lobesMin, lobesMax);
-		//region = regions[sprite];
 
         for(int i = 0; i < lobes; i++){
             float ba =  i / (float)lobes * 360f + offset + rand.range(spread), angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));

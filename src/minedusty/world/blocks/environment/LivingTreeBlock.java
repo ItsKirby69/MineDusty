@@ -35,18 +35,6 @@ public class LivingTreeBlock extends TreeBlock{
 	@Override
 	public void load(){
 		super.load();
-
-		/*regions = new TextureRegion[sprites];
-		topRegion = new TextureRegion[sprites];
-		centerRegion = new TextureRegion[sprites];
-		shadowRegion = new TextureRegion[sprites];
-
-		for(int i = 0; i < sprites; i++){
-			regions[i] = atlas.find(name + i, name);
-			topRegion[i] = atlas.find(name + i + "-top", name);
-			centerRegion[i] = atlas.find(name + i + "-center", name);
-			shadowRegion[i] = atlas.find(name + i + "-shadow", name);
-		}*/
 		if(variants > 0){
 			variantRegions = new TextureRegion[variants];
 			topRegions = new TextureRegion[variants];
