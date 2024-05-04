@@ -2,13 +2,16 @@ package minedusty.content;
 
 import arc.graphics.*;
 import mindustry.content.*;
+import mindustry.entities.Effect;
 import mindustry.gen.*;
 import mindustry.graphics.CacheLayer;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
+import mindustry.world.meta.BuildVisibility;
 import minedusty.world.blocks.environment.*;
 
 import static mindustry.type.ItemStack.*;
@@ -50,16 +53,22 @@ public class DustBlocks {
 			//sprites = 2;
 		}};
 
-		shrub = new LivingBush("shrub", 2){{
+		shrub = new Wall("shrub"){{
 			mapColor = Color.valueOf("74d660");
 			breakSound = Sounds.plantBreak;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			lobesMin = 5;
-			lobesMax = 6;
-			magMin = 4;
-			magMax = 6;
-			sclMin = 20f;
-			sclMax = 60f;
+			health = 1000;
+			armor = 50;
+			customShadow = true;
+			targetable = false;
+			underBullets = true;
+			instantDeconstruct = true;
+			breakEffect = Fx.breakProp;
+			solid = false;
+			update = false;
+			variants = 2;
+			destructible = false;
+			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
 		lilypad = new Prop("lily-pad"){{
