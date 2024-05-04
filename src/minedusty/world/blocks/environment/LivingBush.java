@@ -57,7 +57,7 @@ public class LivingBush extends SeaBush{
 
     @Override
     public void drawBase(Tile tile){
-		Mathf.rand.setSeed(tile.pos());
+		rand.setSeed(tile.pos());
 		int sprite = variant(tile.x, tile.y);
 
         float offset = rand.random(180f);
@@ -66,9 +66,9 @@ public class LivingBush extends SeaBush{
         for(int i = 0; i < lobes; i++){
             float ba =  i / (float)lobes * 360f + offset + rand.range(spread), angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
             float w = region.width * region.scl(), h = region.height * region.scl();
-            //var region = 
+            var region = Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : RRegions[sprite];
 
-            Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : RRegions[sprite],
+            Draw.rect(region,
                 tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, tile.worldy() - Angles.trnsy(angle, origin),
                 w, h,
                 origin*4f, h/2f,

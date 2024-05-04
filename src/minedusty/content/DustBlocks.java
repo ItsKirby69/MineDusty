@@ -50,7 +50,7 @@ public class DustBlocks {
 			//sprites = 2;
 		}};
 
-		shrub = new SeaBush("shrub"){{
+		shrub = new LivingBush("shrub", 2){{
 			mapColor = Color.valueOf("74d660");
 			breakSound = Sounds.plantBreak;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
