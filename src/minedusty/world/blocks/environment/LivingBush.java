@@ -59,6 +59,7 @@ public class LivingBush extends Prop{
 
     @Override
     public void drawBase(Tile tile){
+		//DO NOT CHANGE THIS TO Mathf.rand IT WILL MAKE THEM GROOVY
 		rand.setSeed(tile.pos());
 		int sprite = variant(tile.x, tile.y);
 
