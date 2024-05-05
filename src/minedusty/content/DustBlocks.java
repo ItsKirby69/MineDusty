@@ -2,7 +2,6 @@ package minedusty.content;
 
 import arc.graphics.*;
 import mindustry.content.*;
-import mindustry.entities.Effect;
 import mindustry.gen.*;
 import mindustry.graphics.CacheLayer;
 import mindustry.type.*;
@@ -49,45 +48,29 @@ public class DustBlocks {
 
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
+			shadowOffset = -4f;
 			//variants = 2;
 			//sprites = 2;
 		}};
 
-		shrub = new Wall("shrub"){{
+		shrub = new LivingBush("shrub", 2){{
 			mapColor = Color.valueOf("74d660");
 			breakSound = Sounds.plantBreak;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			health = 1000;
-			armor = 50;
-			customShadow = true;
-			targetable = false;
-			underBullets = true;
-			instantDeconstruct = true;
-			breakEffect = Fx.breakProp;
-			solid = false;
-			update = false;
-			variants = 2;
-			destructible = false;
-			buildVisibility = BuildVisibility.sandboxOnly;
+			lobesMin = 5;
+			lobesMax = 6;
+			magMin = 4;
+			magMax = 6;
+			sclMin = 20f;
+			sclMax = 60f;
 		}};
 
-		lilypad = new Prop("lily-pad"){{
+		lilypad = new LivingProp("lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
-			breakSound = Sounds.plantBreak;
-			hasShadow = true;
-			customShadow = true;
-			targetable = false;
-			variants = 3;
-			rotate = true;
 		}};
 		
-		largelilypad = new Prop("large-lily-pad"){{
+		largelilypad = new LivingProp("large-lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
-			breakSound = Sounds.plantBreak;
-			hasShadow = true;
-			customShadow = true;
-			targetable = false;
-			rotate = true;
 			//variants = 3;
 		}};
 		

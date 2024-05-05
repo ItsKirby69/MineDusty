@@ -5,13 +5,14 @@ import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 
 import static arc.Core.*;
 
-public class LivingBush extends SeaBush{
-
+public class LivingBush extends Prop{
+	public TextureRegion region, bottomregion, centerregion;
 	public TextureRegion[] RRegions, bottomRegions, centerRegions;
 
 	public LivingBush(String name){
@@ -45,8 +46,9 @@ public class LivingBush extends SeaBush{
 			centerRegions = new TextureRegion[1];
 			centerRegions[0] = atlas.find(name + "-center");
 		}
-		//int size = (int)(8 / Draw.scl);
 		region = variantRegions[0];
+		//bottomregion = bottomRegions[0];
+		//centerregion = centerRegions[0];
 	}
 
     public int lobesMin = 13, lobesMax = 13;
@@ -57,7 +59,7 @@ public class LivingBush extends SeaBush{
 
     @Override
     public void drawBase(Tile tile){
-		rand.setSeed(tile.pos());
+		Mathf.rand.setSeed(tile.pos());
 		int sprite = variant(tile.x, tile.y);
 
         float offset = rand.random(180f);
@@ -67,7 +69,7 @@ public class LivingBush extends SeaBush{
             float ba =  i / (float)lobes * 360f + offset + rand.range(spread), angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
             float w = region.width * region.scl(), h = region.height * region.scl();
             var region = Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : RRegions[sprite];
-
+			
             Draw.rect(region,
                 tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, tile.worldy() - Angles.trnsy(angle, origin),
                 w, h,
@@ -77,6 +79,7 @@ public class LivingBush extends SeaBush{
         }
 		
         if(centerRegions[sprite].found()){ //centerRegions[sprite] != null && 
+			Draw.z(Layer.blockProp);
             Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
         }
     }
