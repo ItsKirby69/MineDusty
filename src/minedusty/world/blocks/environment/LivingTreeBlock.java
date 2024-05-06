@@ -61,9 +61,11 @@ public class LivingTreeBlock extends TreeBlock{
 		region = variantRegions[0];
 	}
 
+	static Rand rand = new Rand();
+
 	@Override
 	public void drawBase(Tile tile) {
-		Mathf.rand.setSeed(tile.pos());
+		rand.setSeed(tile.pos());
 		int sprite = variant(tile.x, tile.y);
 
 		float x = tile.worldx(), 
@@ -74,7 +76,7 @@ public class LivingTreeBlock extends TreeBlock{
         scl = 30f, mag = 0.2f;
 		
 		// Draws main stem/log of tree
-		Draw.z(layer);
+		Draw.z(layer + 3);
 		Draw.rectv(variantRegions[sprite], x, y, w, h, rot, vec -> vec.add(
 			Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
 			Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
@@ -82,24 +84,24 @@ public class LivingTreeBlock extends TreeBlock{
 		
 		//shadow
 		if (shadowRegions[sprite].found()) {
-			Draw.z(layer - 2);
+			Draw.z(layer + 1);
 			Draw.rect(shadowRegions[sprite], x + shadowOffset, y + shadowOffset, rot);
 		}
 		//top leaves
 		if (topRegions[sprite].found()) {
-			Draw.z(layer + 2);
+			Draw.z(layer + 4);
 			Draw.rect(topRegions[sprite], x, y, rot);
 		}
 		//center leaves
 		if (centerRegions[sprite].found()) {
-			Draw.z(layer + 1);
+			Draw.z(layer + 5);
 			Draw.rectv(centerRegions[sprite], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
 		//them back regions :speaking_head: :speaking_head: :speaking_head: 
 		if (backRegions[sprite].found()) {
-			Draw.z(layer - 2);
+			Draw.z(layer + 2);
 			Draw.rect(backRegions[sprite], x, y, rot);
 		}}
 	}

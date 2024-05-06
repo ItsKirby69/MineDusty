@@ -47,8 +47,6 @@ public class LivingBush extends Prop{
 			centerRegions[0] = atlas.find(name + "-center");
 		}
 		region = variantRegions[0];
-		//bottomregion = bottomRegions[0];
-		//centerregion = centerRegions[0];
 	}
 
     public int lobesMin = 13, lobesMax = 13;
@@ -65,12 +63,13 @@ public class LivingBush extends Prop{
 
         float offset = rand.random(180f);
         int lobes = rand.random(lobesMin, lobesMax);
-
+		
         for(int i = 0; i < lobes; i++){
             float ba =  i / (float)lobes * 360f + offset + rand.range(spread), angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
             float w = region.width * region.scl(), h = region.height * region.scl();
             var region = Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : RRegions[sprite];
 			
+			Draw.z(Layer.blockProp);
             Draw.rect(region,
                 tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, tile.worldy() - Angles.trnsy(angle, origin),
                 w, h,
@@ -79,8 +78,8 @@ public class LivingBush extends Prop{
             );
         }
 		
-        if(centerRegions[sprite].found()){ //centerRegions[sprite] != null && 
-			Draw.z(Layer.blockProp);
+        if(centerRegions[sprite].found()){ //no notes
+			Draw.z(Layer.blockProp + 1);
             Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
         }
     }

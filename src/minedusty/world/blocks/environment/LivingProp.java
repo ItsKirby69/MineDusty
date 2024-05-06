@@ -61,32 +61,40 @@ public class LivingProp extends Block{
 			shadowRegions[0] = atlas.find(name + "-shadow");
 		}
 		region = variantRegions[0];
-		//topregion = topRegions[0];
-		//centerregion = centerRegions[0];
-		//shadowregion = shadowRegions[0];
 	}
 	
+	static Rand rand = new Rand();
+
 	@Override
 	public void drawBase(Tile tile){
-		Mathf.rand.setSeed(tile.pos());
+		rand.setSeed(tile.pos());
 		int sprite = variant(tile.x, tile.y);
 		
 		float x = tile.worldx(), y = tile.worldy(),
-		rot = Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f); //Mathf.randomSeed(tile.pos(), 0, 4)
+		w = region.width * region.scl(),
+		h = region.height * region.scl(),
+		rot = Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f),
+		scl = 30f, mag = 0.2f; //Mathf.randomSeed(tile.pos(), 0, 4)
 
 		//main sprite
-		Draw.z(layer);
-		Draw.rect(variantRegions[sprite], x, y, rot);
+		Draw.z(layer + 2);
+		Draw.rectv(variantRegions[sprite], x, y, w, h, rot, vec -> vec.add(
+			Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
+			Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
+			));
 		
 		//shadow sprite | if they have one (which they should)
 		if(shadowRegions[sprite].found()){
-			Draw.z(layer - 1);
-			Draw.rect(shadowRegions[sprite], x, y, rot);
+			Draw.z(layer + 1);
+			Draw.rectv(shadowRegions[sprite], x, y, w, h, rot, vec -> vec.add(
+				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
+				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
+				));
 		}
 
-		//top sprite | if they have one
+		//top sprite | if they have one //Should I make them move funny?
 		if(topRegions[sprite].found()){
-			Draw.z(layer + 1);
+			Draw.z(layer + 3);
 			Draw.rect(topRegions[sprite], x, y);
 		}
 	}

@@ -24,12 +24,15 @@ public class DustBlocks {
 	//Tiles
 	tropicalwater, sandytropicalwater,
 	deeptropicalwater, dacitetropicalwater,
+	algaeWater, deepalgaeWater,
 	//Drills
 	//Productions
 	grinder, quartzSmelter,
 	//Props
-	largeBoulder, aliveTree, shrub, miniBushy, flower,
+	burntTree, aliveTree, ashTree,
+	shrub, minibushy, flower, cattail,
 	lilypad, largelilypad,
+	largeBoulder,
 	//ores
 	oreQuartz;
 	//add more categories
@@ -49,18 +52,35 @@ public class DustBlocks {
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
 			shadowOffset = -4f;
-			//variants = 2;
-			//sprites = 2;
+		}};
+
+		burntTree = new TreeBlock("burnt-tree"){{
+			mapColor = Color.valueOf("74d660");
+			shadowOffset = 0f;
+		}};
+
+		ashTree = new TreeBlock("ash-tree"){{
+			mapColor = Color.valueOf("74d660");
+			shadowOffset = 0f;
 		}};
 
 		shrub = new LivingBush("shrub", 2){{
 			mapColor = Color.valueOf("74d660");
-			breakSound = Sounds.plantBreak;
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			lobesMin = 5;
 			lobesMax = 6;
 			magMin = 4;
 			magMax = 6;
+			sclMin = 20f;
+			sclMax = 60f;
+		}};
+
+		cattail = new LivingBush("cattail", 1){{
+			mapColor = Color.valueOf("74d660");
+			lobesMin = 3;
+			lobesMax = 5;
+			magMin = 3;
+			magMax = 7;
 			sclMin = 20f;
 			sclMax = 60f;
 		}};
@@ -131,6 +151,34 @@ public class DustBlocks {
 			shallow = true;
 		}};
 		
+		algaeWater = new Floor("algae-water"){{
+			speedMultiplier = 0.3f;
+			liquidDrop = Liquids.water;
+			liquidMultiplier = .5f;
+			drownTime = 350f;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 50f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+			supportsOverlay = true;
+			shallow = true;
+		}};
+				
+		deepalgaeWater = new Floor("deep-algae-water"){{
+			variants = 0;
+			speedMultiplier = 0.1f;
+			liquidDrop = Liquids.water;
+			liquidMultiplier = .7f;
+			drownTime = 180f;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 50f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+			supportsOverlay = true;
+			shallow = true;
+		}};
 
 		//flower = new Prop("flower"){{
 		//	breakSound = Sounds.plantBreak;
