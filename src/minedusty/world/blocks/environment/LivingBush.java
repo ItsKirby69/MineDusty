@@ -12,8 +12,8 @@ import mindustry.world.blocks.environment.*;
 import static arc.Core.*;
 
 public class LivingBush extends Prop{
-	public TextureRegion region, bottomregion, centerregion;
-	public TextureRegion[] RRegions, bottomRegions, centerRegions;
+	public TextureRegion region;
+	public TextureRegion[] RRegions, bottomRegions, centerRegions, shadowRegions;
 
 	public LivingBush(String name){
 		this(name, 3);
@@ -32,11 +32,13 @@ public class LivingBush extends Prop{
 			RRegions = new TextureRegion[variants];
 			bottomRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
+			shadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
 				RRegions[i] = atlas.find(name + (i + 1));
 				bottomRegions[i] = atlas.find(name + "-bot" + (i + 1));
 				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
+				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
 			}
 		}else{
 			RRegions = new TextureRegion[1];
@@ -45,6 +47,8 @@ public class LivingBush extends Prop{
 			bottomRegions[0] = atlas.find(name + "-bot");
 			centerRegions = new TextureRegion[1];
 			centerRegions[0] = atlas.find(name + "-center");
+			shadowRegions = new TextureRegion[1];
+			shadowRegions[0] = atlas.find(name + "-shadow");
 		}
 		region = variantRegions[0];
 	}
@@ -81,6 +85,11 @@ public class LivingBush extends Prop{
         if(centerRegions[sprite].found()){ //no notes
 			Draw.z(Layer.blockProp + 1);
             Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
+        }
+		
+		if(shadowRegions[sprite].found()){
+			Draw.z(Layer.blockProp);
+            Draw.rect(shadowRegions[sprite], tile.worldx(), tile.worldy());
         }
     }
 

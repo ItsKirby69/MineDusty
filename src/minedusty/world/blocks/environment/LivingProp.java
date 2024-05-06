@@ -14,7 +14,7 @@ import static arc.Core.*;
 
 public class LivingProp extends Block{
 	public TextureRegion[] variantRegions, topRegions, centerRegions, shadowRegions;
-	public TextureRegion region, topregion, centerregion, shadowregion;
+	public TextureRegion region;
 
 	public float layer = Layer.blockProp;
 	
