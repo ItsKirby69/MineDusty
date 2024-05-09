@@ -5,13 +5,13 @@ displayName: "MineDusty [new]"
 name: "minedusty-mod"
 
 #your name
-author: "[scarlet]ItsKirby[]"
+author: "[scarlet[]]ItsKirby[]"
 
 #the fully qualified main class of the mod
 main: "minedusty.MineDusty"
 
 #the mod description as seen in the mod dialog
-description: "A java mod by itsdakirby69. Planned to bring a more immersive gameplay."
+description: "[#edc77b[]]A java mod by [white[]]itsdakirby69 [gray[]](thats me!)[#edc77b[]]. Introduces nature and more decorations for an immersive and lively gameplay.[]"
 
 subtitle: "i uhh.. i fo. forgorr"
 

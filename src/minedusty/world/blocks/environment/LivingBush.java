@@ -13,10 +13,10 @@ import static arc.Core.*;
 
 public class LivingBush extends Prop{
 	public TextureRegion region;
-	public TextureRegion[] RRegions, bottomRegions, centerRegions, shadowRegions;
+	public TextureRegion[] bottomRegions, centerRegions, backRegions, shadowRegions;
 
 	public LivingBush(String name){
-		this(name, 3);
+		this(name, 1);
 	}
 	public LivingBush(String name, int variants){
         super(name);
@@ -29,24 +29,26 @@ public class LivingBush extends Prop{
 	public void load(){
 		super.load();
 		if(variants > 0){
-			RRegions = new TextureRegion[variants];
 			bottomRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
+			backRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
-				RRegions[i] = atlas.find(name + (i + 1));
 				bottomRegions[i] = atlas.find(name + "-bot" + (i + 1));
 				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
+				backRegions[i] = atlas.find(name + "-back" + (i + 1));
 				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
 			}
 		}else{
-			RRegions = new TextureRegion[1];
-			RRegions[0] = atlas.find(name);
+			variantRegions = new TextureRegion[1];
+			variantRegions[0] = atlas.find(name);
 			bottomRegions = new TextureRegion[1];
 			bottomRegions[0] = atlas.find(name + "-bot");
 			centerRegions = new TextureRegion[1];
 			centerRegions[0] = atlas.find(name + "-center");
+			backRegions = new TextureRegion[1];
+			backRegions[0] = atlas.find(name + "-back");
 			shadowRegions = new TextureRegion[1];
 			shadowRegions[0] = atlas.find(name + "-shadow");
 		}
@@ -70,10 +72,11 @@ public class LivingBush extends Prop{
 		
         for(int i = 0; i < lobes; i++){
             float ba =  i / (float)lobes * 360f + offset + rand.range(spread), angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
-            float w = region.width * region.scl(), h = region.height * region.scl();
-            var region = Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : RRegions[sprite];
+            float w = region.width * region.scl(), h = region.height * region.scl()
+			;
+            var region = Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : variantRegions[sprite];
 			
-			Draw.z(Layer.blockProp);
+			Draw.z(Layer.blockProp + 2);
             Draw.rect(region,
                 tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, tile.worldy() - Angles.trnsy(angle, origin),
                 w, h,
@@ -83,8 +86,13 @@ public class LivingBush extends Prop{
         }
 		
         if(centerRegions[sprite].found()){ //no notes
-			Draw.z(Layer.blockProp + 1);
+			Draw.z(Layer.blockProp + 3);
             Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
+        }
+		
+		if(backRegions[sprite].found()){
+			Draw.z(Layer.blockProp + 1);
+            Draw.rect(backRegions[sprite], tile.worldx(), tile.worldy());
         }
 		
 		if(shadowRegions[sprite].found()){

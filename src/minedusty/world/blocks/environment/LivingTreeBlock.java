@@ -12,7 +12,7 @@ import static arc.Core.*;
 
 public class LivingTreeBlock extends TreeBlock{
 
-	public TextureRegion[] variantRegions, topRegions, centerRegions, backRegions, shadowRegions;
+	public TextureRegion[] topRegions, centerRegions, backRegions, shadowRegions;
 	
 	public float layer = Layer.blockProp;
 
@@ -33,14 +33,12 @@ public class LivingTreeBlock extends TreeBlock{
 	public void load(){
 		super.load();
 		if(variants > 0){
-			variantRegions = new TextureRegion[variants];
 			topRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
 			backRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
-				variantRegions[i] = atlas.find(name + (i + 1));
 				topRegions[i] = atlas.find(name + "-top" + (i + 1));
 				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
 				backRegions[i] = atlas.find(name + "-back" + (i + 1));

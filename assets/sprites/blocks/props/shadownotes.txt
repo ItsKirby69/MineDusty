@@ -1,2 +1,3 @@
 Props and small stuff -> Blur x4 Opacity 50%
 Trees and big stuff -> Blur x15 Opacity 70%
+Bush -> Blur x10 Opactiy 60%

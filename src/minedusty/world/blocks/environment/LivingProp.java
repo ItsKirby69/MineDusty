@@ -13,13 +13,13 @@ import mindustry.world.meta.BuildVisibility;
 import static arc.Core.*;
 
 public class LivingProp extends Block{
-	public TextureRegion[] variantRegions, topRegions, centerRegions, shadowRegions;
+	public TextureRegion[] topRegions, centerRegions, shadowRegions;
 	public TextureRegion region;
 
 	public float layer = Layer.blockProp;
 	
 	public LivingProp(String name){
-		this(name, 2);
+		this(name, 3);
 	}
 
 	public LivingProp(String name, int variants){
@@ -43,12 +43,10 @@ public class LivingProp extends Block{
 	public void load(){
 		super.load();
 		if(variants > 0){
-			variantRegions = new TextureRegion[variants];
 			topRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
-				variantRegions[i] = atlas.find(name + (i + 1));
 				topRegions[i] = atlas.find(name + "-top" + (i + 1));
 				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
 			}

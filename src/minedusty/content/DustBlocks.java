@@ -4,20 +4,17 @@ import arc.graphics.*;
 import mindustry.content.*;
 import mindustry.gen.*;
 import mindustry.graphics.CacheLayer;
-import mindustry.type.*;
+import mindustry.type.StatusEffect;
 import mindustry.world.*;
-import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.environment.*;
-import mindustry.world.blocks.production.*;
-import mindustry.world.draw.*;
-import mindustry.world.meta.BuildVisibility;
+import mindustry.world.meta.Attribute;
 import minedusty.world.blocks.environment.*;
-
-import static mindustry.type.ItemStack.*;
 
 //TODO, MAKE SURE TREE BLOCK IS VARIANT ONCE FIX IS MADE
 public class DustBlocks {
 	public static Block 
+	testblock,
+
 	//Turrets
 	scatterSilo, 
 	//Blocks
@@ -25,12 +22,14 @@ public class DustBlocks {
 	tropicalwater, sandytropicalwater,
 	deeptropicalwater, dacitetropicalwater,
 	algaeWater, deepalgaeWater,
+	trophotWater, hotWater, tropdeephotWater, tropmagmaWater, magmaWater,
+	grassyFloor, grassyWall,
 	//Drills
 	//Productions
 	grinder, quartzSmelter,
 	//Props
-	burntTree, aliveTree, ashTree,
-	shrub, minibushy, flower, cattail,
+	burntTree, aliveTree, ashTree, coconutTree,
+	shrub, minibushy, flower, cattail, bush,
 	lilypad, largelilypad,
 	largeBoulder,
 	//ores
@@ -56,15 +55,29 @@ public class DustBlocks {
 
 		burntTree = new TreeBlock("burnt-tree"){{
 			mapColor = Color.valueOf("74d660");
-			shadowOffset = 0f;
+			shadowOffset = -1f;
 		}};
 
 		ashTree = new TreeBlock("ash-tree"){{
 			mapColor = Color.valueOf("74d660");
-			shadowOffset = 0f;
+			shadowOffset = -1f;
 		}};
 
-		shrub = new LivingBush("shrub", 2){{
+		//maybe i don't need a coconut tree
+		/*coconutTree = new LivingBush("coconut-tree"){{
+			mapColor = Color.valueOf("000000");
+			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
+			lobesMin = 3;
+			lobesMax = 3;
+			magMin = 4;
+			magMax = 7;
+			sclMin = 30f;
+			sclMax = 60f;
+			solid = true;
+			clipSize = 90f;
+		}};*/
+
+		shrub = new SeaBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			lobesMin = 5;
@@ -75,7 +88,15 @@ public class DustBlocks {
 			sclMax = 60f;
 		}};
 
-		cattail = new LivingBush("cattail", 1){{
+		grassyWall = new TreeBlock("grassy-wall"){{
+			variants = 3;
+			mapColor = Color.valueOf("74d660");
+			shadowOffset = 0f;
+		}};
+
+		//testblock = new StaticWall("mark"){{}};
+
+		cattail = new SeaBush("cattail"){{
 			mapColor = Color.valueOf("74d660");
 			lobesMin = 3;
 			lobesMax = 5;
@@ -91,12 +112,92 @@ public class DustBlocks {
 		
 		largelilypad = new LivingProp("large-lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
-			//variants = 3;
 		}};
 		
 		//
 		// TILES AND FLOORING
 		//
+		
+				//Snippet
+        //    walkSound = Sounds.mud;
+        //    walkSoundVolume = 0.08f;
+        //    walkSoundPitchMin = 0.4f;
+        //    walkSoundPitchMax = 0.5f;
+
+		trophotWater = new TileEffect("trop-hotrock-water"){{
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.water;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 70f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+
+			attributes.set(Attribute.heat, 0.2f);
+			emitLight = true;
+            lightRadius = 50f;
+            lightColor = Color.orange.cpy().a(0.3f);
+		}};
+
+		hotWater = new TileEffect("hotrock-shallow-water"){{
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.water;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 90f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+
+			attributes.set(Attribute.heat, 0.2f);
+			emitLight = true;
+			lightRadius = 50f;
+			lightColor = Color.orange.cpy().a(0.3f);
+		}};
+
+		tropmagmaWater = new TileEffect("trop-magma-water"){{
+			speedMultiplier = 0.5f;
+            status = StatusEffects.wet;
+            statusDuration = 90f;
+            liquidDrop = Liquids.water;
+            isLiquid = true;
+            cacheLayer = CacheLayer.water;
+            albedo = 0.5f;
+
+            attributes.set(Attribute.heat, 0.35f);
+			emitLight = true;
+			lightRadius = 70f;
+			lightColor = Color.orange.cpy().a(0.3f);
+		}};
+
+		magmaWater = new TileEffect("magma-water"){{
+			speedMultiplier = 0.5f;
+			status = StatusEffects.wet;
+            statusDuration = 90f;
+            liquidDrop = Liquids.water;
+            isLiquid = true;
+            cacheLayer = CacheLayer.water;
+            albedo = 0.5f;
+
+            attributes.set(Attribute.heat, 0.35f);
+			emitLight = true;
+			lightRadius = 70f;
+			lightColor = Color.orange.cpy().a(0.3f);
+		}};
+
+		tropdeephotWater = new TileEffect("trop-hotrock-deep-water"){{
+			speedMultiplier = 0.5f;
+			status = StatusEffects.wet;
+            statusDuration = 90f;
+            liquidDrop = Liquids.water;
+            isLiquid = true;
+            cacheLayer = CacheLayer.water;
+            albedo = 0.9f;
+
+            attributes.set(Attribute.heat, 0.35f);
+			emitLight = true;
+			lightRadius = 30f;
+			lightColor = Color.orange.cpy().a(0.3f);
+		}};
 
 		deeptropicalwater = new Floor("trop-deep-water"){{
 			variants = 0;
@@ -167,7 +268,7 @@ public class DustBlocks {
 				
 		deepalgaeWater = new Floor("deep-algae-water"){{
 			variants = 0;
-			speedMultiplier = 0.1f;
+			speedMultiplier = 0.15f;
 			liquidDrop = Liquids.water;
 			liquidMultiplier = .7f;
 			drownTime = 180f;
@@ -191,53 +292,5 @@ public class DustBlocks {
 		//idea to add quartz walls that deflect lazers or smthn
 		//function numbers (speed, damage)
 		//turrets
-		
-		/* 
-		grinder = new GenericCrafter("grinder"){{
-            requirements(Category.crafting, with(Items.copper, 30, Items.lead, 25, Items.silicon, 50));
-            outputItem = new ItemStack(DustItems.dustquartz, 1);
-            craftEffect = Fx.pulverize;
-            craftTime = 40f;
-            updateEffect = Fx.pulverizeSmall;
-            hasItems = hasPower = true;
-            drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator"){{
-                spinSprite = true;
-                rotateSpeed = 2f;
-            }}, new DrawRegion("-top"));
-            ambientSound = Sounds.grinding;
-            ambientSoundVolume = 0.025f;
-
-            consumeItem(DustItems.quartz, 1);
-            consumePower(0.50f);
-        }};
-
-        quartzSmelter = new AttributeCrafter("quartz-smelter"){{
-            requirements(Category.crafting, with(Items.copper, 100, Items.metaglass, 50, Items.lead, 35, Items.silicon, 60));
-            craftEffect = Fx.smeltsmoke;
-            outputItem = new ItemStack(DustItems.rosequartz, 2);
-            craftTime = 90f;
-            size = 3;
-            hasPower = true;
-            hasLiquids = false;
-            itemCapacity = 20;
-            boostScale = 0.15f;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
-            ambientSound = Sounds.smelter;
-            ambientSoundVolume = 0.07f;
-
-            consumeItems(with(Items.coal, 1, Items.silicon, 2, Items.thorium, 1));
-            consumePower(2.50f);
-        }};
-
-
-		//ores
-		oreQuartz = new OreBlock("ore-quartz", DustItems.quartz){{
-			oreDefault = false;
-            oreThreshold = 0.847f;
-            oreScale = 25.580953f;
-			variants = 3;
-		}};*/
-
-		
 	}
 }
