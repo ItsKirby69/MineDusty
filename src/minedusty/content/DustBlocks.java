@@ -27,7 +27,7 @@ public class DustBlocks {
 	deeptropicalwater, dacitetropicalwater,
 	algaeWater, deepalgaeWater,
 	trophotWater, hotWater, tropdeephotWater, tropmagmaWater, magmaWater,
-	grassyFloor, grassyWall,
+	grassyFloor, grassyWall, blossomFloor,
 
 	basaltFloor, basaltCrack, basaltPillar, shoreRock, soapStone, 
 	watersoapStone, tropwatersoapStone,
@@ -37,8 +37,8 @@ public class DustBlocks {
 	//Productions
 	grinder, quartzSmelter,
 	//Props
-	burntTree, aliveTree, ashTree, coconutTree,
-	shrub, minibushy, flower, cattail, bush,
+	burntTree, aliveTree, ashTree, coconutTree, blossomTree, spruceTree, pineTreem, alienTree,
+	shrub, sandyshrub, flower, cattail, bush,
 	lilypad, largelilypad,
 	largeBoulder, largeshorestoneBoulder, shorestoneboulder,
 	//ores
@@ -75,13 +75,18 @@ public class DustBlocks {
 		}};
 
 		burntTree = new TreeBlock("burnt-tree"){{
-			mapColor = Color.valueOf("74d660");
+			mapColor = Color.valueOf("172025");
 			shadowOffset = -1f;
 		}};
 
 		ashTree = new TreeBlock("ash-tree"){{
-			mapColor = Color.valueOf("74d660");
+			mapColor = Color.valueOf("98a3a8");
 			shadowOffset = -1f;
+		}};
+
+		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
+			mapColor = Color.valueOf("f3b9c3");
+			shadowOffset = -4f;
 		}};
 
 		//maybe i don't need a coconut tree
@@ -101,6 +106,17 @@ public class DustBlocks {
 		shrub = new SeaBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
+			lobesMin = 5;
+			lobesMax = 6;
+			magMin = 4;
+			magMax = 6;
+			sclMin = 20f;
+			sclMax = 60f;
+		}};
+		
+		sandyshrub = new SeaBush("sandy-shrub"){{
+			mapColor = Color.valueOf("f7cba4");
+			Blocks.sand.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			lobesMin = 5;
 			lobesMax = 6;
 			magMin = 4;
@@ -148,7 +164,7 @@ public class DustBlocks {
 		taigaLeaves = new OverlayFloor("taiga-leaves"){{
 			variants = 5;
 		}};
-
+		
 		taigaGrass = new Floor("taiga-grass"){{
 			variants = 5;
 			attributes.set(Attribute.water, 0.1f);
@@ -157,6 +173,10 @@ public class DustBlocks {
 		basaltFloor = new Floor("basalt-floor"){{
 			variants = 5;
 			attributes.set(Attribute.water, -0.25f);
+		}};
+		
+		blossomFloor = new Floor("blossom-grass"){{
+			variants = 5;
 		}};
 
 		shoreRock = new Floor("shorestone"){{}};
