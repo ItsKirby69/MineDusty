@@ -15,6 +15,8 @@ public class LivingBush extends Prop{
 	public TextureRegion region;
 	public TextureRegion[] bottomRegions, centerRegions, backRegions, shadowRegions;
 
+	public float layer = Layer.power;
+
 	public LivingBush(String name){
 		this(name, 1);
 	}
@@ -76,7 +78,7 @@ public class LivingBush extends Prop{
 			;
             var region = Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : variantRegions[sprite];
 			
-			Draw.z(Layer.blockProp + 2);
+			Draw.z(layer + 2);
             Draw.rect(region,
                 tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, tile.worldy() - Angles.trnsy(angle, origin),
                 w, h,
@@ -86,17 +88,17 @@ public class LivingBush extends Prop{
         }
 		
         if(centerRegions[sprite].found()){ //no notes
-			Draw.z(Layer.blockProp + 3);
+			Draw.z(layer + 3);
             Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
         }
 		
 		if(backRegions[sprite].found()){
-			Draw.z(Layer.blockProp + 1);
+			Draw.z(layer + 1);
             Draw.rect(backRegions[sprite], tile.worldx(), tile.worldy());
         }
 		
 		if(shadowRegions[sprite].found()){
-			Draw.z(Layer.blockProp);
+			Draw.z(layer);
             Draw.rect(shadowRegions[sprite], tile.worldx(), tile.worldy());
         }
     }

@@ -14,7 +14,7 @@ public class LivingTreeBlock extends TreeBlock{
 
 	public TextureRegion[] topRegions, centerRegions, backRegions, shadowRegions;
 	
-	public float layer = Layer.blockProp;
+	public float layer = Layer.power;
 
 	public LivingTreeBlock(String name){
 		this(name, 3);

@@ -1,7 +1,6 @@
 package minedusty;
 
-import minedusty.content.DustBlocks;
-import minedusty.content.DustItems;
+import minedusty.content.*;
 
 import arc.*;
 import arc.util.*;

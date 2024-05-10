@@ -1,5 +1,7 @@
 package minedusty.content;
 
+import org.w3c.dom.Attr;
+
 import arc.graphics.*;
 import mindustry.content.*;
 import mindustry.gen.*;
@@ -19,11 +21,18 @@ public class DustBlocks {
 	scatterSilo, 
 	//Blocks
 	//Tiles
+	taigaLeaves, taigaGrass,
+
 	tropicalwater, sandytropicalwater,
 	deeptropicalwater, dacitetropicalwater,
 	algaeWater, deepalgaeWater,
 	trophotWater, hotWater, tropdeephotWater, tropmagmaWater, magmaWater,
 	grassyFloor, grassyWall,
+
+	basaltFloor, basaltCrack, basaltPillar, shoreRock, soapStone, 
+	watersoapStone, tropwatersoapStone,
+	watershoreRock, tropwatershoreRock,
+
 	//Drills
 	//Productions
 	grinder, quartzSmelter,
@@ -31,7 +40,7 @@ public class DustBlocks {
 	burntTree, aliveTree, ashTree, coconutTree,
 	shrub, minibushy, flower, cattail, bush,
 	lilypad, largelilypad,
-	largeBoulder,
+	largeBoulder, largeshorestoneBoulder, shorestoneboulder,
 	//ores
 	oreQuartz;
 	//add more categories
@@ -45,6 +54,18 @@ public class DustBlocks {
 			breakEffect = Fx.breakProp;
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
+			variants = 2;
+		}};
+
+		largeshorestoneBoulder = new Prop("large-shorestone"){{
+			hasShadow = true;
+			customShadow = true;
+			variants = 2;
+			breakEffect = Fx.breakProp;
+			mapColor = Color.valueOf("706f74");
+		}};
+
+		shorestoneboulder = new Prop("shorestone-boulder"){{
 			variants = 2;
 		}};
 
@@ -124,7 +145,23 @@ public class DustBlocks {
         //    walkSoundPitchMin = 0.4f;
         //    walkSoundPitchMax = 0.5f;
 
-		trophotWater = new TileEffect("trop-hotrock-water"){{
+		taigaLeaves = new OverlayFloor("taiga-leaves"){{
+			variants = 5;
+		}};
+
+		taigaGrass = new Floor("taiga-grass"){{
+			variants = 5;
+			attributes.set(Attribute.water, 0.1f);
+		}};
+
+		basaltFloor = new Floor("basalt-floor"){{
+			variants = 5;
+			attributes.set(Attribute.water, -0.25f);
+		}};
+
+		shoreRock = new Floor("shorestone"){{}};
+
+		trophotWater = new Floor("trop-hotrock-water"){{
 			speedMultiplier = 0.5f;
 			liquidDrop = Liquids.water;
 			isLiquid = true;
