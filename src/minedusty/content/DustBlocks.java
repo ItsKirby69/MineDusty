@@ -103,7 +103,7 @@ public class DustBlocks {
 			clipSize = 90f;
 		}};*/
 
-		shrub = new SeaBush("shrub"){{
+		shrub = new LivingBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			lobesMin = 5;
@@ -114,7 +114,7 @@ public class DustBlocks {
 			sclMax = 60f;
 		}};
 		
-		sandyshrub = new SeaBush("sandy-shrub"){{
+		sandyshrub = new LivingBush("sandy-shrub"){{
 			mapColor = Color.valueOf("f7cba4");
 			Blocks.sand.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			lobesMin = 5;
@@ -133,7 +133,7 @@ public class DustBlocks {
 
 		//testblock = new StaticWall("mark"){{}};
 
-		cattail = new SeaBush("cattail"){{
+		cattail = new LivingBush("cattail"){{
 			mapColor = Color.valueOf("74d660");
 			lobesMin = 3;
 			lobesMax = 5;

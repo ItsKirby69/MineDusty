@@ -11,14 +11,14 @@ import mindustry.world.blocks.environment.*;
 
 import static arc.Core.*;
 
-public class LivingBush extends Prop{
+public class LivingBush extends SeaBush{
 	public TextureRegion region;
-	public TextureRegion[] bottomRegions, centerRegions, backRegions, shadowRegions;
+	public TextureRegion[] variantRegions, bottomRegions, centerRegions, shadowRegions;
 
-	public float layer = Layer.power;
+	public float layer = Layer.blockProp;
 
 	public LivingBush(String name){
-		this(name, 1);
+		this(name, 2);
 	}
 	public LivingBush(String name, int variants){
         super(name);
@@ -31,15 +31,15 @@ public class LivingBush extends Prop{
 	public void load(){
 		super.load();
 		if(variants > 0){
+			variantRegions = new TextureRegion[variants];
 			bottomRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
-			backRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
+				variantRegions[i] = atlas.find(name + (i + 1));
 				bottomRegions[i] = atlas.find(name + "-bot" + (i + 1));
 				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
-				backRegions[i] = atlas.find(name + "-back" + (i + 1));
 				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
 			}
 		}else{
@@ -49,8 +49,6 @@ public class LivingBush extends Prop{
 			bottomRegions[0] = atlas.find(name + "-bot");
 			centerRegions = new TextureRegion[1];
 			centerRegions[0] = atlas.find(name + "-center");
-			backRegions = new TextureRegion[1];
-			backRegions[0] = atlas.find(name + "-back");
 			shadowRegions = new TextureRegion[1];
 			shadowRegions[0] = atlas.find(name + "-shadow");
 		}
@@ -90,11 +88,6 @@ public class LivingBush extends Prop{
         if(centerRegions[sprite].found()){ //no notes
 			Draw.z(layer + 3);
             Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
-        }
-		
-		if(backRegions[sprite].found()){
-			Draw.z(layer + 1);
-            Draw.rect(backRegions[sprite], tile.worldx(), tile.worldy());
         }
 		
 		if(shadowRegions[sprite].found()){
