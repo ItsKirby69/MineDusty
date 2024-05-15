@@ -1,19 +1,23 @@
-[![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?color=green&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=green&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases) [![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=555555&label=%20&style=for-the-badge&logo=docusign&logoColor=green)](https://github.com/ItsKirby69/MineDusty/releases) [![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/stargazers)
+# ![Logo](assets/sprites/icon-git.png?align=center)
 
-![Logo](assets/sprites/icon-git.png?align=center)
+
+[![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=555555&label=%20&style=for-the-badge&logoColor=green&logo=docusign)](https://github.com/ItsKirby69/MineDusty/releases)
+[![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?color=green&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=green&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
+[![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=Star%20me!%20%E2%AD%90)](https://github.com/ItsKirby69/MineDusty)
 
 # MineDusty
-A reboot of my old project. Mod is for experimental use. Hopefully this will actually be a cohesive mod. Contact me through Discord! `itsdakirby69`. Just make sure you let me know where you're coming from...
+A reboot of an old project of mine! A nature styled mod that would focus on bringing life and immersion to Mindustry!
 
-## Early Downloads Coming soon soon <3333
+*Please note that everything is experimental and are subject to be changed/edited/removed.
+You are guaranteed to find bugs, unfinished content and more!!1!*
 
-**_Please note that this mod is unfinished. Bugs are bound to happen and you'll likely find unfinished content!!_**
+## Updates when?
+You can frequently check the repo for updates or `watch` it to get notifications!
+For wanting to see the direction the mod is taking, look at the Trello board [here](https://trello.com/b/1wTgcEBs/minedusty).
 
-[Trello board added](https://trello.com/b/1wTgcEBs/minedusty) *i keep on forgetting to use this...*
+## Downloading the mod!
+*//TODO*
 
-When downloading the `minedusty.jar` file from the releases tab, make sure to put the file into your *mods folder*.
-Alternativly, you can `copy the link` of this repository and use that to download the latest version of this mod *directly* from the game.
+Download the jar file manually in the `releases` tab, or just copy the repository's link to download it `directly in-game` when added a new mod!
 
 Enjoy
-
-*//TODO -> more descriptive description!1!!*
