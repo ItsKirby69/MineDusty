@@ -37,7 +37,7 @@ public class DustBlocks {
 	//Productions
 	grinder, quartzSmelter,
 	//Props
-	burntTree, aliveTree, ashTree, coconutTree, blossomTree, spruceTree, pineTreem, alienTree,
+	burntTree, aliveTree, ashTree, coconutTree, blossomTree, elmTree, spruceTree, pineTreem, alienTree,
 	shrub, sandyshrub, flower, cattail, bush,
 	lilypad, largelilypad,
 	largeBoulder, largeshorestoneBoulder, shorestoneboulder,
@@ -85,6 +85,11 @@ public class DustBlocks {
 		}};
 
 		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
+			mapColor = Color.valueOf("f3b9c3");
+			shadowOffset = -4f;
+		}};
+
+		elmTree = new LivingTreeBlock("elm-tree", 1){{
 			mapColor = Color.valueOf("f3b9c3");
 			shadowOffset = -4f;
 		}};
