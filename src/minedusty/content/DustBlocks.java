@@ -90,7 +90,7 @@ public class DustBlocks {
 		}};
 
 		elmTree = new LivingTreeBlock("elm-tree", 1){{
-			mapColor = Color.valueOf("f3b9c3");
+			mapColor = Color.valueOf("ECB01E");
 			shadowOffset = -4f;
 		}};
 
@@ -138,7 +138,7 @@ public class DustBlocks {
 
 		//testblock = new StaticWall("mark"){{}};
 
-		cattail = new LivingBush("cattail"){{
+		cattail = new LivingBush("cattail", 1){{
 			mapColor = Color.valueOf("74d660");
 			lobesMin = 3;
 			lobesMax = 5;
