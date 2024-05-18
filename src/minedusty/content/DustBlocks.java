@@ -21,15 +21,18 @@ public class DustBlocks {
 	scatterSilo, 
 	//Blocks
 	//Tiles
-	taigaLeaves, taigaGrass,
+	taigaGrass, taigaLeaves,
 
 	tropicalwater, sandytropicalwater,
 	deeptropicalwater, dacitetropicalwater,
 	algaeWater, deepalgaeWater,
 	trophotWater, hotWater, tropdeephotWater, tropmagmaWater, magmaWater,
-	grassyFloor, grassyWall, blossomFloor,
+	grassyFloor, grassyWall, 
+	blossomGrass, blossomLeaves,
+	elmGrass, elmLeaves,
+	leafyFloor, leavesLeaves,
 
-	basaltFloor, basaltCrack, basaltPillar, shoreRock, soapStone, 
+	basaltFloor, basaltPillar, basaltLargePillar, shoreRock, soapStone, 
 	watersoapStone, tropwatersoapStone,
 	watershoreRock, tropwatershoreRock,
 
@@ -49,9 +52,6 @@ public class DustBlocks {
 		//props/walls
 		largeBoulder = new Prop("large-boulder"){{
 			hasShadow = true;
-			instantDeconstruct = true;
-			breakSound = Sounds.rockBreak;
-			breakEffect = Fx.breakProp;
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
 			variants = 2;
@@ -61,12 +61,22 @@ public class DustBlocks {
 			hasShadow = true;
 			customShadow = true;
 			variants = 2;
-			breakEffect = Fx.breakProp;
 			mapColor = Color.valueOf("706f74");
+		}};
+
+		basaltLargePillar = new Prop("large-basaltder"){{
+			hasShadow = true;
+			mapColor = Color.valueOf("706f74");
+			customShadow = true;
+			variants = 2;
 		}};
 
 		shorestoneboulder = new Prop("shorestone-boulder"){{
 			variants = 2;
+		}};
+
+		basaltPillar = new Prop("basalt-boulder"){{
+			variants = 3;
 		}};
 
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
@@ -165,26 +175,38 @@ public class DustBlocks {
         //    walkSoundVolume = 0.08f;
         //    walkSoundPitchMin = 0.4f;
         //    walkSoundPitchMax = 0.5f;
-
-		taigaLeaves = new OverlayFloor("taiga-leaves"){{
-			variants = 5;
-		}};
 		
 		taigaGrass = new Floor("taiga-grass"){{
 			variants = 5;
 			attributes.set(Attribute.water, 0.1f);
 		}};
 
+		taigaLeaves = new OverlayFloor("taiga-leaves"){{
+			variants = 5;
+		}};
+		
+		blossomGrass = new Floor("blossom-grass"){{
+			variants = 5;
+		}};
+		
+		blossomLeaves = new OverlayFloor("blossom-leaves"){{
+			variants = 4;
+		}};
+
+		elmGrass = new Floor("elm-grass"){{
+			variants = 5;
+		}};
+
+		elmLeaves = new OverlayFloor("elm-leaves"){{
+			variants = 3;
+		}};
+
+		shoreRock = new Floor("shorestone"){{}};
+
 		basaltFloor = new Floor("basalt-floor"){{
 			variants = 5;
 			attributes.set(Attribute.water, -0.25f);
 		}};
-		
-		blossomFloor = new Floor("blossom-grass"){{
-			variants = 5;
-		}};
-
-		shoreRock = new Floor("shorestone"){{}};
 
 		trophotWater = new Floor("trop-hotrock-water"){{
 			speedMultiplier = 0.5f;
