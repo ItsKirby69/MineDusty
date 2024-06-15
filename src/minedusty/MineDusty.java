@@ -33,6 +33,7 @@ public class MineDusty extends Mod{
     public void loadContent(){
 		DustItems.load();
         DustBlocks.load();
+		DustUnits.load();
         //DustTechTree.load();
         //DustLiquids.load();
         //DustBullets.load();
