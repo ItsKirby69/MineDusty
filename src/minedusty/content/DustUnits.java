@@ -96,14 +96,14 @@ public class DustUnits {
 			outlines = false;
 
 			weapons.add(new Weapon("minedusty-mod-mantis-weapon"){{
-				reload = 30f;
+				reload = 140f;
 				shootSound = Sounds.lasershoot;
 				top = false;
 				ejectEffect = Fx.none;
 				//alternate = false;
-				x = 3.7f;
-				y = 2f;
-				layerOffset = -4f;
+				mirror = false;
+				cooldownTime = 130f;
+				x = y = 0f;
 				recoil = 1.2f;
 				//speed dmg
 				bullet = new LaserBoltBulletType(3f, 4){{
