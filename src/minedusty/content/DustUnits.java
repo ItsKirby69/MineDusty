@@ -3,16 +3,10 @@ package minedusty.content;
 import arc.graphics.Color;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
-import mindustry.content.StatusEffects;
 import mindustry.entities.Lightning;
 import mindustry.entities.abilities.*;
-import mindustry.entities.bullet.BasicBulletType;
-import mindustry.entities.bullet.BulletType;
-import mindustry.entities.bullet.LaserBoltBulletType;
-import mindustry.entities.bullet.LightningBulletType;
-import mindustry.entities.effect.ExplosionEffect;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.bullet.*;
+import mindustry.entities.effect.*;
 import mindustry.entities.pattern.*;
 import mindustry.gen.Sounds;
 import mindustry.gen.UnitEntity;
@@ -51,7 +45,7 @@ public class DustUnits {
 			trailLength = 4;
 			outlines = false;
 			
-			weapons.add(new Weapon("minedusty-mod-cricket-weapon"){{
+			weapons.add(new Weapon("minedusty-cricket-weapon"){{
 				reload = 30f;
 				shootSound = Sounds.lasershoot;
 				top = false;
@@ -95,7 +89,7 @@ public class DustUnits {
 			trailLength = 6;
 			outlines = false;
 
-			weapons.add(new Weapon("minedusty-mod-mantis-weapon"){{
+			weapons.add(new Weapon("minedusty-mantis-weapon"){{
 				reload = 140f;
 				shootSound = Sounds.lasershoot;
 				top = false;
@@ -115,6 +109,5 @@ public class DustUnits {
 				}};
 			}});
 		}};
-
 	}
 }

@@ -2,7 +2,7 @@
 displayName: "MineDusty [new]"
 
 #the internal name of your mod
-name: "minedusty-mod"
+name: "minedusty"
 
 #your name
 author: "[scarlet[]]ItsKirby[]"
@@ -13,7 +13,7 @@ main: "minedusty.MineDusty"
 #the mod description as seen in the mod dialog
 description: "[#edc77b[]]A java mod by [white[]]itsdakirby69 [gray[]](thats me!)[#edc77b[]]. The overgrowth will overtake all.[]"
 
-subtitle: "i uhh.. i fo. forgorr"
+subtitle: "green planet haha"
 
 #the mod version
 version: 1

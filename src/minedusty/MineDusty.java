@@ -19,7 +19,7 @@ public class MineDusty extends Mod{
             Time.runTask(10f, () -> {
                 BaseDialog dialog = new BaseDialog("warn");
                 dialog.cont.add("A spooky Disclaimer").row();
-                dialog.cont.image(Core.atlas.find("minedusty-mod-frog.png")).pad(20f).row();
+                dialog.cont.image(Core.atlas.find("minedusty-frog")).pad(20f).row();
 				dialog.cont.add("[gray]Please note that this mod ([][white]Minedusty[][gray]) is potentially unstable.[]").row();
 				dialog.cont.add("[scarlet]Contact me through discord[] [brick]itsdakirby69[] [scarlet]for any bugs that occur[]").row();
 				dialog.cont.add("[gray]Mess around with the mod and have fun[]").row();
@@ -34,6 +34,7 @@ public class MineDusty extends Mod{
 		DustItems.load();
         DustBlocks.load();
 		DustUnits.load();
+		DustPlanets.load();
         //DustTechTree.load();
         //DustLiquids.load();
         //DustBullets.load();

@@ -6,11 +6,15 @@ import arc.graphics.*;
 import mindustry.content.*;
 import mindustry.gen.*;
 import mindustry.graphics.CacheLayer;
+import mindustry.type.Category;
 import mindustry.type.StatusEffect;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
+import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.meta.Attribute;
+import mindustry.world.meta.BuildVisibility;
 import minedusty.world.blocks.environment.*;
+import static mindustry.type.ItemStack.with;
 
 //TODO, MAKE SURE TREE BLOCK IS VARIANT ONCE FIX IS MADE
 public class DustBlocks {
@@ -20,6 +24,7 @@ public class DustBlocks {
 	//Turrets
 	scatterSilo, 
 	//Blocks
+	coreNest,
 	//Tiles
 	taigaGrass, taigaLeaves,
 
@@ -166,6 +171,19 @@ public class DustBlocks {
 			mapColor = Color.valueOf("74d660");
 		}};
 		
+		//BLOCKS and core
+		coreNest = new CoreBlock("core-nest"){{
+			//TODO should this be only buildable in editor
+			requirements(Category.effect, with(Items.copper, 5, Items.lead, 8));
+			alwaysUnlocked = true;
+			isFirstTier = true;
+			unitType = DustUnits.cricket;
+			health = 1600;
+			itemCapacity = 2500;
+			size = 3;
+			unitCapModifier = 10;
+			//armor = 5f;
+		}};
 		//
 		// TILES AND FLOORING
 		//
