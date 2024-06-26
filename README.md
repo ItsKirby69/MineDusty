@@ -5,6 +5,7 @@
 [![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?color=green&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=green&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
 [![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=Star%20me!%20%E2%AD%90)](https://github.com/ItsKirby69/MineDusty)
 
+***Sandbox only (for now)***
 # MineDusty
 A reboot of an old project of mine! A nature styled mod that would focus on bringing life and immersion to Mindustry!
 
