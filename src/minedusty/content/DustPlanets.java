@@ -69,8 +69,8 @@ public class DustPlanets {
 			);
 			cloudMeshLoader = () -> new MultiMesh(
 				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)
-				new HexSkyMesh(this, 2, 0.97f, 0.07f, 6, Color.valueOf("c5dbdd"), 2, 0.6f, 1.1f, 0.4f),
-				new HexSkyMesh(this, 0, 0.93f, 0.12f, 6, Color.valueOf("9bb4bf"), 2, 0.5f, 1.0f, 0.3f)
+				new HexSkyMesh(this, 2, 0.97f, 0.07f, 6, new Color().set(Color.valueOf("c5dbdd")).mul(0.9f).a(0.8f), 2, 0.6f, 1.1f, 0.4f),
+				new HexSkyMesh(this, 0, 0.93f, 0.12f, 6, new Color().set(Color.valueOf("9bb4bf")).mul(0.9f).a(0.8f), 2, 0.5f, 1.0f, 0.3f)
 			);
 
 			/*
