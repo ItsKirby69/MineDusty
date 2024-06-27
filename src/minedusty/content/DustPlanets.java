@@ -61,7 +61,7 @@ public class DustPlanets {
 					
 				//(P planet, i seed, i divisions, f radius, i octaves, f persistence, f scale, f mag, C color1, C color2, i coct, f cper, f cscl, f cthresh)
 				// land
-				new NoiseMesh(this, 2, 6, 1.086f, 4, 1.2f, 0.8f, 1.15f, Color.valueOf("66d86f"), Color.valueOf("6ac841"), 4, 1.1f, 1.2f, 1f),
+				new NoiseMesh(this, 2, 6, 1.087f, 4, 1.2f, 0.8f, 1.15f, Color.valueOf("66d86f"), Color.valueOf("6ac841"), 4, 1.1f, 1.2f, 1f),
 				// sandy
 				new NoiseMesh(this, 2, 6, 1.076f, 3, 1f, 0.79f, 1.15f, Color.valueOf("f7e7c6"), Color.valueOf("ffeabb"), 2, 1.1f, 1.2f, 1f),
 				// basalt
