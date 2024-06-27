@@ -14,7 +14,7 @@ You are guaranteed to find bugs, unfinished content and more!!1!*
 
 ## Updates when?
 You can frequently check the repo for updates or `watch` it to get notifications!
-For wanting to see the direction the mod is taking, look at the Trello board [here](https://trello.com/b/1wTgcEBs/minedusty).
+For wanting to see the direction the mod is taking, look at the **[Trello board](https://trello.com/b/1wTgcEBs/minedusty)** (i promise to keep updating this!!1!).
 
 ## Downloading the mod!
 *//TODO*
