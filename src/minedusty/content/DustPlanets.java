@@ -28,46 +28,57 @@ public class DustPlanets {
 			alwaysUnlocked = true;
 			accessible = true;
 			minZoom = 0.75f;
+
 			allowLaunchLoadout = false;
 			allowLaunchSchematics = false;
 			allowLaunchToNumbered = true;
 			allowSectorInvasion = true;
 			clearSectorOnLose = true;
+
 			defaultCore = DustBlocks.coreNest;
 			orbitRadius = 49f;
-			//orbitOffset = 1f;
-			atmosphereRadOut = 0.2f;
+			atmosphereRadIn = -0.1f;
+			//atmosphereRadOut = 0.2f;
 			parent = Planets.sun;
 			updateLighting = true;
-			defaultEnv = 5;
+			defaultEnv = 1;
 			ruleSetter = r -> {
 
 			};
 			startSector = 12;
 			iconColor = Color.valueOf("6e8b3d");
-			atmosphereColor = Color.valueOf("0ad00a");
-			hiddenItems.addAll(Items.erekirItems).removeAll(Items.serpuloItems);
+			atmosphereColor = Color.valueOf("84eb5f");
+
+			itemWhitelist = DustItems.dustItems;
+			//hiddenItems.addAll(Items.erekirItems).removeAll(Items.serpuloItems);
+
 			meshLoader = () -> new MultiMesh(
-				//(P planet, i divisions, d octaves, d persistence, d scl, d pow, d mag, f colorScale, C... colors)
-				new SunMesh(this,5,1,0.5,2,2.2,3,1f,
-				Color.valueOf("43838e"),
-				Color.valueOf("438d8e"),
-				Color.valueOf("44a29f")),
+				// water
+				new SunMesh(this,5,2,0.5,1.7,2.2,3,1f,
+					Color.valueOf("43838e"),
+					Color.valueOf("438d8e"),
+					Color.valueOf("44a29f")),
+					
 				//(P planet, i seed, i divisions, f radius, i octaves, f persistence, f scale, f mag, C color1, C color2, i coct, f cper, f cscl, f cthresh)
-				new NoiseMesh(this, 1, 6, 1.15f, 3, 1f, 1.8f, 1.1f, Color.valueOf("b6d7a8"), Color.valueOf("7cba61"), 2, 1.2f, 1f, 0.5f),
-				new NoiseMesh(this, 1, 6, 1.1f, 3, 0.8f, 2.1f, 1f, Color.valueOf("88834C"), Color.valueOf("96814C"), 1, 1.2f, 2.1f, 0.2f),
-				//mountains
-				new NoiseMesh(this, 0, 6, 0.9f, 3, 1.5f, 1.5f, 1.4f, Color.valueOf("c8cdce"),Color.valueOf("a0babf"), 1, 1.9f, 1.7f, 0.4f)
+				// land
+				new NoiseMesh(this, 2, 6, 1.086f, 4, 1.2f, 0.8f, 1.15f, Color.valueOf("66d86f"), Color.valueOf("6ac841"), 4, 1.1f, 1.2f, 1f),
+				// sandy
+				new NoiseMesh(this, 2, 6, 1.076f, 3, 1f, 0.79f, 1.15f, Color.valueOf("f7e7c6"), Color.valueOf("ffeabb"), 2, 1.1f, 1.2f, 1f),
+				// basalt
+				new NoiseMesh(this, 3, 6, 0.96f, 3, 0.9f, 0.6f, 1f, Color.valueOf("8a8da7"), Color.valueOf("6d7382"), 3, 1f, 1.1f, 0.6f),
+				
+				// extra
+				//new NoiseMesh(this, 3, 6, 0.98f, 3, 0.85f, 0.3f, 1.05f, Color.valueOf("99dd3e"), Color.valueOf("9a6814"), 3, 0.8f, 0.9f, 1f),
+				
+				// mountains
+				new NoiseMesh(this, 0, 6, 1.0f, 4, 1.1f, 1.25f, 1.77f, Color.valueOf("cdd8da"), Color.valueOf("a5b8bc"), 4, 2f, 1f, 1f)
 			);
+
 			cloudMeshLoader = () -> new MultiMesh(
 				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)
-				new HexSkyMesh(this, 0, 0.87f, 0.13f, 6, new Color().set(Color.valueOf("B8CFC0")).mul(0.9f).a(0.8f), 2, 0.5f, 0.8f, 0.3f),
-				new HexSkyMesh(this, 0, 0.83f, 0.16f, 6, Color.white.cpy().lerp(Color.valueOf("80A499"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
+				new HexSkyMesh(this, 0, 0.87f, 0.13f, 6, new Color().set(Color.valueOf("caf5f0")).mul(0.9f).a(0.8f), 2, 0.5f, 0.8f, 0.3f),
+				new HexSkyMesh(this, 0, 0.83f, 0.16f, 6, Color.white.cpy().lerp(Color.valueOf("9ddac8"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
 			);
-			/*cloudMeshLoader = () -> new MultiMesh(
-                new HexSkyMesh(this, 11, 0.15f, 0.13f, 5, new Color().set(Pal.spore).mul(0.9f).a(0.75f), 2, 0.45f, 0.9f, 0.38f),
-                new HexSkyMesh(this, 1, 0.6f, 0.16f, 5, Color.white.cpy().lerp(Pal.spore, 0.55f).a(0.75f), 2, 0.45f, 1f, 0.41f)
-            );*/
 			unlockedOnLand.addAll(DustBlocks.coreNest);
 		}};
 
@@ -80,12 +91,12 @@ public class DustPlanets {
             atmosphereColor = Color.valueOf("3db899");
             iconColor = Color.valueOf("597be3");
             startSector = 10;
-            //atmosphereRadIn = -0.01f;
             atmosphereRadOut = 0.3f;
 			minZoom = 0.75f;
             defaultEnv = Env.underwater | Env.terrestrial;
             ruleSetter = r -> {
             };
+
         }};
 
 	}

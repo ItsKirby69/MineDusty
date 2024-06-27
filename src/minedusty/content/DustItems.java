@@ -1,10 +1,13 @@
 package minedusty.content;
 
 import minedusty.graphics.*;
+import arc.struct.Seq;
 import mindustry.type.Item;
 
 public class DustItems {
 	public static Item quartz, rosequartz, dustquartz;
+
+	public static final Seq<Item> dustItems = new Seq<>();
 
 	public static void load(){
 		//quartz can be made using silicon and a machine. idk what yet.
