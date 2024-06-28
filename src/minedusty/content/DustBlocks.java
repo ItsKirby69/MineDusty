@@ -25,6 +25,8 @@ public class DustBlocks {
 	scatterSilo, 
 	//Blocks
 	coreNest,
+	//energy?
+	grassvent, rockyvent,
 	//Tiles
 	taigaGrass, taigaLeaves,
 
@@ -50,7 +52,7 @@ public class DustBlocks {
 	lilypad, largelilypad,
 	largeBoulder, largeshorestoneBoulder, shorestoneboulder,
 	//ores
-	oreQuartz;
+	oreChlorophyte, oreQuartz;
 	//add more categories
 
 	public static void load(){
@@ -69,6 +71,7 @@ public class DustBlocks {
 			mapColor = Color.valueOf("706f74");
 		}};
 
+		//why did i name it like this
 		basaltLargePillar = new Prop("large-basaltder"){{
 			hasShadow = true;
 			mapColor = Color.valueOf("706f74");
@@ -84,35 +87,37 @@ public class DustBlocks {
 			variants = 3;
 		}};
 
+		//ores and stuff?
+        oreChlorophyte = new OreBlock("ore-chlorophyte", DustItems.chlorophyte){{
+            oreDefault = false;
+			variants = 1;
+        }};
+
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
 			shadowOffset = -4f;
 		}};
-
-		burntTree = new TreeBlock("burnt-tree"){{
-			mapColor = Color.valueOf("172025");
-			shadowOffset = -1f;
-		}};
-
-		ashTree = new TreeBlock("ash-tree"){{
-			mapColor = Color.valueOf("98a3a8");
-			shadowOffset = -1f;
-		}};
-
 		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
 			mapColor = Color.valueOf("f3b9c3");
 			shadowOffset = -4f;
 		}};
-
 		elmTree = new LivingTreeBlock("elm-tree", 1){{
 			mapColor = Color.valueOf("ECB01E");
 			shadowOffset = -4f;
 		}};
 
+		//dead/static trees (trees with no layers)
+		burntTree = new TreeBlock("burnt-tree"){{
+			mapColor = Color.valueOf("172025");
+			shadowOffset = -1f;
+		}};
+		ashTree = new TreeBlock("ash-tree"){{
+			mapColor = Color.valueOf("98a3a8");
+			shadowOffset = -1f;
+		}};
 		//maybe i don't need a coconut tree
 		/*coconutTree = new LivingBush("coconut-tree"){{
 			mapColor = Color.valueOf("000000");
-			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			lobesMin = 3;
 			lobesMax = 3;
 			magMin = 4;
@@ -173,7 +178,6 @@ public class DustBlocks {
 		
 		//BLOCKS and core
 		coreNest = new CoreBlock("core-nest"){{
-			//TODO should this be only buildable in editor
 			requirements(Category.effect, with(Items.copper, 5, Items.lead, 8));
 			alwaysUnlocked = true;
 			isFirstTier = true;

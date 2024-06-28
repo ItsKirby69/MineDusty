@@ -1,5 +1,5 @@
 #the mod name as displayed in-game
-displayName: "MineDusty [new]"
+displayName: "MineDusty"
 
 #the internal name of your mod
 name: "minedusty"
@@ -11,12 +11,12 @@ author: "[scarlet[]]ItsKirby[]"
 main: "minedusty.MineDusty"
 
 #the mod description as seen in the mod dialog
-description: "[#edc77b[]]A java mod by [white[]]itsdakirby69 [gray[]](thats me!)[#edc77b[]]. The overgrowth will overtake all.[]"
+description: "[#edc77b[]]A java mod by [white[]]itsdakirby69 [gray[]](thats me!)[#edc77b[]]. Sandbox only for now. Plant mod. haha.[]"
 
 subtitle: "green planet haha"
 
 #the mod version
-version: 1.1
+version: b3
 
 #the minimum game build required to run this mod
 minGameVersion: 145

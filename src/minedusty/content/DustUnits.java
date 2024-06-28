@@ -33,7 +33,7 @@ public class DustUnits {
 			mineTier = 1;
 			buildSpeed = 0.5f;
 			drag = 0.05f;
-			speed = 1.5f;
+			speed = 1.8f;
 			rotateSpeed = 15f;
 			accel = 0.1f;
 			fogRadius = 0f;
@@ -77,7 +77,7 @@ public class DustUnits {
 			mineTier = 2;
 			buildSpeed = 0.8f;
 			drag = 0.05f;
-			speed = 2f;
+			speed = 3.2f;
 			rotateSpeed = 19f;
 			accel = 0.11f;
 			fogRadius = 0f;
