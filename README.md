@@ -19,7 +19,7 @@ Visit the **[Trello board](https://trello.com/b/1wTgcEBs/minedusty)** to see goa
 ## Downloading the mod!
 *//TODO*
 
-Download the jar file manually in the `releases` tab, or just copy the repository's link to download it `directly in-game` when added a new mod!
+Download the jar file manually in the `releases` tab, or just copy the repository's link to download it `directly in-game` when adding a new mod!
 
 ## Developers
 - **ItsKirby** (thats me!) - lead dev
