@@ -9,7 +9,7 @@ import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 
 import static arc.Core.*;
-
+//TODO: does it need to extend treeblock?
 public class LivingTreeBlock extends TreeBlock{
 
 	public TextureRegion[] topRegions, centerRegions, backRegions, shadowRegions;

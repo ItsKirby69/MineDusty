@@ -10,7 +10,7 @@ import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 
 import static arc.Core.*;
-
+//TODO: does it need to extend seabush?
 public class LivingBush extends SeaBush{
 	public TextureRegion region;
 	public TextureRegion[] variantRegions, bottomRegions, centerRegions, shadowRegions;
