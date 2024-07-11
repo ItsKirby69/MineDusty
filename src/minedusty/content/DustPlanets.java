@@ -1,22 +1,16 @@
 package minedusty.content;
 
 import arc.graphics.Color;
-import arc.graphics.Colors;
 import mindustry.content.Items;
 import mindustry.content.Planets;
+import mindustry.content.Weathers;
 import mindustry.game.Team;
-import mindustry.graphics.Pal;
-import mindustry.graphics.g3d.HexMesh;
-import mindustry.graphics.g3d.HexSkyMesh;
-import mindustry.graphics.g3d.MultiMesh;
-import mindustry.graphics.g3d.NoiseMesh;
-import mindustry.graphics.g3d.SunMesh;
-import mindustry.maps.generators.PlanetGenerator;
-import mindustry.maps.planet.ErekirPlanetGenerator;
-import mindustry.maps.planet.SerpuloPlanetGenerator;
+import mindustry.graphics.g3d.*;
 import mindustry.maps.planet.TantrosPlanetGenerator;
 import mindustry.type.Planet;
+import mindustry.type.Weather;
 import mindustry.world.meta.Env;
+import minedusty.maps.planets.GaiaPlanetGenerator;
 
 public class DustPlanets {
 	public static Planet 
@@ -24,7 +18,7 @@ public class DustPlanets {
 
 	public static void load(){
 		gaia = new Planet("gaia", Planets.sun, 1.2f, 3){{
-			generator = new SerpuloPlanetGenerator();
+			generator = new GaiaPlanetGenerator();
 			alwaysUnlocked = true;
 			accessible = true;
 			minZoom = 0.75f;
@@ -32,8 +26,11 @@ public class DustPlanets {
 			allowLaunchLoadout = false;
 			allowLaunchSchematics = false;
 			allowLaunchToNumbered = true;
+			//gotta watch out when starting sector has no safe numbered sectors around
 			allowSectorInvasion = true;
 			clearSectorOnLose = true;
+			allowWaves = true;
+			allowWaveSimulation = true;
 
 			defaultCore = DustBlocks.coreNest;
 			orbitRadius = 49f;
@@ -42,17 +39,24 @@ public class DustPlanets {
 			parent = Planets.sun;
 			updateLighting = true;
 			defaultEnv = 1;
+			//TODO properly expand this
 			ruleSetter = r -> {
-
+				r.waveTeam = Team.green;
+				r.weather.add(new Weather.WeatherEntry(){{
+					weather = Weathers.fog;
+					always = true;
+				}});
 			};
-			startSector = 12;
+			startSector = 1;
 			iconColor = Color.valueOf("6e8b3d");
 			atmosphereColor = Color.valueOf("84eb5f");
 
-			itemWhitelist = DustItems.dustItems;
-			//hiddenItems.addAll(Items.erekirItems).removeAll(Items.serpuloItems);
-
-			meshLoader = () -> new MultiMesh(
+			//itemWhitelist = DustItems.dustItems;
+			//TODO: Might change this whitelist to seperate technologies
+			hiddenItems.addAll(Items.erekirItems).addAll(Items.serpuloItems).removeAll(DustItems.dustItems);
+			
+			meshLoader = () -> new HexMesh(this,6);
+			/*meshLoader = () -> new MultiMesh(
 				// water
 				new SunMesh(this,5,2,0.5,1.7,2.2,3,1f,
 					Color.valueOf("43838e"),
@@ -72,7 +76,7 @@ public class DustPlanets {
 				
 				// mountains
 				new NoiseMesh(this, 0, 6, 1.0f, 4, 1.1f, 1.25f, 1.77f, Color.valueOf("cdd8da"), Color.valueOf("a5b8bc"), 4, 2f, 1f, 1f)
-			);
+			);*/
 
 			cloudMeshLoader = () -> new MultiMesh(
 				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)

@@ -19,9 +19,10 @@ public class MineDusty extends Mod{
             Time.runTask(10f, () -> {
                 BaseDialog dialog = new BaseDialog("warn");
                 dialog.cont.add("A spooky Disclaimer").row();
-                dialog.cont.image(Core.atlas.find("minedusty-frog")).pad(20f).row();
+                dialog.cont.image(Core.atlas.find("minedusty-dog")).pad(20f).row();
 				dialog.cont.add("[gray]Please note that this mod ([][white]Minedusty[][gray]) is potentially unstable.[]").row();
-				dialog.cont.add("[scarlet]Contact me through discord[] [brick]itsdakirby69[] [scarlet]for any bugs that occur[]").row();
+				dialog.cont.add("[scarlet]Contact me through discord[] [brick]itsdakirby69[] [scarlet]or file[]").row();
+				dialog.cont.add("[scarlet]an issue for the repo for any[] [gold]questions/bugs/suggestions![]").row();
 				dialog.cont.add("[gray]Mess around with the mod and have fun[]").row();
                 dialog.cont.button("Got it fam", dialog::hide).size(150f, 50f);
                 dialog.show();
@@ -33,7 +34,7 @@ public class MineDusty extends Mod{
     public void loadContent(){
 		//teams, items, fluids, effects. Thanks @sl0tterleet
 		DustItems.load();
-		//DustFluids.load();
+		DustLiquids.load();
 		//DustEffects.load(); the actual file is named DustyEffects for some reason
 		//DustTeams.load();
 		DustWeathers.load();

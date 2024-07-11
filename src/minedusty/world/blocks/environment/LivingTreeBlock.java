@@ -7,16 +7,19 @@ import arc.util.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
+import mindustry.world.meta.BuildVisibility;
 
 import static arc.Core.*;
 //TODO: does it need to extend treeblock?
-public class LivingTreeBlock extends TreeBlock{
+public class LivingTreeBlock extends Block{
 
 	public TextureRegion[] topRegions, centerRegions, backRegions, shadowRegions;
 	
 	public float layer = Layer.power;
+	public float shadowOffset = -4f;
 
 	public LivingTreeBlock(String name){
+		
 		this(name, 3);
 	}
 
@@ -27,6 +30,7 @@ public class LivingTreeBlock extends TreeBlock{
         customShadow = true;
 		solid = true;
 		clipSize = 90f;
+		buildVisibility = BuildVisibility.sandboxOnly;
     }
 
 	@Override
@@ -87,17 +91,17 @@ public class LivingTreeBlock extends TreeBlock{
 		}
 		//top leaves
 		if (topRegions[sprite].found()) {
-			Draw.z(layer + 4);
+			Draw.z(layer + 5);
 			Draw.rect(topRegions[sprite], x, y, rot);
 		}
 		//center leaves
 		if (centerRegions[sprite].found()) {
-			Draw.z(layer + 5);
+			Draw.z(layer + 4);
 			Draw.rectv(centerRegions[sprite], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
-		//them back regions :speaking_head: :speaking_head: :speaking_head: 
+		//them back regions 🗣🗣🗣
 		if (backRegions[sprite].found()) {
 			Draw.z(layer + 2);
 			Draw.rect(backRegions[sprite], x, y, rot);

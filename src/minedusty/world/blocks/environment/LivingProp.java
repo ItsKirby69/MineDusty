@@ -44,10 +44,12 @@ public class LivingProp extends Block{
 		super.load();
 		if(variants > 0){
 			topRegions = new TextureRegion[variants];
+			centerRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
 				topRegions[i] = atlas.find(name + "-top" + (i + 1));
+				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
 				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
 			}
 		}else{
@@ -55,6 +57,8 @@ public class LivingProp extends Block{
 			variantRegions[0] = atlas.find(name);
 			topRegions = new TextureRegion[1];
 			topRegions[0] = atlas.find(name + "-top");
+			centerRegions = new TextureRegion[1];
+			centerRegions[0] = atlas.find(name + "-center");
 			shadowRegions = new TextureRegion[1];
 			shadowRegions[0] = atlas.find(name + "-shadow");
 		}
@@ -89,6 +93,8 @@ public class LivingProp extends Block{
 				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
 				));
 		}
+
+		//center sprite TODO: didn't really think about what plants use this
 
 		//top sprite | if they have one //Should I make them move funny?
 		if(topRegions[sprite].found()){

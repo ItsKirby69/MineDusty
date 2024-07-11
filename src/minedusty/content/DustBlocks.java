@@ -1,109 +1,156 @@
 package minedusty.content;
 
-import org.w3c.dom.Attr;
-
 import arc.graphics.*;
 import mindustry.content.*;
-import mindustry.gen.*;
+import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
 import mindustry.type.Category;
-import mindustry.type.StatusEffect;
+import mindustry.type.ItemStack;
+import mindustry.type.LiquidStack;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
+import mindustry.world.blocks.heat.HeatProducer;
+import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.storage.CoreBlock;
-import mindustry.world.meta.Attribute;
-import mindustry.world.meta.BuildVisibility;
+import mindustry.world.draw.DrawDefault;
+import mindustry.world.draw.DrawHeatOutput;
+import mindustry.world.draw.DrawLiquidRegion;
+import mindustry.world.draw.DrawMulti;
+import mindustry.world.draw.DrawRegion;
+import mindustry.world.meta.*;
 import minedusty.world.blocks.environment.*;
 import static mindustry.type.ItemStack.with;
 
-//TODO, MAKE SURE TREE BLOCK IS VARIANT ONCE FIX IS MADE
+//region Variables
 public class DustBlocks {
 	public static Block 
 	testblock,
 
-	//Turrets
 	scatterSilo, 
-	//Blocks
-	coreNest,
-	//energy?
-	grassvent, rockyvent,
-	//Tiles
-	taigaGrass, taigaLeaves,
 
-	tropicalwater, sandytropicalwater,
-	deeptropicalwater, dacitetropicalwater,
+	/* Floors/Overlays */
+
+	//liquid tiles
+	tropicalWater, deeptropicalWater,
+	trophotWater, deeptrophotWater,
+	tropmagmaWater, deeptropmagmaWater,
+	hotWater, magmaWater,
+	sandytropicalWater, dacitetropicalWater, basalttropicalWater, shorestonetropicalWater, soapstonetropicalWater,
+	basaltWater, shorestoneWater, soapstoneWater, //TODO: create water variants of these 
+	
 	algaeWater, deepalgaeWater,
-	trophotWater, hotWater, tropdeephotWater, tropmagmaWater, magmaWater,
-	grassyFloor, grassyWall, 
-	blossomGrass, blossomLeaves,
-	elmGrass, elmLeaves,
-	leafyFloor, leavesLeaves,
+	
+	//dry tiles
+	taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves, 
 
-	basaltFloor, basaltPillar, basaltLargePillar, shoreRock, soapStone, 
-	watersoapStone, tropwatersoapStone,
-	watershoreRock, tropwatershoreRock,
+	//haven't done yet
+	grassyFloor, leafyFloor, leavesLeaves,
 
-	//Drills
-	//Productions
-	grinder, quartzSmelter,
-	//Props
-	burntTree, aliveTree, ashTree, coconutTree, blossomTree, elmTree, spruceTree, pineTreem, alienTree,
-	shrub, sandyshrub, flower, cattail, bush,
-	lilypad, largelilypad,
-	largeBoulder, largeshorestoneBoulder, shorestoneboulder,
-	//ores
-	oreChlorophyte, oreQuartz;
-	//add more categories
+	basaltFloor, shoreRock, soapstoneFloor,
+
+	/* Blocks */
+
+	coreNest, grassyWall, quartzSmelter,
+	//cool idea(s) // haven't made yet
+	oxidizedcopperWall, grassyVent, rockyVent, nitroplastChamber, somethingReactor,
+	
+	//boulders
+	largeBoulder,
+	basaltPillar, largebasaltPillar,
+	shorestoneBoulder, largeshorestoneBoulder,
+
+	/* Trees */
+	burntTree, aliveTree, ashTree, blossomTree, elmTree, deadTree, mossydeadTree, cheeseTree, pineTree,//tf is cheese tree???
+	//haven't done yet
+	spruceTree, mysticTree, coconutTree, frozenTree, vineTree, glowberryTree,
+
+	/* Vegatation */
+	shrub, sandyshrub,
+	flower, bush, tallGrass, cactus,
+
+	//water
+	lilypad, largelilypad, cattail, aloeVera,  //aloeVera counts as water right? hah no TODO: needs to work well with desert biomes
+	
+	/* Resources (aka ores) */
+	oreChlorophyte, oreAquamarine, oreQuartz;
+
+	//end region
 
 	public static void load(){
-		//props/walls
+
+		//region Boulders
+
 		largeBoulder = new Prop("large-boulder"){{
 			hasShadow = true;
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
 			variants = 2;
+			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
 		largeshorestoneBoulder = new Prop("large-shorestone"){{
-			hasShadow = true;
 			customShadow = true;
 			variants = 2;
 			mapColor = Color.valueOf("706f74");
+			buildVisibility = BuildVisibility.sandboxOnly;
+		}};
+		shorestoneBoulder = new Prop("shorestone-boulder"){{
+			variants = 2;
+			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
 		//why did i name it like this
-		basaltLargePillar = new Prop("large-basaltder"){{
-			hasShadow = true;
+		largebasaltPillar = new Prop("large-basaltder"){{
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
 			variants = 2;
+			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
-
-		shorestoneboulder = new Prop("shorestone-boulder"){{
-			variants = 2;
-		}};
-
 		basaltPillar = new Prop("basalt-boulder"){{
 			variants = 3;
+			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
-		//ores and stuff?
+		//end region
+		//region ores and resources
+
         oreChlorophyte = new OreBlock("ore-chlorophyte", DustItems.chlorophyte){{
             oreDefault = false;
-			variants = 1;
+			variants = 3;
+
+			emitLight = true;
+            //lightRadius = 70f;
+            //lightColor = Color.acid.cpy().a(0.3f);
         }};
+
+		//this should be underwater. aka wavy. Name ideas, kind of like prismarine almost. Phantomite, Phacite, Prismite, Prismate?
+		oreAquamarine = new OreBlock("ore-aquamarine", DustItems.aquamarine){{
+			oreDefault = false;
+			//attributes.set(Attribute.sand, 0.5f);
+			variants = 3;
+
+			emitLight = true;
+            //lightRadius = 70f;
+            //lightColor = Color.cyan.cpy().a(0.3f);
+		}};
+
+		//end region
+		//region Trees
 
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
-			shadowOffset = -4f;
 		}};
 		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
 			mapColor = Color.valueOf("f3b9c3");
-			shadowOffset = -4f;
 		}};
 		elmTree = new LivingTreeBlock("elm-tree", 1){{
 			mapColor = Color.valueOf("ECB01E");
-			shadowOffset = -4f;
+		}};
+		pineTree = new LivingTreeBlock("pine-tree", 1){{
+			mapColor = Color.valueOf("356a41");
+		}};
+		cheeseTree = new LivingTreeBlock("cheese-tree", 1){{
+			mapColor = Color.valueOf("d7d177");
 		}};
 
 		//dead/static trees (trees with no layers)
@@ -114,6 +161,14 @@ public class DustBlocks {
 		ashTree = new TreeBlock("ash-tree"){{
 			mapColor = Color.valueOf("98a3a8");
 			shadowOffset = -1f;
+		}};
+		deadTree = new TreeBlock("dead-tree"){{
+			mapColor = Color.valueOf("744700");
+			variants = 2;
+		}};
+		mossydeadTree = new TreeBlock("mossydead-tree"){{
+			mapColor = Color.valueOf("744700");
+			variants = 2;
 		}};
 		//maybe i don't need a coconut tree
 		/*coconutTree = new LivingBush("coconut-tree"){{
@@ -127,6 +182,9 @@ public class DustBlocks {
 			solid = true;
 			clipSize = 90f;
 		}};*/
+
+		//end region
+		//region Bushes/Shrubs
 
 		shrub = new LivingBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
@@ -150,6 +208,15 @@ public class DustBlocks {
 			sclMax = 60f;
 		}};
 
+		tallGrass = new LivingBush("tallgrass", 2){{
+			mapColor = Color.valueOf("87d661");
+			lobesMin = 4;
+			lobesMax = 8;
+			magMin = 4;
+			magMax = 9;
+			rot = 0;
+		}};
+		
 		grassyWall = new TreeBlock("grassy-wall"){{
 			variants = 3;
 			mapColor = Color.valueOf("74d660");
@@ -158,24 +225,35 @@ public class DustBlocks {
 
 		//testblock = new StaticWall("mark"){{}};
 
-		cattail = new LivingBush("cattail", 1){{
+		//end region
+		//region Plants
+		//haha nothing yet
+
+		//end region
+		//region Water Plants
+
+		lilypad = new LivingProp("lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
-			lobesMin = 3;
-			lobesMax = 5;
+		}};
+		largelilypad = new LivingProp("large-lily-pad", 3){{
+			mapColor = Color.valueOf("74d660");
+		}};
+
+		//TODO: do i even need a living Bush class
+		cattail = new LivingBush("cattail", 2){{
+			mapColor = Color.valueOf("74d660");
+			lobesMin = 7;
+			lobesMax = 10;
 			magMin = 3;
 			magMax = 7;
 			sclMin = 20f;
 			sclMax = 60f;
 		}};
+		
+		
+		//end region
+		//region Functional Blocks
 
-		lilypad = new LivingProp("lily-pad", 3){{
-			mapColor = Color.valueOf("74d660");
-		}};
-		
-		largelilypad = new LivingProp("large-lily-pad", 3){{
-			mapColor = Color.valueOf("74d660");
-		}};
-		
 		//BLOCKS and core
 		coreNest = new CoreBlock("core-nest"){{
 			requirements(Category.effect, with(Items.copper, 5, Items.lead, 8));
@@ -188,6 +266,31 @@ public class DustBlocks {
 			unitCapModifier = 10;
 			//armor = 5f;
 		}};
+
+		nitroplastChamber = new GenericCrafter("nitroplast-chamber"){{
+            requirements(Category.crafting, with(Items.silicon, 120, Items.graphite, 80, DustItems.aquamarine, 80));
+            size = 3;
+
+			hasLiquids = true;
+            outputLiquid = new LiquidStack(DustLiquids.juice, 10f/ 60f);
+			//ItemStack(Items.oxide, 1);
+            //researchCostMultiplier = 1.1f;
+
+			consumePower(1.5f);
+            consumeLiquid(Liquids.water, 2f / 60f);
+            consumeItem(DustItems.chlorophyte);
+			//powerProduction = 1.7f;
+
+            rotateDraw = false;
+
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidRegion(), new DrawDefault());
+            ambientSound = Sounds.extractLoop;
+            ambientSoundVolume = 0.08f;
+
+            regionRotated1 = 2;
+            craftTime = 60f * 2f;
+            liquidCapacity = 45f;
+        }};
 		//
 		// TILES AND FLOORING
 		//
@@ -197,6 +300,9 @@ public class DustBlocks {
         //    walkSoundVolume = 0.08f;
         //    walkSoundPitchMin = 0.4f;
         //    walkSoundPitchMax = 0.5f;
+
+		//end region
+		//region Flooring
 		
 		taigaGrass = new Floor("taiga-grass"){{
 			variants = 5;
@@ -205,6 +311,8 @@ public class DustBlocks {
 
 		taigaLeaves = new OverlayFloor("taiga-leaves"){{
 			variants = 5;
+			edge = "taiga-leaves";
+			//TODO: needs edge support
 		}};
 		
 		blossomGrass = new Floor("blossom-grass"){{
@@ -230,7 +338,10 @@ public class DustBlocks {
 			attributes.set(Attribute.water, -0.25f);
 		}};
 
-		trophotWater = new Floor("trop-hotrock-water"){{
+		//end region
+		//region Underwater Flooring
+
+		trophotWater = new TileEffect("trop-hotrock-water"){{
 			speedMultiplier = 0.5f;
 			liquidDrop = Liquids.water;
 			isLiquid = true;
@@ -243,7 +354,45 @@ public class DustBlocks {
 			emitLight = true;
             lightRadius = 50f;
             lightColor = Color.orange.cpy().a(0.3f);
+
+			soundEffect = DustSounds.bubblePop;
 		}};
+		
+		tropmagmaWater = new TileEffect("trop-magma-water"){{
+			speedMultiplier = 0.5f;
+            status = StatusEffects.wet;
+            statusDuration = 90f;
+            liquidDrop = Liquids.water;
+            isLiquid = true;
+            cacheLayer = CacheLayer.water;
+            albedo = 0.5f;
+
+            attributes.set(Attribute.heat, 0.35f);
+			emitLight = true;
+			lightRadius = 70f;
+			lightColor = Color.orange.cpy().a(0.3f);
+
+			soundEffect = DustSounds.bubblePop;
+		}};
+
+		deeptrophotWater = new TileEffect("trop-hotrock-deep-water"){{
+			speedMultiplier = 0.5f;
+			status = StatusEffects.wet;
+            statusDuration = 90f;
+            liquidDrop = Liquids.water;
+            isLiquid = true;
+            cacheLayer = CacheLayer.water;
+            albedo = 0.9f;
+
+            attributes.set(Attribute.heat, 0.35f);
+			emitLight = true;
+			lightRadius = 30f;
+			lightColor = Color.orange.cpy().a(0.3f);
+
+			soundEffect = DustSounds.bubblePop;
+		}};
+
+		//trop magma deep water
 
 		hotWater = new TileEffect("hotrock-shallow-water"){{
 			speedMultiplier = 0.5f;
@@ -258,21 +407,8 @@ public class DustBlocks {
 			emitLight = true;
 			lightRadius = 50f;
 			lightColor = Color.orange.cpy().a(0.3f);
-		}};
 
-		tropmagmaWater = new TileEffect("trop-magma-water"){{
-			speedMultiplier = 0.5f;
-            status = StatusEffects.wet;
-            statusDuration = 90f;
-            liquidDrop = Liquids.water;
-            isLiquid = true;
-            cacheLayer = CacheLayer.water;
-            albedo = 0.5f;
-
-            attributes.set(Attribute.heat, 0.35f);
-			emitLight = true;
-			lightRadius = 70f;
-			lightColor = Color.orange.cpy().a(0.3f);
+			soundEffect = DustSounds.bubblePop;
 		}};
 
 		magmaWater = new TileEffect("magma-water"){{
@@ -288,24 +424,11 @@ public class DustBlocks {
 			emitLight = true;
 			lightRadius = 70f;
 			lightColor = Color.orange.cpy().a(0.3f);
+
+			soundEffect = DustSounds.bubblePop;
 		}};
 
-		tropdeephotWater = new TileEffect("trop-hotrock-deep-water"){{
-			speedMultiplier = 0.5f;
-			status = StatusEffects.wet;
-            statusDuration = 90f;
-            liquidDrop = Liquids.water;
-            isLiquid = true;
-            cacheLayer = CacheLayer.water;
-            albedo = 0.9f;
-
-            attributes.set(Attribute.heat, 0.35f);
-			emitLight = true;
-			lightRadius = 30f;
-			lightColor = Color.orange.cpy().a(0.3f);
-		}};
-
-		deeptropicalwater = new Floor("trop-deep-water"){{
+		deeptropicalWater = new Floor("trop-deep-water"){{
 			variants = 0;
 			speedMultiplier = 0.5f;
 			liquidDrop = Liquids.water;
@@ -319,7 +442,7 @@ public class DustBlocks {
 			supportsOverlay = true;
 		}};
 
-		tropicalwater = new Floor("trop-shallow-water"){{
+		tropicalWater = new Floor("trop-shallow-water"){{
 			variants = 0;
 			speedMultiplier = 0.5f;
 			liquidDrop = Liquids.water;
@@ -332,7 +455,9 @@ public class DustBlocks {
 			supportsOverlay = true;
 		}};
 
-		sandytropicalwater = new Floor("trop-sand-water"){{
+		//tropical flooring variants
+
+		sandytropicalWater = new Floor("trop-sand-water"){{
 			speedMultiplier = 0.8f;
 			liquidDrop = Liquids.water;
 			//liquidMultiplier = 1f;
@@ -345,7 +470,7 @@ public class DustBlocks {
 			shallow = true;
 		}};
 
-		dacitetropicalwater = new Floor("trop-dacite-water"){{
+		dacitetropicalWater = new Floor("trop-dacite-water"){{
 			speedMultiplier = 0.8f;
 			liquidDrop = Liquids.water;
 			//liquidMultiplier = 1f;
@@ -358,34 +483,44 @@ public class DustBlocks {
 			shallow = true;
 		}};
 		
-		algaeWater = new Floor("algae-water"){{
+		//misc
+		//TODO: make algae waters spew green aroma/fog
+		algaeWater = new TileEffect("algae-water"){{
+			effectSpacing = 180f;
+			chance = 0.1f;
+			effect = DustyEffects.marshGas;
+
 			speedMultiplier = 0.3f;
 			liquidDrop = Liquids.water;
 			liquidMultiplier = .5f;
-			drownTime = 350f;
 			isLiquid = true;
 			status = StatusEffects.wet;
-			statusDuration = 50f;
+			statusDuration = 90f;
 			cacheLayer = CacheLayer.water;
 			albedo = 0.9f;
 			supportsOverlay = true;
-			shallow = true;
 		}};
 				
-		deepalgaeWater = new Floor("deep-algae-water"){{
+		deepalgaeWater = new TileEffect("deep-algae-water"){{
+			effectSpacing = 180f;
+			chance = 0.1f;
+			effect = DustyEffects.marshGas;
+
 			variants = 0;
 			speedMultiplier = 0.15f;
 			liquidDrop = Liquids.water;
 			liquidMultiplier = .7f;
-			drownTime = 180f;
+			drownTime = 220f;
 			isLiquid = true;
 			status = StatusEffects.wet;
-			statusDuration = 50f;
+			statusDuration = 90f;
 			cacheLayer = CacheLayer.water;
 			albedo = 0.9f;
 			supportsOverlay = true;
 			shallow = true;
 		}};
+
+		//end region
 
 		//flower = new Prop("flower"){{
 		//	breakSound = Sounds.plantBreak;
