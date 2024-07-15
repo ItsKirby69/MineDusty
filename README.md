@@ -28,5 +28,6 @@ Download the jar file manually in the `releases` tab, or just copy the repositor
 - **[Twcash](https://github.com/Twcash/)** - motivation & sprite inspiration
 - **[Lixie](https://github.com/LixieWulf/)** - the reason the project exists
 - **Sh1penfire** - mechanic inspiration and help
+- **MissionaryPoseIsTheBest** - big inspiration for env sprites
 
 **And to you, for playing this mod <3**
