@@ -13,7 +13,7 @@ import mindustry.world.meta.Env;
 import minedusty.maps.planets.GaiaPlanetGenerator;
 
 public class DustPlanets {
-	public static Planet 
+	public static Planet
 	gaia, testd;
 
 	public static void load(){
@@ -39,13 +39,13 @@ public class DustPlanets {
 			parent = Planets.sun;
 			updateLighting = true;
 			defaultEnv = 1;
-			//TODO properly expand this
+			//TODO properly expand this, also ADD more weathers and different configurations //Actually, this might not be the best place to add weathers
 			ruleSetter = r -> {
 				r.waveTeam = Team.green;
-				r.weather.add(new Weather.WeatherEntry(){{
-					weather = Weathers.fog;
-					always = true;
-				}});
+				r.weather.add(
+					new Weather.WeatherEntry(){{ weather = Weathers.fog;}},
+					new Weather.WeatherEntry(){{ weather = DustWeathers.heavyRain;}}
+				);
 			};
 			startSector = 1;
 			iconColor = Color.valueOf("6e8b3d");
@@ -55,7 +55,7 @@ public class DustPlanets {
 			//TODO: Might change this whitelist to seperate technologies
 			hiddenItems.addAll(Items.erekirItems).addAll(Items.serpuloItems).removeAll(DustItems.dustItems);
 			
-			meshLoader = () -> new HexMesh(this,6);
+			meshLoader = () -> new HexMesh(this,6); //TODO: This is big, fix the planet mesh stuff. Maybe use self hex mesh but modify GaiaPlanetGenerator then.
 			/*meshLoader = () -> new MultiMesh(
 				// water
 				new SunMesh(this,5,2,0.5,1.7,2.2,3,1f,

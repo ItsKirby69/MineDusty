@@ -4,19 +4,12 @@ import arc.graphics.*;
 import mindustry.content.*;
 import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
-import mindustry.type.Category;
-import mindustry.type.ItemStack;
-import mindustry.type.LiquidStack;
+import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
-import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.storage.CoreBlock;
-import mindustry.world.draw.DrawDefault;
-import mindustry.world.draw.DrawHeatOutput;
-import mindustry.world.draw.DrawLiquidRegion;
-import mindustry.world.draw.DrawMulti;
-import mindustry.world.draw.DrawRegion;
+import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 import minedusty.world.blocks.environment.*;
 import static mindustry.type.ItemStack.with;
@@ -41,7 +34,7 @@ public class DustBlocks {
 	algaeWater, deepalgaeWater,
 	
 	//dry tiles
-	taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves, 
+	taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves, duneSand,
 
 	//haven't done yet
 	grassyFloor, leafyFloor, leavesLeaves,
@@ -60,16 +53,19 @@ public class DustBlocks {
 	shorestoneBoulder, largeshorestoneBoulder,
 
 	/* Trees */
-	burntTree, aliveTree, ashTree, blossomTree, elmTree, deadTree, mossydeadTree, cheeseTree, pineTree,//tf is cheese tree???
+	burntTree, aliveTree, ashTree, blossomTree, elmTree, deadTree, mossydeadTree, cheeseTree, pineTree, bogTree, //tf is cheese tree???
 	//haven't done yet
-	spruceTree, mysticTree, coconutTree, frozenTree, vineTree, glowberryTree,
+	spruceTree, mysticTree, coconutTree, frozenTree, glowberryTree, testTree,
+
+	/* Other Props */
+	bogRoots,
 
 	/* Vegatation */
-	shrub, sandyshrub,
-	flower, bush, tallGrass, cactus,
+	shrub, sandyshrub, tallGrass, fern, fernBush,
+	flower, bush, cactus, antHill, //TODO: anthill with interesting ant particles maybe??
 
 	//water
-	lilypad, largelilypad, cattail, aloeVera,  //aloeVera counts as water right? hah no TODO: needs to work well with desert biomes
+	lilypad, largelilypad, cattail, aloeVera,  //aloeVera counts as water right? hah no TODO: we need desert biome bushes and props
 	
 	/* Resources (aka ores) */
 	oreChlorophyte, oreAquamarine, oreQuartz;
@@ -139,15 +135,25 @@ public class DustBlocks {
 
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
+			size = 3;
 		}};
 		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
 			mapColor = Color.valueOf("f3b9c3");
+			size = 3;
 		}};
 		elmTree = new LivingTreeBlock("elm-tree", 1){{
 			mapColor = Color.valueOf("ECB01E");
+			size = 3;
 		}};
 		pineTree = new LivingTreeBlock("pine-tree", 1){{
 			mapColor = Color.valueOf("356a41");
+			rotateShadow = false;
+			size = 5;
+		}};
+		bogTree = new LivingTreeBlock("bog-tree", 1){{
+			mapColor = Color.valueOf("667113");
+			size = 3;
+			//mapcolor done TODO more variants. Some needs more revealing leaves (ooo smexy ~)
 		}};
 		cheeseTree = new LivingTreeBlock("cheese-tree", 1){{
 			mapColor = Color.valueOf("d7d177");
@@ -156,19 +162,33 @@ public class DustBlocks {
 		//dead/static trees (trees with no layers)
 		burntTree = new TreeBlock("burnt-tree"){{
 			mapColor = Color.valueOf("172025");
+			buildVisibility = BuildVisibility.sandboxOnly;
 			shadowOffset = -1f;
 		}};
 		ashTree = new TreeBlock("ash-tree"){{
 			mapColor = Color.valueOf("98a3a8");
+			buildVisibility = BuildVisibility.sandboxOnly;
 			shadowOffset = -1f;
 		}};
 		deadTree = new TreeBlock("dead-tree"){{
 			mapColor = Color.valueOf("744700");
+			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 2;
 		}};
 		mossydeadTree = new TreeBlock("mossydead-tree"){{
 			mapColor = Color.valueOf("744700");
+			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 2;
+		}};
+
+		testTree = new TallBlock("tee"){{
+			size = 3;
+			clipSize = 90;
+			destructible = true;
+			solid = true;
+			health = 1020;
+			buildVisibility = BuildVisibility.sandboxOnly;
+			rotationRand = 90f;
 		}};
 		//maybe i don't need a coconut tree
 		/*coconutTree = new LivingBush("coconut-tree"){{
@@ -208,6 +228,7 @@ public class DustBlocks {
 			sclMax = 60f;
 		}};
 
+		//WIP
 		tallGrass = new LivingBush("tallgrass", 2){{
 			mapColor = Color.valueOf("87d661");
 			lobesMin = 4;
@@ -216,11 +237,47 @@ public class DustBlocks {
 			magMax = 9;
 			rot = 0;
 		}};
+
+		//TODO: finalize this (variants, edits, etc)
+		fernBush = new LivingBush("fern-bush", 1){{
+			mapColor = Color.valueOf("356a41");
+			dualCircleMode = true;
+			rot = 0;
+			lobesMin = 3;
+			lobesMax = 3;
+			magMin = 2;
+			magMax = 4;
+		}};
 		
 		grassyWall = new TreeBlock("grassy-wall"){{
 			variants = 3;
 			mapColor = Color.valueOf("74d660");
 			shadowOffset = 0f;
+			buildVisibility = BuildVisibility.sandboxOnly;
+		}};
+
+		//where do i put this //TODO: fix rotations, add proper rotation mech, maybe new class for this?
+		bogRoots = new Block("bog-roots"){{
+			variants = 3;
+			rotate = true;
+			update = true;
+			mapColor = Color.valueOf("667113");
+			buildVisibility = BuildVisibility.sandboxOnly;
+			destructible = true;
+			targetable = false;
+			hasShadow = true;
+			customShadow = true;
+			underBullets = true;
+
+			breakSound = Sounds.plantBreak;
+			breakEffect = Fx.breakProp;
+			instantDeconstruct = true;			
+		}};
+
+		//TODO: Remove this, not needed anymore cuz FernBush
+		fern = new LivingProp("fern", 2){{
+			mapColor = Color.valueOf("356a41");
+			destructible = true;
 		}};
 
 		//testblock = new StaticWall("mark"){{}};
@@ -239,7 +296,7 @@ public class DustBlocks {
 			mapColor = Color.valueOf("74d660");
 		}};
 
-		//TODO: do i even need a living Bush class
+		//Q: do i even need a living Bush class A:Yes I do, SeaBush doesn't support variants
 		cattail = new LivingBush("cattail", 2){{
 			mapColor = Color.valueOf("74d660");
 			lobesMin = 7;
@@ -309,9 +366,9 @@ public class DustBlocks {
 			attributes.set(Attribute.water, 0.1f);
 		}};
 
-		taigaLeaves = new OverlayFloor("taiga-leaves"){{
+		taigaLeaves = new OverlayFloorEdged("taiga-leaves"){{
 			variants = 5;
-			edge = "taiga-leaves";
+			//edge = "taiga-leaves";
 			//TODO: needs edge support
 		}};
 		
@@ -336,6 +393,13 @@ public class DustBlocks {
 		basaltFloor = new Floor("basalt-floor"){{
 			variants = 5;
 			attributes.set(Attribute.water, -0.25f);
+		}};
+
+		duneSand = new Floor("dune-sand"){{
+			itemDrop = Items.sand;
+			playerUnmineable = true;
+            attributes.set(Attribute.oil, 0.7f);
+			variants = 3;
 		}};
 
 		//end region
@@ -484,10 +548,9 @@ public class DustBlocks {
 		}};
 		
 		//misc
-		//TODO: make algae waters spew green aroma/fog
 		algaeWater = new TileEffect("algae-water"){{
 			effectSpacing = 180f;
-			chance = 0.1f;
+			chance = 0.02f;
 			effect = DustyEffects.marshGas;
 
 			speedMultiplier = 0.3f;
@@ -503,7 +566,7 @@ public class DustBlocks {
 				
 		deepalgaeWater = new TileEffect("deep-algae-water"){{
 			effectSpacing = 180f;
-			chance = 0.1f;
+			chance = 0.03f;
 			effect = DustyEffects.marshGas;
 
 			variants = 0;

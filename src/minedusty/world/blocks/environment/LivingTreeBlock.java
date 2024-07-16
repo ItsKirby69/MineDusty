@@ -4,33 +4,37 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
+import mindustry.content.Fx;
+import mindustry.entities.Effect;
 import mindustry.graphics.*;
 import mindustry.world.*;
-import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.BuildVisibility;
 
 import static arc.Core.*;
-//TODO: does it need to extend treeblock?
-public class LivingTreeBlock extends Block{
 
+public class LivingTreeBlock extends Block{
 	public TextureRegion[] topRegions, centerRegions, backRegions, shadowRegions;
-	
-	public float layer = Layer.power;
 	public float shadowOffset = -4f;
+	public float layer = Layer.power;
+	//TODO: ShadowAlpha and more
+	/** Rotates tree shadow or not. Useful for tall trees with elongated shadows. Ex: Pine trees*/
+	public boolean rotateShadow = true;
 
 	public LivingTreeBlock(String name){
-		
 		this(name, 3);
 	}
-
+	
     public LivingTreeBlock(String name, int variants){
         super(name);
 		this.variants = variants;
-		hasShadow = true;
         customShadow = true;
 		solid = true;
-		clipSize = 90f;
+		clipSize = 120;
+		update = true;
 		buildVisibility = BuildVisibility.sandboxOnly;
+		destructible = false;
+		drawTeamOverlay = false;
+		targetable = false;
     }
 
 	@Override
@@ -63,53 +67,59 @@ public class LivingTreeBlock extends Block{
 		region = variantRegions[0];
 	}
 
+	@Override
+	public void init() {
+		super.init();
+		hasShadow = true;
+	}
+
 	static Rand rand = new Rand();
 
 	@Override
 	public void drawBase(Tile tile) {
-		rand.setSeed(tile.pos());
-		int sprite = variant(tile.x, tile.y);
 
-		float x = tile.worldx(), 
-		y = tile.worldy(),
+		rand.setSeed(tile.pos());
+
+		float x = tile.worldx(), y = tile.worldy(),
 		rot = Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f),
-		w = region.width * region.scl(),
-		h = region.height * region.scl(),
+		w = region.width * region.scl(), h = region.height * region.scl(),
         scl = 30f, mag = 0.2f;
 		
 		// Draws main stem/log of tree
-		Draw.z(layer + 3);
-		Draw.rectv(variantRegions[sprite], x, y, w, h, rot, vec -> vec.add(
+		Draw.alpha(1);
+		Draw.z(layer + 2);
+		Draw.rectv(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 			Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
 			Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
 			));
 		
-		//shadow
-		if (shadowRegions[sprite].found()) {
-			Draw.z(layer + 1);
-			Draw.rect(shadowRegions[sprite], x + shadowOffset, y + shadowOffset, rot);
+		//shadow TODO: i think they should be moving as well...
+		if (shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))].found()) { 
+			Draw.z(layer);
+			if (rotateShadow == true){
+				Draw.rect(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], x + shadowOffset, y + shadowOffset, rot);
+			} else {
+				Draw.rect(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], x + shadowOffset, y + shadowOffset);
+			}
 		}
-		//top leaves
-		if (topRegions[sprite].found()) {
-			Draw.z(layer + 5);
-			Draw.rect(topRegions[sprite], x, y, rot);
+		
+		//top leaves TODO: same with these top leaves
+		if (topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()) {
+			Draw.z(layer + 4);
+			Draw.rect(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y, rot);
 		}
 		//center leaves
-		if (centerRegions[sprite].found()) {
-			Draw.z(layer + 4);
-			Draw.rectv(centerRegions[sprite], x, y, w, h, rot, vec -> vec.add(
+		if (centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()) {
+			Draw.z(layer + 3);
+			Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
 		//them back regions 🗣🗣🗣
-		if (backRegions[sprite].found()) {
-			Draw.z(layer + 2);
-			Draw.rect(backRegions[sprite], x, y, rot);
+		if (backRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, backRegions.length - 1))].found()) {
+			Draw.z(layer + 1);
+			Draw.rect(backRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, backRegions.length - 1))], x, y, rot);
 		}}
-	}
-
-	public int variant(int x, int y){
-		return Mathf.randomSeed(Point2.pack(x, y), 0, Math.max(0, variantRegions.length - 1));
 	}
 
     @Override

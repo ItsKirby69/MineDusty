@@ -28,7 +28,6 @@ public class TileEffect extends Floor{
 
 	//public int tilesize = 8;
 	
-	//TODO: compare with steamvent to get effects
 	public TileEffect(String name){
 		super(name);
 		variants = 3;

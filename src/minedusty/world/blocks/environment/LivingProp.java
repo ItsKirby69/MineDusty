@@ -17,6 +17,8 @@ public class LivingProp extends Block{
 	public TextureRegion region;
 
 	public float layer = Layer.blockProp;
+	/** Don't use this*/
+	float rot;
 	
 	public LivingProp(String name){
 		this(name, 3);
@@ -37,6 +39,8 @@ public class LivingProp extends Block{
 		solid = false;
 		update = false;
 		underBullets = true;
+
+		drawTeamOverlay = false;
 	}
 
 	@Override
@@ -67,6 +71,12 @@ public class LivingProp extends Block{
 	
 	static Rand rand = new Rand();
 
+	/*if (rotate == false){
+		rot = Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f);
+	} else {
+		rot = plan.rotation * 90;
+	}*/
+
 	@Override
 	public void drawBase(Tile tile){
 		rand.setSeed(tile.pos());
@@ -78,8 +88,9 @@ public class LivingProp extends Block{
 		rot = Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f),
 		scl = 30f, mag = 0.2f; //Mathf.randomSeed(tile.pos(), 0, 4)
 
+
 		//main sprite
-		Draw.z(layer + 2);
+		Draw.z(layer + 1);
 		Draw.rectv(variantRegions[sprite], x, y, w, h, rot, vec -> vec.add(
 			Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
 			Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
@@ -87,14 +98,21 @@ public class LivingProp extends Block{
 		
 		//shadow sprite | if they have one (which they should)
 		if(shadowRegions[sprite].found()){
-			Draw.z(layer + 1);
+			Draw.z(layer);
 			Draw.rectv(shadowRegions[sprite], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
 				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
 				));
 		}
 
-		//center sprite TODO: didn't really think about what plants use this
+		//center sprite //ferns use this
+		if(centerRegions[sprite].found()){
+			Draw.z(layer + 2);
+			Draw.rectv(centerRegions[sprite], x, y, w, h, rot, vec -> vec.add(
+				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
+				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
+				));
+		}
 
 		//top sprite | if they have one //Should I make them move funny?
 		if(topRegions[sprite].found()){

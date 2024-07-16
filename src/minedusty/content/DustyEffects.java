@@ -5,12 +5,8 @@ import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.math.Rand;
 import arc.math.geom.Vec2;
-import arc.util.Tmp;
-import mindustry.content.Liquids;
-import mindustry.entities.Effect;
-import mindustry.entities.effect.ParticleEffect;
-import mindustry.graphics.Layer;
-import mindustry.graphics.Pal;
+import mindustry.entities.*;
+import mindustry.graphics.*;
 
 import static arc.graphics.g2d.Draw.*;
 import static arc.math.Angles.*;
@@ -35,10 +31,10 @@ public class DustyEffects {
 
 		marshGas = new Effect(220f, e -> {
 			color(e.color, Color.valueOf("346524"), e.fin());
-			alpha(e.fslope()* 0.7f);
+			alpha(e.fslope()* 0.4f);
 	
 			randLenVectors(e.id, 3, 2f + e.finpow() * 20f, (x, y) -> {
-				Fill.circle(e.x + x, e.y + y, 16f + e.fin() * 3f);
+				Fill.circle(e.x + x, e.y + y, 16f + e.fin() * 9f);
 			});
 		});
 }

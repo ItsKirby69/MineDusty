@@ -2,8 +2,7 @@ package minedusty.maps.planets;
 
 import mindustry.content.Blocks;
 import mindustry.game.Schematics;
-import mindustry.maps.planet.ErekirPlanetGenerator;
-import mindustry.maps.planet.SerpuloPlanetGenerator;
+import mindustry.maps.planet.*;
 import mindustry.world.*;
 import minedusty.content.DustBlocks;
 

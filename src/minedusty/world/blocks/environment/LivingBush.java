@@ -11,13 +11,16 @@ import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.BuildVisibility;
 
 import static arc.Core.*;
-//TODO: does it need to extend seabush?
+//Q: does it need to extend seabush? A: Nope...
 public class LivingBush extends Prop{
 	public TextureRegion region;
 	public TextureRegion[] bottomRegions, centerRegions, shadowRegions;
 
 	public float layer = Layer.blockProp;
+	/** Determines if center region rotates or not. not actually sure if it works or not lol*/
 	public float rot;
+	/** Whether block uses single circle like seabushes or dual like ferns */
+	public boolean dualCircleMode = false;
 
 	public LivingBush(String name){
 		this(name, 2);
@@ -28,6 +31,8 @@ public class LivingBush extends Prop{
 		hasShadow = true;
 		breakSound = Sounds.plantBreak;
 		buildVisibility = BuildVisibility.sandboxOnly;
+		drawTeamOverlay = false;
+		targetable = false;
     }
 
 	@Override
@@ -61,6 +66,7 @@ public class LivingBush extends Prop{
     public float sclMin = 30f, sclMax = 50f, magMin = 5f, magMax = 15f, timeRange = 40f, spread = 0f;
     static Rand rand = new Rand();
 
+
     @Override
     public void drawBase(Tile tile){
 		rand.setSeed(tile.pos());
@@ -72,11 +78,64 @@ public class LivingBush extends Prop{
 		y = tile.worldy(),
 		w = region.width * region.scl(),
 		h = region.height * region.scl(),
-		rot = Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f),
+		//rot = Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f),
 		scl = 30f, mag = 0.2f;
 
+		float finalRot = rot != 0 ? rot : Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f);
+
+		if (dualCircleMode) {
+            // Dual circle mode: Draw bottom sprite
+            for (int i = 0; i < lobes; i++) {
+                float ba = i / (float)lobes * 360f + offset + rand.range(spread),
+				angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
+                Draw.z(layer + 1);
+                Draw.rect(bottomRegions[sprite],
+					tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
+					tile.worldy() - Angles.trnsy(angle, origin),
+                        w, h,
+                        origin*4f, h/2f,
+                        angle
+                );
+            }
+            // Dual circle mode: Draw main sprite
+            for (int i = 0; i < lobes; i++) {
+				float ba = (i + 0.5f) / (float)lobes * 360f + offset + rand.range(spread),
+                angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
+                Draw.z(layer + 2);
+                Draw.rect(variantRegions[sprite],
+					tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
+					tile.worldy() - Angles.trnsy(angle, origin),
+                        w, h,
+                        origin*4f, h/2f,
+                        angle
+                );
+            }
+        } else {
+            // Single circle mode
+            for (int i = 0; i < lobes; i++) {
+                float ba = i / (float) lobes * 360f + offset + rand.range(spread), 
+                      angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), 
+                                            rand.random(sclMin, sclMax), 
+                                            rand.random(magMin, magMax));
+                w = region.width * region.scl(); 
+                h = region.height * region.scl();
+                
+                Draw.z(layer + 2);
+                Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : variantRegions[sprite],
+                    tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
+                    tile.worldy() - Angles.trnsy(angle, origin),
+                    w, h,
+                    origin*4f, h/2f,
+                    angle
+                );
+            }
+        }
+
+		// original
+		/*
         for(int i = 0; i < lobes; i++){
-            float ba =  i / (float)lobes * 360f + offset + rand.range(spread), angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
+            float ba =  i / (float)lobes * 360f + offset + rand.range(spread), 
+			angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
             w = region.width * region.scl(); 
 			h = region.height * region.scl();
             //var region = Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : variantRegions[sprite];
@@ -88,12 +147,12 @@ public class LivingBush extends Prop{
                 origin*4f, h/2f,
                 angle
             );
-        }
+        }*/
 		
-        if(centerRegions[sprite].found()){ //TODO: make them wavy but more/less than trees? Code below copied from LivingTreeBlock class
+        if(centerRegions[sprite].found()){ 
 			Draw.z(layer + 3);
             //Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
-			Draw.rectv(centerRegions[sprite], x, y, w, h, rot, vec -> vec.add(
+			Draw.rectv(centerRegions[sprite], x, y, w, h, finalRot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 50, 0.6f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 40, 0.1f)
 				));
