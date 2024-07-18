@@ -66,8 +66,8 @@ public class DustBlocks {
 	bogRoots,
 
 	/* Vegatation */
-	shrub, sandyshrub, tallGrass, fernBush,
-	flower, bush, cactus, antHill, //TODO: anthill with interesting ant particles maybe??
+	shrub, sandyshrub, tallGrass, fernBush, flower,
+	bush, cactus, antHill, //TODO: anthill with interesting ant particles maybe??
 
 	//water
 	lilypad, largelilypad, cattail, aloeVera,  //aloeVera counts as water right? hah no TODO: we need desert biome bushes and props
@@ -283,7 +283,16 @@ public class DustBlocks {
 
 		//end region
 		//region Plants
-		//haha nothing yet
+		
+		/*flower = new LivingBush("flower", 1){{
+			mapColor = Color.valueOf("87d661");
+			dualCircleMode = true;
+			lobesMin = 4;
+			lobesMax = 5;
+			magMin = 4;
+			magMax = 9;
+			rot = 0;
+		}}; */
 
 		//end region
 		//region Water Plants
@@ -293,7 +302,6 @@ public class DustBlocks {
 		}};
 		largelilypad = new LivingProp("large-lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
-			//size = 3;
 		}};
 
 		//Q: do i even need a living Bush class A:Yes I do, SeaBush doesn't support variants
@@ -563,7 +571,6 @@ public class DustBlocks {
 			cacheLayer = CacheLayer.water;
 			isLiquid = true;
 			liquidDrop = Liquids.water;
-			variants = 0;
 		}};
 
 		dacitetropicalWater = new Floor("trop-dacite-water"){{
@@ -576,7 +583,6 @@ public class DustBlocks {
 			cacheLayer = CacheLayer.water;
 			isLiquid = true;
 			liquidDrop = Liquids.water;
-			variants = 0;
 		}};
 
 		basalttropicalWater = new Floor("trop-basalt-water"){{
@@ -607,13 +613,6 @@ public class DustBlocks {
 			liquidDrop = Liquids.water;
 			variants = 0;
         }};
-		
-		//((ShallowLiquid)sanddeepWater).set(Blocks.water, Blocks.sand);
-		//((ShallowLiquid)oilsandWater).set(DustBlocks.oilWater, Blocks.sand);
-        //((ShallowLiquid)sandytropicalWater).set(DustBlocks.tropicalWater, Blocks.sand);
-		//((ShallowLiquid)dacitetropicalWater).set(DustBlocks.tropicalWater, Blocks.dacite);
-		//((ShallowLiquid)basalttropicalWater).set(DustBlocks.tropicalWater, DustBlocks.basaltFloor);
-		
 
 		//misc
 		algaeWater = new TileEffect("algae-water"){{
@@ -648,7 +647,6 @@ public class DustBlocks {
 			cacheLayer = CacheLayer.water;
 			albedo = 0.9f;
 			supportsOverlay = true;
-			shallow = true;
 		}};
 
 		//end region

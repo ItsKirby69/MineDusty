@@ -18,7 +18,7 @@ public class LivingBush extends Prop{
 
 	public float layer = Layer.blockProp;
 	/** Determines if center region rotates or not. not actually sure if it works or not lol*/
-	public float rot;
+	public float rot = 0;
 	/** Whether block uses single circle like seabushes or dual like ferns */
 	public boolean dualCircleMode = false;
 
@@ -151,7 +151,7 @@ public class LivingBush extends Prop{
         if(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()){ 
 			Draw.z(layer + 3);
             //Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
-			Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, finalRot, vec -> vec.add(
+			Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 50, 0.6f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 40, 0.1f)
 				));
