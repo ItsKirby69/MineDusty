@@ -5,7 +5,7 @@ import arc.math.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.Floor;
 
-/**A type of floor that is overlaid on top of other floors. ADDED EDGE SUPPORT*/
+/**A type of floor that is overlaid on top of other floors. ADDED EDGE SUPPORT (doesn't seem to work lmfao)*/
 public class OverlayFloorEdged extends Floor{
 
     public OverlayFloorEdged(String name){

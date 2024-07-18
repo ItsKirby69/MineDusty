@@ -26,12 +26,17 @@ public class DustBlocks {
 	//liquid tiles
 	tropicalWater, deeptropicalWater,
 	trophotWater, deeptrophotWater,
-	tropmagmaWater, deeptropmagmaWater,
+	tropmagmaWater,
 	hotWater, magmaWater,
-	sandytropicalWater, dacitetropicalWater, basalttropicalWater, shorestonetropicalWater, soapstonetropicalWater,
-	basaltWater, shorestoneWater, soapstoneWater, //TODO: create water variants of these 
-	
+	sandytropicalWater, dacitetropicalWater, basalttropicalWater,
 	algaeWater, deepalgaeWater,
+
+	//not trop
+	sanddeepWater, oilsandWater, oilWater,
+
+	//haven't done
+	shorestonetropicalWater, soapstonetropicalWater, deeptropmagmaWater, oildeepsandWater,
+	basaltWater, shorestoneWater, soapstoneWater, //TODO: create water variants of these 
 	
 	//dry tiles
 	taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves, duneSand,
@@ -61,7 +66,7 @@ public class DustBlocks {
 	bogRoots,
 
 	/* Vegatation */
-	shrub, sandyshrub, tallGrass, fern, fernBush,
+	shrub, sandyshrub, tallGrass, fernBush,
 	flower, bush, cactus, antHill, //TODO: anthill with interesting ant particles maybe??
 
 	//water
@@ -239,7 +244,7 @@ public class DustBlocks {
 		}};
 
 		//TODO: finalize this (variants, edits, etc)
-		fernBush = new LivingBush("fern-bush", 1){{
+		fernBush = new LivingBush("fern-bush", 2){{
 			mapColor = Color.valueOf("356a41");
 			dualCircleMode = true;
 			rot = 0;
@@ -274,12 +279,6 @@ public class DustBlocks {
 			instantDeconstruct = true;			
 		}};
 
-		//TODO: Remove this, not needed anymore cuz FernBush
-		fern = new LivingProp("fern", 2){{
-			mapColor = Color.valueOf("356a41");
-			destructible = true;
-		}};
-
 		//testblock = new StaticWall("mark"){{}};
 
 		//end region
@@ -294,6 +293,7 @@ public class DustBlocks {
 		}};
 		largelilypad = new LivingProp("large-lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
+			//size = 3;
 		}};
 
 		//Q: do i even need a living Bush class A:Yes I do, SeaBush doesn't support variants
@@ -394,7 +394,7 @@ public class DustBlocks {
 			variants = 5;
 			attributes.set(Attribute.water, -0.25f);
 		}};
-
+		
 		duneSand = new Floor("dune-sand"){{
 			itemDrop = Items.sand;
 			playerUnmineable = true;
@@ -404,6 +404,38 @@ public class DustBlocks {
 
 		//end region
 		//region Underwater Flooring
+
+		//TODO: oilWater proper VEffects
+		oilWater = new TileEffect("oil-water"){{
+			variants = 0;
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.oil;
+			liquidMultiplier = 0.8f;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 90f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+
+			soundEffect = DustSounds.bubblePop;
+			effect = Fx.ventSteam;
+			effectColor = Color.valueOf("111316");
+		}};
+
+		oilsandWater = new TileEffect("oil-sand-water"){{
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.oil;
+			liquidMultiplier = 0.8f;
+			statusDuration = 90f;
+			albedo = 0.9f;
+
+			status = StatusEffects.wet;
+			cacheLayer = CacheLayer.water;
+			isLiquid = true;
+			variants = 0;
+			effect = Fx.ventSteam;
+			effectColor = Color.valueOf("111316");
+		}};
 
 		trophotWater = new TileEffect("trop-hotrock-water"){{
 			speedMultiplier = 0.5f;
@@ -519,34 +551,70 @@ public class DustBlocks {
 			supportsOverlay = true;
 		}};
 
-		//tropical flooring variants
+		//tropical flooring variants //TODO: Variants for these below
 
 		sandytropicalWater = new Floor("trop-sand-water"){{
 			speedMultiplier = 0.8f;
-			liquidDrop = Liquids.water;
-			//liquidMultiplier = 1f;
-			isLiquid = true;
-			status = StatusEffects.wet;
 			statusDuration = 50f;
-			cacheLayer = CacheLayer.water;
 			albedo = 0.9f;
 			supportsOverlay = true;
-			shallow = true;
+
+			status = StatusEffects.wet;
+			cacheLayer = CacheLayer.water;
+			isLiquid = true;
+			liquidDrop = Liquids.water;
+			variants = 0;
 		}};
 
 		dacitetropicalWater = new Floor("trop-dacite-water"){{
 			speedMultiplier = 0.8f;
-			liquidDrop = Liquids.water;
-			//liquidMultiplier = 1f;
-			isLiquid = true;
-			status = StatusEffects.wet;
 			statusDuration = 50f;
-			cacheLayer = CacheLayer.water;
 			albedo = 0.9f;
 			supportsOverlay = true;
-			shallow = true;
+
+			status = StatusEffects.wet;
+			cacheLayer = CacheLayer.water;
+			isLiquid = true;
+			liquidDrop = Liquids.water;
+			variants = 0;
 		}};
+
+		basalttropicalWater = new Floor("trop-basalt-water"){{
+			speedMultiplier = 0.8f;
+			statusDuration = 50f;
+			albedo = 0.9f;
+			supportsOverlay = true;
+
+			status = StatusEffects.wet;
+			cacheLayer = CacheLayer.water;
+			isLiquid = true;
+			liquidDrop = Liquids.water;
+			variants = 0;
+		}};
+
+		//misc
+		sanddeepWater = new Floor("sand-deep-water"){{
+            speedMultiplier = 0.3f;
+            statusDuration = 100f;
+            albedo = 0.9f;
+            supportsOverlay = true;
+
+			liquidMultiplier = 1.5f;
+			drownTime = 200f;
+			status = StatusEffects.wet;
+			cacheLayer = CacheLayer.water;
+			isLiquid = true;
+			liquidDrop = Liquids.water;
+			variants = 0;
+        }};
 		
+		//((ShallowLiquid)sanddeepWater).set(Blocks.water, Blocks.sand);
+		//((ShallowLiquid)oilsandWater).set(DustBlocks.oilWater, Blocks.sand);
+        //((ShallowLiquid)sandytropicalWater).set(DustBlocks.tropicalWater, Blocks.sand);
+		//((ShallowLiquid)dacitetropicalWater).set(DustBlocks.tropicalWater, Blocks.dacite);
+		//((ShallowLiquid)basalttropicalWater).set(DustBlocks.tropicalWater, DustBlocks.basaltFloor);
+		
+
 		//misc
 		algaeWater = new TileEffect("algae-water"){{
 			effectSpacing = 180f;

@@ -38,6 +38,7 @@ public class LivingProp extends Block{
 		alwaysReplace = true;
 		solid = false;
 		update = false;
+		clipSize = 90;
 		underBullets = true;
 
 		drawTeamOverlay = false;
@@ -80,7 +81,6 @@ public class LivingProp extends Block{
 	@Override
 	public void drawBase(Tile tile){
 		rand.setSeed(tile.pos());
-		int sprite = variant(tile.x, tile.y);
 		
 		float x = tile.worldx(), y = tile.worldy(),
 		w = region.width * region.scl(),
@@ -91,37 +91,33 @@ public class LivingProp extends Block{
 
 		//main sprite
 		Draw.z(layer + 1);
-		Draw.rectv(variantRegions[sprite], x, y, w, h, rot, vec -> vec.add(
+		Draw.rectv(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 			Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
 			Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
 			));
 		
 		//shadow sprite | if they have one (which they should)
-		if(shadowRegions[sprite].found()){
+		if(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))].found()){
 			Draw.z(layer);
-			Draw.rectv(shadowRegions[sprite], x, y, w, h, rot, vec -> vec.add(
+			Draw.rectv(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
 				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
 				));
 		}
 
-		//center sprite //ferns use this
-		if(centerRegions[sprite].found()){
+		//center sprite //not anymore
+		if(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()){
 			Draw.z(layer + 2);
-			Draw.rectv(centerRegions[sprite], x, y, w, h, rot, vec -> vec.add(
+			Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
 		}
 
 		//top sprite | if they have one //Should I make them move funny?
-		if(topRegions[sprite].found()){
+		if(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()){
 			Draw.z(layer + 3);
-			Draw.rect(topRegions[sprite], x, y);
+			Draw.rect(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y);
 		}
-	}
-
-	public int variant(int x, int y){
-		return Mathf.randomSeed(Point2.pack(x, y), 0, Math.max(0, variantRegions.length - 1));
 	}
 }

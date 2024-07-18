@@ -4,8 +4,6 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
-import mindustry.content.Fx;
-import mindustry.entities.Effect;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.BuildVisibility;
@@ -16,7 +14,8 @@ public class LivingTreeBlock extends Block{
 	public TextureRegion[] topRegions, centerRegions, backRegions, shadowRegions;
 	public float shadowOffset = -4f;
 	public float layer = Layer.power;
-	//TODO: ShadowAlpha and more
+	//TODO: ShadowAlpha
+	//TODO: Make not destructible
 	/** Rotates tree shadow or not. Useful for tall trees with elongated shadows. Ex: Pine trees*/
 	public boolean rotateShadow = true;
 
