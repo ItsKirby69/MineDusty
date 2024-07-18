@@ -31,6 +31,7 @@ Download the jar file manually in the `releases` tab, or just copy the repositor
 - **thomas_has_things** - unit sprite inspiration. He's crazy with units.
 - **MissionaryPoseIsTheBest** - env sprite inspiration.
 - **Sunny (Sk)** - creator of BetaMindy and big early inspiration.
+- **sl0tterleet** - big help and very knowledgeable.
 - **Anuken** - for the base game.
 
 **And to you, for playing this mod <3**
