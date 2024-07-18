@@ -2,7 +2,7 @@
 
 [![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?color=7289da&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=7289da&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
 [![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=7289da&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
-[![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=⭐%20Star%20MineDusty!&color=7289da)](https://github.com/ItsKirby69/MineDusty)
+[![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=⭐%20Stars&color=7289da)](https://github.com/ItsKirby69/MineDusty)
 
 ***Sandbox only (for now)***
 # MineDusty
