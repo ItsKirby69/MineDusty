@@ -369,9 +369,11 @@ public class DustBlocks {
 		//end region
 		//region Blocks
 
-		//shorestoneWall = new StaticWall("shorestone-wall"){{}};
-		//basaltWall = new StaticWall("basalt-wall"){{}};
-		//coralWall = new StaticTree("red-coral-wall"){{}}; //TODO needs shadow
+		shorestoneWall = new StaticWall("shorestone-wall"){{}};
+		basaltWall = new StaticWall("basalt-wall"){{}};
+		coralWall = new StaticTree("red-coral-wall"){{
+			clipSize = 90f;
+		}}; //TODO needs shadow
 
 		//end region
 		//region Flooring
@@ -414,7 +416,7 @@ public class DustBlocks {
 			itemDrop = Items.sand;
 			playerUnmineable = true;
             attributes.set(Attribute.oil, 0.7f);
-			variants = 3;
+			variants = 1;
 		}};
 
 		//end region
