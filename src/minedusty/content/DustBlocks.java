@@ -370,7 +370,8 @@ public class DustBlocks {
 		//region Blocks
 
 		shorestoneWall = new StaticWall("shorestone-wall"){{}};
-		basaltWall = new StaticWall("shorestone-wall"){{}};
+		basaltWall = new StaticWall("basalt-wall"){{}};
+		//coralWall = new StaticWall("red-coral-wall"){{}};
 
 		//end region
 		//region Flooring
