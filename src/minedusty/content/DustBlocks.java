@@ -48,7 +48,7 @@ public class DustBlocks {
 
 	/* Blocks */
 
-	coreNest, grassyWall, quartzSmelter,
+	coreNest, grassyWall, quartzSmelter, shorestoneWall, basaltWall, coralWall,
 	//cool idea(s) // haven't made yet
 	oxidizedcopperWall, grassyVent, rockyVent, nitroplastChamber, somethingReactor,
 	
@@ -365,6 +365,12 @@ public class DustBlocks {
         //    walkSoundVolume = 0.08f;
         //    walkSoundPitchMin = 0.4f;
         //    walkSoundPitchMax = 0.5f;
+
+		//end region
+		//region Blocks
+
+		shorestoneWall = new StaticWall("shorestone-wall"){{}};
+		basaltWall = new StaticWall("shorestone-wall"){{}};
 
 		//end region
 		//region Flooring
