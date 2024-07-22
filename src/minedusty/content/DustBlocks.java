@@ -39,12 +39,12 @@ public class DustBlocks {
 	basaltWater, shorestoneWater, soapstoneWater, //TODO: create water variants of these 
 	
 	//dry tiles
-	taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves, duneSand,
+	taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves, duneSand, basaltFloor, shoreRock,
 
 	//haven't done yet
 	grassyFloor, leafyFloor, leavesLeaves,
 
-	basaltFloor, shoreRock, soapstoneFloor,
+	soapstoneFloor,
 
 	/* Blocks */
 
@@ -120,19 +120,18 @@ public class DustBlocks {
 			variants = 3;
 
 			emitLight = true;
-            //lightRadius = 70f;
-            //lightColor = Color.acid.cpy().a(0.3f);
+            lightRadius = 70f;
+            lightColor = Color.acid.cpy().a(0.3f);
         }};
 
-		//this should be underwater. aka wavy. Name ideas, kind of like prismarine almost. Phantomite, Phacite, Prismite, Prismate?
+		//TODO: glow color work
 		oreAquamarine = new OreBlock("ore-aquamarine", DustItems.aquamarine){{
 			oreDefault = false;
-			//attributes.set(Attribute.sand, 0.5f);
 			variants = 3;
 
 			emitLight = true;
-            //lightRadius = 70f;
-            //lightColor = Color.cyan.cpy().a(0.3f);
+            lightRadius = 70f;
+            lightColor = Color.cyan.cpy().a(0.3f);
 		}};
 
 		//end region
@@ -186,15 +185,6 @@ public class DustBlocks {
 			variants = 2;
 		}};
 
-		testTree = new TallBlock("tee"){{
-			size = 3;
-			clipSize = 90;
-			destructible = true;
-			solid = true;
-			health = 1020;
-			buildVisibility = BuildVisibility.sandboxOnly;
-			rotationRand = 90f;
-		}};
 		//maybe i don't need a coconut tree
 		/*coconutTree = new LivingBush("coconut-tree"){{
 			mapColor = Color.valueOf("000000");
@@ -372,7 +362,7 @@ public class DustBlocks {
 		shorestoneWall = new StaticWall("shorestone-wall"){{}};
 		basaltWall = new StaticWall("basalt-wall"){{}};
 		coralWall = new StaticTree("red-coral-wall"){{
-			clipSize = 90f;
+			clipSize = 120f;
 		}}; //TODO needs shadow
 
 		//end region
@@ -381,6 +371,7 @@ public class DustBlocks {
 		taigaGrass = new Floor("taiga-grass"){{
 			variants = 5;
 			attributes.set(Attribute.water, 0.1f);
+			decoration = fernBush;
 		}};
 
 		taigaLeaves = new OverlayFloorEdged("taiga-leaves"){{
@@ -405,11 +396,16 @@ public class DustBlocks {
 			variants = 3;
 		}};
 
-		shoreRock = new Floor("shorestone"){{}};
+		shoreRock = new Floor("shorestone"){{
+			variants = 3;
+			attributes.set(Attribute.water, 0.25f);
+			decoration = shorestoneBoulder;
+		}};
 
 		basaltFloor = new Floor("basalt-floor"){{
 			variants = 5;
 			attributes.set(Attribute.water, -0.25f);
+			decoration = basaltPillar;
 		}};
 		
 		duneSand = new Floor("dune-sand"){{
@@ -422,9 +418,21 @@ public class DustBlocks {
 		//end region
 		//region Underwater Flooring
 
-		//TODO: oilWater proper VEffects
+		//TODO: oilWater proper VEffects & does any of the tiles even need supportsOverlay??
+		basaltWater = new Floor("basalt-water"){{
+			variants = 3;
+			speedMultiplier = 0.8f;
+			statusDuration =50f;
+			albedo = 0.9f;
+			supportsOverlay = true;
+			status = StatusEffects.wet;
+			liquidDrop = Liquids.water;
+			isLiquid = true;
+			cacheLayer = CacheLayer.water;
+		}};
+
 		oilWater = new TileEffect("oil-water"){{
-			variants = 0;
+			variants = 3;
 			speedMultiplier = 0.5f;
 			liquidDrop = Liquids.oil;
 			liquidMultiplier = 0.8f;
@@ -449,7 +457,7 @@ public class DustBlocks {
 			status = StatusEffects.wet;
 			cacheLayer = CacheLayer.water;
 			isLiquid = true;
-			variants = 0;
+			variants = 3;
 			effect = Fx.ventSteam;
 			effectColor = Color.valueOf("111316");
 		}};
@@ -540,7 +548,6 @@ public class DustBlocks {
 
 			soundEffect = DustSounds.bubblePop;
 		}};
-
 		deeptropicalWater = new Floor("trop-deep-water"){{
 			variants = 0;
 			speedMultiplier = 0.5f;
@@ -568,7 +575,7 @@ public class DustBlocks {
 			supportsOverlay = true;
 		}};
 
-		//tropical flooring variants //TODO: Variants for these below
+		//tropical flooring variants
 
 		sandytropicalWater = new Floor("trop-sand-water"){{
 			speedMultiplier = 0.8f;
@@ -604,7 +611,7 @@ public class DustBlocks {
 			cacheLayer = CacheLayer.water;
 			isLiquid = true;
 			liquidDrop = Liquids.water;
-			variants = 0;
+			variants = 3;
 		}};
 
 		//misc
@@ -620,7 +627,7 @@ public class DustBlocks {
 			cacheLayer = CacheLayer.water;
 			isLiquid = true;
 			liquidDrop = Liquids.water;
-			variants = 0;
+			variants = 3;
         }};
 
 		//misc

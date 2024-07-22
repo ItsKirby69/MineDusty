@@ -31,7 +31,8 @@ public class LivingTreeBlock extends Block{
 		clipSize = 120;
 		update = true;
 		buildVisibility = BuildVisibility.sandboxOnly;
-		destructible = false;
+		destructible = true;
+		health = size * 1200;
 		drawTeamOverlay = false;
 		targetable = false;
     }

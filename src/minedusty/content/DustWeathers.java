@@ -18,7 +18,7 @@ public class DustWeathers {
 			density = 2100f;
 			stroke = 1.2f;
 
-			attrs.set(Attribute.light, -5f);
+			attrs.set(Attribute.light, -0.9f);
 			attrs.set(Attribute.water, 0.5f);
 			//attrs.set(Attribute., id);)
 			status = StatusEffects.wet;
