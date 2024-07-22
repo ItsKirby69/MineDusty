@@ -14,8 +14,6 @@ public class LivingTreeBlock extends Block{
 	public TextureRegion[] topRegions, centerRegions, backRegions, shadowRegions;
 	public float shadowOffset = -4f;
 	public float layer = Layer.power;
-	//TODO: ShadowAlpha
-	//TODO: Make not destructible
 	/** Rotates tree shadow or not. Useful for tall trees with elongated shadows. Ex: Pine trees*/
 	public boolean rotateShadow = true;
 
@@ -34,6 +32,7 @@ public class LivingTreeBlock extends Block{
 		destructible = true;
 		health = size * 1200;
 		drawTeamOverlay = false;
+		createRubble = false;
 		targetable = false;
     }
 
