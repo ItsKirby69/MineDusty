@@ -234,12 +234,11 @@ public class DustBlocks {
 		}};
 
 		//TODO: finalize this (variants, edits, etc)
-		fernBush = new LivingBush("fern-bush", 2){{
+		fernBush = new LivingBush("fern-bush", 1){{
 			mapColor = Color.valueOf("356a41");
-			dualCircleMode = true;
 			rot = 0;
-			lobesMin = 3;
-			lobesMax = 3;
+			lobesMin = 6;
+			lobesMax = 8;
 			magMin = 2;
 			magMax = 4;
 		}};
