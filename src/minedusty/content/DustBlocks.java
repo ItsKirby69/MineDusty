@@ -39,7 +39,7 @@ public class DustBlocks {
 	basaltWater, shorestoneWater, soapstoneWater, //TODO: create water variants of these 
 	
 	//dry tiles
-	taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves, duneSand, basaltFloor, shoreRock,
+	taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves, duneSand, basaltFloor, basaltSands, shoreRock,
 
 	//haven't done yet
 	grassyFloor, leafyFloor, leavesLeaves,
@@ -408,6 +408,13 @@ public class DustBlocks {
 			decoration = basaltPillar;
 		}};
 		
+		basaltFloor = new Floor("basalt-sands"){{
+			variants = 5;
+			attributes.set(Attribute.water, -0.25f);
+			attributes.set(Attribute.oil, 0.35f);
+			decoration = basaltPillar;
+		}};
+
 		duneSand = new Floor("dune-sand"){{
 			itemDrop = Items.sand;
 			playerUnmineable = true;
