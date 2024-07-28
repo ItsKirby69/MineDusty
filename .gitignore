@@ -156,3 +156,12 @@ Thumbs.db
 android/libs/
 /.history
 /assets/sprites/junkyard
+
+# no reason for proj files to be pushed. Prob best to keep them as a seperate place to view or do whatever to the files
+/assets/sprites/blocks/core/kra
+/assets/sprites/blocks/environment/kra
+/assets/sprites/blocks/environment/ref
+/assets/sprites/blocks/production/kra
+/assets/sprites/blocks/production/ref
+/assets/sprites/items/kra
+/assets/sprites/units/projfile
