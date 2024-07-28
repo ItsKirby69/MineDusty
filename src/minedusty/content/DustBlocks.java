@@ -30,9 +30,9 @@ public class DustBlocks {
 	hotWater, magmaWater,
 	sandytropicalWater, dacitetropicalWater, basalttropicalWater,
 	algaeWater, deepalgaeWater,
+	sanddeepWater, daciteWater,
 
-	//not trop
-	sanddeepWater, oilsandWater, oilWater,
+	oilSandWater, oilWater, oilTropWater,
 
 	//haven't done
 	shorestonetropicalWater, soapstonetropicalWater, deeptropmagmaWater, oildeepsandWater,
@@ -403,14 +403,12 @@ public class DustBlocks {
 
 		basaltFloor = new Floor("basalt-floor"){{
 			variants = 5;
-			attributes.set(Attribute.water, -0.25f);
 			decoration = basaltPillar;
 		}};
 		
-		basaltFloor = new Floor("basalt-sands"){{
+		basaltSands = new Floor("basalt-sands"){{
 			variants = 5;
-			attributes.set(Attribute.water, -0.25f);
-			attributes.set(Attribute.oil, 0.35f);
+			attributes.set(Attribute.oil, 0.8f);
 			decoration = basaltPillar;
 		}};
 
@@ -453,17 +451,34 @@ public class DustBlocks {
 			effectColor = Color.valueOf("111316");
 		}};
 
-		oilsandWater = new TileEffect("oil-sand-water"){{
-			speedMultiplier = 0.5f;
+		oilSandWater = new TileEffect("oil-sand-water"){{
+			speedMultiplier = 0.8f;
 			liquidDrop = Liquids.oil;
+			attributes.set(Attribute.oil, 0.8f);
 			liquidMultiplier = 0.8f;
-			statusDuration = 90f;
+			statusDuration = 50f;
 			albedo = 0.9f;
 
 			status = StatusEffects.wet;
 			cacheLayer = CacheLayer.water;
 			isLiquid = true;
 			variants = 3;
+			effect = Fx.ventSteam;
+			effectColor = Color.valueOf("111316");
+		}};
+
+		oilTropWater = new TileEffect("trop-oil-water"){{
+			variants = 3;
+			speedMultiplier = 0.5f;
+			liquidDrop = Liquids.oil;
+			liquidMultiplier = 0.8f;
+			isLiquid = true;
+			status = StatusEffects.wet;
+			statusDuration = 90f;
+			cacheLayer = CacheLayer.water;
+			albedo = 0.9f;
+
+			soundEffect = DustSounds.bubblePop;
 			effect = Fx.ventSteam;
 			effectColor = Color.valueOf("111316");
 		}};
@@ -554,6 +569,7 @@ public class DustBlocks {
 
 			soundEffect = DustSounds.bubblePop;
 		}};
+
 		deeptropicalWater = new Floor("trop-deep-water"){{
 			variants = 0;
 			speedMultiplier = 0.5f;
@@ -635,8 +651,21 @@ public class DustBlocks {
 			liquidDrop = Liquids.water;
 			variants = 3;
         }};
+		
+		//REMINDER< ATTRIBUTE OIL WATER AND BSALT SANDS
+		daciteWater = new Floor("dacite-water"){{
+			speedMultiplier = 0.8f;
+			statusDuration = 50f;
+			albedo = 0.9f;
+			supportsOverlay = true;
 
-		//misc
+			status = StatusEffects.wet;
+			cacheLayer = CacheLayer.water;
+			isLiquid = true;
+			liquidDrop = Liquids.water;
+		}};
+
+		//algae stuff
 		algaeWater = new TileEffect("algae-water"){{
 			effectSpacing = 180f;
 			chance = 0.02f;

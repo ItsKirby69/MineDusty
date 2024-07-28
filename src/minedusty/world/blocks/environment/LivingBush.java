@@ -80,8 +80,7 @@ public class LivingBush extends Prop{
 		//rot = Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f),
 		scl = 30f, mag = 0.2f;
 
-		float finalRot = rot != 0 ? rot : Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f);
-
+		// I don't actually know if this is useful or not
 		if (dualCircleMode) {
             // Dual circle mode: Draw bottom sprite
             for (int i = 0; i < lobes; i++) {
@@ -148,6 +147,7 @@ public class LivingBush extends Prop{
             );
         }*/
 		
+		//TODO: Random chance for rare skin
         if(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()){ 
 			Draw.z(layer + 3);
             //Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());

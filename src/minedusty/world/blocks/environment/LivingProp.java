@@ -13,7 +13,7 @@ import mindustry.world.meta.BuildVisibility;
 import static arc.Core.*;
 
 public class LivingProp extends Block{
-	public TextureRegion[] topRegions, centerRegions, shadowRegions;
+	public TextureRegion[] topRegions, centerRegions, shadowRegions, rareRegions;
 	public TextureRegion region;
 
 	public float layer = Layer.blockProp;
@@ -51,11 +51,13 @@ public class LivingProp extends Block{
 			topRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
+			rareRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
 				topRegions[i] = atlas.find(name + "-top" + (i + 1));
 				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
 				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
+				rareRegions[i] = atlas.find(name + "-shiny" + (i + 1));
 			}
 		}else{
 			variantRegions = new TextureRegion[1];
@@ -66,17 +68,13 @@ public class LivingProp extends Block{
 			centerRegions[0] = atlas.find(name + "-center");
 			shadowRegions = new TextureRegion[1];
 			shadowRegions[0] = atlas.find(name + "-shadow");
+			rareRegions = new TextureRegion[1];
+			rareRegions[0] = atlas.find(name + "-shiny");
 		}
 		region = variantRegions[0];
 	}
 	
 	static Rand rand = new Rand();
-
-	/*if (rotate == false){
-		rot = Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f);
-	} else {
-		rot = plan.rotation * 90;
-	}*/
 
 	@Override
 	public void drawBase(Tile tile){
@@ -91,6 +89,10 @@ public class LivingProp extends Block{
 
 		//main sprite
 		Draw.z(layer + 1);
+		//TODO: Randomly have chance of rare skin
+		/*if(Mathf.random() < chance){
+			Draw.rectv(rareRegion[somethingsomething]);
+		} else {}*/
 		Draw.rectv(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 			Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
 			Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
