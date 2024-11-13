@@ -11,9 +11,8 @@ import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.BuildVisibility;
 
 import static arc.Core.*;
-//Q: does it need to extend seabush? A: Nope...
 public class LivingBush extends Prop{
-	public TextureRegion region;
+	public TextureRegion region, rareRegion;
 	public TextureRegion[] bottomRegions, centerRegions, shadowRegions;
 
 	public float layer = Layer.blockProp;
@@ -21,6 +20,8 @@ public class LivingBush extends Prop{
 	public float rot = 0;
 	/** Whether block uses single circle like seabushes or dual like ferns */
 	public boolean dualCircleMode = false;
+	public boolean rare = false;
+	public float rareChance = 0.01f;
 
 	public LivingBush(String name){
 		this(name, 2);
@@ -58,6 +59,7 @@ public class LivingBush extends Prop{
 			shadowRegions = new TextureRegion[1];
 			shadowRegions[0] = atlas.find(name + "-shadow");
 		}
+		rareRegion = atlas.find(name + "-rare");
 		region = variantRegions[0];
 	}
 
@@ -128,30 +130,14 @@ public class LivingBush extends Prop{
                 );
             }
         }
-
-		// original
-		/*
-        for(int i = 0; i < lobes; i++){
-            float ba =  i / (float)lobes * 360f + offset + rand.range(spread), 
-			angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
-            w = region.width * region.scl(); 
-			h = region.height * region.scl();
-            //var region = Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : variantRegions[sprite];
-			
-			Draw.z(layer + 2);
-            Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[sprite] : variantRegions[sprite],
-                tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, tile.worldy() - Angles.trnsy(angle, origin),
-                w, h,
-                origin*4f, h/2f,
-                angle
-            );
-        }*/
 		
-		//TODO: Random chance for rare skin
-        if(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()){ 
+		boolean useRare = rare && rareRegion.found() && rand.chance(rareChance);
+		//centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))]
+		TextureRegion centerToDraw = useRare ? rareRegion : centerRegions[Mathf.randomSeed(tile.pos(), 0, centerRegions.length - 1)];
+        if(centerToDraw.found()){ 
 			Draw.z(layer + 3);
             //Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
-			Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
+			Draw.rectv(centerToDraw, x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 50, 0.6f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 40, 0.1f)
 				));

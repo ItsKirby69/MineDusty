@@ -4,6 +4,7 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
+import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.BuildVisibility;
@@ -28,6 +29,7 @@ public class LivingTreeBlock extends Block{
 		solid = true;
 		clipSize = 120;
 		update = true;
+		breakSound = Sounds.plantBreak;
 		buildVisibility = BuildVisibility.sandboxOnly;
 		destructible = true;
 		health = size * 1200;
@@ -102,11 +104,18 @@ public class LivingTreeBlock extends Block{
 			}
 		}
 		
-		//top leaves TODO: same with these top leaves
+		//top leaves
 		if (topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()) {
 			Draw.z(layer + 4);
-			Draw.rect(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y, rot);
+			Draw.rectv(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
+				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
+				Mathf.cos(vec.x*3 + Time.time + 8, scl + 8f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
+				));
 		}
+		// if (topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()) {
+		// 	Draw.z(layer + 4);
+		// 	Draw.rect(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y, rot);
+		// }
 		//center leaves
 		if (centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()) {
 			Draw.z(layer + 3);

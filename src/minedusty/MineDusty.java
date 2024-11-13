@@ -33,6 +33,7 @@ public class MineDusty extends Mod{
     @Override
     public void loadContent(){
 		//teams, items, fluids, effects. Thanks @sl0tterleet
+		DustSounds.load();
 		DustItems.load();
 		DustLiquids.load();
 		//DustEffects.load(); the actual file is named DustyEffects for some reason
@@ -41,6 +42,7 @@ public class MineDusty extends Mod{
 		DustUnits.load();
         DustBlocks.load();
 		DustPlanets.load();
+		
 		//DustSectors.load();
         //DustTechTree.load(); idk where to put his one yet
 

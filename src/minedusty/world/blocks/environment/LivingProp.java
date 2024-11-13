@@ -13,8 +13,9 @@ import mindustry.world.meta.BuildVisibility;
 import static arc.Core.*;
 
 public class LivingProp extends Block{
-	public TextureRegion[] topRegions, centerRegions, shadowRegions, rareRegions;
-	public TextureRegion region;
+	public TextureRegion region, rareRegion;
+	public TextureRegion[] topRegions, centerRegions, shadowRegions;
+
 
 	public float layer = Layer.blockProp;
 	/** Don't use this*/
@@ -51,13 +52,11 @@ public class LivingProp extends Block{
 			topRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
-			rareRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
 				topRegions[i] = atlas.find(name + "-top" + (i + 1));
 				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
 				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
-				rareRegions[i] = atlas.find(name + "-shiny" + (i + 1));
 			}
 		}else{
 			variantRegions = new TextureRegion[1];
@@ -68,9 +67,8 @@ public class LivingProp extends Block{
 			centerRegions[0] = atlas.find(name + "-center");
 			shadowRegions = new TextureRegion[1];
 			shadowRegions[0] = atlas.find(name + "-shadow");
-			rareRegions = new TextureRegion[1];
-			rareRegions[0] = atlas.find(name + "-shiny");
 		}
+		rareRegion = atlas.find(name + "-rare");
 		region = variantRegions[0];
 	}
 	
@@ -89,7 +87,7 @@ public class LivingProp extends Block{
 
 		//main sprite
 		Draw.z(layer + 1);
-		//TODO: Randomly have chance of rare skin
+		
 		/*if(Mathf.random() < chance){
 			Draw.rectv(rareRegion[somethingsomething]);
 		} else {}*/

@@ -1,5 +1,6 @@
 package minedusty.content;
 
+import arc.audio.Sound;
 import arc.graphics.*;
 import mindustry.content.*;
 import mindustry.gen.Sounds;
@@ -28,7 +29,7 @@ public class DustBlocks {
 	trophotWater, deeptrophotWater,
 	tropmagmaWater,
 	hotWater, magmaWater,
-	sandytropicalWater, dacitetropicalWater, basalttropicalWater,
+	sandytropicalWater, dacitetropicalWater, basalttropicalWater, basaltWater,
 	algaeWater, deepalgaeWater,
 	sanddeepWater, daciteWater,
 
@@ -36,7 +37,7 @@ public class DustBlocks {
 
 	//haven't done
 	shorestonetropicalWater, soapstonetropicalWater, deeptropmagmaWater, oildeepsandWater,
-	basaltWater, shorestoneWater, soapstoneWater, //TODO: create water variants of these 
+	shorestoneWater, soapstoneWater, //TODO: create water variants of these 
 	
 	//dry tiles
 	taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves, duneSand, basaltFloor, basaltSands, shoreRock,
@@ -295,6 +296,7 @@ public class DustBlocks {
 
 		//Q: do i even need a living Bush class A:Yes I do, SeaBush doesn't support variants
 		cattail = new LivingBush("cattail", 2){{
+			rare = true;
 			mapColor = Color.valueOf("74d660");
 			lobesMin = 7;
 			lobesMax = 10;
@@ -362,20 +364,17 @@ public class DustBlocks {
 		basaltWall = new StaticWall("basalt-wall"){{}};
 		coralWall = new StaticTree("red-coral-wall"){{
 			clipSize = 120f;
-		}}; //TODO needs shadow
+		}}; 
 
 		//end region
 		//region Flooring
 		
 		taigaGrass = new Floor("taiga-grass"){{
 			variants = 5;
-			attributes.set(Attribute.water, 0.1f);
-			decoration = fernBush;
 		}};
 
 		taigaLeaves = new OverlayFloorEdged("taiga-leaves"){{
 			variants = 5;
-			//edge = "taiga-leaves";
 			//TODO: needs edge support
 		}};
 		
@@ -422,7 +421,6 @@ public class DustBlocks {
 		//end region
 		//region Underwater Flooring
 
-		//TODO: oilWater proper VEffects & does any of the tiles even need supportsOverlay??
 		basaltWater = new Floor("basalt-water"){{
 			variants = 3;
 			speedMultiplier = 0.8f;
@@ -446,7 +444,6 @@ public class DustBlocks {
 			cacheLayer = CacheLayer.water;
 			albedo = 0.9f;
 
-			soundEffect = DustSounds.bubblePop;
 			effect = Fx.ventSteam;
 			effectColor = Color.valueOf("111316");
 		}};
@@ -478,7 +475,6 @@ public class DustBlocks {
 			cacheLayer = CacheLayer.water;
 			albedo = 0.9f;
 
-			soundEffect = DustSounds.bubblePop;
 			effect = Fx.ventSteam;
 			effectColor = Color.valueOf("111316");
 		}};
