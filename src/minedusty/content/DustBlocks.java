@@ -284,6 +284,12 @@ public class DustBlocks {
 			rot = 0;
 		}}; */
 
+		cactus = new Prop("cactus"){{
+			mapColor = Color.valueOf("d7d177");
+			variants = 2;
+			rotate = false;
+		}};
+
 		//end region
 		//region Water Plants
 
@@ -415,7 +421,7 @@ public class DustBlocks {
 			itemDrop = Items.sand;
 			playerUnmineable = true;
             attributes.set(Attribute.oil, 0.7f);
-			variants = 1;
+			variants = 3;
 		}};
 
 		//end region
