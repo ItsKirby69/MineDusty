@@ -54,7 +54,7 @@ public class DustBlocks {
 	oxidizedcopperWall, grassyVent, rockyVent, nitroplastChamber, somethingReactor,
 	
 	//boulders
-	largeBoulder,
+	largeBoulder, largedaciteBoulder,
 	basaltPillar, largebasaltPillar,
 	shorestoneBoulder, largeshorestoneBoulder,
 
@@ -67,8 +67,8 @@ public class DustBlocks {
 	bogRoots,
 
 	/* Vegatation */
-	shrub, sandyshrub, tallGrass, fernBush, flower,
-	bush, cactus, antHill, //TODO: anthill with interesting ant particles maybe??
+	shrub, sandyshrub, tallGrass, fernBush, flower, cactus,
+	bush, antHill, //TODO: anthill with interesting ant particles maybe??
 
 	//water
 	lilypad, largelilypad, cattail, aloeVera,  //aloeVera counts as water right? hah no TODO: we need desert biome bushes and props
@@ -113,9 +113,17 @@ public class DustBlocks {
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
+		largedaciteBoulder = new Prop("large-dacite-boulder"){{
+			mapColor = Color.valueOf("706f74");
+			customShadow = true;
+			variants = 2;
+			buildVisibility = BuildVisibility.sandboxOnly;
+		}};
+
+
 		//end region
 		//region ores and resources
-
+		//TODO some needed tile to surround this ore in generation. Maybe something like muddy but purplish?
         oreChlorophyte = new OreBlock("ore-chlorophyte", DustItems.chlorophyte){{
             oreDefault = false;
 			variants = 3;
@@ -235,7 +243,7 @@ public class DustBlocks {
 		}};
 
 		//TODO: finalize this (variants, edits, etc)
-		fernBush = new LivingBush("fern-bush", 1){{
+		fernBush = new LivingBush("fern-bush", 2){{
 			mapColor = Color.valueOf("356a41");
 			rot = 0;
 			lobesMin = 6;
@@ -284,10 +292,12 @@ public class DustBlocks {
 			rot = 0;
 		}}; */
 
-		cactus = new Prop("cactus"){{
+		cactus = new LivingProp("cactus"){{
 			mapColor = Color.valueOf("d7d177");
 			variants = 2;
 			rotate = false;
+			breakable = true;
+			rareChance = 0.2f;
 		}};
 
 		//end region
@@ -299,7 +309,7 @@ public class DustBlocks {
 		largelilypad = new LivingProp("large-lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
 		}};
-
+		
 		//Q: do i even need a living Bush class A:Yes I do, SeaBush doesn't support variants
 		cattail = new LivingBush("cattail", 2){{
 			rare = true;

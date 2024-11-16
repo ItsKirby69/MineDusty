@@ -20,6 +20,9 @@ public class LivingProp extends Block{
 	public float layer = Layer.blockProp;
 	/** Don't use this*/
 	public boolean rotateProp = true;
+	public boolean rare = true;
+	public float rareChance = 1.0f;
+
 	
 	public LivingProp(String name){
 		this(name, 3);
@@ -91,17 +94,7 @@ public class LivingProp extends Block{
 		/*if(Mathf.random() < chance){
 			Draw.rectv(rareRegion[somethingsomething]);
 		} else {}*/
-		if (rotateProp == true){
-			Draw.rectv(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
-				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
-				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
-				));
-		} else {
-			Draw.rectv(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))], x, y, w, h, 0, vec -> vec.add(
-				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
-				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
-				));
-		}
+		Draw.rect(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))], x, y);
 		
 		//shadow sprite | if they have one (which they should)
 		if(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))].found()){
@@ -119,13 +112,16 @@ public class LivingProp extends Block{
 			}
 		}
 
-		//center sprite //not anymore
-		if(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()){
-			Draw.z(layer + 2);
-			Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
-				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
-				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
-				));
+		boolean useRare = rare && rand.chance(rareChance);
+		//center sprite
+		if(useRare){
+			if(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()){
+				Draw.z(layer + 2);
+				Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
+					Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
+					Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
+					));
+			}
 		}
 
 		//top sprite | if they have one //Should I make them move funny?

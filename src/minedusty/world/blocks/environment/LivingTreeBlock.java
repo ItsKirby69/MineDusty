@@ -108,8 +108,8 @@ public class LivingTreeBlock extends Block{
 		if (topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()) {
 			Draw.z(layer + 4);
 			Draw.rectv(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
-				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
-				Mathf.cos(vec.x*3 + Time.time + 8, scl + 8f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
+				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
+				Mathf.cos(vec.x*2 + Time.time + 8, scl + 4f, mag * 1.0f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
 		}
 		// if (topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()) {

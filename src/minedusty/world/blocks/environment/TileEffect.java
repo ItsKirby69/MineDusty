@@ -59,7 +59,6 @@ public class TileEffect extends Floor{
 			if(state.data >= effectSpacing){
 				if(Mathf.random() < chance){
 					effect.at(state.tile.worldx(), state.tile.worldy(), effectColor);
-					//TODO: why sound doesn't work bruv?
 					soundEffect.at(state.tile.worldx(), state.tile.worldy(), Mathf.random(0.8f, 1.2f), 0.5f);  // Play sound effect
 					//if (soundEffect != Sounds.none) {}
 				}
