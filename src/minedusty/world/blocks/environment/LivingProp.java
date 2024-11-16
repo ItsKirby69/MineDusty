@@ -89,7 +89,7 @@ public class LivingProp extends Block{
 
 
 		//main sprite
-		Draw.z(layer + 1);
+		Draw.z(layer);
 		
 		/*if(Mathf.random() < chance){
 			Draw.rectv(rareRegion[somethingsomething]);
@@ -98,7 +98,7 @@ public class LivingProp extends Block{
 		
 		//shadow sprite | if they have one (which they should)
 		if(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))].found()){
-			Draw.z(layer);
+			Draw.z(layer - 1);
 			if (rotateProp == true){
 				Draw.rectv(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 					Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
@@ -116,7 +116,7 @@ public class LivingProp extends Block{
 		//center sprite
 		if(useRare){
 			if(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()){
-				Draw.z(layer + 2);
+				Draw.z(layer + 1);
 				Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 					Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 					Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
@@ -126,7 +126,7 @@ public class LivingProp extends Block{
 
 		//top sprite | if they have one //Should I make them move funny?
 		if(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()){
-			Draw.z(layer + 3);
+			Draw.z(layer + 2);
 			Draw.rect(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y);
 		}
 	}

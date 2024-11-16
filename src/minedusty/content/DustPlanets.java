@@ -10,6 +10,7 @@ import mindustry.maps.planet.TantrosPlanetGenerator;
 import mindustry.type.Planet;
 import mindustry.type.Weather;
 import mindustry.world.meta.Env;
+import minedusty.blocks.DustCore;
 import minedusty.maps.planets.GaiaPlanetGenerator;
 
 public class DustPlanets {
@@ -32,7 +33,7 @@ public class DustPlanets {
 			allowWaves = true;
 			allowWaveSimulation = true;
 
-			defaultCore = DustBlocks.coreNest;
+			defaultCore = DustCore.coreNest;
 			orbitRadius = 49f;
 			atmosphereRadIn = -0.1f;
 			//atmosphereRadOut = 0.2f;
@@ -83,7 +84,7 @@ public class DustPlanets {
 				new HexSkyMesh(this, 0, 0.87f, 0.13f, 6, new Color().set(Color.valueOf("caf5f0")).mul(0.9f).a(0.8f), 2, 0.5f, 0.8f, 0.3f),
 				new HexSkyMesh(this, 0, 0.83f, 0.16f, 6, Color.white.cpy().lerp(Color.valueOf("9ddac8"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
 			);
-			unlockedOnLand.addAll(DustBlocks.coreNest);
+			unlockedOnLand.addAll(DustCore.coreNest);
 		}};
 
 		testd = new Planet("blue-thing", DustPlanets.gaia, 0.8f, 1){{

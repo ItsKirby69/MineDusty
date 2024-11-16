@@ -27,6 +27,12 @@ public class DustItems {
 			cost = 1f;
 		}};
 
+
+
+
+
+
+		
 		//quartz can be made using silicon and a machine. idk what yet.
 		quartz = new Item("ore-quartz", pal2.quartz){{
 			flammability = 0.25f;

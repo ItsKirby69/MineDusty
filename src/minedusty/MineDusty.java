@@ -1,5 +1,6 @@
 package minedusty;
 
+import minedusty.blocks.*;
 import minedusty.content.*;
 
 import arc.*;
@@ -40,7 +41,16 @@ public class MineDusty extends Mod{
 		//DustTeams.load();
 		DustWeathers.load();
 		DustUnits.load();
-        DustBlocks.load();
+		//blocks
+		DustDefence.loadContent();
+		DustCrafters.loadContent();
+		
+        DustPlants.loadContent();
+		DustEnv.loadContent();
+		DustCore.loadContent();
+		
+		DustDistribution.loadContent();
+
 		DustPlanets.load();
 		
 		//DustSectors.load();
