@@ -25,7 +25,7 @@ import minedusty.world.blocks.environment.TileEffect;
 public class DustEnv {
 
 	// Rocks
-	public static Block largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder;
+	public static Block largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder;
 
 	// Tiles
 	public static Block taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
@@ -39,7 +39,7 @@ public class DustEnv {
 	public static Block oreChlorophyte, wallChlorophyte, oreAquamarine;
 	
 	// Walls
-	public static Block grassyWall, shorestoneWall, basaltWall, coralWall;
+	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall;
 
 
 	public static void loadContent() {
@@ -81,6 +81,14 @@ public class DustEnv {
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
+
+		largesoapstoneBoulder = new Prop("large-soapstone-boulder"){{
+			mapColor = Color.valueOf("706f74");
+			customShadow = true;
+			variants = 2;
+			buildVisibility = BuildVisibility.sandboxOnly;
+		}};
+
 
 		//end region
 
@@ -413,6 +421,9 @@ public class DustEnv {
 
 		shorestoneWall = new StaticWall("shorestone-wall"){{}};
 		basaltWall = new StaticWall("basalt-wall"){{}};
+		soapstoneWall = new StaticWall("soapstone-wall"){{
+			variants = 4;
+		}};
 		coralWall = new StaticTree("red-coral-wall"){{
 			clipSize = 120f;
 		}}; 
