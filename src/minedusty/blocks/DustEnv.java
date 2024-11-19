@@ -449,7 +449,7 @@ public class DustEnv {
 
 		wallChlorophyte = new OreBlock("wall-chlorophyte", DustItems.chlorophyte){{
 			wallOre = true;
-			variants = 2;
+			variants = 3;
 		}};
 
 		oreAquamarine = new OreBlock("ore-aquamarine", DustItems.aquamarine){{
