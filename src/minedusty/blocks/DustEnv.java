@@ -29,7 +29,7 @@ public class DustEnv {
 
 	// Tiles
 	public static Block taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
-	public static Block shoreRock, basaltFloor, basaltSands, duneSand;
+	public static Block shoreRock, basaltFloor, basaltSands, duneSand, calciteFloor;
 
 	public static Block basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, oilTropWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater;
@@ -39,7 +39,7 @@ public class DustEnv {
 	public static Block oreChlorophyte, wallChlorophyte, oreAquamarine;
 	
 	// Walls
-	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall;
+	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall;
 
 
 	public static void loadContent() {
@@ -139,6 +139,10 @@ public class DustEnv {
 			itemDrop = Items.sand;
 			playerUnmineable = true;
             attributes.set(Attribute.oil, 0.7f);
+			variants = 3;
+		}};
+
+		calciteFloor = new Floor("calcite-floor"){{
 			variants = 3;
 		}};
 		//end region
@@ -421,12 +425,15 @@ public class DustEnv {
 
 		shorestoneWall = new StaticWall("shorestone-wall"){{}};
 		basaltWall = new StaticWall("basalt-wall"){{}};
+		calciteWall = new StaticWall("calcite-wall"){{
+			variants = 3;
+		}};
 		soapstoneWall = new StaticWall("soapstone-wall"){{
 			variants = 4;
 		}};
 		coralWall = new StaticTree("red-coral-wall"){{
 			clipSize = 120f;
-		}}; 
+		}};
 
 		//end region
 
