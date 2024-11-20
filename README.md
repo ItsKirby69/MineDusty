@@ -27,7 +27,7 @@ Download the jar file manually in the `releases` tab, or just copy the repositor
 ## Special Thanks
 - **[Twcash](https://github.com/Twcash/)** - sprite inspiration and amazing creator.
 - **[Lixie](https://github.com/LixieWulf/)** - prop inspiration. The reason this mod is here today.
-- **Sh1penfire** - mechanic inspiration and reason why i got into modding.
+- **[Sh1penfire](https://github.com/Sh1penfire/)** - mechanic inspiration and reason why i got into modding.
 - **thomas_has_things** - unit sprite inspiration. He's crazy with units.
 - **MissionaryPoseIsTheBest** - env sprite inspiration.
 - **Sunny (Sk)** - creator of BetaMindy and big early inspiration.
