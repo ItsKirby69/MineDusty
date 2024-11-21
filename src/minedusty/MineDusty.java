@@ -37,6 +37,7 @@ public class MineDusty extends Mod{
 		DustSounds.load();
 		DustItems.load();
 		DustLiquids.load();
+		DustAttributes.load();
 		//DustEffects.load(); the actual file is named DustyEffects for some reason
 		//DustTeams.load();
 		DustWeathers.load();

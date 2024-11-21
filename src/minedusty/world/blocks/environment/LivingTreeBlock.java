@@ -11,6 +11,7 @@ import mindustry.world.meta.BuildVisibility;
 
 import static arc.Core.*;
 
+//this and all my other classes for custom props are probably really bad
 public class LivingTreeBlock extends Block{
 	public TextureRegion[] topRegions, centerRegions, backRegions, shadowRegions;
 	public float shadowOffset = -4f;
@@ -112,10 +113,6 @@ public class LivingTreeBlock extends Block{
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 4f, mag * 1.0f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
 		}
-		// if (topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()) {
-		// 	Draw.z(layer + 4);
-		// 	Draw.rect(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y, rot);
-		// }
 		//center leaves
 		if (centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()) {
 			Draw.z(layer + 3);

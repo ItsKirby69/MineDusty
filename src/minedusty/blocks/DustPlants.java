@@ -44,7 +44,6 @@ public class DustPlants {
 		bogTree = new LivingTreeBlock("bog-tree", 1){{
 			mapColor = Color.valueOf("667113");
 			size = 3;
-			//mapcolor done TODO more variants. Some needs more revealing leaves (ooo smexy ~)
 		}};
 		cheeseTree = new LivingTreeBlock("cheese-tree", 1){{
 			mapColor = Color.valueOf("d7d177");

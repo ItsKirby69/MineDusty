@@ -16,6 +16,7 @@ import mindustry.world.blocks.environment.StaticWall;
 import mindustry.world.blocks.environment.TreeBlock;
 import mindustry.world.meta.Attribute;
 import mindustry.world.meta.BuildVisibility;
+import minedusty.DustAttributes;
 import minedusty.content.DustItems;
 import minedusty.content.DustSounds;
 import minedusty.content.DustyEffects;
@@ -25,11 +26,11 @@ import minedusty.world.blocks.environment.TileEffect;
 public class DustEnv {
 
 	// Rocks
-	public static Block largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder;
+	public static Block duneRockBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, calciteBoulder;
 
 	// Tiles
 	public static Block taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
-	public static Block shoreRock, basaltFloor, basaltSands, duneSand, calciteFloor;
+	public static Block shoreRock, basaltFloor, basaltSands, duneSand, calciteFloor, calciteCrags;
 
 	public static Block basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, oilTropWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater;
@@ -39,7 +40,7 @@ public class DustEnv {
 	public static Block oreChlorophyte, wallChlorophyte, oreAquamarine;
 	
 	// Walls
-	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall;
+	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
 
 
 	public static void loadContent() {
@@ -85,6 +86,16 @@ public class DustEnv {
 		largesoapstoneBoulder = new Prop("large-soapstone-boulder"){{
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
+			variants = 2;
+			buildVisibility = BuildVisibility.sandboxOnly;
+		}};
+
+		calciteBoulder = new Prop("calcite-boulder"){{
+			variants = 2;
+			buildVisibility = BuildVisibility.sandboxOnly;
+		}};
+		
+		duneRockBoulder = new Prop("dune-rock"){{
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
@@ -143,6 +154,9 @@ public class DustEnv {
 		}};
 
 		calciteFloor = new Floor("calcite-floor"){{
+			variants = 3;
+		}};
+		calciteCrags = new Floor("calcite-crags"){{
 			variants = 3;
 		}};
 		//end region
@@ -433,6 +447,12 @@ public class DustEnv {
 		}};
 		coralWall = new StaticTree("red-coral-wall"){{
 			clipSize = 120f;
+		}};
+
+		rhyoliteChlorophyte = new StaticWall("rhyolite-chlorophyte"){{
+			variants = 3;
+			itemDrop = DustItems.chlorophyte;
+			attributes.set(DustAttributes.chlorophyte, 1f);
 		}};
 
 		//end region

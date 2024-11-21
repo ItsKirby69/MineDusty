@@ -9,15 +9,17 @@ import mindustry.type.Category;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.WallCrafter;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawLiquidRegion;
 import mindustry.world.draw.DrawMulti;
 import mindustry.world.draw.DrawRegion;
+import minedusty.DustAttributes;
 import minedusty.content.DustItems;
 import minedusty.content.DustLiquids;
 
 public class DustCrafters {
-	public static Block nitroplastChamber;
+	public static Block nitroplastChamber, miniCrusher;
 	
 	public static void loadContent() {
 		nitroplastChamber = new GenericCrafter("nitroplast-chamber"){{
@@ -43,6 +45,19 @@ public class DustCrafters {
             regionRotated1 = 2;
             craftTime = 60f * 2f;
             liquidCapacity = 45f;
+        }};
+
+	    miniCrusher = new WallCrafter("mini-wall-crusher"){{
+            requirements(Category.production, with(Items.graphite, 25, Items.copper, 20));
+            consumePower(18 / 60f);
+
+            drillTime = 160f;
+            size = 1;
+            attribute = DustAttributes.chlorophyte;
+            output = DustItems.chlorophyte;
+            researchCost = with(Items.copper, 100, Items.graphite, 40);
+            ambientSound = Sounds.drill;
+            ambientSoundVolume = 0.04f;
         }};
 	}
 }
