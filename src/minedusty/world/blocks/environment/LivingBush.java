@@ -53,11 +53,11 @@ public class LivingBush extends Prop{
 			variantRegions = new TextureRegion[1];
 			variantRegions[0] = atlas.find(name);
 			bottomRegions = new TextureRegion[1];
-			bottomRegions[0] = atlas.find(name + "-bot");
+			bottomRegions[0] = atlas.find(name + "-bot1");
 			centerRegions = new TextureRegion[1];
-			centerRegions[0] = atlas.find(name + "-center");
+			centerRegions[0] = atlas.find(name + "-center1");
 			shadowRegions = new TextureRegion[1];
-			shadowRegions[0] = atlas.find(name + "-shadow");
+			shadowRegions[0] = atlas.find(name + "-shadow1");
 		}
 		rareRegion = atlas.find(name + "-rare");
 		region = variantRegions[0];

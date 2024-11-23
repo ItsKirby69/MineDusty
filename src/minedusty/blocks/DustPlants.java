@@ -18,7 +18,7 @@ public class DustPlants {
 	//TODO spruceTree, mysticTree, coconutTree, frozenTree, glowberryTree, testTree, to
 
 	// Shrubs and small Plants (props)
-	public static Block shrub, sandyshrub, tallGrass, fernBush, bogRoots;
+	public static Block grassBunch, shrub, sandyshrub, tallGrass, fernBush, bogRoots;
 	public static Block cactus, cattail, lilypad, largelilypad;
 
 	public static void loadContent() {
@@ -87,6 +87,16 @@ public class DustPlants {
 		//end region
 
 		//region Props
+		grassBunch = new LivingBush("grass-bunch"){{
+			variants = 1;
+			mapColor = Color.valueOf("74d660");
+			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
+			lobesMin = 8;
+			lobesMax = 12;
+			magMin = 2;
+			magMax = 10;
+		}};
+
 		shrub = new LivingBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;

@@ -2,20 +2,36 @@ package minedusty.content;
 
 import arc.graphics.Color;
 import mindustry.content.StatusEffects;
+import mindustry.type.CellLiquid;
 import mindustry.type.Liquid;
 
 public class DustLiquids {
-	public static Liquid 
-	juice, swampjuice, nitroplastSolution, greenGoo;
+	public static Liquid bioLiquid, bioFuel, sap;
 
 	//temp
 	public static void load(){
-		juice = new Liquid("juice", Color.valueOf("0bcc80")){{
-            heatCapacity = 0.4f;
-            effect = StatusEffects.wet;
-            boilPoint = 0.5f;
-            gasColor = Color.valueOf("cdfedc");
-            alwaysUnlocked = true;
+		bioLiquid = new Liquid("bio-liquid", Color.valueOf("05dd91")){{
+            heatCapacity = 0.35f;
+			effect = StatusEffects.wet;
+			boilPoint = 0.5f;
+			lightColor = Color.valueOf("02ddac").a(0.25f);
+            gasColor = Color.valueOf("a9f2e4");
         }};
+		bioFuel = new Liquid("bio-fuel", Color.valueOf("92c80b")){{
+			heatCapacity = 0.35f;
+			boilPoint = 0.5f;
+			flammability = 0.5f;
+			lightColor = Color.valueOf("268721").a(0.2f);
+			gasColor = Color.valueOf("d8ff8e");
+			viscosity = 0.60f;
+		}};
+		sap = new CellLiquid("sap", Color.valueOf("#ff9100")){{
+			heatCapacity = 0.4f;
+			effect = StatusEffects.sapped;
+			colorFrom = Color.valueOf("f49f0b");
+            colorTo = Color.valueOf("e8b30f");
+			viscosity = 0.75f;
+            flammability = 0.75f;
+		}};
 	}
 }
