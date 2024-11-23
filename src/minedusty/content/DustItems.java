@@ -6,11 +6,11 @@ import arc.struct.Seq;
 import mindustry.type.Item;
 
 public class DustItems {
-	public static Item 
-	//from ores
-	chlorophyte, aquamarine,
-	
-	quartz, rosequartz, dustquartz;
+	//Ores
+	public static Item chlorophyte, aquamarine, quartz, rosequartz, dustquartz;
+
+	//Other stuff
+	public static Item carbonicWaste;
 
 	public static final Seq<Item> dustItems = new Seq<>();
 	
@@ -26,11 +26,8 @@ public class DustItems {
 			hardness = 3;
 			cost = 1f;
 		}};
-
-
-
-
-
+		
+		carbonicWaste = new Item("item-carbonicwaste", Color.valueOf("2f241a")){{}};
 
 		
 		//quartz can be made using silicon and a machine. idk what yet.

@@ -10,6 +10,7 @@ import mindustry.content.Liquids;
 import mindustry.gen.Drawc;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
+import mindustry.type.ItemStack;
 import mindustry.type.Liquid;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
@@ -33,7 +34,7 @@ import minedusty.content.DustItems;
 import minedusty.content.DustLiquids;
 
 public class DustCrafters {
-	public static Block nitroplastChamber, bioLiquidMixer, bioFuelBlaster, miniCrusher;
+	public static Block nitroplastChamber, bioLiquidMixer, bioFuelCombustionChamber, miniCrusher;
 	
 	public static void loadContent() {
 		// Crafts bioLiquid using water and chlorophyte
@@ -78,7 +79,7 @@ public class DustCrafters {
 			craftEffect = Fx.smokeCloud;
 			consumeLiquids(LiquidStack.with(DustLiquids.bioLiquid, 30/60f, Liquids.nitrogen, 8/60f)); //TODO Oxygen needed
 			consumePower(1.5f);
-			outputLiquid = new LiquidStack(DustLiquids.bioFuel, 10/60f);
+			outputLiquid = new LiquidStack(DustLiquids.bioFuel, 12/60f);
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawRegion("-rails"),
@@ -90,6 +91,7 @@ public class DustCrafters {
 					lifetime = 200;
 					range = 9.5f;
 					particles = 70;
+					color = Color.valueOf("489e0e");
 					particleColorFrom = Color.valueOf("92c80b");
 					particleColorTo = Color.valueOf("07b142");
 				}},
@@ -103,8 +105,8 @@ public class DustCrafters {
 			);
 		}};
 
-		// Generates Power using bioFuel and coal
-		bioFuelBlaster = new ConsumeGenerator("biofuel-blaster"){{
+		// Generates Power using bioFuel and coal (might need to change this) also needs a byproduct
+		bioFuelCombustionChamber = new ConsumeGenerator("biofuel-combustion-chamber"){{
 			requirements(Category.power, with(DustItems.chlorophyte, 110, Items.titanium, 60, Items.metaglass, 45, Items.silicon, 80));
 			size = 2;
 			health = 250;
@@ -113,7 +115,7 @@ public class DustCrafters {
 			hasLiquids = true;
 			hasItems = true;
 			generateEffect = Fx.generatespark;
-			consumeLiquid(DustLiquids.bioFuel, 0.1f);
+			consumeLiquid(DustLiquids.bioFuel, 8 / 60f);
 			consume(new ConsumeItemFlammable());
 			consume(new ConsumeItemExplode());
 			drawer = new DrawMulti(
