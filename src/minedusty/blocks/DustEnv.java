@@ -40,7 +40,7 @@ public class DustEnv {
 	public static Block oreChlorophyte, wallChlorophyte, oreAquamarine;
 	
 	// Walls
-	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
+	public static Block oxideWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
 
 
 	public static void loadContent() {
@@ -453,6 +453,11 @@ public class DustEnv {
 			variants = 3;
 			itemDrop = DustItems.chlorophyte;
 			attributes.set(DustAttributes.chlorophyte, 1f);
+		}};
+
+		oxideWall = new StaticWall("oxide-wall"){{
+			variants = 3;
+			itemDrop = Items.oxide;
 		}};
 
 		//end region

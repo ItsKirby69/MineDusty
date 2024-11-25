@@ -6,6 +6,7 @@ import arc.struct.Seq;
 import mindustry.type.Item;
 
 public class DustItems {
+	
 	//Ores
 	public static Item chlorophyte, aquamarine, quartz, rosequartz, dustquartz;
 
@@ -28,7 +29,6 @@ public class DustItems {
 		}};
 		
 		carbonicWaste = new Item("item-carbonicwaste", Color.valueOf("2f241a")){{}};
-
 		
 		//quartz can be made using silicon and a machine. idk what yet.
 		quartz = new Item("ore-quartz", pal2.quartz){{

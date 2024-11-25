@@ -17,6 +17,7 @@ import mindustry.world.Block;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.PowerGenerator;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.HeatCrafter;
 import mindustry.world.blocks.production.WallCrafter;
 import mindustry.world.consumers.ConsumeItemExplode;
 import mindustry.world.consumers.ConsumeItemFlammable;
@@ -39,7 +40,7 @@ public class DustCrafters {
 	public static void loadContent() {
 		// Crafts bioLiquid using water and chlorophyte
 		bioLiquidMixer = new GenericCrafter("bioliquid-mixer"){{
-			requirements(Category.production, with(Items.titanium, 60, Items.silicon, 70, Items.metaglass, 40));
+			requirements(Category.crafting, with(Items.titanium, 60, Items.silicon, 70, Items.metaglass, 40));
 			size = 3;
 			craftTime = 120;
 			hasLiquids = true;
@@ -66,10 +67,9 @@ public class DustCrafters {
 				new DrawDefault()
 			);
 		}};
-
 		// Crafts bioFuel using bioLiquid, Oxygen and Nitrogen //TODO might use heat instead of power
-		nitroplastChamber = new GenericCrafter("nitroplast-chamber"){{
-			requirements(Category.production, with(Items.titanium, 110, Items.silicon, 50, Items.metaglass, 30));
+		nitroplastChamber = new HeatCrafter("nitroplast-chamber"){{
+			requirements(Category.crafting, with(Items.titanium, 110, Items.silicon, 50, Items.metaglass, 30));
 			size = 3;
 			warmupSpeed = 0.01f;
 			craftTime = 225;
@@ -77,6 +77,7 @@ public class DustCrafters {
 			hasPower = true;
 			liquidCapacity = 25;
 			craftEffect = Fx.smokeCloud;
+			heatRequirement = 4f;
 			consumeLiquids(LiquidStack.with(DustLiquids.bioLiquid, 30/60f, Liquids.nitrogen, 8/60f)); //TODO Oxygen needed
 			consumePower(1.5f);
 			outputLiquid = new LiquidStack(DustLiquids.bioFuel, 12/60f);
@@ -137,7 +138,8 @@ public class DustCrafters {
 				new DrawDefault()
 			);
 		}};
-		// Mines chlorophyte from walls
+
+		// Mines chlorophyte from walls //TODO laster drill for oxide resource on oxide walls
 	    miniCrusher = new WallCrafter("mini-wall-crusher"){{
             requirements(Category.production, with(Items.graphite, 25, Items.copper, 15));
             consumePower(18 / 60f);
