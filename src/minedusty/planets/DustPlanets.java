@@ -1,9 +1,7 @@
-package minedusty.content;
+package minedusty.planets;
 
 import arc.graphics.Color;
-import mindustry.content.Items;
-import mindustry.content.Planets;
-import mindustry.content.Weathers;
+import mindustry.content.*;
 import mindustry.game.Team;
 import mindustry.graphics.g3d.*;
 import mindustry.maps.planet.TantrosPlanetGenerator;
@@ -11,17 +9,44 @@ import mindustry.type.Planet;
 import mindustry.type.Weather;
 import mindustry.world.meta.Env;
 import minedusty.blocks.DustCore;
-import minedusty.maps.planets.GaiaPlanetGenerator;
+import minedusty.content.DustItems;
+import minedusty.content.DustWeathers;
 
 public class DustPlanets {
 	public static Planet
-	gaia, testd;
+	gaia, terra, testd;
 
 	public static void load(){
+		terra = new Planet("terra", Planets.sun, 1.2f, 2){{
+			generator = new TerraPlanetGenerator();
+			meshLoader = () -> new HexMesh(this, 5);
+			accessible = true;
+			alwaysUnlocked = true;
+			updateLighting = true;
+			startSector = 2;
+			orbitRadius = 29f;
+			atmosphereRadOut = 0.2f;
+			
+			atmosphereColor = Color.valueOf("7ed658");
+			iconColor = Color.valueOf("2cc429");
+			cloudMeshLoader = () -> new MultiMesh(
+				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)
+				new HexSkyMesh(this, 0, 0.87f, 0.13f, 6, new Color().set(Color.valueOf("caf5f0")).mul(0.9f).a(0.8f), 2, 0.5f, 0.8f, 0.3f),
+				new HexSkyMesh(this, 0, 0.83f, 0.16f, 6, Color.white.cpy().lerp(Color.valueOf("9ddac8"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
+			);
+			ruleSetter = r -> {
+				r.waveTeam = Team.green;
+				r.weather.add(
+					new Weather.WeatherEntry(){{ weather = Weathers.fog;}},
+					new Weather.WeatherEntry(){{ weather = DustWeathers.heavyRain;}}
+				);
+			};
+		}};
+
 		gaia = new Planet("gaia", Planets.sun, 1.2f, 3){{
 			generator = new GaiaPlanetGenerator();
 			alwaysUnlocked = true;
-			accessible = true;
+			accessible = false;
 			minZoom = 0.75f;
 
 			allowLaunchLoadout = false;
@@ -34,7 +59,7 @@ public class DustPlanets {
 			allowWaveSimulation = true;
 
 			defaultCore = DustCore.coreNest;
-			orbitRadius = 49f;
+			orbitRadius = 29f;
 			atmosphereRadIn = -0.1f;
 			//atmosphereRadOut = 0.2f;
 			parent = Planets.sun;
@@ -101,7 +126,6 @@ public class DustPlanets {
             defaultEnv = Env.underwater | Env.terrestrial;
             ruleSetter = r -> {
             };
-
         }};
 
 	}

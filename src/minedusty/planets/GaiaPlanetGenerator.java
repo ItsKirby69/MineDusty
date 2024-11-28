@@ -1,4 +1,4 @@
-package minedusty.maps.planets;
+package minedusty.planets;
 
 import mindustry.content.Blocks;
 import mindustry.game.Schematics;

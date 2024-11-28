@@ -2,7 +2,7 @@ package minedusty;
 
 import minedusty.blocks.*;
 import minedusty.content.*;
-
+import minedusty.planets.*;
 import arc.*;
 import arc.util.*;
 import mindustry.game.EventType.*;
