@@ -9,6 +9,12 @@ import mindustry.game.Schematics;
 import mindustry.maps.generators.PlanetGenerator;
 import mindustry.type.Sector;
 
+/* Useful notes from other gens (don't quote me) --
+ * serpulo gens height as usual then uses Blocks arr which
+ * has gradients of block pallets (water -> land tiles)
+ * and takes mapcolor of block in setColor method
+ */
+
 public class TerraPlanetGenerator extends PlanetGenerator{
 	Color  out = new Color(),
 	valley1 = Color.valueOf("60b243"), valley2 = Color.valueOf("478e2d"),
@@ -58,7 +64,7 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 		float pole = Mathf.pow(Math.abs(position.y), 0.65f)/ 3f;
 		float depth = Simplex.noise3d(baseSeed, 4, 0.7f, 0.8f, position.x, position.y, position.z);
 		float base = rawHeight(position);
-
+		
 		float latitudeFactor = 1 - Math.abs(position.y);
 		float ridges = Ridged.noise3d(baseSeed - 2, position.x, position.y, position.z, 8, 0.5f);
 		
