@@ -455,6 +455,7 @@ public class DustEnv {
 			attributes.set(DustAttributes.chlorophyte, 1f);
 		}};
 
+		// TODO turn this to an wall ore instead
 		oxideWall = new StaticWall("oxide-wall"){{
 			variants = 3;
 			itemDrop = Items.oxide;

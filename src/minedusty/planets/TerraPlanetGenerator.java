@@ -10,13 +10,16 @@ import mindustry.maps.generators.PlanetGenerator;
 import mindustry.type.Sector;
 
 public class TerraPlanetGenerator extends PlanetGenerator{
-	Color c1 = Color.valueOf("78c441"), c2 = Color.valueOf("85c441"), out = new Color(),
+	Color  out = new Color(),
+	valley1 = Color.valueOf("60b243"), valley2 = Color.valueOf("478e2d"),
+	peaks1 = Color.valueOf("1c873f"), peaks2 = Color.valueOf("124c28"),
 	oceanColor1 = Color.valueOf("30a9f0"), oceanColor2 = Color.valueOf("0c59a6"),
-	poleColor1 = Color.valueOf("d4ecfa"), poleColor2 = Color.valueOf("f7fcff"),
-	beaches = Color.valueOf("d9bd7c");
+	poleColor1 = Color.valueOf("d4ecfa"), poleColor2 = Color.valueOf("ffffff"), poleOcean1 = Color.valueOf("91a6f9"), poleOcean2 = Color.valueOf("bfcbf8"),
+	beaches1 = Color.valueOf("ead195"), beaches2 = Color.valueOf("b48f55"),
+	basalts1 = Color.valueOf("71777e"), basalts2 = Color.valueOf("373d43");
 	
 	{
-		baseSeed = 1;
+		baseSeed = 2;
 		defaultLoadout = Schematics.readBase64("bXNjaAF4nGNgZmBmZmDJS8xNZWBJzi9KZeBOSS1OLsosKMnMz2NgYGDLSUxKzSlmYIqOZWQQzs3MS00pLS6p1AWp1c1LLS4BqmEEISABAPVFEvQ=");
 	}
 
@@ -25,45 +28,53 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 		//nothing yet
 	}
 
+	//this is really really really really really really really really jank (i think)
 	@Override
 	public Color getColor(Vec3 position) {
 		float height = getHeight(position);
-		float depth = Simplex.noise3d(seed, 3, 0.7f, 1f, position.x, position.y, position.z);
+		float depth = Simplex.noise3d(baseSeed, 4, 0.7f, 0.8f, position.x, position.y, position.z);
 
-		if (Math.abs(position.y) + depth > 1.2f){ // poles
+		if (Math.abs(position.y) + depth > 1.4f){ // poles
 			return poleColor1.write(out).lerp(poleColor2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
-		} else if (height + depth > 0.6f){ // peaks
-			return c2.write(out);
-		} else if (height + depth > 0.4f){ //valleys
-			return c1.write(out);
-		} else if (height + depth > 0.1f){
-			return beaches.write(out);
+		} else if (Math.abs(position.y) + depth > 1.25f && height < 0.15){ // ocean pole waters
+			return poleOcean1.write(out).lerp(poleOcean2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
+		} else if (height > 0.45f && Math.abs(position.y) < 0.95){ // peaks
+			return peaks1.write(out).lerp(peaks2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
+		} else if (height > 0.25f && Math.abs(position.y) < 0.9){ //valleys
+			return valley1.write(out).lerp(valley2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
+		} else if (height > 0.12f){ //beaches/shores
+			if (Math.abs(position.y) < 0.5){
+				return beaches1.write(out).lerp(beaches2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
+			} else {
+				return basalts1.write(out).lerp(basalts2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
+			}
+		} else { //ocean
+			return oceanColor1.write(out).lerp(oceanColor2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.6f);
 		}
-		return oceanColor1.write(out).lerp(oceanColor2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.6f);
 	}
 
 	@Override
 	public float getHeight(Vec3 position) {
-		float pole = Mathf.pow(Math.abs(position.y), 0.6f)/ 3f;
-		float depth = Simplex.noise3d(seed, 4, 0.7f, 0.8f, position.x, position.y, position.z);
+		float pole = Mathf.pow(Math.abs(position.y), 0.65f)/ 3f;
+		float depth = Simplex.noise3d(baseSeed, 4, 0.7f, 0.8f, position.x, position.y, position.z);
 		float base = rawHeight(position);
 
 		float latitudeFactor = 1 - Math.abs(position.y);
-		float ridges = Ridged.noise3d(baseSeed + 3, position.x, position.y, position.z, 6, 0.5f);
-
-		//base += largeScaleTerrain * 0.4 + smallScaleTerrain * 0.6f;
+		float ridges = Ridged.noise3d(baseSeed - 2, position.x, position.y, position.z, 8, 0.5f);
 		
+		//actual processing of terrain
+
 		ridges *= latitudeFactor;
 
-		base += pole * 0.4f;
-		base -= depth * 1.15f;
+		base += pole * 1.2f;
+		base -= depth * 1.2f;
 		base -= ridges * 0.5f;
 
-		return base < 0.15f ? 0f : Mathf.clamp(base);
+		return base <= 0.1f ? 0f : Mathf.clamp(base); // clamps ocean to be flat
 	}
 	
 	float rawHeight(Vec3 position){
         // Noise function for raw height data
-        return Simplex.noise3d(seed, 8, 0.7f, 1f, position.x, position.y, position.z);
+        return Simplex.noise3d(baseSeed, 8, 0.7f, 1f, position.x, position.y, position.z);
     }
 }

@@ -18,6 +18,7 @@ public class DustPlanets {
 
 	public static void load(){
 		terra = new Planet("terra", Planets.sun, 1.2f, 2){{
+			rotateTime = 3f;
 			generator = new TerraPlanetGenerator();
 			meshLoader = () -> new HexMesh(this, 5);
 			accessible = true;
@@ -27,12 +28,12 @@ public class DustPlanets {
 			orbitRadius = 29f;
 			atmosphereRadOut = 0.2f;
 			
-			atmosphereColor = Color.valueOf("7ed658");
+			atmosphereColor = Color.valueOf("798d87"); //3edfcd
 			iconColor = Color.valueOf("2cc429");
 			cloudMeshLoader = () -> new MultiMesh(
 				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)
-				new HexSkyMesh(this, 0, 0.87f, 0.13f, 6, new Color().set(Color.valueOf("caf5f0")).mul(0.9f).a(0.8f), 2, 0.5f, 0.8f, 0.3f),
-				new HexSkyMesh(this, 0, 0.83f, 0.16f, 6, Color.white.cpy().lerp(Color.valueOf("9ddac8"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
+				new HexSkyMesh(this, 0, 0.87f, 0.13f, 5, new Color().set(Color.valueOf("96f9ff")).mul(0.9f).a(0.8f), 2, 0.5f, 0.8f, 0.3f),
+				new HexSkyMesh(this, 0, 0.83f, 0.16f, 5, Color.white.cpy().lerp(Color.valueOf("d3ffff"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
 			);
 			ruleSetter = r -> {
 				r.waveTeam = Team.green;
