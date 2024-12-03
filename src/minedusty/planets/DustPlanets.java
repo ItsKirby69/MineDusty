@@ -28,7 +28,7 @@ public class DustPlanets {
 			orbitRadius = 29f;
 			atmosphereRadOut = 0.2f;
 			
-			atmosphereColor = Color.valueOf("798d87"); //3edfcd
+			atmosphereColor = Color.valueOf("a3cdc9"); //3edfcd
 			iconColor = Color.valueOf("2cc429");
 			cloudMeshLoader = () -> new MultiMesh(
 				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)

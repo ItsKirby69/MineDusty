@@ -5,7 +5,9 @@ import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.content.StatusEffects;
+import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
+import mindustry.type.StatusEffect;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
@@ -33,7 +35,7 @@ public class DustEnv {
 	public static Block shoreRock, basaltFloor, basaltSands, duneSand, calciteFloor, calciteCrags;
 
 	public static Block basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, oilTropWater, daciteWater, sanddeepWater;
-	public static Block algaeWater, deepalgaeWater;
+	public static Block algaeWater, deepalgaeWater, quickSand;
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
 
 	// Ores
@@ -426,6 +428,19 @@ public class DustEnv {
 			effectColor = Color.valueOf("111316");
 		}};
 
+		quickSand = new Floor("quick-sand"){{
+			drownTime = 240f;
+			speedMultiplier = 0.5f;
+			variants = 3;
+			//status = StatusEffects.slow; // does this even work (it just makes speedmulti 0.4)
+			//statusDuration = 30f; // need some custom Vfx for being sandy
+			attributes.set(Attribute.water, 0.8f);
+			cacheLayer = CacheLayer.mud; //TODO custom shader for quick sands
+            walkSound = Sounds.mud; // need some sfx for these
+            walkSoundVolume = 0.08f;
+            walkSoundPitchMin = 0.4f;
+            walkSoundPitchMax = 0.5f;
+		}};
 
 		//end region
 
