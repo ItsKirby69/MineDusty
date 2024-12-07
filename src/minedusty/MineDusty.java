@@ -2,12 +2,16 @@ package minedusty;
 
 import minedusty.blocks.*;
 import minedusty.content.*;
+import minedusty.graphics.DustCacheLayers;
+import minedusty.graphics.DustShaders;
 import minedusty.planets.*;
 import arc.*;
 import arc.util.*;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
+
+import static mindustry.Vars.*;
 
 public class MineDusty extends Mod{
 
@@ -33,6 +37,10 @@ public class MineDusty extends Mod{
 
     @Override
     public void loadContent(){
+		if (!headless){
+			DustShaders.load();
+			DustCacheLayers.load();
+		}
 		//teams, items, fluids, effects. Thanks @sl0tterleet
 		DustSounds.load();
 		DustItems.load();

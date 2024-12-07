@@ -19,6 +19,7 @@ public class DustItems {
 
 		//ore items
 		chlorophyte = new Item("item-chlorophyte", Color.valueOf("89ca1e")){{
+			frames = 7;
 			hardness = 3;
 			cost = 1f;
 		}};

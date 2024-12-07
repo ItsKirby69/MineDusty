@@ -39,10 +39,10 @@ public class DustEnv {
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
 
 	// Ores
-	public static Block oreChlorophyte, wallChlorophyte, oreAquamarine;
+	public static Block oreChlorophyte, wallChlorophyte, oreAquamarine, wallOxide;
 	
 	// Walls
-	public static Block oxideWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
+	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
 
 
 	public static void loadContent() {
@@ -427,16 +427,16 @@ public class DustEnv {
 			effect = Fx.ventSteam;
 			effectColor = Color.valueOf("111316");
 		}};
-
+		
 		quickSand = new Floor("quick-sand"){{
-			drownTime = 240f;
-			speedMultiplier = 0.5f;
+			drownTime = 200f;
+			speedMultiplier = 0.15f;
 			variants = 3;
-			//status = StatusEffects.slow; // does this even work (it just makes speedmulti 0.4)
-			//statusDuration = 30f; // need some custom Vfx for being sandy
+			supportsOverlay = true;
 			attributes.set(Attribute.water, 0.8f);
 			cacheLayer = CacheLayer.mud; //TODO custom shader for quick sands
-            walkSound = Sounds.mud; // need some sfx for these
+            
+			walkSound = Sounds.mud; // need some custom sfx for these
             walkSoundVolume = 0.08f;
             walkSoundPitchMin = 0.4f;
             walkSoundPitchMax = 0.5f;
@@ -470,12 +470,6 @@ public class DustEnv {
 			attributes.set(DustAttributes.chlorophyte, 1f);
 		}};
 
-		// TODO turn this to an wall ore instead
-		oxideWall = new StaticWall("oxide-wall"){{
-			variants = 3;
-			itemDrop = Items.oxide;
-		}};
-
 		//end region
 
 		//region ores and resources
@@ -491,6 +485,10 @@ public class DustEnv {
 		wallChlorophyte = new OreBlock("wall-chlorophyte", DustItems.chlorophyte){{
 			wallOre = true;
 			variants = 3;
+
+			emitLight = true;
+			lightRadius = 60f;
+			lightColor = Color.valueOf("a7db32").cpy().a(0.6f);
 		}};
 
 		oreAquamarine = new OreBlock("ore-aquamarine", DustItems.aquamarine){{
@@ -501,8 +499,17 @@ public class DustEnv {
             lightRadius = 70f;
             lightColor = Color.cyan.cpy().a(0.3f);
 		}};
+
+		wallOxide = new OreBlock("wall-oxide", Items.oxide){{
+			oreDefault = false;
+			wallOre = true;
+			variants = 3;
+
+			emitLight = true;
+			lightRadius = 40f;
+			lightColor = Color.yellow.cpy().a(0.6f);
+		}};
 		//end region
 
 	}
-
 }
