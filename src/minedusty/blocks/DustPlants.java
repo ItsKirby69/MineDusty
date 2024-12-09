@@ -12,7 +12,7 @@ import minedusty.world.blocks.environment.LivingProp;
 import minedusty.world.blocks.environment.LivingTreeBlock;
 
 public class DustPlants {
-	
+	//TODO need to have a setting that changes leaves opacity
 	// Trees
 	public static Block aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
 	//TODO spruceTree, mysticTree, coconutTree, frozenTree, glowberryTree, testTree, to

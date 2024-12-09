@@ -42,6 +42,7 @@ public class MineDusty extends Mod{
 			DustCacheLayers.load();
 		}
 		//teams, items, fluids, effects. Thanks @sl0tterleet
+		DustTeams.load();
 		DustSounds.load();
 		DustItems.load();
 		DustLiquids.load();
