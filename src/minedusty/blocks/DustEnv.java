@@ -430,6 +430,8 @@ public class DustEnv {
 		
 		quickSand = new Floor("quick-sand"){{
 			drownTime = 200f;
+			isLiquid = true;
+			
 			speedMultiplier = 0.15f;
 			variants = 3;
 			supportsOverlay = true;

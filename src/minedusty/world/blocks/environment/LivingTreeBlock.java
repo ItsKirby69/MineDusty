@@ -13,9 +13,10 @@ import static arc.Core.*;
 
 //this and all my other classes for custom props are probably really bad
 public class LivingTreeBlock extends Block{
-	public TextureRegion[] topRegions, centerRegions, backRegions, shadowRegions;
+	public TextureRegion[] topRegions, middleRegions, centerRegions, backRegions, shadowRegions;
 	public float shadowOffset = -4f;
 	public float layer = Layer.power;
+	public float tallLayer = layer + 4;
 	/** Rotates tree shadow or not. Useful for tall trees with elongated shadows. Ex: Pine trees*/
 	public boolean rotateShadow = true;
 
@@ -44,12 +45,14 @@ public class LivingTreeBlock extends Block{
 		super.load();
 		if(variants > 0){
 			topRegions = new TextureRegion[variants];
+			middleRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
 			backRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
 				topRegions[i] = atlas.find(name + "-top" + (i + 1));
+				middleRegions[i] = atlas.find(name + "-middle" + (i + 1));
 				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
 				backRegions[i] = atlas.find(name + "-back" + (i + 1));
 				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
@@ -59,6 +62,8 @@ public class LivingTreeBlock extends Block{
 			variantRegions[0] = atlas.find(name);
 			topRegions = new TextureRegion[1];
 			topRegions[0] = atlas.find(name + "-top");
+			middleRegions = new TextureRegion[1];
+			middleRegions[0] = atlas.find(name + "-middle");
 			centerRegions = new TextureRegion[1];
 			centerRegions[0] = atlas.find(name + "-center");
 			backRegions = new TextureRegion[1];
@@ -104,13 +109,20 @@ public class LivingTreeBlock extends Block{
 				Draw.rect(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], x + shadowOffset, y + shadowOffset);
 			}
 		}
-		
+		//middle leaves maybe change layers?
+		if (middleRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, middleRegions.length - 1))].found()) {
+			Draw.z(tallLayer);
+			Draw.rectv(middleRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, middleRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
+				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 55, 0.9f),
+				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.0f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
+				));
+		}
 		//top leaves
 		if (topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()) {
-			Draw.z(layer + 4);
+			Draw.z(tallLayer);
 			Draw.rectv(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
-				Mathf.cos(vec.x*2 + Time.time + 8, scl + 4f, mag * 1.0f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
+				Mathf.cos(vec.x*2 + Time.time + 8, scl + 4f, mag * 1.4f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
 		}
 		//center leaves

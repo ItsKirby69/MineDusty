@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.TreeBlock;
 import mindustry.world.meta.BuildVisibility;
@@ -14,7 +15,7 @@ import minedusty.world.blocks.environment.LivingTreeBlock;
 public class DustPlants {
 	//TODO need to have a setting that changes leaves opacity
 	// Trees
-	public static Block aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
+	public static Block worldTree, aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
 	//TODO spruceTree, mysticTree, coconutTree, frozenTree, glowberryTree, testTree, to
 
 	// Shrubs and small Plants (props)
@@ -23,6 +24,13 @@ public class DustPlants {
 
 	public static void loadContent() {
 		//region Trees
+		worldTree = new LivingTreeBlock("world-tree", 1){{ //TODO fix atlas
+			layer = Layer.power + 3;
+			tallLayer = 91;
+			size = 12;
+			shadowOffset = -30f;
+			clipSize = 1536; //512*3
+		}};
 
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
