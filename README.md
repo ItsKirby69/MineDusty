@@ -1,10 +1,13 @@
-# ![Logo](assets/sprites/icon-git.png?align=center)
+# <div align=center>![Logo](assets/sprites/icon-git.png?)</div>
+<div align="center">
 
 [![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?color=a6d626&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=a6d626&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
 [![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=6083b0&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
 [![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=⭐%20Stars&color=6083b0)](https://github.com/ItsKirby69/MineDusty)
 
 ***Sandbox only (for now)***
+</div>
+
 # MineDusty
 This mod originates from an old project of mine. It brings life (literally) into Mindustry with various Trees, plants, and much more!
 Showcases will be shown in the Mindustry discord's Modding forums (tba).
