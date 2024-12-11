@@ -25,8 +25,6 @@ public class TileEffect extends Floor{
 	public Effect effect = DustyEffects.airBubble;
 	public Sound soundEffect = Sounds.none;
 	
-
-	//public int tilesize = 8;
 	
 	public TileEffect(String name){
 		super(name);
@@ -60,7 +58,6 @@ public class TileEffect extends Floor{
 				if(Mathf.random() < chance){
 					effect.at(state.tile.worldx(), state.tile.worldy(), effectColor);
 					soundEffect.at(state.tile.worldx(), state.tile.worldy(), Mathf.random(0.8f, 1.2f), 0.5f);  // Play sound effect
-					//if (soundEffect != Sounds.none) {}
 				}
 				state.data = 0f;
 			}

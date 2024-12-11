@@ -18,7 +18,7 @@ public class LivingBush extends Prop{
 	public float layer = Layer.blockProp;
 	/** Determines if center region rotates or not. not actually sure if it works or not lol*/
 	public float rot = 0;
-	/** Whether block uses single circle like seabushes or dual like ferns */
+	/** Whether block uses single circle like seabushes or dual like ferns (which doesn't even use this option anymore lol) */
 	public boolean dualCircleMode = false;
 	public boolean rare = false;
 	public float rareChance = 0.01f;

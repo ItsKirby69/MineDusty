@@ -36,5 +36,19 @@ public class DustyEffects {
 			randLenVectors(e.id, 3, 2f + e.finpow() * 20f, (x, y) -> {
 				Fill.circle(e.x + x, e.y + y, 16f + e.fin() * 9f);
 			});
+		}),
+		
+		fallingLeaves = new Effect(450f, e ->{
+			color(e.color, e.color, e.fslope());
+			alpha(e.fslope() * 0.8f);
+
+			float drift = -2f * e.fin() * 4f;
+			
+			randLenVectors(e.id, 3, 30f + e.finpow(), (x, y) -> {
+				Fill.circle(e.x + x + drift, e.y + y + drift, 3.5f);
+			});
+			
+			Drawf.light(e.x, e.y, 15f * e.fslope(), Color.black, 0.4f * e.fout());
 		});
+
 }

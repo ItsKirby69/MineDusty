@@ -44,6 +44,8 @@ public class DustEnv {
 	// Walls
 	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
 
+	// Misc
+	public static Block fallingLeaves;
 
 	public static void loadContent() {
 
@@ -429,10 +431,10 @@ public class DustEnv {
 		}};
 		
 		quickSand = new Floor("quick-sand"){{
-			drownTime = 200f;
+			drownTime = 180f;
 			isLiquid = true;
 			
-			speedMultiplier = 0.15f;
+			speedMultiplier = 0.35f;
 			variants = 3;
 			supportsOverlay = true;
 			attributes.set(Attribute.water, 0.8f);
@@ -474,7 +476,7 @@ public class DustEnv {
 
 		//end region
 
-		//region ores and resources
+		//region Ores & Resources
         oreChlorophyte = new OreBlock("ore-chlorophyte", DustItems.chlorophyte){{
             oreDefault = false;
 			variants = 3;
@@ -510,6 +512,13 @@ public class DustEnv {
 			emitLight = true;
 			lightRadius = 40f;
 			lightColor = Color.yellow.cpy().a(0.6f);
+		}};
+		//end region
+
+		//region Misc
+		fallingLeaves = new TileEffect("falling-leaves"){{
+			effect = DustyEffects.fallingLeaves;
+			effectColor = Color.valueOf("c32121");
 		}};
 		//end region
 

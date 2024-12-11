@@ -15,8 +15,8 @@ import minedusty.world.blocks.environment.LivingTreeBlock;
 public class DustPlants {
 	//TODO need to have a setting that changes leaves opacity
 	// Trees
-	public static Block worldTree, aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
-	//TODO spruceTree, mysticTree, coconutTree, frozenTree, glowberryTree, testTree, to
+	public static Block worldTree, divineTree, aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
+	//TODO spruceTree, mysticTree, coconutTree, frozenTree, glowberryTree, testTree {?}
 
 	// Shrubs and small Plants (props)
 	public static Block grassBunch, shrub, sandyshrub, tallGrass, fernBush, bogRoots;
@@ -25,11 +25,18 @@ public class DustPlants {
 	public static void loadContent() {
 		//region Trees
 		worldTree = new LivingTreeBlock("world-tree", 1){{ //TODO fix atlas
-			layer = Layer.power + 3;
-			tallLayer = 91;
+			mapColor = Color.valueOf("c32121");
+			layer = Layer.power + 5; // for above other trees
+			tallLayer = 91; // for above player
 			size = 12;
 			shadowOffset = -30f;
 			clipSize = 1536; //512*3
+		}};
+
+		divineTree = new LivingTreeBlock("divine-tree", 2){{
+			mapColor = Color.valueOf("c32121");
+			centerDown = true;
+			size = 3;
 		}};
 
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
