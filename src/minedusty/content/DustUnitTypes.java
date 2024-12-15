@@ -5,20 +5,58 @@ import mindustry.ai.types.*;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.*;
 import mindustry.entities.pattern.*;
-import mindustry.gen.Sounds;
-import mindustry.gen.UnitEntity;
+import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.type.ammo.*;
 
-
-public class DustUnits {
+public class DustUnitTypes {
 	
 	// core units
 	public static UnitType cricket, lotus, mantis;
 
+	//region Enemy units
 
+	//mechs
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineMech1;
+	//end region
 
 	public static void load(){
+		divineMech1 = new UnitType("divine-mech"){{
+			speed = 0.45f;
+			hitSize = 10f;
+			rotateSpeed = 3f;
+			targetAir = false;
+			health = 500;
+			armor = 7;
+			mechFrontSway = 0.55f; //gotta test these values
+			ammoType = new ItemAmmoType(DustItems.divinityMatter);
+			weapons.add(new Weapon("minedusty-divine-arm"){{
+				top = false; // this could be huge for making outlines on units
+				y = 1f;
+				x = 9f;
+				reload = 60f;
+				recoil = 4f;
+				shake = 1f;
+				ejectEffect = Fx.casing2;
+				shootSound = Sounds.artillery;
+				//not touched below taken from Fortress
+				bullet = new ArtilleryBulletType(2f, 20, "shell"){{
+					hitEffect = Fx.blastExplosion;
+					knockback = 0.8f;
+					lifetime = 120f;
+					width = height = 14f;
+					collides = true;
+                    collidesTiles = true;
+                    splashDamageRadius = 35f;
+                    splashDamage = 80f;
+                    backColor = Pal.bulletYellowBack;
+                    frontColor = Pal.bulletYellow;
+				}};
+			}});
+		}};
+
+		//TODO fix weapon outline sheinanigins using top = false;
 		cricket = new UnitType("cricket"){{
 			aiController = BuilderAI::new;
 			isEnemy = false;

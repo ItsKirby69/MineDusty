@@ -6,7 +6,7 @@ import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.blocks.storage.CoreBlock;
-import minedusty.content.DustUnits;
+import minedusty.content.DustUnitTypes;
 
 public class DustCore {
 	public static Block coreNest;
@@ -16,7 +16,7 @@ public class DustCore {
 			requirements(Category.effect, with(Items.copper, 5, Items.lead, 8));
 			alwaysUnlocked = true;
 			isFirstTier = true;
-			unitType = DustUnits.cricket;
+			unitType = DustUnitTypes.cricket;
 			health = 1600;
 			itemCapacity = 2500;
 			size = 3;

@@ -8,6 +8,7 @@ import mindustry.graphics.Layer;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.TreeBlock;
 import mindustry.world.meta.BuildVisibility;
+import minedusty.content.DustItems;
 import minedusty.world.blocks.environment.LivingBush;
 import minedusty.world.blocks.environment.LivingProp;
 import minedusty.world.blocks.environment.LivingTreeBlock;
@@ -34,6 +35,7 @@ public class DustPlants {
 		}};
 
 		divineTree = new LivingTreeBlock("divine-tree", 2){{
+			itemDrop = DustItems.divinityMatter; //for extraction in future
 			mapColor = Color.valueOf("c32121");
 			centerDown = true;
 			size = 3;

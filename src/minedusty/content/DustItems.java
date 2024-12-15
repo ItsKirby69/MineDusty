@@ -3,12 +3,14 @@ package minedusty.content;
 import minedusty.graphics.*;
 import arc.graphics.Color;
 import arc.struct.Seq;
+import mindustry.content.Blocks;
+import mindustry.content.UnitTypes;
 import mindustry.type.Item;
 
 public class DustItems {
 	
 	//Ores
-	public static Item chlorophyte, aquamarine, quartz, rosequartz, dustquartz;
+	public static Item chlorophyte, aquamarine, divinityMatter, quartz, rosequartz, dustquartz;
 
 	//Other stuff
 	public static Item carbonicWaste;
@@ -27,6 +29,12 @@ public class DustItems {
 		aquamarine = new Item("item-aquamarine", Color.valueOf("a4ecfd")){{
 			hardness = 3;
 			cost = 1f;
+		}};
+
+		divinityMatter = new Item("item-divinity-matter", Color.valueOf("c32121")){{
+			cost = 1.3f;
+			explosiveness = 0.15f;
+			flammability = 0.7f;
 		}};
 		
 		carbonicWaste = new Item("item-carbonicwaste", Color.valueOf("2f241a")){{}};

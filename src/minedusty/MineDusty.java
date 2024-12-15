@@ -50,7 +50,7 @@ public class MineDusty extends Mod{
 		//DustEffects.load(); the actual file is named DustyEffects for some reason
 		//DustTeams.load();
 		DustWeathers.load();
-		DustUnits.load();
+		DustUnitTypes.load();
 		//blocks
 		DustDefence.loadContent();
 		DustCrafters.loadContent();
