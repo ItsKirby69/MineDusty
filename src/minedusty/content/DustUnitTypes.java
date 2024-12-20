@@ -18,21 +18,25 @@ public class DustUnitTypes {
 	//region Enemy units
 
 	//mechs
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineMech1;
+	public static UnitType divineMech1; //@EntityDef({Unitc.class, Mechc.class}) UnitType divineMech1;
 	//end region
 
+	//very wip. TODO fix outlines, need entityDefs to work. Need to port mod to Glenn's template.
 	public static void load(){
-		divineMech1 = new UnitType("divine-mech"){{
-			speed = 0.45f;
+		divineMech1 = new UnitType("divine-mech1"){{
+			constructor = UnitEntity::create;
+			speed = 0.5f;
 			hitSize = 10f;
 			rotateSpeed = 3f;
 			targetAir = false;
 			health = 500;
 			armor = 7;
 			mechFrontSway = 0.55f; //gotta test these values
+			outlineColor = Color.valueOf("390000");
+
 			ammoType = new ItemAmmoType(DustItems.divinityMatter);
-			weapons.add(new Weapon("minedusty-divine-arm"){{
-				top = false; // this could be huge for making outlines on units
+			weapons.add(new Weapon("divine-mech-arm"){{
+				top = false;
 				y = 1f;
 				x = 9f;
 				reload = 60f;
@@ -42,6 +46,7 @@ public class DustUnitTypes {
 				shootSound = Sounds.artillery;
 				//not touched below taken from Fortress
 				bullet = new ArtilleryBulletType(2f, 20, "shell"){{
+					pierce = true;
 					hitEffect = Fx.blastExplosion;
 					knockback = 0.8f;
 					lifetime = 120f;
@@ -56,7 +61,6 @@ public class DustUnitTypes {
 			}});
 		}};
 
-		//TODO fix weapon outline sheinanigins using top = false;
 		cricket = new UnitType("cricket"){{
 			aiController = BuilderAI::new;
 			isEnemy = false;
@@ -79,6 +83,7 @@ public class DustUnitTypes {
 			engineOffset = 6.9f;
 			trailLength = 4;
 			outlines = false;
+			//outlineColor = Color.valueOf("41ffb8"); //2f3734
 			
 			weapons.add(new Weapon("minedusty-cricket-weapon"){{
 				reload = 30f;
@@ -91,7 +96,7 @@ public class DustUnitTypes {
 				layerOffset = -4f;
 				recoil = 1.2f;
 				//speed dmg
-				bullet = new LaserBoltBulletType(3f, 4){{
+				bullet = new LaserBoltBulletType(3f, 10){{
 					lifetime = 50f;
 					healPercent = 3.5f;
 					collidesTeam = true;

@@ -27,8 +27,8 @@ public class DustyEffects {
 				//REMINDER: margins changed from 0.06f -> 0.1f. This makes that weird effect seen now
 				rect(renderer.bubbles[Math.min((int)(renderer.bubbles.length * Mathf.curveMargin(e.fin(), 0.06f, 0.06f)), renderer.bubbles.length - 1)], e.x + x, e.y + y);
 			});
-		}).layer(Layer.darkness - 1f),
-
+		}).layer(Layer.darkness - 1f), 
+		
 		marshGas = new Effect(220f, e -> {
 			color(e.color, Color.valueOf("346524"), e.fin());
 			alpha(e.fslope()* 0.4f);
@@ -40,15 +40,14 @@ public class DustyEffects {
 		
 		fallingLeaves = new Effect(450f, e ->{
 			color(e.color, e.color, e.fslope());
-			alpha(e.fslope() * 0.8f);
+			alpha(e.fslope() * 1.1f);
 
-			float drift = -2f * e.fin() * 4f;
-			
-			randLenVectors(e.id, 3, 30f + e.finpow(), (x, y) -> {
+			float drift = -20f * e.fin() * 4f;
+			randLenVectors(e.id, 3, 30f + e.finpow() * 40f, (x, y) -> {
 				Fill.circle(e.x + x + drift, e.y + y + drift, 3.5f);
 			});
 			
 			Drawf.light(e.x, e.y, 15f * e.fslope(), Color.black, 0.4f * e.fout());
-		});
+		}).layer(Layer.power + 2);
 
 }

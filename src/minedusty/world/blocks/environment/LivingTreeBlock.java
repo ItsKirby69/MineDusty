@@ -17,7 +17,7 @@ public class LivingTreeBlock extends Block{
 	public float shadowOffset = -4f;
 
 	public float layer = Layer.power;
-	public float tallLayer = layer + 4;
+	public float tallLayer = 91f; //layer + 4
 	public float centerLayer = layer + 3;
 	/** Rotates tree shadow or not. Useful for tall trees with elongated shadows. Ex: Pine trees*/
 	public boolean rotateShadow = true;
@@ -36,6 +36,7 @@ public class LivingTreeBlock extends Block{
 		clipSize = 120;
 		update = true;
 		breakSound = Sounds.plantBreak;
+		destroySound = Sounds.boom; //TODO custom tree breaking sound
 		buildVisibility = BuildVisibility.sandboxOnly;
 		destructible = true;
 		health = size * 1200;

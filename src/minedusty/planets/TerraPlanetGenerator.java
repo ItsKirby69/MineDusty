@@ -48,7 +48,7 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 			return peaks1.write(out).lerp(peaks2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
 		} else if (height > 0.25f && Math.abs(position.y) < 0.9){ //valleys
 			return valley1.write(out).lerp(valley2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
-		} else if (height > 0.12f){ //beaches/shores
+		} else if (height > 0f){ //beaches/shores
 			if (Math.abs(position.y) < 0.5){
 				return beaches1.write(out).lerp(beaches2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
 			} else {

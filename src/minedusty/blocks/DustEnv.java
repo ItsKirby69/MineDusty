@@ -22,6 +22,7 @@ import minedusty.DustAttributes;
 import minedusty.content.DustItems;
 import minedusty.content.DustSounds;
 import minedusty.content.DustyEffects;
+import minedusty.graphics.DustCacheLayers;
 import minedusty.world.blocks.environment.OverlayFloorEdged;
 import minedusty.world.blocks.environment.TileEffect;
 
@@ -431,16 +432,16 @@ public class DustEnv {
 		}};
 		
 		quickSand = new Floor("quick-sand"){{
-			drownTime = 180f;
+			drownTime = 120f;
 			isLiquid = true;
 			
-			speedMultiplier = 0.35f;
+			speedMultiplier = 0.55f;
 			variants = 3;
 			supportsOverlay = true;
 			attributes.set(Attribute.water, 0.8f);
-			cacheLayer = CacheLayer.mud; //TODO custom shader for quick sands
+			cacheLayer = DustCacheLayers.quicksand;//CacheLayer.mud; //TODO does this work. recently changed from mud layer to custom
             
-			walkSound = Sounds.mud; // need some custom sfx for these
+			walkSound = Sounds.mud; // need some custom sfx for these maybe
             walkSoundVolume = 0.08f;
             walkSoundPitchMin = 0.4f;
             walkSoundPitchMax = 0.5f;

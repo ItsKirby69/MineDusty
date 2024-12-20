@@ -14,10 +14,10 @@ import minedusty.world.blocks.environment.LivingProp;
 import minedusty.world.blocks.environment.LivingTreeBlock;
 
 public class DustPlants {
-	//TODO need to have a setting that changes leaves opacity
+	//TODO need to have a setting that changes leaves opacity.
 	// Trees
 	public static Block worldTree, divineTree, aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
-	//TODO spruceTree, mysticTree, coconutTree, frozenTree, glowberryTree, testTree {?}
+	//TODO spruceTree, mysticTree, frozenTree, glowberryTree, coconutTree?
 
 	// Shrubs and small Plants (props)
 	public static Block grassBunch, shrub, sandyshrub, tallGrass, fernBush, bogRoots;
@@ -104,15 +104,6 @@ public class DustPlants {
 		//end region
 
 		//region Props
-		grassBunch = new LivingBush("grass-bunch"){{
-			variants = 1;
-			mapColor = Color.valueOf("74d660");
-			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			lobesMin = 8;
-			lobesMax = 12;
-			magMin = 2;
-			magMax = 10;
-		}};
 
 		shrub = new LivingBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
@@ -136,7 +127,8 @@ public class DustPlants {
 			sclMax = 60f;
 		}};
 
-		//WIP
+		//WIP. These suck so bad o_o
+		/* 
 		tallGrass = new LivingBush("tallgrass", 2){{
 			mapColor = Color.valueOf("87d661");
 			lobesMin = 4;
@@ -145,6 +137,16 @@ public class DustPlants {
 			magMax = 9;
 			rot = 0;
 		}};
+		grassBunch = new LivingBush("grass-bunch"){{
+			variants = 1;
+			mapColor = Color.valueOf("74d660");
+			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
+			lobesMin = 8;
+			lobesMax = 12;
+			magMin = 2;
+			magMax = 10;
+		}};
+		*/
 
 		fernBush = new LivingBush("fern-bush", 2){{
 			mapColor = Color.valueOf("356a41");
@@ -171,7 +173,6 @@ public class DustPlants {
 			breakEffect = Fx.breakProp;
 			instantDeconstruct = true;			
 		}};
-
 
 		cactus = new LivingProp("cactus"){{
 			mapColor = Color.valueOf("d7d177");

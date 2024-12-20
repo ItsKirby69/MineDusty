@@ -20,6 +20,7 @@ import minedusty.content.DustItems;
 import minedusty.content.DustLiquids;
 
 public class DustCrafters {
+	//TODO new heating block
 	public static Block nitroplastChamber, bioLiquidMixer, bioFuelCombustionChamber, miniCrusher;
 	
 	public static void loadContent() {
@@ -59,12 +60,11 @@ public class DustCrafters {
 			warmupSpeed = 0.01f;
 			craftTime = 225;
 			hasLiquids = true;
-			hasPower = true;
 			liquidCapacity = 25;
 			craftEffect = Fx.smokeCloud;
 			heatRequirement = 4f;
+			maxEfficiency = 3.0f;
 			consumeLiquids(LiquidStack.with(DustLiquids.bioLiquid, 30/60f, Liquids.nitrogen, 8/60f)); //TODO Oxygen needed
-			consumePower(1.5f);
 			outputLiquid = new LiquidStack(DustLiquids.bioFuel, 12/60f);
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
@@ -104,6 +104,7 @@ public class DustCrafters {
 			consumeLiquid(DustLiquids.bioFuel, 8 / 60f);
 			consume(new ConsumeItemFlammable());
 			consume(new ConsumeItemExplode());
+			
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawRegion("-spein"){{

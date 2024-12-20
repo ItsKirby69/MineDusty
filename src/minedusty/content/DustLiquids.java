@@ -6,7 +6,8 @@ import mindustry.type.CellLiquid;
 import mindustry.type.Liquid;
 
 public class DustLiquids {
-	public static Liquid bioLiquid, bioFuel, sap;
+	public static Liquid bioLiquid, bioFuel, sap; 
+	//TODO oxygen. Thinking about having oxygen compatible with other mod's oxygen? Or maybe just use ozone for recipies
 
 	//temp
 	public static void load(){
@@ -25,13 +26,17 @@ public class DustLiquids {
 			gasColor = Color.valueOf("d8ff8e");
 			viscosity = 0.60f;
 		}};
-		sap = new CellLiquid("sap", Color.valueOf("#ff9100")){{
+		sap = new CellLiquid("sap", Color.valueOf("ff9100")){{
 			heatCapacity = 0.4f;
 			effect = StatusEffects.sapped;
-			colorFrom = Color.valueOf("f49f0b");
+			colorFrom = Color.valueOf("873f05");
             colorTo = Color.valueOf("e8b30f");
 			viscosity = 0.75f;
             flammability = 0.75f;
 		}};
+		// oxygen = new Liquid("oxygen", Color.valueOf("d6f1ff")){{
+		// 	heatCapacity = 0;
+		// 	boilPoint = 0;
+		// }};
 	}
 }

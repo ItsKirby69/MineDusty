@@ -17,6 +17,7 @@ public class DustPlanets {
 	gaia, terra, testd;
 
 	public static void load(){
+		//my dudes look how clean this is compared to "gaia"
 		terra = new Planet("terra", Planets.sun, 1.2f, 2){{
 			rotateTime = 3f;
 			generator = new TerraPlanetGenerator();
@@ -26,17 +27,20 @@ public class DustPlanets {
 			updateLighting = true;
 			startSector = 2;
 			orbitRadius = 29f;
-			atmosphereRadOut = 0.2f;
+			atmosphereRadOut = 0.5f;
+			allowLaunchSchematics = false;
+			allowLaunchToNumbered = false;
 			
 			atmosphereColor = Color.valueOf("a3cdc9"); //3edfcd
 			iconColor = Color.valueOf("2cc429");
+			itemWhitelist.addAll(DustItems.terraItems);
 			cloudMeshLoader = () -> new MultiMesh(
 				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)
 				new HexSkyMesh(this, 0, 0.87f, 0.13f, 5, new Color().set(Color.valueOf("96f9ff")).mul(0.9f).a(0.8f), 2, 0.5f, 0.8f, 0.3f),
 				new HexSkyMesh(this, 0, 0.83f, 0.16f, 5, Color.white.cpy().lerp(Color.valueOf("d3ffff"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
 			);
 			ruleSetter = r -> {
-				r.waveTeam = Team.green;
+				r.waveTeam = Team.green; //trying to figure out setting this depending on map
 				r.weather.add(
 					new Weather.WeatherEntry(){{ weather = Weathers.fog;}},
 					new Weather.WeatherEntry(){{ weather = DustWeathers.heavyRain;}}
@@ -80,30 +84,9 @@ public class DustPlanets {
 
 			//itemWhitelist = DustItems.dustItems;
 			//TODO: Might change this whitelist to seperate technologies
-			hiddenItems.addAll(Items.erekirItems).addAll(Items.serpuloItems).removeAll(DustItems.dustItems);
+			hiddenItems.addAll(Items.erekirItems).addAll(Items.serpuloItems);
 			
 			meshLoader = () -> new HexMesh(this,6); //TODO: This is big, fix the planet mesh stuff. Maybe use self hex mesh but modify GaiaPlanetGenerator then.
-			/*meshLoader = () -> new MultiMesh(
-				// water
-				new SunMesh(this,5,2,0.5,1.7,2.2,3,1f,
-					Color.valueOf("43838e"),
-					Color.valueOf("438d8e"),
-					Color.valueOf("44a29f")),
-					
-				//(P planet, i seed, i divisions, f radius, i octaves, f persistence, f scale, f mag, C color1, C color2, i coct, f cper, f cscl, f cthresh)
-				// land
-				new NoiseMesh(this, 2, 6, 1.087f, 4, 1.2f, 0.8f, 1.15f, Color.valueOf("66d86f"), Color.valueOf("6ac841"), 4, 1.1f, 1.2f, 1f),
-				// sandy
-				new NoiseMesh(this, 2, 6, 1.076f, 3, 1f, 0.79f, 1.15f, Color.valueOf("f7e7c6"), Color.valueOf("ffeabb"), 2, 1.1f, 1.2f, 1f),
-				// basalt
-				new NoiseMesh(this, 3, 6, 0.96f, 3, 0.9f, 0.6f, 1f, Color.valueOf("8a8da7"), Color.valueOf("6d7382"), 3, 1f, 1.1f, 0.6f),
-				
-				// extra
-				//new NoiseMesh(this, 3, 6, 0.98f, 3, 0.85f, 0.3f, 1.05f, Color.valueOf("99dd3e"), Color.valueOf("9a6814"), 3, 0.8f, 0.9f, 1f),
-				
-				// mountains
-				new NoiseMesh(this, 0, 6, 1.0f, 4, 1.1f, 1.25f, 1.77f, Color.valueOf("cdd8da"), Color.valueOf("a5b8bc"), 4, 2f, 1f, 1f)
-			);*/
 
 			cloudMeshLoader = () -> new MultiMesh(
 				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)
@@ -113,12 +96,12 @@ public class DustPlanets {
 			unlockedOnLand.addAll(DustCore.coreNest);
 		}};
 
-		testd = new Planet("blue-thing", DustPlanets.gaia, 0.8f, 1){{
+		testd = new Planet("blue-thing", DustPlanets.terra, 0.8f, 1){{
             generator = new TantrosPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 4);
-            accessible = true;
+            accessible = false;
             visible = true;
-			alwaysUnlocked = true;
+			alwaysUnlocked = false; //maybe make it unlock after certain sectors (maybe closest to the planet from terra) is unlocked
             atmosphereColor = Color.valueOf("3db899");
             iconColor = Color.valueOf("597be3");
             startSector = 10;
