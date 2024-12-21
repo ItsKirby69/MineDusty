@@ -5,11 +5,11 @@ import mindustry.game.Team;
 
 // this class is heavily referencing Twcash's Tantros Mod
 public class DustTeams {
-	public static Team team1, team2;
+	public static Team divinity, team2;
 
 	public static void load(){
-		team1 = newTeam(77, "team1", Color.valueOf("ffe9e9"));
-		team2 = newTeam(78, "team2", Color.valueOf("752905"));
+		divinity = newTeam(77, "divinity", Color.valueOf("ffe9e9"));
+		team2 = newTeam(78, "team2", Color.valueOf("66361E"));
 	}
 
 	private static Team newTeam(int id, String name, Color color) {Team team = Team.get(id);
