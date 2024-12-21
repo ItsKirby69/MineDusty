@@ -27,7 +27,7 @@ public class DustPlanets {
 			updateLighting = true;
 			startSector = 2;
 			orbitRadius = 29f;
-			atmosphereRadOut = 0.5f;
+			atmosphereRadOut = 0.2f;
 			allowLaunchSchematics = false;
 			allowLaunchToNumbered = false;
 			
