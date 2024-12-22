@@ -7,7 +7,6 @@ import mindustry.content.Liquids;
 import mindustry.content.StatusEffects;
 import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
-import mindustry.type.StatusEffect;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
@@ -29,7 +28,7 @@ import minedusty.world.blocks.environment.TileEffect;
 public class DustEnv {
 
 	// Rocks
-	public static Block duneRockBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, calciteBoulder;
+	public static Block largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, calciteBoulder;
 
 	// Tiles
 	public static Block taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
@@ -100,7 +99,7 @@ public class DustEnv {
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 		
-		duneRockBoulder = new Prop("dune-rock"){{
+		largesandBoulder = new Prop("large-sand-boulder"){{
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};

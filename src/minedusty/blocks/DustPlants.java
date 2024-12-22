@@ -20,7 +20,7 @@ public class DustPlants {
 	//TODO spruceTree, mysticTree, frozenTree, glowberryTree, coconutTree?
 
 	// Shrubs and small Plants (props)
-	public static Block grassBunch, shrub, sandyshrub, tallGrass, fernBush, bogRoots;
+	public static Block grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
 	public static Block cactus, cattail, lilypad, largelilypad;
 
 	public static void loadContent() {
@@ -104,27 +104,21 @@ public class DustPlants {
 		//end region
 
 		//region Props
+		//TODO need to work more with the decoration feature maybe?
 
 		shrub = new LivingBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			lobesMin = 5;
-			lobesMax = 6;
-			magMin = 4;
-			magMax = 6;
-			sclMin = 20f;
-			sclMax = 60f;
 		}};
 		
 		sandyshrub = new LivingBush("sandy-shrub"){{
 			mapColor = Color.valueOf("f7cba4");
 			Blocks.sand.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
-			lobesMin = 5;
-			lobesMax = 6;
-			magMin = 4;
-			magMax = 6;
-			sclMin = 20f;
-			sclMax = 60f;
+		}};
+
+		dustyshrub = new LivingBush("dusty-shrub"){{
+			mapColor = Color.valueOf("f7cba4");
+			Blocks.stone.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 		}};
 
 		//WIP. These suck so bad o_o

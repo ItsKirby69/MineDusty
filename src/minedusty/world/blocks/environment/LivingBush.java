@@ -34,6 +34,8 @@ public class LivingBush extends Prop{
 		buildVisibility = BuildVisibility.sandboxOnly;
 		drawTeamOverlay = false;
 		targetable = false;
+		lobesMin = 5;
+		lobesMax = 6;
     }
 
 	@Override

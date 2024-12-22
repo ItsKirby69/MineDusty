@@ -1,4 +1,4 @@
 Props and small stuff -> Blur x4 Opacity 50%
-Boulders -> Blur x5 Opacity 70%
+Boulders -> Blur x8 Opacity 80%
 Trees and big stuff -> Blur x15 Opacity 40%
 Bush -> Blur x10 Opactiy 60%
