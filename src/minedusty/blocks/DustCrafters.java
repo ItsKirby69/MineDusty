@@ -53,7 +53,7 @@ public class DustCrafters {
 				new DrawDefault()
 			);
 		}};
-		// Crafts bioFuel using bioLiquid, Oxygen and Nitrogen //TODO might use heat instead of power
+		// Crafts bioFuel using bioLiquid, Oxygen and Nitrogen
 		nitroplastChamber = new HeatCrafter("nitroplast-chamber"){{
 			requirements(Category.crafting, with(Items.titanium, 110, Items.silicon, 50, Items.metaglass, 30));
 			size = 3;

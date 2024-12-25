@@ -438,7 +438,7 @@ public class DustEnv {
 			variants = 3;
 			supportsOverlay = true;
 			attributes.set(Attribute.water, 0.8f);
-			cacheLayer = DustCacheLayers.quicksand;//CacheLayer.mud; //TODO does this work. recently changed from mud layer to custom
+			cacheLayer = DustCacheLayers.quicksand;//CacheLayer.mud;
             
 			walkSound = Sounds.mud; // need some custom sfx for these maybe
             walkSoundVolume = 0.08f;

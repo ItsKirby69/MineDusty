@@ -40,7 +40,7 @@ public class DustPlanets {
 				new HexSkyMesh(this, 0, 0.83f, 0.16f, 5, Color.white.cpy().lerp(Color.valueOf("d3ffff"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
 			);
 			ruleSetter = r -> {
-				r.waveTeam = Team.green; //trying to figure out setting this depending on map
+				r.waveTeam = Team.green; //temp
 				r.weather.add(
 					new Weather.WeatherEntry(){{ weather = Weathers.fog;}},
 					new Weather.WeatherEntry(){{ weather = DustWeathers.heavyRain;}}

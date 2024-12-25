@@ -34,8 +34,13 @@ public class LivingBush extends Prop{
 		buildVisibility = BuildVisibility.sandboxOnly;
 		drawTeamOverlay = false;
 		targetable = false;
+		//moved these changes here as it seems like all bushes use these.
 		lobesMin = 5;
 		lobesMax = 6;
+		magMin = 4;
+		magMax = 6;
+		sclMin = 20f;
+		sclMax = 60f;
     }
 
 	@Override

@@ -25,7 +25,7 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 	basalts1 = Color.valueOf("71777e"), basalts2 = Color.valueOf("373d43");
 	
 	{
-		baseSeed = 2;
+		baseSeed = 3;
 		defaultLoadout = Schematics.readBase64("bXNjaAF4nGNgZmBmZmDJS8xNZWBJzi9KZeBOSS1OLsosKMnMz2NgYGDLSUxKzSlmYIqOZWQQzs3MS00pLS6p1AWp1c1LLS4BqmEEISABAPVFEvQ=");
 	}
 
