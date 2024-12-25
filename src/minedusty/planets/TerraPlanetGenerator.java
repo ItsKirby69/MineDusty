@@ -9,7 +9,7 @@ import mindustry.game.Schematics;
 import mindustry.maps.generators.PlanetGenerator;
 import mindustry.type.Sector;
 
-/* Useful notes from other gens (don't quote me) --
+/* Useful notes from other gens (don't quote me) -
  * serpulo gens height as usual then uses Blocks arr which
  * has gradients of block pallets (water -> land tiles)
  * and takes mapcolor of block in setColor method
@@ -31,7 +31,7 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 
 	@Override
 	public void generateSector(Sector sector){
-		//nothing yet
+		//nothing yet 
 	}
 
 	//this is really really really really really really really really jank (i think)
