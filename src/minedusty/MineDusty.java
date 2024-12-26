@@ -37,6 +37,7 @@ public class MineDusty extends Mod{
 
     @Override
     public void loadContent(){
+		EntityRegistry.register();
 		if (!headless){
 			DustShaders.load();
 			DustCacheLayers.load();

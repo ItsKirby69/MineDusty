@@ -18,13 +18,13 @@ public class DustUnitTypes {
 	//region Enemy units
 
 	//mechs
-	public static UnitType divineMech1; //@EntityDef({Unitc.class, Mechc.class}) UnitType divineMech1;
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineMech1;
 	//end region
 
 	//very wip. TODO fix outlines, need entityDefs to work. Need to port mod to Glenn's template.
 	public static void load(){
 		divineMech1 = new UnitType("divine-mech1"){{
-			constructor = MechUnit::create;
+			//constructor = MechUnit::create;
 			speed = 0.5f;
 			hitSize = 10f;
 			rotateSpeed = 3f;
@@ -33,8 +33,8 @@ public class DustUnitTypes {
 			armor = 7;
 			mechFrontSway = 0.55f; //gotta test these values
 			outlineColor = Color.valueOf("390000");
-
 			ammoType = new ItemAmmoType(DustItems.divinityMatter);
+
 			weapons.add(new Weapon("divine-mech-arm"){{
 				top = false;
 				y = 1f;
