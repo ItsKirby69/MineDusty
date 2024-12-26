@@ -2,6 +2,7 @@ package minedusty;
 
 import minedusty.blocks.*;
 import minedusty.content.*;
+import minedusty.gen.EntityRegistry;
 import minedusty.graphics.DustCacheLayers;
 import minedusty.graphics.DustShaders;
 import minedusty.planets.*;

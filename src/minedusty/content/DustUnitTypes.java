@@ -1,6 +1,7 @@
 package minedusty.content;
 
 import arc.graphics.Color;
+import ent.anno.Annotations.EntityDef;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.*;
@@ -24,7 +25,7 @@ public class DustUnitTypes {
 	//very wip. TODO fix outlines, need entityDefs to work. Need to port mod to Glenn's template.
 	public static void load(){
 		divineMech1 = new UnitType("divine-mech1"){{
-			//constructor = MechUnit::create;
+			constructor = MechUnit::create;
 			speed = 0.5f;
 			hitSize = 10f;
 			rotateSpeed = 3f;
@@ -33,8 +34,8 @@ public class DustUnitTypes {
 			armor = 7;
 			mechFrontSway = 0.55f; //gotta test these values
 			outlineColor = Color.valueOf("390000");
-			ammoType = new ItemAmmoType(DustItems.divinityMatter);
 
+			ammoType = new ItemAmmoType(DustItems.divinityMatter);
 			weapons.add(new Weapon("divine-mech-arm"){{
 				top = false;
 				y = 1f;
@@ -55,8 +56,8 @@ public class DustUnitTypes {
                     collidesTiles = true;
                     splashDamageRadius = 35f;
                     splashDamage = 80f;
-                    backColor = Pal.bulletYellowBack;
-                    frontColor = Pal.bulletYellow;
+                    backColor = Pal.redDust;
+                    frontColor = Pal.redLight;
 				}};
 			}});
 		}};
