@@ -24,7 +24,7 @@ public class DustUnitTypes {
 	//very wip. TODO fix outlines, need entityDefs to work. Need to port mod to Glenn's template.
 	public static void load(){
 		divineMech1 = new UnitType("divine-mech1"){{
-			constructor = UnitEntity::create;
+			constructor = MechUnit::create;
 			speed = 0.5f;
 			hitSize = 10f;
 			rotateSpeed = 3f;
