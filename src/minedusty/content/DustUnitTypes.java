@@ -22,7 +22,7 @@ public class DustUnitTypes {
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineMech1;
 	//end region
 
-	//very wip. TODO fix outlines, need entityDefs to work. Need to port mod to Glenn's template.
+	//very wip. TODO fix arms not showing and color of legs
 	public static void load(){
 		divineMech1 = new UnitType("divine-mech1"){{
 			constructor = MechUnit::create;
@@ -34,12 +34,13 @@ public class DustUnitTypes {
 			armor = 7;
 			mechFrontSway = 0.55f; //gotta test these values
 			outlineColor = Color.valueOf("390000");
+			mechLegColor = Color.valueOf("6e1b20");
 
 			ammoType = new ItemAmmoType(DustItems.divinityMatter);
-			weapons.add(new Weapon("divine-mech-arm"){{
+			weapons.add(new Weapon("minedusty-divine-mech-arm"){{
 				top = false;
-				y = 1f;
-				x = 9f;
+				y = 3.5f;
+				x = 8f;
 				reload = 60f;
 				recoil = 4f;
 				shake = 1f;
