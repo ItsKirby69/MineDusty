@@ -35,7 +35,7 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 		//nothing yet
 	}
 
-	//this is really really really really really really really really jank (i think)
+	//this is really really really really really really really really really jank (i think)
 	@Override
 	public Color getColor(Vec3 position) {
 		float height = getHeight(position);
@@ -50,10 +50,10 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 			return peaks1.write(out).lerp(peaks2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
 		} else if (height > 0.25f && Math.abs(position.y) < 0.92){ //valleys
 			if (divineSpread > 0.55f) {
-				if (divineSpread % 0.1f < 0.5f) {
-					return divine1.write(out).lerp(divine2, 0.0f).a(0.5f);
+				if (Mathf.random() < 0.5f) {
+					return divine1.write(out).lerp(divine2, 0.4f).a(0.5f);
 				} else {
-					return divine1.write(out).lerp(divine2, 1.0f).a(0.5f);
+					return divine1.write(out).lerp(divine2, 0.8f).a(0.5f);
 				}
 			}
 			return valley1.write(out).lerp(valley2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
