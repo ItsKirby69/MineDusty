@@ -13,15 +13,20 @@ import minedusty.content.DustItems;
 import minedusty.content.DustWeathers;
 
 public class DustPlanets {
-	public static Planet
-	gaia, terra, testd;
+	public static Planet //TODO add clutter asteroids and stuff near terra's surroundings (similar to how asteroids exist)
+	// test planet
+	gaia,
+	// remake
+	terra, //for now this is the name of the planet...
+	// terra's oceanic moon
+	nautilune;
 
 	public static void load(){
 		//my dudes look how clean this is compared to "gaia"
 		terra = new Planet("terra", Planets.sun, 1.2f, 2){{
 			rotateTime = 3f;
 			generator = new TerraPlanetGenerator();
-			meshLoader = () -> new HexMesh(this, 5);
+			meshLoader = () -> new HexMesh(this, 6);
 			accessible = true;
 			alwaysUnlocked = true;
 			updateLighting = true;
@@ -96,7 +101,7 @@ public class DustPlanets {
 			unlockedOnLand.addAll(DustCore.coreNest);
 		}};
 
-		testd = new Planet("blue-thing", DustPlanets.terra, 0.8f, 1){{
+		nautilune = new Planet("nautilune", DustPlanets.terra, 0.8f, 1){{
             generator = new TantrosPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 4);
             accessible = false;

@@ -21,6 +21,8 @@ import minedusty.content.DustLiquids;
 
 public class DustCrafters {
 	//TODO new heating block
+	//TODO new extraction block for underwater oils (more efficient than drills and work for deep waters)
+	//TODO new extraction block for sap-like sources (using attributes)
 	public static Block nitroplastChamber, bioLiquidMixer, bioFuelCombustionChamber, miniCrusher;
 	
 	public static void loadContent() {

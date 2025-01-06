@@ -17,9 +17,10 @@ import mindustry.type.Sector;
 
 public class TerraPlanetGenerator extends PlanetGenerator{
 	Color  out = new Color(),
+	divine1 = Color.valueOf("fffafa"), divine2 = Color.valueOf("c32121"),
 	valley1 = Color.valueOf("60b243"), valley2 = Color.valueOf("478e2d"),
 	peaks1 = Color.valueOf("1c873f"), peaks2 = Color.valueOf("124c28"),
-	oceanColor1 = Color.valueOf("30a9f0"), oceanColor2 = Color.valueOf("0c59a6"),
+	oceanColor1 = Color.valueOf("47ace6"), oceanColor2 = Color.valueOf("32608d"),
 	poleColor1 = Color.valueOf("d4ecfa"), poleColor2 = Color.valueOf("ffffff"), poleOcean1 = Color.valueOf("91a6f9"), poleOcean2 = Color.valueOf("bfcbf8"),
 	beaches1 = Color.valueOf("ead195"), beaches2 = Color.valueOf("b48f55"),
 	basalts1 = Color.valueOf("71777e"), basalts2 = Color.valueOf("373d43");
@@ -39,23 +40,31 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 	public Color getColor(Vec3 position) {
 		float height = getHeight(position);
 		float depth = Simplex.noise3d(baseSeed, 4, 0.7f, 0.8f, position.x, position.y, position.z);
+		float divineSpread = Simplex.noise3d(baseSeed, 5, 0.5f, 0.4f, position.x, position.y, position.z);
 
 		if (Math.abs(position.y) + depth > 1.4f){ // poles
 			return poleColor1.write(out).lerp(poleColor2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
 		} else if (Math.abs(position.y) + depth > 1.25f && height < 0.15){ // ocean pole waters
-			return poleOcean1.write(out).lerp(poleOcean2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
-		} else if (height > 0.45f && Math.abs(position.y) < 0.95){ // peaks
+			return poleOcean1.write(out).lerp(poleOcean2, Mathf.clamp(Mathf.round(depth, 0.2f))).a(0.5f);
+		} else if (height > 0.45f && Math.abs(position.y) < 0.97){ // peaks
 			return peaks1.write(out).lerp(peaks2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
-		} else if (height > 0.25f && Math.abs(position.y) < 0.9){ //valleys
+		} else if (height > 0.25f && Math.abs(position.y) < 0.92){ //valleys
+			if (divineSpread > 0.55f) {
+				if (divineSpread % 0.1f < 0.5f) {
+					return divine1.write(out).lerp(divine2, 0.0f).a(0.5f);
+				} else {
+					return divine1.write(out).lerp(divine2, 1.0f).a(0.5f);
+				}
+			}
 			return valley1.write(out).lerp(valley2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
 		} else if (height > 0f){ //beaches/shores
 			if (Math.abs(position.y) < 0.5){
-				return beaches1.write(out).lerp(beaches2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
+				return beaches1.write(out).lerp(beaches2, Mathf.clamp(Mathf.round(depth, 0.15f))).a(0.5f);
 			} else {
-				return basalts1.write(out).lerp(basalts2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.5f);
+				return basalts1.write(out).lerp(basalts2, Mathf.clamp(Mathf.round(depth, 0.35f))).a(0.5f);
 			}
 		} else { //ocean
-			return oceanColor1.write(out).lerp(oceanColor2, Mathf.clamp(Mathf.round(depth, 0.25f))).a(0.6f);
+			return oceanColor1.write(out).lerp(oceanColor2, Mathf.clamp(Mathf.round(depth, 0.15f))).a(0.6f);
 		}
 	}
 

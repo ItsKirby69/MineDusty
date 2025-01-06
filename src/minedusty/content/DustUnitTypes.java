@@ -12,7 +12,7 @@ import mindustry.type.*;
 import mindustry.type.ammo.*;
 
 public class DustUnitTypes {
-	
+
 	// core units
 	public static UnitType cricket, lotus, mantis;
 
@@ -26,7 +26,7 @@ public class DustUnitTypes {
 	public static void load(){
 		divineMech1 = new UnitType("divine-mech1"){{
 			constructor = MechUnit::create;
-			speed = 0.5f;
+			speed = 0.45f;
 			hitSize = 10f;
 			rotateSpeed = 3f;
 			targetAir = false;
@@ -38,6 +38,7 @@ public class DustUnitTypes {
 
 			ammoType = new ItemAmmoType(DustItems.divinityMatter);
 			weapons.add(new Weapon("minedusty-divine-mech-arm"){{
+				layerOffset = -0.0001f;
 				top = false;
 				y = 3.5f;
 				x = 8f;
