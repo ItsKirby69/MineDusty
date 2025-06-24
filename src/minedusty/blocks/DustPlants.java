@@ -4,14 +4,11 @@ import arc.graphics.Color;
 import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Layer;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.TreeBlock;
 import mindustry.world.meta.BuildVisibility;
 import minedusty.content.DustItems;
-import minedusty.world.blocks.environment.LivingBush;
-import minedusty.world.blocks.environment.LivingProp;
-import minedusty.world.blocks.environment.LivingTreeBlock;
+import minedusty.world.blocks.environment.*;
 
 public class DustPlants {
 	//TODO need to have a setting that changes leaves opacity.

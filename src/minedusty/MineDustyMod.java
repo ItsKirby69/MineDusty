@@ -6,6 +6,7 @@ import minedusty.gen.*;
 import minedusty.graphics.DustCacheLayers;
 import minedusty.graphics.DustShaders;
 import minedusty.planets.*;
+import minedusty.ui.DustSettings;
 import arc.*;
 import arc.util.*;
 import mindustry.game.EventType.*;
@@ -35,6 +36,11 @@ public class MineDustyMod extends Mod{
             });
         });
     }
+
+	@Override
+	public void init(){
+		DustSettings.load();
+	}
 
     @Override
     public void loadContent(){
