@@ -38,7 +38,6 @@ public class DustPlanets {
 			
 			atmosphereColor = Color.valueOf("a3cdc9"); //3edfcd
 			iconColor = Color.valueOf("2cc429");
-			itemWhitelist.addAll(DustItems.terraItems);
 			cloudMeshLoader = () -> new MultiMesh(
 				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)
 				new HexSkyMesh(this, 0, 0.87f, 0.13f, 5, new Color().set(Color.valueOf("96f9ff")).mul(0.9f).a(0.8f), 2, 0.5f, 0.8f, 0.3f),
@@ -86,10 +85,6 @@ public class DustPlanets {
 			startSector = 1;
 			iconColor = Color.valueOf("6e8b3d");
 			atmosphereColor = Color.valueOf("84eb5f");
-
-			//itemWhitelist = DustItems.dustItems;
-			//TODO: Might change this whitelist to seperate technologies
-			hiddenItems.addAll(Items.erekirItems).addAll(Items.serpuloItems);
 			
 			meshLoader = () -> new HexMesh(this,6); //TODO: This is big, fix the planet mesh stuff. Maybe use self hex mesh but modify GaiaPlanetGenerator then.
 

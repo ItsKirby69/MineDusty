@@ -1,9 +1,11 @@
 package minedusty.world.blocks.environment;
 
 import arc.graphics.g2d.*;
+import arc.graphics.gl.Shader;
 import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
+import mindustry.Vars;
 import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.world.*;
@@ -13,16 +15,17 @@ import static arc.Core.*;
 
 //this and all my other classes for custom props are probably really bad
 public class LivingTreeBlock extends Block{
-	public TextureRegion[] topRegions, middleRegions, centerRegions, backRegions, tallshadRegions, shadowRegions;
+	public TextureRegion[] trunkRegions, topRegions, middleRegions, centerRegions, backRegions, tallshadRegions, shadowRegions;
 	public float shadowOffset = -4f;
 
-	public float layer = Layer.power;
-	public float tallLayer = 91f; //layer + 4
-	public float centerLayer = layer + 3;
+	public float baseLayer = Layer.legUnit + 2.5f;
 	/** Rotates tree shadow or not. Useful for tall trees with elongated shadows. Ex: Pine trees*/
 	public boolean rotateShadow = true;
-	/** This is specific to Divine Trees. Where the center region has a chance to draw below the base region*/
-	public boolean centerDown = false;
+	/** Massive trees toggle (mainly layering fixes*/
+	public boolean tallTree = false;
+
+	public float fadeStart = 50f;
+	public float fadeEnd = 15f;
 
 	public LivingTreeBlock(String name){
 		this(name, 3);
@@ -32,6 +35,7 @@ public class LivingTreeBlock extends Block{
         super(name);
 		this.variants = variants;
         customShadow = true;
+		hasShadow = false; //remove block shadow
 		solid = true;
 		clipSize = 120;
 		update = true;
@@ -49,6 +53,7 @@ public class LivingTreeBlock extends Block{
 	public void load(){
 		super.load();
 		if(variants > 0){
+			trunkRegions = new TextureRegion[variants];
 			topRegions = new TextureRegion[variants];
 			middleRegions = new TextureRegion[variants];
 			tallshadRegions = new TextureRegion[variants];
@@ -57,6 +62,7 @@ public class LivingTreeBlock extends Block{
 			shadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
+				trunkRegions[i] = atlas.find(name + "-trunk" + (i + 1));
 				topRegions[i] = atlas.find(name + "-top" + (i + 1));
 				middleRegions[i] = atlas.find(name + "-middle" + (i + 1));
 				tallshadRegions[i] = atlas.find(name + "-tallshadow" + (i + 1));
@@ -67,6 +73,8 @@ public class LivingTreeBlock extends Block{
 		}else{
 			variantRegions = new TextureRegion[1];
 			variantRegions[0] = atlas.find(name);
+			trunkRegions = new TextureRegion[1];
+			trunkRegions[0] = atlas.find(name + "-trunk");
 			topRegions = new TextureRegion[1];
 			topRegions[0] = atlas.find(name + "-top");
 			middleRegions = new TextureRegion[1];
@@ -86,13 +94,19 @@ public class LivingTreeBlock extends Block{
 	@Override
 	public void init() {
 		super.init();
-		hasShadow = true;
 	}
 
 	static Rand rand = new Rand();
 
 	@Override
 	public void drawBase(Tile tile) {
+		float fade = 1f;
+
+		// TODO make minimum fade and option for fade in settings
+		if(Vars.player.unit() != null && !Vars.player.unit().dead()){
+			float dst = Mathf.dst(Vars.player.unit().x, Vars.player.unit().y, tile.worldx(), tile.worldy());
+			fade = Mathf.clamp((dst - fadeEnd) / (fadeStart - fadeEnd), 0.1f, 1f);
+		}
 
 		rand.setSeed(tile.pos());
 
@@ -101,66 +115,77 @@ public class LivingTreeBlock extends Block{
 		w = region.width * region.scl(), h = region.height * region.scl(),
         scl = 30f, mag = 0.2f;
 		
-		// Draws main stem/log of tree
-		Draw.alpha(1);
-		Draw.z(layer + 2);
+		Draw.alpha(fade);
+		Draw.z(baseLayer);
 		Draw.rectv(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 			Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
 			Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
 			));
 		
-		// very custom for world trees. This seems like it could be repeated quite easily...
-		if (tallshadRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, tallshadRegions.length - 1))].found()) {
-			Draw.z(tallLayer);
-			Draw.rectv(tallshadRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, tallshadRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
-				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
-				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
-				));
+		// Trunk below base layer
+		if (trunkRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, trunkRegions.length - 1))].found()) {
+			Draw.z(Layer.groundUnit - 1f);
+			Draw.alpha(1f);
+			Draw.rect(trunkRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, trunkRegions.length - 1))], x, y, rot);
 		}
 
-		//this determines the center regions going below the base region with a 70% chance
-		float centerLayer = layer + 3;
-		if (centerDown == true && rand.chance(0.5)){
-			centerLayer = layer + 1.5f;
-		}
-		
-		//shadow TODO: Movements should probably be more random and less... space taking
+		//Shadow above ground units
 		if (shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))].found()) { 
-			Draw.z(layer);
+			Draw.z(baseLayer - 2f);
 			if (rotateShadow == true){
 				Draw.rect(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], x + shadowOffset, y + shadowOffset, rot);
 			} else {
 				Draw.rect(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], x + shadowOffset, y + shadowOffset);
 			}
 		}
-		//middle leaves maybe change layers?
+
+		// Back leaves, behind base layer 🗣🗣🗣
+		if (backRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, backRegions.length - 1))].found()) {
+			Draw.z(baseLayer - 1f);
+			Draw.alpha(fade);
+			Draw.rect(backRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, backRegions.length - 1))], x, y, rot);
+		}
+
+		// Center leaves. Also just means those leaves from the edgemost of the tree branches.
+		if (centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()) {
+			Draw.z(baseLayer + 1);
+			Draw.alpha(fade);
+			Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
+				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
+				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
+				));
+		}
+
+		// Middle leaves in between Center leaves and the Top leaves.
 		if (middleRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, middleRegions.length - 1))].found()) {
-			Draw.z(tallLayer);
+			Draw.z(tallTree ? Layer.flyingUnitLow + 1.5f : baseLayer + 2f);
+			Draw.alpha(fade);
 			Draw.rectv(middleRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, middleRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 55, 0.9f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.0f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
 		}
-		//top leaves
+
+		// Shadow mask for the massive trees.
+		if (tallshadRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, tallshadRegions.length - 1))].found()) {			
+			Draw.z(Layer.flyingUnitLow + 1f);
+			Draw.alpha(1f);
+			Draw.rectv(tallshadRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, tallshadRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
+				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
+				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
+				));
+		}
+
+		// Top leaves. Massive trees would have this above flying units.
 		if (topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()) {
-			Draw.z(tallLayer);
+			Draw.z(tallTree ? Layer.flyingUnitLow + 2f : baseLayer + 4f);
+			Draw.alpha(fade);
 			Draw.rectv(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 4f, mag * 1.4f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
+			Draw.alpha(1f);
 		}
-		//center leaves
-		if (centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()) {
-			Draw.z(centerLayer);
-			Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
-				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
-				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
-				));
-		//them back regions 🗣🗣🗣
-		if (backRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, backRegions.length - 1))].found()) {
-			Draw.z(layer + 1);
-			Draw.rect(backRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, backRegions.length - 1))], x, y, rot);
-		}}
 	}
 
     @Override

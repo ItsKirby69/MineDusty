@@ -27,17 +27,17 @@ public class DustPlants {
 		//region Trees
 		worldTree = new LivingTreeBlock("world-tree", 1){{ //TODO fix atlas
 			mapColor = Color.valueOf("c32121");
-			layer = Layer.power + 5; // for above other trees
-			tallLayer = 91; // for above player
 			size = 12;
 			shadowOffset = -30f;
-			clipSize = 1536; //512*3
+			tallTree = true;
+			clipSize = 1536; //512*3 | 1536
+			fadeStart = 150f;
+			fadeEnd = 50f;
 		}};
 
 		divineTree = new LivingTreeBlock("divine-tree", 2){{
 			itemDrop = DustItems.divinityMatter; //for extraction in future
 			mapColor = Color.valueOf("c32121");
-			centerDown = true;
 			size = 3;
 		}};
 
@@ -173,6 +173,7 @@ public class DustPlants {
 			variants = 2;
 			rotate = false;
 			breakable = true;
+			swayProp = true;
 			rareChance = 0.2f;
 		}};
 

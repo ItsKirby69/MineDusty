@@ -2,7 +2,7 @@ package minedusty;
 
 import minedusty.blocks.*;
 import minedusty.content.*;
-import minedusty.gen.EntityRegistry;
+import minedusty.gen.*;
 import minedusty.graphics.DustCacheLayers;
 import minedusty.graphics.DustShaders;
 import minedusty.planets.*;
@@ -14,9 +14,9 @@ import mindustry.ui.dialogs.*;
 
 import static mindustry.Vars.*;
 
-public class MineDusty extends Mod{
+public class MineDustyMod extends Mod{
 
-    public MineDusty(){
+    public MineDustyMod(){
         Log.info("*cough* *cough* MineDusty is *cough* loaded");
 
         //listen for game load event

@@ -1,7 +1,7 @@
 package minedusty.content;
 
 import arc.graphics.Color;
-import ent.anno.Annotations.EntityDef;
+import ent.anno.Annotations.*;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.*;

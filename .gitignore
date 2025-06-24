@@ -23,3 +23,7 @@ build/
 /assets/sprites/blocks/props/scrap
 /assets/sprites/items/kra
 /assets/sprites/units/projfile
+# ignore project files
+*.kra
+# ignore temp/backup files
+*.png~
