@@ -18,10 +18,11 @@ public class DustyPopup extends BaseDialog{
         super("@popup.dusty-message.title", Core.scene.getStyle(DialogStyle.class));
 
         // Adds the dog
-        cont.image(Core.atlas.find("minedusty-dog")).row();
+        cont.image(Core.atlas.find("minedusty-dog")).size(330f).row();
         
         cont.add("@popup.dusty-message")
         .wrap()
+        .width(750f)
         .pad(7f)
         .get().setAlignment(Align.center, Align.center);
 

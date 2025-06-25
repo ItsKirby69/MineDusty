@@ -5,6 +5,7 @@ import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.gen.Sounds;
 import mindustry.world.Block;
+import mindustry.world.blocks.environment.Prop;
 import mindustry.world.blocks.environment.TreeBlock;
 import mindustry.world.meta.BuildVisibility;
 import minedusty.content.DustItems;
@@ -17,12 +18,14 @@ public class DustPlants {
 	//TODO spruceTree, mysticTree, frozenTree, glowberryTree, coconutTree?
 
 	// Shrubs and small Plants (props)
+	public static Block divineSapling;
 	public static Block grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
 	public static Block cactus, cattail, lilypad, largelilypad;
 
 	public static void loadContent() {
 		//region Trees
-		worldTree = new LivingTreeBlock("world-tree", 1){{ //TODO fix atlas
+		/* Disabled for now since atlas is messed up
+		worldTree = new LivingTreeBlock("world-tree", 1){{
 			mapColor = Color.valueOf("c32121");
 			size = 12;
 			shadowOffset = -30f;
@@ -31,6 +34,13 @@ public class DustPlants {
 			fadeStart = 230f;
 			fadeEnd = 100f;
 			effectRange = 18f;
+		}};*/
+
+		divineSapling = new Prop("divine-sapling"){{
+			customShadow = true;
+			variants = 2;
+			buildVisibility = BuildVisibility.sandboxOnly;
+			DustEnv.calciteCrags.asFloor().decoration = this;
 		}};
 
 		divineTree = new LivingTreeBlock("divine-tree", 2){{

@@ -53,8 +53,8 @@ public class MineDustyMod extends Mod{
 		DustDefence.loadContent();
 		DustCrafters.loadContent();
 		
-        DustPlants.loadContent();
 		DustEnv.loadContent();
+        DustPlants.loadContent();
 		DustCore.loadContent();
 		
 		DustDistribution.loadContent();

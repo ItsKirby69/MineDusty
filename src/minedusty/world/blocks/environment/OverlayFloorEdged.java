@@ -2,6 +2,7 @@ package minedusty.world.blocks.environment;
 
 import arc.graphics.g2d.*;
 import arc.math.*;
+import mindustry.game.Team;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.OverlayFloor;
 
@@ -10,9 +11,14 @@ public class OverlayFloorEdged extends OverlayFloor{
 
     public OverlayFloorEdged(String name){
         super(name);
-        this.useColor = false;
+        useColor = false;
     }
 
+    @Override
+    public boolean canPlaceOn(Tile tile, Team team, int rotation){
+        return !wallOre || tile.block().solid;
+    }
+    
     @Override
     public void drawBase(Tile tile){
         Mathf.rand.setSeed(tile.pos());

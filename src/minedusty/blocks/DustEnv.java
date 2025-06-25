@@ -1,6 +1,7 @@
 package minedusty.blocks;
 
 import arc.graphics.Color;
+import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -14,6 +15,7 @@ import mindustry.world.blocks.environment.OverlayFloor;
 import mindustry.world.blocks.environment.Prop;
 import mindustry.world.blocks.environment.StaticTree;
 import mindustry.world.blocks.environment.StaticWall;
+import mindustry.world.blocks.environment.TallBlock;
 import mindustry.world.blocks.environment.TreeBlock;
 import mindustry.world.meta.Attribute;
 import mindustry.world.meta.BuildVisibility;
@@ -22,8 +24,7 @@ import minedusty.content.DustItems;
 import minedusty.content.DustSounds;
 import minedusty.content.DustyEffects;
 import minedusty.graphics.DustCacheLayers;
-import minedusty.world.blocks.environment.OverlayFloorEdged;
-import minedusty.world.blocks.environment.TileEffect;
+import minedusty.world.blocks.environment.*;
 
 public class DustEnv {
 
@@ -34,7 +35,7 @@ public class DustEnv {
 	public static Block taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
 	public static Block shoreRock, basaltFloor, basaltSands, duneSand, calciteFloor, calciteCrags;
 
-	public static Block basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, oilTropWater, daciteWater, sanddeepWater;
+	public static Block basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater, quickSand;
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
 
@@ -50,56 +51,57 @@ public class DustEnv {
 	public static void loadContent() {
 
 		//region Boulders
-		largeBoulder = new Prop("large-boulder"){{
+		largeBoulder = new BoulderProp("large-boulder"){{
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
+			shadowOffset = -1.5f;
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
-		largeshorestoneBoulder = new Prop("large-shorestone"){{
+		largeshorestoneBoulder = new BoulderProp("large-shorestone"){{
 			customShadow = true;
 			variants = 2;
 			mapColor = Color.valueOf("706f74");
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
-		shorestoneBoulder = new Prop("shorestone-boulder"){{
+		shorestoneBoulder = new BoulderProp("shorestone-boulder"){{
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
 		//why did i name it like this
-		largebasaltPillar = new Prop("large-basaltder"){{
+		largebasaltPillar = new BoulderProp("large-basaltder"){{
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
-		basaltPillar = new Prop("basalt-boulder"){{
+		basaltPillar = new BoulderProp("basalt-boulder"){{
 			variants = 3;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
-		largedaciteBoulder = new Prop("large-dacite-boulder"){{
+		largedaciteBoulder = new BoulderProp("large-dacite-boulder"){{
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
-		largesoapstoneBoulder = new Prop("large-soapstone-boulder"){{
+		largesoapstoneBoulder = new BoulderProp("large-soapstone-boulder"){{
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
-		calciteBoulder = new Prop("calcite-boulder"){{
+		calciteBoulder = new BoulderProp("calcite-boulder"){{
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 		
-		largesandBoulder = new Prop("large-sand-boulder"){{
+		largesandBoulder = new BoulderProp("large-sand-boulder"){{
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
@@ -111,12 +113,8 @@ public class DustEnv {
 		taigaGrass = new Floor("taiga-grass"){{
 			variants = 5;
 		}};
-
-		taigaLeaves = new OverlayFloorEdged("taiga-leaves"){{
-			variants = 5;
-			//TODO: needs edge support
-		}};
 		
+		// TODO rework the overlay leaves (blossom and elms)
 		blossomGrass = new Floor("blossom-grass"){{
 			variants = 5;
 		}};
@@ -133,36 +131,38 @@ public class DustEnv {
 			variants = 3;
 		}};
 
-		shoreRock = new Floor("shorestone"){{
-			variants = 3;
+		shoreRock = new Floor("shorestone", 3){{
+			wall = shorestoneWall;
 			attributes.set(Attribute.water, 0.25f);
 			decoration = shorestoneBoulder;
 		}};
 
-		basaltFloor = new Floor("basalt-floor"){{
-			variants = 5;
+		basaltFloor = new Floor("basalt-floor", 5){{
+			wall = basaltWall;
 			decoration = basaltPillar;
 		}};
 		
-		basaltSands = new Floor("basalt-sands"){{
-			variants = 5;
+		basaltSands = new Floor("basalt-sands", 5){{
+			wall = basaltWall;
 			attributes.set(Attribute.oil, 0.8f);
 			decoration = basaltPillar;
 		}};
 
-		duneSand = new Floor("dune-sand"){{
+		duneSand = new Floor("dune-sand", 3){{
 			itemDrop = Items.sand;
 			playerUnmineable = true;
             attributes.set(Attribute.oil, 0.7f);
-			variants = 3;
+			wall = Blocks.sandWall;
 		}};
 
-		calciteFloor = new Floor("calcite-floor"){{
-			variants = 3;
+		calciteFloor = new Floor("calcite-floor", 3){{
+			wall = calciteWall;
 		}};
-		calciteCrags = new Floor("calcite-crags"){{
-			variants = 3;
+		calciteCrags = new Floor("calcite-crags", 4){{
+			wall = calciteWall;
 		}};
+
+
 		//end region
 
 		//region Water Tiles
@@ -415,27 +415,26 @@ public class DustEnv {
 			effectColor = Color.valueOf("111316");
 		}};
 
-		oilTropWater = new TileEffect("trop-oil-water"){{
-			variants = 3;
-			speedMultiplier = 0.5f;
-			liquidDrop = Liquids.oil;
-			liquidMultiplier = 0.8f;
-			isLiquid = true;
-			status = StatusEffects.wet;
-			statusDuration = 90f;
-			cacheLayer = CacheLayer.water;
-			albedo = 0.9f;
+		// oilTropWater = new TileEffect("trop-oil-water"){{
+		// 	variants = 3;
+		// 	speedMultiplier = 0.5f;
+		// 	liquidDrop = Liquids.oil;
+		// 	liquidMultiplier = 0.8f;
+		// 	isLiquid = true;
+		// 	status = StatusEffects.wet;
+		// 	statusDuration = 90f;
+		// 	cacheLayer = CacheLayer.water;
+		// 	albedo = 0.9f;
 
-			effect = Fx.ventSteam;
-			effectColor = Color.valueOf("111316");
-		}};
+		// 	effect = Fx.ventSteam;
+		// 	effectColor = Color.valueOf("111316");
+		// }};
 		
 		quickSand = new Floor("quick-sand"){{
 			drownTime = 120f;
 			isLiquid = true;
 			
 			speedMultiplier = 0.55f;
-			variants = 3;
 			supportsOverlay = true;
 			attributes.set(Attribute.water, 0.8f);
 			cacheLayer = DustCacheLayers.quicksand;//CacheLayer.mud;
