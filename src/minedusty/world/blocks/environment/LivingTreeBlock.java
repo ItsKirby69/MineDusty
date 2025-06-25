@@ -5,11 +5,12 @@ import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
 import mindustry.Vars;
+import mindustry.entities.Effect;
 import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.BuildVisibility;
-import minedusty.ui.DustSettings;
+import minedusty.content.DustyEffects;
 
 import static arc.Core.*;
 
@@ -23,9 +24,13 @@ public class LivingTreeBlock extends Block{
 	public boolean rotateShadow = true;
 	/** Massive trees toggle (mainly layering fixes*/
 	public boolean tallTree = false;
-
+	/** For fading when near tree. If setting is enabled*/
 	public float fadeStart = 50f;
 	public float fadeEnd = 15f;
+	/** Effects for falling leaves */
+	public Effect effect = DustyEffects.fallingLeaves;
+	public float effectRange = 6f;
+	//public Color effectColor = Color.valueOf("ffffff");
 
 	public LivingTreeBlock(String name){
 		this(name, 3);
@@ -95,8 +100,6 @@ public class LivingTreeBlock extends Block{
 	@Override
 	public void init() {
 		super.init();
-		Log.info("Fade Enabled: @, Fade Min: @", settings.getBool("dusty-fade-enabled", true), settings.getInt("dusty-fade-opacity-min", 10));
-
 	}
 
 	static Rand rand = new Rand();
@@ -118,7 +121,7 @@ public class LivingTreeBlock extends Block{
 		rot = Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time* timeFactor + x, 50f, 0.5f) + Mathf.sin(Time.time* timeFactor - y, 65f, 0.9f) + Mathf.sin(Time.time* timeFactor + y - x, 85f, 0.9f),
 		w = region.width * region.scl(), h = region.height * region.scl(),
 		scl = 30f, mag = 0.2f;
-		
+
 		Draw.alpha(fade);
 		Draw.z(baseLayer);
 		Draw.rectv(variantRegions[variation], x, y, w, h, rot, vec -> vec.add(
@@ -189,7 +192,18 @@ public class LivingTreeBlock extends Block{
 				Mathf.sin(vec.y*2 + Time.time* timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 70, 0.8f),
 				Mathf.cos(vec.x*2 + Time.time* timeFactor + 8, scl + 4f, mag * 1.4f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
 				));
-			Draw.alpha(1f);
+			
+		}
+		Draw.alpha(1f);
+		
+		// effects
+		if(Vars.state.isPaused()) return; // Particles stack when paused for some reason
+		if(settings.getBool("dusty-falling-leaves-enabled", true) && Mathf.chanceDelta(0.002f * size)){
+			effect.at(
+				tile.worldx() + Mathf.range(effectRange) * size,
+				tile.worldy() + Mathf.range(effectRange) * size,
+				mapColor
+			);
 		}
 	}
 

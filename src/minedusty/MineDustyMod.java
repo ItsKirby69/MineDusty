@@ -7,6 +7,7 @@ import minedusty.graphics.DustCacheLayers;
 import minedusty.graphics.DustShaders;
 import minedusty.planets.*;
 import minedusty.ui.DustSettings;
+import minedusty.ui.DustyPopup;
 import arc.*;
 import arc.util.*;
 import mindustry.game.EventType.*;
@@ -19,27 +20,16 @@ public class MineDustyMod extends Mod{
 
     public MineDustyMod(){
         Log.info("*cough* *cough* MineDusty is *cough* loaded");
-
-        //listen for game load event
-        Events.on(ClientLoadEvent.class, e -> {
-            //show dialog upon startup
-            Time.runTask(10f, () -> {
-                BaseDialog dialog = new BaseDialog("warn");
-                dialog.cont.add("A spooky Disclaimer").row();
-                dialog.cont.image(Core.atlas.find("minedusty-dog")).pad(20f).row();
-				dialog.cont.add("[gray]This mod ([][white]Minedusty[][gray]) is in Beta![]").row();
-				dialog.cont.add("[gray]That means its potentially unstable and incomplete![]").row();
-				dialog.cont.add("[scarlet]If you'd like to give [gold]feedback, bug reports, or more...[]").row();
-				dialog.cont.add("[scarlet]Create an issue in the github repo![]").row();
-                dialog.cont.button("Alrighty", dialog::hide).size(150f, 50f);
-                dialog.show();
-            });
-        });
     }
 
 	@Override
 	public void init(){
 		DustSettings.load();
+        //listen for game load event
+        Events.on(ClientLoadEvent.class, e -> {
+            //show dialog upon startup
+			DustyPopup.check();
+        });
 	}
 
     @Override
@@ -55,7 +45,7 @@ public class MineDustyMod extends Mod{
 		DustItems.load();
 		DustLiquids.load();
 		DustAttributes.load();
-		//DustEffects.load(); the actual file is named DustyEffects for some reason
+		DustStatusEffects.load();
 		//DustTeams.load();
 		DustWeathers.load();
 		DustUnitTypes.load();

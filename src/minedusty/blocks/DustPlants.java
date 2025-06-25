@@ -28,8 +28,9 @@ public class DustPlants {
 			shadowOffset = -30f;
 			tallTree = true;
 			clipSize = 1536; //512*3 | 1536
-			fadeStart = 150f;
-			fadeEnd = 50f;
+			fadeStart = 230f;
+			fadeEnd = 100f;
+			effectRange = 18f;
 		}};
 
 		divineTree = new LivingTreeBlock("divine-tree", 2){{

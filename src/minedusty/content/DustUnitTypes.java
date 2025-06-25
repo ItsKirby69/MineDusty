@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import ent.anno.Annotations.*;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
+import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
 import mindustry.entities.pattern.*;
 import mindustry.gen.*;
@@ -19,10 +20,10 @@ public class DustUnitTypes {
 	//region Enemy units
 
 	//mechs
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineMech1;
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineMech1, divineMech2;
 	//end region
 
-	//very wip. TODO fix arms not showing and color of legs
+	// Fortress clone
 	public static void load(){
 		divineMech1 = new UnitType("divine-mech1"){{
 			constructor = MechUnit::create;
@@ -60,6 +61,47 @@ public class DustUnitTypes {
                     splashDamage = 80f;
                     backColor = Pal.redDust;
                     frontColor = Pal.redLight;
+				}};
+			}});
+		}};
+
+		// Mech clone
+		divineMech2 = new UnitType("divine-mech2"){{
+			constructor = MechUnit::create;
+			speed = 0.5f;
+			hitSize = 10f;
+			health = 500f;
+			armor = 4f;
+			
+			mechFrontSway = 0.2f;
+			outlineColor = Color.valueOf("390000");
+			mechLegColor = Color.valueOf("6e1b20");
+			//immunities.add(StatusEffects.burning);
+
+			weapons.add(new Weapon("minedusty-divine-mech-finger"){{
+				layerOffset = -0.0001f;
+				top = false;
+				shootSound = Sounds.flame2;
+				shootY = 1.2f;
+				y = 1.5f;
+				x = 5f;
+				reload = 9.5f;
+				recoil = 1.05f;
+				ejectEffect = Fx.none;
+				bullet = new BulletType(4.0f, 25f){{
+                    ammoMultiplier = 3f;
+                    hitSize = 7f;
+                    lifetime = 13f;
+                    pierce = true;
+                    pierceBuilding = false;
+                    pierceCap = 2;
+                    statusDuration = 60f * 8;
+                    shootEffect = DustyEffects.shootRotFlame;
+                    hitEffect = Fx.hitFlameSmall;
+                    despawnEffect = Fx.none;
+                    status = DustStatusEffects.rotting;
+                    keepVelocity = true;
+                    hittable = false;
 				}};
 			}});
 		}};

@@ -9,8 +9,7 @@ import mindustry.type.Planet;
 import mindustry.type.Weather;
 import mindustry.world.meta.Env;
 import minedusty.blocks.DustCore;
-import minedusty.content.DustItems;
-import minedusty.content.DustWeathers;
+import minedusty.content.*;
 
 public class DustPlanets {
 	public static Planet //TODO add clutter asteroids and stuff near terra's surroundings (similar to how asteroids exist)
