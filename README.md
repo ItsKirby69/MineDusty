@@ -24,7 +24,7 @@ Visit the **[Trello board](https://trello.com/b/1wTgcEBs/minedusty)** to see goa
 
 Download the jar file manually in the *releases* tab, or just copy the repository's link (`ItsKirby69/MineDusty`) to download it **directly in-game** when adding a new mod!
 
-## Special ThanksAdd commentMore actions
+## Special Thanks
 - **[Twcash](https://github.com/Twcash/)** - sprite inspiration and amazing creator.
 - **[Lixie](https://github.com/LixieWulf/)** - prop inspiration. The reason this mod is here today.
 - **[Sh1penfire](https://github.com/Sh1penfire/)** - mechanic inspiration and reason why i got into modding.
