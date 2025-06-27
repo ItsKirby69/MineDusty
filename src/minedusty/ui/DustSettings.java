@@ -13,7 +13,8 @@ public class DustSettings {
             t.checkPref("dusty-falling-leaves-enabled", true);
             t.checkPref("dusty-fade-enabled", true);
             t.sliderPref("dusty-fade-opacity", 10, 0, 100, 5, s -> s + "%");
-            
+            t.sliderPref("dusty-sfx-volume", 50, 0, 100, 1, s -> s + "%");
+
             t.checkPref("dusty-disable-popup", false);
             t.table(inner -> {
                 inner.right().bottom().button(Icon.github, () -> {

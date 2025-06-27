@@ -1,5 +1,7 @@
 package minedusty.world.blocks.environment;
 
+import static arc.Core.settings;
+
 import arc.audio.Sound;
 import arc.graphics.*;
 import arc.graphics.g2d.Draw;
@@ -57,7 +59,7 @@ public class TileEffect extends Floor{
 			if(state.data >= effectSpacing){
 				if(Mathf.random() < chance){
 					effect.at(state.tile.worldx(), state.tile.worldy(), effectColor);
-					soundEffect.at(state.tile.worldx(), state.tile.worldy(), Mathf.random(0.8f, 1.2f), 0.5f);  // Play sound effect
+					soundEffect.at(state.tile.worldx(), state.tile.worldy(), Mathf.random(0.8f, 1.2f), settings.getInt("dusty-sfx-volume") / 100f);  // Play sound effect
 				}
 				state.data = 0f;
 			}
