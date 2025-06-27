@@ -20,7 +20,7 @@ public class DustItems {
 		//ore items
 		chlorophyte = new Item("item-chlorophyte", DustPallet.chlorophyte){{
 			//frames = 7;
-			hardness = 3;
+			hardness = 6;
 			cost = 1f;
 		}};
 

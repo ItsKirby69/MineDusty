@@ -18,7 +18,6 @@ public class DustPlants {
 	//TODO spruceTree, mysticTree, frozenTree, glowberryTree, coconutTree?
 
 	// Shrubs and small Plants (props)
-	public static Block divineSapling;
 	public static Block grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
 	public static Block cactus, cattail, lilypad, largelilypad;
 
@@ -35,13 +34,6 @@ public class DustPlants {
 			fadeEnd = 100f;
 			effectRange = 18f;
 		}};*/
-
-		divineSapling = new Prop("divine-sapling"){{
-			customShadow = true;
-			variants = 2;
-			buildVisibility = BuildVisibility.sandboxOnly;
-			DustEnv.calciteCrags.asFloor().decoration = this;
-		}};
 
 		divineTree = new LivingTreeBlock("divine-tree", 2){{
 			itemDrop = DustItems.divinityMatter; //for extraction in future

@@ -53,7 +53,7 @@ public class DustyEffects {
 	}).layer(Layer.power + 2),
 
 	rotting = new Effect(35f, e -> {
-		color(Color.valueOf("C32121"), Color.valueOf("f3d0d2"), e.fin());
+		color(Color.valueOf("f3d0d2"), Color.valueOf("C32121"), e.fin());
 
 		randLenVectors(e.id, 3, 2f + e.fin() * 7f, (x, y) -> {
 			Fill.circle(e.x + x, e.y + y, 0.1f + e.fout() * 1.4f);

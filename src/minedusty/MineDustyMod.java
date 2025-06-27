@@ -34,7 +34,8 @@ public class MineDustyMod extends Mod{
 
     @Override
     public void loadContent(){
-		EntityRegistry.register(); //ignore error
+		// @ts-ignore
+		EntityRegistry.register();
 		if (!headless){
 			DustShaders.load();
 			DustCacheLayers.load();
