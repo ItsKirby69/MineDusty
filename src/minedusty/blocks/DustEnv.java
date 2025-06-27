@@ -39,9 +39,11 @@ public class DustEnv {
 
 		//region Tiles
 		pattedGrass = new Floor("patted-grass", 5){{
+			mapColor = Color.valueOf("#4C864C");
 		}};
 		
 		taigaGrass = new Floor("taiga-grass", 5){{
+			mapColor = Color.valueOf("#418A5D");
 		}};
 		
 		// TODO rework the overlay leaves (blossom and elms)

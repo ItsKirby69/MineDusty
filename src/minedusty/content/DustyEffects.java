@@ -8,6 +8,7 @@ import arc.math.Rand;
 import arc.math.geom.Vec2;
 import mindustry.entities.*;
 import mindustry.graphics.*;
+import minedusty.graphics.DustPalette;
 
 import static arc.Core.atlas;
 import static arc.graphics.g2d.Draw.*;
@@ -53,7 +54,7 @@ public class DustyEffects {
 	}).layer(Layer.power + 2),
 
 	rotting = new Effect(35f, e -> {
-		color(Color.valueOf("f3d0d2"), Color.valueOf("C32121"), e.fin());
+		color(DustPalette.divineBulletRed, DustPalette.divineBulletRedBack, e.fin());
 
 		randLenVectors(e.id, 3, 2f + e.fin() * 7f, (x, y) -> {
 			Fill.circle(e.x + x, e.y + y, 0.1f + e.fout() * 1.4f);
@@ -61,7 +62,7 @@ public class DustyEffects {
 	}),
 
     shootRotFlame = new Effect(38f, 80f, e -> {
-        color(Color.valueOf("f3d0d2"), Color.valueOf("C32121"), Color.valueOf("6E1B20"), e.fin());
+        color(DustPalette.divineBulletRed, DustPalette.divineBulletRedBack, DustPalette.divineOutline, e.fin());
 
         randLenVectors(e.id, 10, e.finpow() * 60f, e.rotation, 10f, (x, y) -> {
             Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.5f);

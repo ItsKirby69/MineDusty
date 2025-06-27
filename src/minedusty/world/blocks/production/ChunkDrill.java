@@ -1,4 +1,4 @@
-package minedusty.world.blocks.environment;
+package minedusty.world.blocks.production;
 
 import mindustry.world.blocks.production.Drill;
 

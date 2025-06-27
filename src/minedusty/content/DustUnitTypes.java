@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import ent.anno.Annotations.*;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
+import mindustry.content.Items;
 import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.*;
 import mindustry.entities.pattern.*;
@@ -11,6 +12,8 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.type.ammo.*;
+import minedusty.graphics.DustPalette;
+import minedusty.type.unit.DivineUnitType;
 
 public class DustUnitTypes {
 
@@ -20,62 +23,84 @@ public class DustUnitTypes {
 	//region Enemy units
 
 	//mechs
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineMech1, divineMech2;
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer; // crawler and suicide type units
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineCyst, divineGlaive, divineBulwark; // normal mech
 	//end region
 
-	// Fortress clone
+	//region Enemies
 	public static void load(){
-		divineMech1 = new UnitType("divine-mech1"){{
+		
+        divineSwarmer = new DivineUnitType("divine-swarmer"){{
 			constructor = MechUnit::create;
-			speed = 0.45f;
-			hitSize = 10f;
-			rotateSpeed = 3f;
-			targetAir = false;
-			health = 500;
-			armor = 7;
-			mechFrontSway = 0.55f; //gotta test these values
-			outlineColor = Color.valueOf("390000");
-			mechLegColor = Color.valueOf("6e1b20");
+			
+            speed = 1.1f;
+            hitSize = 9f;
+            health = 200;
+            mechSideSway = 0.28f;
+            range = 35f;
+            ammoType = new ItemAmmoType(Items.coal);
 
-			ammoType = new ItemAmmoType(DustItems.divinityMatter);
-			weapons.add(new Weapon("minedusty-divine-mech-arm"){{
-				layerOffset = -0.0001f;
-				top = false;
-				y = 3.5f;
-				x = 8f;
-				reload = 60f;
-				recoil = 4f;
-				shake = 1f;
-				ejectEffect = Fx.casing2;
-				shootSound = Sounds.artillery;
-				//not touched below taken from Fortress
-				bullet = new ArtilleryBulletType(2f, 20, "shell"){{
-					pierce = true;
-					hitEffect = Fx.blastExplosion;
-					knockback = 0.8f;
-					lifetime = 120f;
-					width = height = 14f;
-					collides = true;
-                    collidesTiles = true;
-                    splashDamageRadius = 35f;
-                    splashDamage = 80f;
-                    backColor = Pal.redDust;
-                    frontColor = Pal.redLight;
-				}};
-			}});
-		}};
+            weapons.add(new Weapon(){{
+                shootOnDeath = true;
+                targetUnderBlocks = false;
+                reload = 24f;
+                shootCone = 180f;
+                ejectEffect = Fx.none;
+                shootSound = Sounds.explosion;
+                x = shootY = 0f;
+                mirror = false;
+                bullet = new BulletType(){{
+                    collidesTiles = false;
+                    collides = false;
+                    hitSound = Sounds.explosion;
 
-		// Mech clone
-		divineMech2 = new UnitType("divine-mech2"){{
+                    rangeOverride = 25f;
+                    hitEffect = Fx.pulverize;
+                    speed = 0f;
+                    splashDamageRadius = 50f;
+					status = DustStatusEffects.rotting;
+                    instantDisappear = true;
+                    splashDamage = 70f;
+                    killShooter = true;
+                    hittable = false;
+                    collidesAir = true;
+                }};
+            }});
+        }};
+		
+		// Dagger Clone
+        divineCyst = new DivineUnitType("divine-cyst"){{
+			constructor = MechUnit::create;
+            speed = 0.5f;
+            hitSize = 10f;
+            health = 250;
+			armor = 2f;
+            weapons.add(new Weapon("minedusty-divine-mech-nail"){{
+                reload = 15f;
+                x = 4f;
+                y = 1f;
+                top = false;
+                ejectEffect = Fx.casing1;
+                bullet = new BasicBulletType(2.5f, 11){{
+					frontColor = DustPalette.divineBulletRed;
+					backColor =DustPalette.divineBulletRedBack;
+					status = DustStatusEffects.rotting;
+                    width = 7f;
+                    height = 10f;
+                    lifetime = 60f;
+                }};
+            }});
+        }};
+
+		// Mace Clone
+		divineGlaive = new DivineUnitType("divine-glaive"){{
 			constructor = MechUnit::create;
 			speed = 0.5f;
 			hitSize = 10f;
-			health = 500f;
-			armor = 4f;
+			health = 600f;
+			armor = 5f;
 			
 			mechFrontSway = 0.2f;
-			outlineColor = Color.valueOf("390000");
-			mechLegColor = Color.valueOf("6e1b20");
 			//immunities.add(StatusEffects.burning);
 
 			weapons.add(new Weapon("minedusty-divine-mech-finger"){{
@@ -105,6 +130,54 @@ public class DustUnitTypes {
 				}};
 			}});
 		}};
+
+		// Fortress clone
+		divineBulwark = new DivineUnitType("divine-bulwark"){{
+			constructor = MechUnit::create;
+			speed = 0.45f;
+			hitSize = 10f;
+			rotateSpeed = 3f;
+			targetAir = false;
+			health = 900;
+			armor = 8;
+			mechSideSway = 0.5f;
+			mechFrontSway = 0.38f; //gotta test these values
+
+			ammoType = new ItemAmmoType(DustItems.divinityMatter);
+			weapons.add(new Weapon("minedusty-divine-mech-arm"){{
+				layerOffset = -0.0001f;
+				top = false;
+				y = 3.5f;
+				x = 8f;
+				reload = 60f;
+				recoil = 4f;
+				shake = 1f;
+				ejectEffect = Fx.casing2;
+				shootSound = Sounds.artillery;
+				//not touched below taken from Fortress
+				bullet = new ArtilleryBulletType(2f, 20, "shell"){{
+					pierce = true;
+					hitEffect = Fx.blastExplosion;
+					knockback = 0.8f;
+					lifetime = 120f;
+					width = height = 14f;
+					collides = true;
+                    collidesTiles = true;
+                    splashDamageRadius = 35f;
+                    splashDamage = 80f;
+                    backColor = DustPalette.divineBulletRedBack;
+                    frontColor = DustPalette.divineBulletRed;
+				}};
+			}});
+		}};
+
+		//end region
+
+
+
+
+
+
 
 		cricket = new UnitType("cricket"){{
 			aiController = BuilderAI::new;

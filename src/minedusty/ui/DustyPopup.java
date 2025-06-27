@@ -2,8 +2,6 @@ package minedusty.ui;
 
 import static arc.Core.settings;
 
-import org.w3c.dom.Text;
-
 import arc.Core;
 import arc.scene.actions.Actions;
 import arc.scene.ui.TextButton;

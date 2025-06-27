@@ -1,4 +1,4 @@
-package minedusty.world.blocks;
+package minedusty.world.blocks.production;
 
 import arc.util.Nullable;
 import mindustry.type.ItemStack;
