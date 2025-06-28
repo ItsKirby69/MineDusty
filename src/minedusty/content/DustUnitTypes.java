@@ -1,17 +1,33 @@
 package minedusty.content;
 
 import arc.graphics.Color;
+import arc.graphics.g2d.Lines;
+import arc.math.Interp;
+import arc.math.Mathf;
+import arc.util.Time;
 import ent.anno.Annotations.*;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.StatusEffects;
+import mindustry.entities.Effect;
+import mindustry.entities.abilities.ShieldArcAbility;
 import mindustry.entities.bullet.*;
+import mindustry.entities.effect.ExplosionEffect;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.effect.WrapEffect;
+import mindustry.entities.part.DrawPart.PartMove;
+import mindustry.entities.part.DrawPart.PartProgress;
+import mindustry.entities.part.FlarePart;
+import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.type.ammo.*;
+import mindustry.type.unit.ErekirUnitType;
+import mindustry.type.unit.MissileUnitType;
 import minedusty.graphics.DustPalette;
 import minedusty.type.unit.DivineUnitType;
 
@@ -23,6 +39,7 @@ public class DustUnitTypes {
 	//region Enemy units
 
 	//mechs
+	public static @EntityDef({Unitc.class, Legsc.class}) UnitType divineFlathead;
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer; // crawler and suicide type units
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineCyst, divineGlaive, divineBulwark; // normal mech
 	//end region
@@ -171,6 +188,255 @@ public class DustUnitTypes {
 			}});
 		}};
 
+        divineFlathead = new DivineUnitType("divine-flathead"){{
+            constructor = LegsUnit::create;
+            drag = 0.12f;
+            speed = 0.45f;
+            hitSize = 13f;
+            health = 2000;
+            armor = 5f;
+			stepShake = 0.2f;
+
+            legCount = 6;
+			legLength = 18f;	
+			legGroupSize = 3;
+			lockLegBase = true;
+			legContinuousMove = true;
+			legExtension = -3f;
+			legBaseOffset = 7f;
+			legMinLength = 0.2f;
+			legLengthScl = 0.95f;
+			legForwardScl = 0.9f;
+
+			legMoveSpace = 1f;
+			hoverable = true;
+
+			shadowElevation = 0.1f;
+			groundLayer = Layer.legUnit - 1f;
+
+            abilities.add(new ShieldArcAbility(){{
+                region = "minedusty-divine-flathead-shield";
+                radius = 36f;
+                angle = 82f;
+                regen = 0.6f;
+                cooldown = 60f * 8f;
+                max = 300f;
+                y = -20f;
+                width = 6f;
+                whenShooting = false;
+            }});
+
+            rotateSpeed = 2.1f;
+
+            // weapons.add(new Weapon("tecta-weapon"){{
+            //     shootSound = Sounds.malignShoot;
+            //     mirror = true;
+            //     top = false;
+
+            //     x = 62/4f;
+            //     y = 1f;
+            //     shootY = 47 / 4f;
+            //     recoil = 3f;
+            //     reload = 40f;
+            //     shake = 3f;
+            //     cooldownTime = 40f;
+
+            //     shoot.shots = 3;
+            //     inaccuracy = 3f;
+            //     velocityRnd = 0.33f;
+            //     heatColor = Color.red;
+
+            //     bullet = new MissileBulletType(4.2f, 60){{
+            //         homingPower = 0.2f;
+            //         weaveMag = 4;
+            //         weaveScale = 4;
+            //         lifetime = 55f;
+            //         shootEffect = Fx.shootBig2;
+            //         smokeEffect = Fx.shootSmokeTitan;
+            //         splashDamage = 70f;
+            //         splashDamageRadius = 30f;
+            //         frontColor = Color.white;
+            //         hitSound = Sounds.none;
+            //         width = height = 10f;
+
+            //         lightColor = trailColor = backColor = Pal.techBlue;
+            //         lightRadius = 40f;
+            //         lightOpacity = 0.7f;
+
+            //         trailWidth = 2.8f;
+            //         trailLength = 20;
+            //         trailChance = -1f;
+            //         despawnSound = Sounds.dullExplosion;
+
+            //         despawnEffect = Fx.none;
+            //         hitEffect = new ExplosionEffect(){{
+            //             lifetime = 20f;
+            //             waveStroke = 2f;
+            //             waveColor = sparkColor = trailColor;
+            //             waveRad = 12f;
+            //             smokeSize = 0f;
+            //             smokeSizeBase = 0f;
+            //             sparks = 10;
+            //             sparkRad = 35f;
+            //             sparkLen = 4f;
+            //             sparkStroke = 1.5f;
+            //         }};
+            //     }};
+            // }});
+        }};
+		/*
+        anthicus = new ErekirUnitType("anthicus"){{
+            speed = 0.65f;
+            drag = 0.1f;
+            hitSize = 21f;
+            rotateSpeed = 3f;
+            health = 2900;
+            armor = 7f;
+            fogRadius = 40f;
+            stepShake = 0f;
+
+            legCount = 6;
+            legLength = 18f;
+            legGroupSize = 3;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -3f;
+            legBaseOffset = 7f;
+            legMaxLength = 1.1f;
+            legMinLength = 0.2f;
+            legLengthScl = 0.95f;
+            legForwardScl = 0.9f;
+
+            legMoveSpace = 1f;
+            hovering = true;
+
+            shadowElevation = 0.2f;
+            groundLayer = Layer.legUnit - 1f;
+
+            for(int j = 0; j < 3; j++){
+                int i = j;
+                parts.add(new RegionPart("-blade"){{
+                    layerOffset = -0.01f;
+                    heatLayerOffset = 0.005f;
+                    x = 2f;
+                    moveX = 6f + i * 1.9f;
+                    moveY = 8f + -4f * i;
+                    moveRot = 40f - i * 25f;
+                    mirror = true;
+                    progress = PartProgress.warmup.delay(i * 0.2f);
+                    heatProgress = p -> Mathf.absin(Time.time + i * 14f, 7f, 1f);
+
+                    heatColor = Pal.techBlue;
+                }});
+            }
+
+            weapons.add(new Weapon("anthicus-weapon"){{
+                shootSound = Sounds.missileLarge;
+                x = 29f / 4f;
+                y = -11f / 4f;
+                shootY = 1.5f;
+                showStatSprite = false;
+                reload = 130f;
+                layerOffset = 0.01f;
+                heatColor = Color.red;
+                cooldownTime = 60f;
+                smoothReloadSpeed = 0.15f;
+                shootWarmupSpeed = 0.05f;
+                minWarmup = 0.9f;
+                rotationLimit = 70f;
+                rotateSpeed = 2f;
+                inaccuracy = 20f;
+                shootStatus = StatusEffects.slow;
+                alwaysShootWhenMoving = true;
+
+                rotate = true;
+
+                shoot = new ShootPattern(){{
+                    shots = 2;
+                    shotDelay = 6f;
+                }};
+
+                parts.add(new RegionPart("-blade"){{
+                    mirror = true;
+                    moveRot = -25f;
+                    under = true;
+                    moves.add(new PartMove(PartProgress.reload, 1f, 0f, 0f));
+
+                    heatColor = Color.red;
+                    cooldownTime = 60f;
+                }});
+
+                parts.add(new RegionPart("-blade"){{
+                    mirror = true;
+                    moveRot = -50f;
+                    moveY = -2f;
+                    moves.add(new PartMove(PartProgress.reload.shorten(0.5f), 1f, 0f, -15f));
+                    under = true;
+
+                    heatColor = Color.red;
+                    cooldownTime = 60f;
+                }});
+
+                bullet = new BulletType(){{
+                    shootEffect = new MultiEffect(Fx.shootBigColor, new Effect(9, e -> {
+                        color(Color.white, e.color, e.fin());
+                        stroke(0.7f + e.fout());
+                        Lines.square(e.x, e.y, e.fin() * 5f, e.rotation + 45f);
+
+                        Drawf.light(e.x, e.y, 23f, e.color, e.fout() * 0.7f);
+                    }), new WaveEffect(){{
+                        colorFrom = colorTo = Pal.techBlue;
+                        sizeTo = 15f;
+                        lifetime = 12f;
+                        strokeFrom = 3f;
+                    }});
+
+                    smokeEffect = Fx.shootBigSmoke2;
+                    shake = 2f;
+                    speed = 0f;
+                    keepVelocity = false;
+                    inaccuracy = 2f;
+
+                    spawnUnit = new MissileUnitType("anthicus-missile"){{
+                        trailColor = engineColor = Pal.techBlue;
+                        engineSize = 1.75f;
+                        engineLayer = Layer.effect;
+                        speed = 3.7f;
+                        maxRange = 6f;
+                        lifetime = 60f * 1.5f;
+                        outlineColor = Pal.darkOutline;
+                        health = 55;
+                        lowAltitude = true;
+
+                        parts.add(new FlarePart(){{
+                            progress = PartProgress.life.slope().curve(Interp.pow2In);
+                            radius = 0f;
+                            radiusTo = 35f;
+                            stroke = 3f;
+                            rotation = 45f;
+                            y = -5f;
+                            followRotation = true;
+                        }});
+
+                        weapons.add(new Weapon(){{
+                            shootSound = Sounds.none;
+                            shootCone = 360f;
+                            mirror = false;
+                            reload = 1f;
+                            shootOnDeath = true;
+                            bullet = new ExplosionBulletType(140f, 25f){{
+                                shootEffect = new MultiEffect(Fx.massiveExplosion, new WrapEffect(Fx.dynamicSpikes, Pal.techBlue, 24f), new WaveEffect(){{
+                                    colorFrom = colorTo = Pal.techBlue;
+                                    sizeTo = 40f;
+                                    lifetime = 12f;
+                                    strokeFrom = 4f;
+                                }});
+                            }};
+                        }});
+                    }};
+                }};
+            }});
+        }};*/
 		//end region
 
 
