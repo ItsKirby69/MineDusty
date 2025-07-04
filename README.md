@@ -12,6 +12,8 @@
 This mod aims to add more life into the game (literally!). Adding trees, shrubs, plants, and new environments to explore! The new green, luscious planet will have you fight against nature to excavate the resources within.
 Showcases will be shown in the Mindustry discord's Modding forums (tba).
 
+*//TODO showcase gif*
+
 *Please note that everything is experimental and are subject to be changed/edited/removed.Add commentMore actions
 You are guaranteed to find bugs, unfinished content and more!!1!*
 
