@@ -1,33 +1,17 @@
 package minedusty.content;
 
 import arc.graphics.Color;
-import arc.graphics.g2d.Lines;
-import arc.math.Interp;
-import arc.math.Mathf;
-import arc.util.Time;
 import ent.anno.Annotations.*;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
 import mindustry.content.Items;
-import mindustry.content.StatusEffects;
-import mindustry.entities.Effect;
-import mindustry.entities.abilities.ShieldArcAbility;
+import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.ExplosionEffect;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.WaveEffect;
-import mindustry.entities.effect.WrapEffect;
-import mindustry.entities.part.DrawPart.PartMove;
-import mindustry.entities.part.DrawPart.PartProgress;
-import mindustry.entities.part.FlarePart;
-import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.type.ammo.*;
-import mindustry.type.unit.ErekirUnitType;
-import mindustry.type.unit.MissileUnitType;
 import minedusty.graphics.DustPalette;
 import minedusty.type.unit.DivineUnitType;
 
@@ -216,13 +200,13 @@ public class DustUnitTypes {
 
             abilities.add(new ShieldArcAbility(){{
                 region = "minedusty-divine-flathead-shield";
-                radius = 36f;
-                angle = 82f;
-                regen = 0.6f;
+                radius = 30f;
+                angle = 95f;
+                regen = 0.4f;
                 cooldown = 60f * 8f;
-                max = 300f;
+                max = 1100f;
                 y = -20f;
-                width = 6f;
+                width = 4.5f;
                 whenShooting = false;
             }});
 
