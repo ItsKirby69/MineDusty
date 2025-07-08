@@ -12,6 +12,7 @@ import mindustry.world.meta.BuildVisibility;
 
 import static arc.Core.*;
 
+/** Custom Prop class which has rare sprites appear at a chance. */
 public class LivingProp extends Block{
 	public TextureRegion region, rareRegion;
 	public TextureRegion[] topRegions, centerRegions, shadowRegions;

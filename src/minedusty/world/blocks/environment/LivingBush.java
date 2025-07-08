@@ -11,6 +11,8 @@ import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.BuildVisibility;
 
 import static arc.Core.*;
+
+/** Custom Bush class having rare sprites at a chance as well as customized rotation of sprites. */
 public class LivingBush extends Prop{
 	public TextureRegion region, rareRegion;
 	public TextureRegion[] bottomRegions, centerRegions, shadowRegions;

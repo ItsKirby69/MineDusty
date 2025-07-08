@@ -17,11 +17,14 @@ import mindustry.world.blocks.environment.*;
 import minedusty.content.DustyEffects;
 //import mindustry.Vars.*;
 
+/** Custom Floor which at a chance spawns an effect. */
 public class TileEffect extends Floor{
 
 	public Block parent = Blocks.air;
 	public Color effectColor = Pal.vent;
+	/** Spacing for when the next effect will happen */
 	public float effectSpacing = 80f;
+	/** Arbitrary chance for when the effect will happen. Every tick if im not mistaken. */
 	public float chance = 0.4f;
 
 	public Effect effect = DustyEffects.airBubble;

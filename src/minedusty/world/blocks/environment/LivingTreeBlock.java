@@ -14,7 +14,7 @@ import minedusty.content.DustyEffects;
 
 import static arc.Core.*;
 
-//this and all my other classes for custom props are probably really bad
+/** Unique TreeBlock class which renders trees having many layers. If toggled, trees will fade when nearby as well as shower falling leaves. */
 public class LivingTreeBlock extends Block{
 	public TextureRegion[] trunkRegions, topRegions, middleRegions, centerRegions, backRegions, tallshadRegions, shadowRegions;
 	public float shadowOffset = -4f;
