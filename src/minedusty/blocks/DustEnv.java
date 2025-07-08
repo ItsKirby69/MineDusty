@@ -13,10 +13,11 @@ import minedusty.graphics.DustCacheLayers;
 import minedusty.world.blocks.environment.*;
 
 public class DustEnv {
-
+	// TODO Chalcedony rock and Agate stone maybe
 	// Boulders / Props
 	public static Block largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
 	public static Block divineSapling;
+	
 	// Tiles
 	public static Block pattedGrass, taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
 	public static Block carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
@@ -25,6 +26,7 @@ public class DustEnv {
 	public static Block basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater, quickSand;
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
+	public static Block flowWater;
 
 	// Ores
 	public static Block oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamarine, wallOxide;
@@ -33,10 +35,10 @@ public class DustEnv {
 	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
 
 	// Misc
-	public static Block fallingLeaves;
+	public static Block fallingLeavesEffect, flowingWaterEffect;
 
 	public static void loadContent() {
-
+		
 		//region Tiles
 		pattedGrass = new Floor("patted-grass", 5){{
 			mapColor = Color.valueOf("#4C864C");
@@ -213,6 +215,17 @@ public class DustEnv {
 
 		//region Water Tiles
 
+		flowWater = new WaterTileEffect("flow-water", 1){{
+			speedMultiplier = 1.3f;
+			liquidMultiplier = 0.3f;
+			supportsOverlay = false;
+
+			effect = DustyEffects.flowWater;
+			chance = 0.8f;
+			effectSpacing = 10f;
+			soundEffect = Sounds.splash;
+		}};
+
 		tropicalWater = new WaterFloor("trop-shallow-water"){{
 			speedMultiplier = 0.6f;
 		}};
@@ -226,7 +239,7 @@ public class DustEnv {
 
 		hotWater = new WaterTileEffect("hotrock-shallow-water", 3){{
 			speedMultiplier = 0.5f;
-
+			
 			attributes.set(Attribute.heat, 0.2f);
 			emitLight = true;
 			lightRadius = 50f;
@@ -451,10 +464,15 @@ public class DustEnv {
 		//end region
 
 		//region Misc
-		fallingLeaves = new TileEffect("falling-leaves"){{
+		fallingLeavesEffect = new TileEffect("falling-leaves"){{
 			effect = DustyEffects.fallingLeaves;
 			effectColor = Color.valueOf("c32121");
 		}};
+
+		flowingWaterEffect = new TileEffect("flow-water-effect"){{
+			effect = DustyEffects.flowWater;
+		}};
+
 		//end region
 
 	}

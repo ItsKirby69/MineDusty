@@ -2,7 +2,7 @@ package minedusty.content;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
-import arc.graphics.g2d.Lines.*;
+import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.Rand;
 import arc.math.geom.Vec2;
@@ -40,6 +40,27 @@ public class DustyEffects {
 			Fill.circle(e.x + x, e.y + y, 16f + e.fin() * 9f);
 		});
 	}),
+
+	flowWater = new Effect(60f, e -> {
+		color(Color.valueOf("#8598EC"), Color.valueOf("#CAD2F6"), e.fslope());
+		Lines.stroke(1f * (0.8f + (e.fslope() / 2f)));
+
+		rand.setSeed(e.id);
+		float angle = 90f + rand.random(-1.5f, 1.5f);
+		float offsetX = rand.random(-3.2f, 3.2f);
+		float offsetY = rand.random(-3f, 1f);
+		float speed = rand.random(0.15f);
+		float travel = e.fslope() * 10f * speed;
+
+		float x = e.x + offsetX + Angles.trnsx(angle, travel);
+		float y = e.y + offsetY + Angles.trnsx(angle, travel);
+
+		float length = Mathf.sin(e.fin() * Mathf.PI) * (4.5f + rand.random(1.5f));
+		alpha(e.fslope());
+
+		Lines.lineAngle(x,y,angle,length);
+	}).layer(30.1f),
+
 	
 	fallingLeaves = new Effect(450f, e ->{
 		color(e.color, e.color, e.fslope());

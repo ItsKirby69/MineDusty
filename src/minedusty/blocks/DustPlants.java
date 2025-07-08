@@ -1,23 +1,23 @@
 package minedusty.blocks;
 
 import arc.graphics.Color;
-import mindustry.content.Blocks;
-import mindustry.content.Fx;
+import mindustry.content.*;
 import mindustry.gen.Sounds;
-import mindustry.world.Block;
-import mindustry.world.blocks.environment.Prop;
-import mindustry.world.blocks.environment.TreeBlock;
 import mindustry.world.meta.BuildVisibility;
-import minedusty.content.DustItems;
+import mindustry.world.Block;
+import mindustry.world.blocks.environment.*;
+
 import minedusty.world.blocks.environment.*;
+import minedusty.content.DustItems;
 
 public class DustPlants {
-	//TODO need to have a setting that changes leaves opacity.
 	// Trees
 	public static Block worldTree, divineTree, aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
-	//TODO spruceTree, mysticTree, frozenTree, glowberryTree, coconutTree?
+	//TODO mahogany spruceTree, mysticTree, frozenTree, glowberryTree, coconutTree?
 
+	//TODO night plants that bloom light in nighttime.
 	// Shrubs and small Plants (props)
+	public static Block nightBush;
 	public static Block grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
 	public static Block cactus, cattail, lilypad, largelilypad;
 
@@ -141,7 +141,9 @@ public class DustPlants {
 			magMax = 10;
 		}};
 		*/
-
+		nightBush = new NightBush("night-bush"){{
+			
+		}};
 		fernBush = new LivingBush("fern-bush", 2){{
 			mapColor = Color.valueOf("356a41");
 			rot = 0;
