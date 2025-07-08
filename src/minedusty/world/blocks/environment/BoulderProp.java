@@ -10,7 +10,7 @@ import mindustry.graphics.Layer;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 
-/* Both TallBlock and Prop settings essentially */
+/** Combines both Prop and TallBlock. Mainly created for breakable blocks with shadowOffset. */
 public class BoulderProp extends Block{
     public float layer = Layer.blockProp + 1;
     public float shadowOffset = -1f;
