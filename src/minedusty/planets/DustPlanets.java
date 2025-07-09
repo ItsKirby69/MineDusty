@@ -4,7 +4,6 @@ import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.game.Team;
 import mindustry.graphics.g3d.*;
-import mindustry.maps.planet.TantrosPlanetGenerator;
 import mindustry.type.Planet;
 import mindustry.type.Weather;
 import mindustry.world.meta.Env;

@@ -3,7 +3,6 @@ package minedusty.planets;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.math.geom.Vec3;
-import arc.util.noise.Ridged;
 import mindustry.game.Schematics;
 import mindustry.maps.generators.PlanetGenerator;
 import mindustry.type.Sector;

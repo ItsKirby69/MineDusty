@@ -25,7 +25,9 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 
 	Color  out = new Color(), debugColor = Color.valueOf("#ff00ff"),
 
-	divine1 = Color.valueOf("#fffafa"), divine2 = Color.valueOf("#c32121"),
+	divine1 = Color.valueOf("#c32121"), divine2 = Color.valueOf("#e87694"),
+	divine3 = Color.valueOf("#5e1010"), divine4 = Color.valueOf("#fcf5f9"),
+	divine5 = Color.valueOf("#ffcfe0"),
 	valley1 = Color.valueOf("#60b243"), valley2 = Color.valueOf("#478e2d"),
 	peaks1 = Color.valueOf("#1c873f"), peaks2 = Color.valueOf("#6db58d"),
 	
@@ -38,8 +40,13 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 	basalts1 = Color.valueOf("#415163"), basalts2 = Color.valueOf("#757f8a"),
 	beaches1 = Color.valueOf("#ead195"), beaches2 = Color.valueOf("#b48f55"),
 	IcedBeach1 = Color.valueOf("#e3e3ff"), IcedBeach2 = Color.valueOf("#C2BFFB"),
-	
+
 	desert1 = Color.valueOf("#6b604d"), desert2 = Color.valueOf("#b8a78c");
+	
+	//Color[] DivineGrad = {divine3, divine3, divine1, divine1, divine2, divine4, divine5, divine2};
+	Color[] DivineGrad = {divine1, divine1, divine5, divine5, divine4, divine2, divine1, divine3};
+	//Color[] DivineGrad = {divine2, divine5, divine4, divine2, divine1, divine3, divine3};
+	
 	{
 		baseSeed = 2;
 		defaultLoadout = Schematics.readBase64("bXNjaAF4nGNgZmBmZmDJS8xNZWBJzi9KZeBOSS1OLsosKMnMz2NgYGDLSUxKzSlmYIqOZWQQzs3MS00pLS6p1AWp1c1LLS4BqmEEISABAPVFEvQ=");
@@ -70,7 +77,6 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 		Log.info("Saved terra-height.png to " + ouputt.absolutePath());
 	}
 	
-	//PlanetDialog.debugSelect = true
 	@Override
 	public void generateSector(Sector sector){
 		//nothing yet
@@ -92,15 +98,15 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 	public float testHeight(Vec3 position) {
 		position = rotateY(position, 30);
 		Vec3 pos = new Vec3(position).scl(4.5f);
-		float basalts = Ridged.noise3d(baseSeed, pos.x, pos.y, pos.z, 4, 0.3f);
-		float b = basalts + (Math.abs(position.y) * 0.3f);
+		float divineVoronoi = Simplex.noise3d(baseSeed-2, 2, 0.2, 0.13, pos.x, pos.y, pos.z);
+		float b = divineVoronoi;
 		
 		float base = 0f;
 		base += b;
 
 		return base;
 	}
-
+	//  PlanetDialog.debugSelect = true
 	//this is really really really really really really really really really jank (i think)
 	@Override
 	public Color getColor(Vec3 position) {
@@ -118,8 +124,10 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 		
 		float desertBiome = Simplex.noise3d(baseSeed+3, 4, 0.7f, 0.76f, position.x*0.5f, position.y*0.5f, position.z*0.5f);
 
-		float divineBiome = Simplex.noise3d(baseSeed-2, 5, 0.5f, 0.5f, position.x, position.y, position.z);
-
+		float divineMask = Simplex.noise3d(baseSeed-2, 2, 0.2, 0.13, pos.x, pos.y, pos.z);
+		float divineBiome = Simplex.noise3d(baseSeed-2, 5, 0.4f, 0.55f, position.x, position.y, position.z);
+		float divineVoronoi = Simplex.voronoi3d(baseSeed-1, 3, 0, 1.1, pos.x, pos.y, pos.z);
+		
 		// For deserts
 		if ((desertBiome * depth )> 0.32 && height < 0.42f && height > waterLevel + 0.1f && Math.abs(position.y) < 0.37){
 			if (getSlope(position, 0.065f) > 0.074f){
@@ -127,9 +135,30 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 			}
 			return beaches1.write(out).lerp(beaches2, height * 1.5f);
 		}
-		if (divineBiome * (pole * 0.35f) > 0.1 && height > waterLevel){
-			return Color.red.write(out);
+
+		// For the Divine Faction
+		if (divineBiome * (pole * 0.4f) * divineMask > 0.1){
+			if (height > waterLevel){
+				// Beaches
+				if (height < waterLevel + 0.08f){
+					return divine2.write(out).lerp(divine1, Mathf.clamp(Mathf.round(divineBiome, 0.15f))).a(0.6f);
+				// Valleys
+				} else {
+					float t = divineVoronoi / (1.0f);
+					t = Mathf.clamp(Mathf.round(t, 0.1f));
+
+					int index = (int) (t * (DivineGrad.length - 1));
+					float segmentT = (t * (DivineGrad.length - 1)) % 1.0f;
+
+					return DivineGrad[index].write(out)
+					.lerp(DivineGrad[Math.min(index + 1, DivineGrad.length - 1)], segmentT).a(0.5f);
+				}
+			// Stained waters.
+			} else {
+				return divine1.write(out).lerp(divine3, Mathf.clamp(Mathf.round(Mathf.clamp(Math.abs(height)) * 6.5f, 0.25f))).a(3f);
+			}
 		}
+
 		// Normal biomes
 		if(height > waterLevel){
 			// Ice caps
