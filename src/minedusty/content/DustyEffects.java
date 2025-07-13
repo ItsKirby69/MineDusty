@@ -41,7 +41,7 @@ public class DustyEffects {
 		});
 	}),
 
-	flowWater = new Effect(60f, e -> {
+	flowWater = new Effect(20f, e -> {
 		color(Color.valueOf("#8598EC"), Color.valueOf("#CAD2F6"), e.fslope());
 		Lines.stroke(1f * (0.8f + (e.fslope() / 2f)));
 

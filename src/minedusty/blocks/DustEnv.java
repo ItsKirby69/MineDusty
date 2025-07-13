@@ -222,7 +222,7 @@ public class DustEnv {
 
 			effect = DustyEffects.flowWater;
 			chance = 0.8f;
-			effectSpacing = 10f;
+			effectSpacing = 5f;
 			soundEffect = Sounds.splash;
 		}};
 
