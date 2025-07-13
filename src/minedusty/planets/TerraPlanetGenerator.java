@@ -14,14 +14,9 @@ import mindustry.maps.generators.PlanetGenerator;
 import mindustry.type.Sector;
 import minedusty.utils.Simplex;
 
-/* Useful notes from other gens (don't quote me) --
- * serpulo gens height as usual then uses Blocks arr which
- * has gradients of block pallets (water -> land tiles)
- * and takes mapcolor of block in setColor method
- */
-
+/** The Planet's looks and bumpiness. Nothing much yet. */
 public class TerraPlanetGenerator extends PlanetGenerator{
-	float rotation = 50; // degrees to rotate the planet
+	float rotation = 120; // degrees to rotate the planet
 
 	Color  out = new Color(), debugColor = Color.valueOf("#ff00ff"),
 
@@ -82,7 +77,7 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 		//nothing yet
 	}
 
-	/** Rotates the whole planet. In degrees of course */
+	/** Rotates the whole planet. In degrees of course. NOTE: this weirdly behaves between v147 and v149. */
 	Vec3 rotateY(Vec3 position, float degrees) {
 		float radians = Mathf.degRad * degrees;
 		float cos = Mathf.cos(radians);
@@ -124,8 +119,8 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 		
 		float desertBiome = Simplex.noise3d(baseSeed+3, 4, 0.7f, 0.76f, position.x*0.5f, position.y*0.5f, position.z*0.5f);
 
-		float divineMask = Simplex.noise3d(baseSeed-2, 2, 0.2, 0.13, pos.x, pos.y, pos.z);
-		float divineBiome = Simplex.noise3d(baseSeed-2, 5, 0.4f, 0.55f, position.x, position.y, position.z);
+		float divineMask = Simplex.noise3d(baseSeed-4, 2, 0.2, 0.13, pos.x, pos.y, pos.z);
+		float divineBiome = Simplex.noise3d(baseSeed-4, 5, 0.4f, 0.55f, position.x, position.y, position.z);
 		float divineVoronoi = Simplex.voronoi3d(baseSeed-1, 3, 0, 1.1, pos.x, pos.y, pos.z);
 		
 		// For deserts
@@ -141,7 +136,7 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 			if (height > waterLevel){
 				// Beaches
 				if (height < waterLevel + 0.08f){
-					return divine2.write(out).lerp(divine1, Mathf.clamp(Mathf.round(divineBiome, 0.15f))).a(0.6f);
+					return divine2.write(out).lerp(divine1, Mathf.clamp(Mathf.round(divineBiome, 0.15f))).a(0.8f);
 				// Valleys
 				} else {
 					float t = divineVoronoi / (1.0f);
@@ -151,11 +146,11 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 					float segmentT = (t * (DivineGrad.length - 1)) % 1.0f;
 
 					return DivineGrad[index].write(out)
-					.lerp(DivineGrad[Math.min(index + 1, DivineGrad.length - 1)], segmentT).a(0.5f);
+					.lerp(DivineGrad[Math.min(index + 1, DivineGrad.length - 1)], segmentT).a(0.9f);
 				}
 			// Stained waters.
 			} else {
-				return divine1.write(out).lerp(divine3, Mathf.clamp(Mathf.round(Mathf.clamp(Math.abs(height)) * 6.5f, 0.25f))).a(3f);
+				return divine1.write(out).lerp(divine3, Mathf.clamp(Mathf.round(Mathf.clamp(Math.abs(height)) * 6.5f, 0.25f))).a(0.1f);
 			}
 		}
 
@@ -163,26 +158,26 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 		if(height > waterLevel){
 			// Ice caps
 			if(Math.abs(position.y) + height > 1.2f){
-				return poleColor1.write(out).lerp(poleColor2, Mathf.clamp(Mathf.round(height, 0.25f))).a(0.5f);
+				return poleColor1.write(out).lerp(poleColor2, Mathf.clamp(Mathf.round(height, 0.25f))).a(0.6f);
 			} else if (Math.abs(position.y) > 0.77 && mountains * Math.abs(position.y) > 0.51f){		
-				return stones1.write(out).lerp(stones2, Mathf.clamp(Mathf.round(mountains, 0.35f))).a(0.8f);
+				return stones1.write(out).lerp(stones2, Mathf.clamp(Mathf.round(mountains, 0.35f))).a(1.2f);
 
 			} else if (getSlope(position, 0.07f) > 0.07f && height > 0.29f){
-				return poleColor1.write(out).lerp(poleColor2, Mathf.clamp(Mathf.round(height, 0.25f))).a(0.5f);
+				return poleColor1.write(out).lerp(poleColor2, Mathf.clamp(Mathf.round(height, 0.25f))).a(0.6f);
 			
 			// Pine forests
 			} else if (height > 0.4f && height > waterLevel + 0.1f && Math.abs(position.y) > 0.3){
-				return peaks1.write(out).lerp(peaks2, Mathf.clamp(Mathf.round(height, 0.35f)));
+				return peaks1.write(out).lerp(peaks2, Mathf.clamp(Mathf.round(height, 0.35f))).a(1.1f);
 			} else if (mountains > 0.67f){
-				return peaks1.write(out).lerp(peaks2, Mathf.clamp(Mathf.round(height, 0.2f)));
+				return peaks1.write(out).lerp(peaks2, Mathf.clamp(Mathf.round(height, 0.2f))).a(1.1f);
 			
 			/// Beaches
 			} else if (height < waterLevel + 0.1f){
 				if (basalts + (Math.abs(position.y) * 0.4f) > 0.28){
-					return basalts1.write(out).lerp(basalts2, Mathf.clamp(Mathf.round(depth, 0.15f))).a(0.2f);
+					return basalts1.write(out).lerp(basalts2, Mathf.clamp(Mathf.round(depth, 0.15f))).a(1.2f);
 				}
 				if (pole + height > 0.3) {
-					return beaches1.write(out).lerp(beaches2, Mathf.clamp(Mathf.round(height, 0.15f))).a(0.5f);
+					return beaches1.write(out).lerp(beaches2, Mathf.clamp(Mathf.round(height, 0.15f))).a(0.8f);
 				// Ice beaches close to the pole
 				} else if (IceTex < 0.5 && pole < 0.25){
 					return IcedBeach1.write(out).lerp(IcedBeach2, Mathf.clamp(Mathf.round(IceTex, 0.3f))).a(0.5f);
@@ -198,9 +193,9 @@ public class TerraPlanetGenerator extends PlanetGenerator{
 		}
 		// Oceans
 		if(Math.abs(position.y) + IceWaterTex > 0.65 && pole < 0.25){
-			return poleOcean1.write(out).lerp(poleOcean2, Mathf.clamp(Mathf.round(IceWaterTex, 0.35f))).a(0.6f);	
+			return poleOcean1.write(out).lerp(poleOcean2, Mathf.clamp(Mathf.round(IceWaterTex, 0.35f))).a(0.1f);	
 		}
-		return oceanColor1.write(out).lerp(oceanColor2, Mathf.clamp(Mathf.round(Mathf.clamp(Math.abs(height)) * 6.5f, 0.25f))).a(0.6f);	
+		return oceanColor1.write(out).lerp(oceanColor2, Mathf.clamp(Mathf.round(Mathf.clamp(Math.abs(height)) * 6.5f, 0.25f))).a(0.1f);	
 	}
 
 	float waterOffset = -0.16f;
