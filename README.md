@@ -17,21 +17,21 @@ Showcases will be shown in the Mindustry discord's Modding forums (tba).
 *Please note that everything is experimental and are subject to be changed/edited/removed.Add commentMore actions
 You are guaranteed to find bugs, unfinished content and more!!1!*
 
-Contact me thru discord `itsdakirby69` or create a issue here in github!
+For issues, contact me thru discord `itsdakirby69` or create a issue here in github!
 
 Visit the **[Trello board](https://trello.com/b/1wTgcEBs/minedusty)** to see goals and planned features!
 
 ## Downloading the mod!
-*//TODO*
-
-Download the jar file manually in the *releases* tab, or just copy the repository's link (`ItsKirby69/MineDusty`) to download it **directly in-game** when adding a new mod!
+You can download the latest release in the `Releases` tab. Otherwise you can import from github in-game (`ItsKirby69/MineDusty`). 
+For early releases which haven't been publicly posted, you can go to the `Actions` tab at the top to download the Artifact.
 
 ## Special Thanks
-- **[Twcash](https://github.com/Twcash/)** - sprite inspiration and amazing creator.
-- **[Lixie](https://github.com/LixieWulf/)** - prop inspiration. The reason this mod is here today.
-- **[Sh1penfire](https://github.com/Sh1penfire/)** - mechanic inspiration and reason why i got into modding.
-- **thomas_has_things** - unit sprite inspiration. He's crazy with units.
-- **MissionaryPoseIsTheBest** - env sprite inspiration.
-- **[Sunny (Sk)](https://github.com/sk7725)** - creator of BetaMindy and big early inspiration.
-- **sl0tterleet** - big help and very knowledgeable.
-- **[Anuken](https://github.com/Anuken)** - for the base game.
+- **[Twcash](https://github.com/Twcash/)** - Content Inspiration.
+- **[Lixie](https://github.com/LixieWulf/)** - Environment Inspiration.
+- **[Sh1penfire](https://github.com/Sh1penfire/)** - Mechanic Inspiration.
+- **thomas_has_things** - Content Inspiration.
+- **MissionaryPoseIsTheBest** - Environment Inspiration.
+- **[Sunny (Sk)](https://github.com/sk7725)** - Trees Inspiration.
+- **sl0tterleet** - Java help!
+- **[MeepofFaith](https://github.com/MEEPofFaith)** - Java & Visuals!
+- **[Anuken](https://github.com/Anuken)** - For the base game.
