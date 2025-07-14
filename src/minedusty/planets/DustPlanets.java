@@ -32,7 +32,7 @@ public class DustPlanets {
 				new HexSkyMesh(this, 0, 0.8f, 0.16f, 5, Color.white.cpy().lerp(Color.valueOf("58818c"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
 			);
 
-			startSector = 20; //Probably will remove in favour of custom preset already unlocked
+			startSector = 111;
 			
 			rotateTime = 24f * 60f; // unsure if changing is nessesary
 			

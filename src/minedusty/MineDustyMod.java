@@ -70,8 +70,8 @@ public class MineDustyMod extends Mod{
 
 		DustPlanets.load();
 		
-		//DustSectors.load();
-        //DustTechTree.load(); idk where to put his one yet
+		DustSectors.load();
+        TerraTechTree.load();
 
     }
 
