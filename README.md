@@ -26,11 +26,12 @@ You can download the latest release in the `Releases` tab. Otherwise you can imp
 For early releases which haven't been publicly posted, you can go to the `Actions` tab at the top to download the Artifact.
 
 ## Special Thanks
-- **[Twcash](https://github.com/Twcash/)** - sprite inspiration and amazing creator.
-- **[Lixie](https://github.com/LixieWulf/)** - prop inspiration. The reason this mod is here today.
-- **[Sh1penfire](https://github.com/Sh1penfire/)** - mechanic inspiration and reason why i got into modding.
-- **thomas_has_things** - unit sprite inspiration. He's crazy with units.
-- **MissionaryPoseIsTheBest** - env sprite inspiration.
-- **[Sunny (Sk)](https://github.com/sk7725)** - creator of BetaMindy and big early inspiration.
-- **sl0tterleet** - big help and very knowledgeable.
-- **[Anuken](https://github.com/Anuken)** - for the base game.
+- **[Twcash](https://github.com/Twcash/)** - Content Inspiration.
+- **[Lixie](https://github.com/LixieWulf/)** - Environment Inspiration.
+- **[Sh1penfire](https://github.com/Sh1penfire/)** - Mechanic Inspiration.
+- **thomas_has_things** - Content Inspiration.
+- **MissionaryPoseIsTheBest** - Environment Inspiration.
+- **[Sunny (Sk)](https://github.com/sk7725)** - Trees Inspiration.
+- **sl0tterleet** - Java help!
+- **[MeepofFaith](https://github.com/MEEPofFaith)** - Java & Visuals!
+- **[Anuken](https://github.com/Anuken)** - For the base game.
