@@ -3,7 +3,7 @@ package minedusty.content;
 import mindustry.type.SectorPreset;
 import minedusty.type.DustSectorPreset;
 
-import static minedusty.planets.DustPlanets.terra;
+import static minedusty.planets.DustPlanets.theia;;
 
 public class DustSectors {
 	public static SectorPreset verdantSpill;
@@ -12,7 +12,7 @@ public class DustSectors {
 
         // Terra
 
-        verdantSpill = new DustSectorPreset("verdantSpill", terra, 111){{
+        verdantSpill = new DustSectorPreset("verdantSpill", theia, 111){{
             alwaysUnlocked = true;
             addStartingItems = true;
             captureWave = 12;
