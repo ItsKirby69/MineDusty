@@ -9,6 +9,7 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
 import mindustry.world.Block;
 import mindustry.world.Tile;
+import mindustry.world.meta.BuildVisibility;
 
 /** Combines both Prop and TallBlock. Mainly created for breakable blocks with shadowOffset. */
 public class BoulderProp extends Block{
@@ -30,6 +31,7 @@ public class BoulderProp extends Block{
         unitMoveBreakable = true;
         breakEffect = Fx.breakProp;
         breakSound = Sounds.rockBreak;
+        buildVisibility = BuildVisibility.sandboxOnly;
     }
 
     @Override

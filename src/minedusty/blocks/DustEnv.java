@@ -15,7 +15,7 @@ import minedusty.world.blocks.environment.*;
 public class DustEnv {
 	// TODO Chalcedony rock and Agate stone maybe
 	// Boulders / Props
-	public static Block largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
+	public static Block driftWood, largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
 	public static Block divineSapling;
 	
 	// Tiles
@@ -32,7 +32,7 @@ public class DustEnv {
 	public static Block oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamarine, wallOxide;
 	
 	// Walls
-	public static Block grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
+	public static Block mossStoneWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
 
 	// Misc
 	public static Block fallingLeavesEffect, flowingWaterEffect;
@@ -130,11 +130,17 @@ public class DustEnv {
 		// Decorations need to be set below tiles to not crash.
 
 		//region Props and Decorations
+
+		driftWood = new Prop("driftwood"){{
+			variants = 1;
+			customShadow = true;
+			shoreRock.asFloor().decoration = this;
+			shoreSmooth.asFloor().decoration = this;
+		}};
 		
 		divineSapling = new BoulderProp("divine-sapling"){{
 			customShadow = true;
 			variants = 2;
-			buildVisibility = BuildVisibility.sandboxOnly;
 			calciteRough.asFloor().decoration = this;
 		}};
 
@@ -143,14 +149,12 @@ public class DustEnv {
 			customShadow = true;
 			shadowOffset = -1.5f;
 			variants = 2;
-			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
 		largeshorestoneBoulder = new BoulderProp("large-shorestone"){{
 			customShadow = true;
 			variants = 2;
 			mapColor = Color.valueOf("706f74");
-			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 		shorestoneBoulder = new Prop("shorestone-boulder"){{
 			variants = 2;
@@ -164,7 +168,6 @@ public class DustEnv {
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
 			variants = 2;
-			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 		basaltPillar = new Prop("basalt-boulder"){{
 			variants = 3;
@@ -177,14 +180,12 @@ public class DustEnv {
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
 			variants = 2;
-			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
 		largesoapstoneBoulder = new BoulderProp("large-soapstone-boulder"){{
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
 			variants = 2;
-			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
 		calciteBoulder = new Prop("calcite-boulder"){{
@@ -195,13 +196,11 @@ public class DustEnv {
 
 		largecalciteBoulder = new BoulderProp("large-calcite-boulder"){{
 			variants = 1;
-			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 		
 		largesandBoulder = new BoulderProp("large-sand-boulder"){{
 			variants = 2;
 			shadowOffset = -2f;
-			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
 		//end region
@@ -386,6 +385,9 @@ public class DustEnv {
 		//end region
 
 		//region Walls
+		mossStoneWall = new StaticWall("moss-stone-wall"){{
+		}};
+
 		grassyWall = new TreeBlock("grassy-wall"){{
 			variants = 3;
 			mapColor = Color.valueOf("74d660");
