@@ -71,8 +71,6 @@ public class DustyEffects {
 		randLenVectors(e.id, 3, 30f + e.finpow() * 40f, (x, y) -> {
 			Draw.rect(atlas.find("minedusty-leaf"), e.x + x + drift, e.y + y + drift, 8f, 8f, e.fin() * 360f);
 		});
-		
-		Drawf.light(e.x, e.y, 15f * e.fslope(), Color.black, 0.4f * e.fout());
 	}).layer(Layer.power + 2),
 
 	rotting = new Effect(35f, e -> {
