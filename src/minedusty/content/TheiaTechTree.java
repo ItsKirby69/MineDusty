@@ -6,9 +6,9 @@ import minedusty.planets.DustPlanets;
 import static mindustry.content.TechTree.*;
 import static minedusty.content.DustSectors.*;
 
-public class TerraTechTree {
+public class TheiaTechTree {
     public static void load() {
-        DustPlanets.terra.techTree = nodeRoot("terra", DustCore.coreNest, () -> {
+        DustPlanets.theia.techTree = nodeRoot("theia", DustCore.coreNest, () -> {
             node(verdantSpill, () -> {});
         });
     }

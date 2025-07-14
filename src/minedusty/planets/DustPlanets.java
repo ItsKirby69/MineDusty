@@ -11,18 +11,18 @@ import minedusty.blocks.*;
 import minedusty.content.*;
 
 public class DustPlanets {
-	public static Planet //TODO add clutter asteroids and stuff near terra's surroundings (similar to how asteroids exist)
+	public static Planet //TODO add clutter asteroids and stuff near theia's surroundings (similar to how asteroids exist)
 	// test planet
 	gaia,
 	// remake
-	terra, //for now this is the name of the planet...
-	// terra's oceanic moon
+	theia,
+	// theia's oceanic moon
 	nautilune;
 
 	public static void load(){
 		//my dudes look how clean this is compared to "gaia"
-		terra = new Planet("terra", Planets.sun, 1f, 3){{
-			generator = new TerraPlanetGenerator();
+		theia = new Planet("theia", Planets.sun, 1f, 3){{
+			generator = new TheiaPlanetGenerator();
 			meshLoader = () -> new MultiMesh(
 				//new AtmosphereHexMesh(this, 6),
 				new HexMesh(this, 6)
@@ -67,7 +67,7 @@ public class DustPlanets {
 			};
 		}};
 
-		nautilune = new Planet("nautilune", DustPlanets.terra, 0.8f, 1){{
+		nautilune = new Planet("nautilune", DustPlanets.theia, 0.8f, 1){{
             generator = new NautilunePlanetGenerator();
             meshLoader = () -> new HexMesh(this, 4);
             accessible = false;
@@ -81,50 +81,6 @@ public class DustPlanets {
             defaultEnv = Env.underwater | Env.terrestrial;
             ruleSetter = r -> {};
         }};
-		
-		gaia = new Planet("gaia", Planets.sun, 1.2f, 3){{
-			generator = new GaiaPlanetGenerator();
-			alwaysUnlocked = true;
-			accessible = false;
-			minZoom = 0.75f;
-
-			allowLaunchLoadout = false;
-			allowLaunchSchematics = false;
-			allowLaunchToNumbered = true;
-			//gotta watch out when starting sector has no safe numbered sectors around
-			allowSectorInvasion = true;
-			clearSectorOnLose = true;
-			allowWaves = true;
-			allowWaveSimulation = true;
-
-			defaultCore = DustCore.coreNest;
-			orbitRadius = 29f;
-			atmosphereRadIn = -0.1f;
-			//atmosphereRadOut = 0.2f;
-			parent = Planets.sun;
-			updateLighting = true;
-			defaultEnv = 1;
-			//TODO properly expand this, also ADD more weathers and different configurations //Actually, this might not be the best place to add weathers
-			ruleSetter = r -> {
-				r.waveTeam = Team.green;
-				r.weather.add(
-					new Weather.WeatherEntry(){{ weather = Weathers.fog;}},
-					new Weather.WeatherEntry(){{ weather = DustWeathers.heavyRain;}}
-				);
-			};
-			startSector = 1;
-			iconColor = Color.valueOf("6e8b3d");
-			atmosphereColor = Color.valueOf("84eb5f");
-			
-			meshLoader = () -> new HexMesh(this,6); //TODO: This is big, fix the planet mesh stuff. Maybe use self hex mesh but modify GaiaPlanetGenerator then.
-
-			cloudMeshLoader = () -> new MultiMesh(
-				//(P planet, i seed, f speed, f radius, i divisions, C color, i octaves, f persistence, f scl, f thresh)
-				new HexSkyMesh(this, 0, 0.87f, 0.13f, 6, new Color().set(Color.valueOf("caf5f0")).mul(0.9f).a(0.8f), 2, 0.5f, 0.8f, 0.3f),
-				new HexSkyMesh(this, 0, 0.83f, 0.16f, 6, Color.white.cpy().lerp(Color.valueOf("9ddac8"), 0.55f).a(0.75f), 2, 0.55f, 0.85f, 0.35f)
-			);
-			unlockedOnLand.addAll(DustCore.coreNest);
-		}};
 
 	}
 

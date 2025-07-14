@@ -15,7 +15,7 @@ import mindustry.type.Sector;
 import minedusty.utils.Simplex;
 
 /** The Planet's looks and bumpiness. Nothing much yet. */
-public class TerraPlanetGenerator extends PlanetGenerator{
+public class TheiaPlanetGenerator extends PlanetGenerator{
 	float rotation = 120; // degrees to rotate the planet
 
 	Color  out = new Color(), debugColor = Color.valueOf("#ff00ff"),
