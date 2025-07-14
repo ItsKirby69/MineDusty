@@ -6,6 +6,7 @@ import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.Rand;
 import arc.math.geom.Vec2;
+import mindustry.Vars;
 import mindustry.entities.*;
 import mindustry.graphics.*;
 import minedusty.graphics.DustPalette;
@@ -61,7 +62,7 @@ public class DustyEffects {
 		Lines.lineAngle(x,y,angle,length);
 	}).layer(30.1f),
 
-	
+	// TODO use the weather's wind vector or something similar
 	fallingLeaves = new Effect(450f, e ->{
 		color(e.color, e.color, e.fslope());
 		alpha(e.fslope() * 3f);

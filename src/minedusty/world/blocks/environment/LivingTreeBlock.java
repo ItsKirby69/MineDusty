@@ -11,6 +11,7 @@ import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.BuildVisibility;
 import minedusty.content.DustyEffects;
+import minedusty.graphics.DrawPseudo3D;
 
 import static arc.Core.*;
 
@@ -156,9 +157,13 @@ public class LivingTreeBlock extends Block{
 
 		// Center leaves. Also just means those leaves from the edgemost of the tree branches.
 		if (centerRegions[variation].found()) {
+			float height = 0.004f;
+			float drawX = DrawPseudo3D.xHeight(x, height);
+			float drawY = DrawPseudo3D.yHeight(y, height);
+
 			Draw.z(baseLayer + 1);
 			Draw.alpha(fade);
-			Draw.rectv(centerRegions[variation], x, y, w, h, rot, vec -> vec.add(
+			Draw.rectv(centerRegions[variation], drawX, drawY, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time * timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 70, 0.8f),
 				Mathf.cos(vec.x*2 + Time.time * timeFactor + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
 				));
@@ -166,9 +171,13 @@ public class LivingTreeBlock extends Block{
 
 		// Middle leaves in between Center leaves and the Top leaves.
 		if (middleRegions[variation].found()) {
+			float height = 0.005f;
+			float drawX = DrawPseudo3D.xHeight(x, height);
+			float drawY = DrawPseudo3D.yHeight(y, height);
+
 			Draw.z(tallTree ? Layer.flyingUnitLow + 1.5f : baseLayer + 2f);
 			Draw.alpha(fade);
-			Draw.rectv(middleRegions[variation], x, y, w, h, rot, vec -> vec.add(
+			Draw.rectv(middleRegions[variation], drawX, drawY, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time * timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 55, 0.9f),
 				Mathf.cos(vec.x*2 + Time.time * timeFactor + 8, scl + 6f, mag * 1.0f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
 				));
@@ -186,9 +195,13 @@ public class LivingTreeBlock extends Block{
 
 		// Top leaves. Massive trees would have this above flying units.
 		if (topRegions[variation].found()) {
+			float height = 0.008f;
+			float drawX = DrawPseudo3D.xHeight(x, height);
+			float drawY = DrawPseudo3D.yHeight(y, height);
+
 			Draw.z(tallTree ? Layer.flyingUnitLow + 2f : baseLayer + 4f);
 			Draw.alpha(fade);
-			Draw.rectv(topRegions[variation], x, y, w, h, rot, vec -> vec.add(
+			Draw.rectv(topRegions[variation], drawX, drawY, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time* timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 70, 0.8f),
 				Mathf.cos(vec.x*2 + Time.time* timeFactor + 8, scl + 4f, mag * 1.4f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
 				));

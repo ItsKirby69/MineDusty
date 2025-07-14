@@ -23,7 +23,7 @@ public class DustEnv {
 	public static Block carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
 	public static Block shoreSmooth, shoreRock, duneSand; //Kinda bad ones
 
-	public static Block basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
+	public static Block shorestoneWater, basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater, quickSand;
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
 	public static Block flowWater;
@@ -200,6 +200,7 @@ public class DustEnv {
 		
 		largesandBoulder = new BoulderProp("large-sand-boulder"){{
 			variants = 2;
+			shadowOffset = -2f;
 			buildVisibility = BuildVisibility.sandboxOnly;
 		}};
 
@@ -318,6 +319,11 @@ public class DustEnv {
 			drownTime = 200f;
         }};
 		
+		// Watered tiles
+
+		shorestoneWater = new WaterFloor("shorestone-water", 3){{
+			statusDuration = 50f;
+		}};
 
 		basaltSandsWater = new WaterFloor("basalt-sands-water", 3){{
 			statusDuration = 50f;
@@ -417,7 +423,7 @@ public class DustEnv {
             lightColor = Color.acid.cpy().a(0.3f);
         }};
 
-        oreChlorophyteChunk = new ChunkOreBlock("ore-chlorophyte-chunk", DustItems.chlorophyte){{
+        oreChlorophyteChunk = new OreBlock("ore-chlorophyte-chunk", DustItems.chlorophyte){{
             oreDefault = false;
 			variants = 3;
 
@@ -427,6 +433,7 @@ public class DustEnv {
         }};
 
 		wallChlorophyte = new OreBlock("wall-chlorophyte", DustItems.chlorophyte){{
+			oreDefault = false;
 			wallOre = true;
 			variants = 3;
 
