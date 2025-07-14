@@ -76,34 +76,28 @@ public class DustEnv {
 		shoreRock = new Floor("shorestone", 3){{
 			wall = shorestoneWall;
 			attributes.set(Attribute.water, 0.25f);
-			decoration = shorestoneBoulder;
 		}};
 
 		shoreSmooth = new Floor("shorestone-smooth", 6){{
 			wall = shorestoneWall;
 			attributes.set(Attribute.water, 0.25f);
-			decoration = shorestoneBoulder;
 		}};
 
 		basaltFloor = new Floor("basalt-floor", 5){{
 			wall = basaltWall;
-			decoration = basaltPillar;
 		}};
 
 		basaltSmooth = new Floor("basalt-smooth", 5){{
 			wall = basaltWall;
-			decoration = basaltPillar;
 		}};
 
 		basaltBumpy = new Floor("basalt-bumpy", 6){{
 			wall = basaltWall;
-			decoration = basaltPillar;
 		}};
 		
 		basaltSands = new Floor("basalt-sands", 5){{
 			wall = basaltWall;
 			attributes.set(Attribute.oil, 0.8f);
-			decoration = basaltPillar;
 		}};
 
 		calciteFloor = new Floor("calcite-floor", 5){{
@@ -114,10 +108,8 @@ public class DustEnv {
 		}};
 
 		yellow = new Floor("yellow", 1){{
-			//wall = calciteWall;
 		}};
 		yellowFlats = new Floor("yellow-flats", 1){{
-			//wall = calciteWall;
 		}};
 
 		blueAsh = new Floor("blue-ash", 3){{
