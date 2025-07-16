@@ -10,7 +10,7 @@ public class DustSectors {
 
     public  static void load(){
 
-        // Terra
+        // Theia
 
         verdantSpill = new DustSectorPreset("verdantSpill", theia, 111){{
             alwaysUnlocked = true;

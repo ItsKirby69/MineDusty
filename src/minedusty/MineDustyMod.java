@@ -71,7 +71,7 @@ public class MineDustyMod extends Mod{
 		DustPlanets.load();
 		
 		DustSectors.load();
-        TerraTechTree.load();
+        TheiaTechTree.load();
 
     }
 

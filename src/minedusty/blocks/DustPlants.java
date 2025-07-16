@@ -144,7 +144,8 @@ public class DustPlants {
 		nightBush = new NightBush("night-bush"){{
 			
 		}};
-		fernBush = new LivingBush("fern-bush", 2){{
+		fernBush = new LivingBush("fern-bush", 1){{
+			dualCircleMode = true;
 			mapColor = Color.valueOf("356a41");
 			rot = 0;
 			lobesMin = 6;

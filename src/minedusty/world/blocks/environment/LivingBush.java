@@ -15,12 +15,12 @@ import static arc.Core.*;
 /** Custom Bush class having rare sprites at a chance as well as customized rotation of sprites. */
 public class LivingBush extends Prop{
 	public TextureRegion region, rareRegion;
-	public TextureRegion[] bottomRegions, centerRegions, shadowRegions;
+	public TextureRegion[] bottomRegions, bottomTopRegions, topRegions, centerRegions, shadowRegions;
 
 	public float layer = Layer.blockProp;
 	/** Determines if center region rotates or not. not actually sure if it works or not lol*/
 	public float rot = 0;
-	/** Whether block uses single circle like seabushes or dual like ferns (which doesn't even use this option anymore lol) */
+	/**If enabled, sprite has two circle layers. Normal then -top variant at, you know it, the top. */
 	public boolean dualCircleMode = false;
 	public boolean rare = false;
 	public float rareChance = 0.01f;
@@ -50,11 +50,15 @@ public class LivingBush extends Prop{
 		super.load();
 		if(variants > 0){
 			bottomRegions = new TextureRegion[variants];
+			bottomTopRegions = new TextureRegion[variants];
+			topRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
 				bottomRegions[i] = atlas.find(name + "-bot" + (i + 1));
+				bottomTopRegions[i] = atlas.find(name + "-topbot" + (i + 1));
+				topRegions[i] = atlas.find(name + "-top" + (i + 1));
 				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
 				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
 			}
@@ -63,6 +67,10 @@ public class LivingBush extends Prop{
 			variantRegions[0] = atlas.find(name);
 			bottomRegions = new TextureRegion[1];
 			bottomRegions[0] = atlas.find(name + "-bot1");
+			bottomTopRegions = new TextureRegion[1];
+			bottomTopRegions[0] = atlas.find(name + "-topbot1");
+			topRegions = new TextureRegion[1];
+			topRegions[0] = atlas.find(name + "-top1");
 			centerRegions = new TextureRegion[1];
 			centerRegions[0] = atlas.find(name + "-center1");
 			shadowRegions = new TextureRegion[1];
@@ -91,34 +99,46 @@ public class LivingBush extends Prop{
 		//rot = Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f),
 		scl = 30f, mag = 0.2f;
 
-		// I don't actually know if this is useful or not
 		if (dualCircleMode) {
-            // Dual circle mode: Draw bottom sprite
+			float lobeAngleOffset = 360f / lobes / 2f;
+			
+            // Bottom sprites first
             for (int i = 0; i < lobes; i++) {
-                float ba = i / (float)lobes * 360f + offset + rand.range(spread),
-				angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
-                Draw.z(layer + 1);
-                Draw.rect(bottomRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, bottomRegions.length - 1))],
-					tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
-					tile.worldy() - Angles.trnsy(angle, origin),
-                        w, h,
-                        origin*4f, h/2f,
-                        angle
-                );
-            }
-            // Dual circle mode: Draw main sprite
-            for (int i = 0; i < lobes; i++) {
-				float ba = (i + 0.5f) / (float)lobes * 360f + offset + rand.range(spread),
-                angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), rand.random(sclMin, sclMax), rand.random(magMin, magMax));
+                float ba = i / (float) lobes * 360f + offset + rand.range(spread), 
+                      angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), 
+                                            rand.random(sclMin, sclMax), 
+                                            rand.random(magMin, magMax));
+                w = region.width * region.scl(); 
+                h = region.height * region.scl();
+                
                 Draw.z(layer + 2);
-                Draw.rect(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))],
-					tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
-					tile.worldy() - Angles.trnsy(angle, origin),
-                        w, h,
-                        origin*4f, h/2f,
-                        angle
+                Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, bottomRegions.length - 1))] : variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))],
+                    tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
+                    tile.worldy() - Angles.trnsy(angle, origin),
+                    w, h,
+                    origin*4f, h/2f,
+                    angle
                 );
             }
+			// Top sprites
+            for (int i = 0; i < lobes; i++) {
+                float ba = i / (float) lobes * 360f + offset + lobeAngleOffset + rand.range(spread), 
+                      angle = ba + Mathf.sin(Time.time + rand.random(0, timeRange), 
+                                            rand.random(sclMin, sclMax), 
+                                            rand.random(magMin, magMax));
+                w = region.width * region.scl(); 
+                h = region.height * region.scl();
+                
+                Draw.z(layer + 2);
+                Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomTopRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, bottomTopRegions.length - 1))] : topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))],
+                    tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
+                    tile.worldy() - Angles.trnsy(angle, origin),
+                    w, h,
+                    origin*4f, h/2f,
+                    angle
+                );
+            }
+
         } else {
             // Single circle mode
             for (int i = 0; i < lobes; i++) {
