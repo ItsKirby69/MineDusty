@@ -10,7 +10,7 @@
 
 # MineDusty
 This mod aims to add more life into the game (literally!). Adding trees, shrubs, plants, and new environments to explore! The new green, luscious planet will have you fight against nature to excavate the resources within.
-Showcases will be shown in the Mindustry discord's Modding forums (tba).
+Showcases will be shown in the Mindustry discord's [Modding forums](https://discord.com/channels/391020510269669376/1395862844427210862).
 
 *//TODO showcase gif*
 
