@@ -15,7 +15,6 @@ import minedusty.planets.DustPlanets;
 import static mindustry.Vars.ui;
 
 public class DustSettings {
-    // Again, completely from Omaloon
 
     public static void load() {
         ui.settings.addCategory("@setting.dusty-settings-title.title", "minedusty-settings-icon", t -> {
@@ -26,8 +25,6 @@ public class DustSettings {
 
             t.checkPref("@setting.dusty-disable-popup", false);
 
-            
-            // TODO fix these options disapearing when reseting to default
             t.pref(new TableSetting("github-linko", new Table(c -> {
                 c.button("@setting.dusty-cleartree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
                     Vars.ui.showConfirm("@setting.dusty-cleartree-confirm", () -> DustData.resetTree(DustPlanets.theia.techTree)
@@ -44,6 +41,8 @@ public class DustSettings {
             
         });
     }
+
+    // Again, completely from Omaloon
     
     public static class TableSetting extends Setting {
         public Table t;
