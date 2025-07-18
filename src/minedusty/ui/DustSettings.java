@@ -14,20 +14,20 @@ public class DustSettings {
 
     public static void load() {
         ui.settings.addCategory("@setting.dusty-settings-title.title", "minedusty-settings-icon", t -> {
-            t.checkPref("@settings.dusty-falling-leaves-enabled", true);
-            t.checkPref("@settings.dusty-fade-enabled", true);
-            t.sliderPref("@settings.dusty-fade-opacity", 10, 0, 100, 5, s -> s + "%");
-            t.sliderPref("@settings.dusty-sfx-volume", 50, 0, 100, 1, s -> s + "%");
+            t.checkPref("@setting.dusty-falling-leaves-enabled", true);
+            t.checkPref("@setting.dusty-fade-enabled", true);
+            t.sliderPref("@setting.dusty-fade-opacity", 10, 0, 100, 5, s -> s + "%");
+            t.sliderPref("@setting.dusty-sfx-volume", 50, 0, 100, 1, s -> s + "%");
 
-            t.checkPref("@settings.dusty-disable-popup", false);
+            t.checkPref("@setting.dusty-disable-popup", false);
 
             t.row();
             // TODO fix these options disapearing when reseting to default
-            t.button("@settings.dusty-cleartree", 
+            t.button("@setting.dusty-cleartree", 
             Icon.trash,
             Styles.flatt, 
             Vars.iconMed,
-            () -> Vars.ui.showConfirm("@settings.dusty-cleartree-confirm", () -> DustData.resetTree(DustPlanets.theia.techTree)));
+            () -> Vars.ui.showConfirm("@setting.dusty-cleartree-confirm", () -> DustData.resetTree(DustPlanets.theia.techTree)));
             
             t.button(Icon.github, () ->{
                 String url = "https://github.com/ItsKirby69/MineDusty";
@@ -35,7 +35,7 @@ public class DustSettings {
                     ui.showInfoFade("@linkfail");  
                     Core.app.setClipboardText(url);
                 }
-            }).size(50f).tooltip("@@settings.dusty-github").right().bottom();
+            }).size(250f).tooltip("@@setting.dusty-github").right().bottom();
         });
     }
 }

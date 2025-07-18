@@ -1,8 +1,8 @@
 {
     "displayName": "MineDusty",
-    "description": "[#edc77b[]]A java mod by [white[]]itsdakirby69 [gray[]](thats me!)[#edc77b[]]. Introduces plantlife and much more.[]",
+    "description": "[#edc77b[]]A java mod by [white[]]itsdakirby69 [gray[]](thats me!)[#edc77b[]]. Introduces a new planet alongside a wide variety of plant life![]",
 	"subtitle": "[acid[]]bottom text.[]",
-    "version": "b4",
+    "version": "1.0.0",
     "minGameVersion": "147",
     "author": "[scarlet[]]ItsKirby[]",
     "java": true,
