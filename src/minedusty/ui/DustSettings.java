@@ -3,7 +3,11 @@ package minedusty.ui;
 import static mindustry.Vars.*;
 
 import arc.Core;
+import mindustry.Vars;
 import mindustry.gen.Icon;
+import mindustry.gen.Tex;
+import mindustry.ui.Styles;
+import minedusty.planets.DustPlanets;
 
 public class DustSettings {
     
@@ -16,18 +20,22 @@ public class DustSettings {
             t.sliderPref("dusty-sfx-volume", 50, 0, 100, 1, s -> s + "%");
 
             t.checkPref("dusty-disable-popup", false);
-            t.table(inner -> {
-                inner.right().bottom().button(Icon.github, () -> {
-                    String url = "https://github.com/ItsKirby69/MineDusty";
-                    if(!Core.app.openURI(url)){
-                        ui.showInfoFade("@linkfail");  
-                        Core.app.setClipboardText(url);
-                    }
-                })
-                .size(50f)
-                .tooltip("Open the Github Repo")
-                .name("github");
-            });
+
+            t.row();
+            // TODO fix these options disapearing when reseting to default
+            t.button("dusty-cleartree", 
+            Icon.trash,
+            Styles.flatt, 
+            Vars.iconMed,
+            () -> Vars.ui.showConfirm("dusty-cleartree-confirm", () -> DustData.resetTree(DustPlanets.theia.techTree)));
+            
+            t.button(Icon.github, () ->{
+                String url = "https://github.com/ItsKirby69/MineDusty";
+                if(!Core.app.openURI(url)){
+                    ui.showInfoFade("@linkfail");  
+                    Core.app.setClipboardText(url);
+                }
+            }).size(50f).tooltip("dusty-github").right().bottom();
         });
     }
 }
