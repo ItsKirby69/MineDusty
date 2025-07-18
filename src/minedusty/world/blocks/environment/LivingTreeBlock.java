@@ -49,8 +49,8 @@ public class LivingTreeBlock extends Block{
 		destroySound = Sounds.boom; //TODO custom tree breaking sound
 		buildVisibility = BuildVisibility.sandboxOnly;
 		destructible = true;
-		health = size * 1200;
-		drawTeamOverlay = false;
+		health = size * 4200;
+		teamPassable = true;
 		createRubble = false;
 		targetable = false;
 	}

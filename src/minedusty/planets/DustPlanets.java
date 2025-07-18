@@ -52,9 +52,8 @@ public class DustPlanets {
 			atmosphereColor = Color.valueOf("1e3c40"); //438e99
 			iconColor = Color.valueOf("32e341"); //2cc429
 			ruleSetter = r -> {
-				r.waveTeam = Team.green; //temp
-				r.placeRangeCheck = false; // might set this to true?
-				r.showSpawns = false; // not exactly sure what this does
+				
+				r.placeRangeCheck = false;
                 r.coreDestroyClear = true;
 				r.fog = false;
                 
