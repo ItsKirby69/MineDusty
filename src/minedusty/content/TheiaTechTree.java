@@ -17,6 +17,7 @@ import mindustry.type.ItemStack;
 public class TheiaTechTree {
     
     public static void load() {
+        // TODO BIG TODO, need to remake all these blocks from scratch since vanilla items would be tied to Serpulo's tech tree.
         DustPlanets.theia.techTree = nodeRoot("theia", DustCore.coreNest, () -> {
             node(conveyor, () -> {
                 node(junction, () -> {

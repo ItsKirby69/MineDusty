@@ -2,11 +2,10 @@ package minedusty.blocks;
 
 import static mindustry.type.ItemStack.with;
 
-import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.blocks.storage.CoreBlock;
-import minedusty.content.DustUnitTypes;
+import mindustry.content.*;
 
 public class DustCore {
 	public static Block coreNest;
@@ -17,9 +16,9 @@ public class DustCore {
 			alwaysUnlocked = true;
 
 			isFirstTier = true;
-			unitType = DustUnitTypes.cricket;
+			unitType = UnitTypes.alpha;//DustUnitTypes.cricket; temporarily alpha
 			health = 1600;
-			itemCapacity = 3500;
+			itemCapacity = 5500;
 			size = 3;
 			buildCostMultiplier = 1.5f;
 

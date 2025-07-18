@@ -9,15 +9,17 @@ import mindustry.Vars;
 public class DustSounds {
 
 	public static Sound
-		bubblePop = new Sound();
+		bubblePop = new Sound(),
+		treeFall = new Sound();
 
 		public static void load(){
 			bubblePop = loadSound("bubblePop");
+			treeFall = loadSound("treefall");
 		}
 
 		public static Sound loadSound(String soundName){
 			//taken from Omaloon, please support this mod -> https://github.com/xstabux/Omaloon/blob/master/src/omaloon/content/OlSounds.java
-			//making sure it doesn't load serverside
+			
 			if(!Vars.headless) {
 				String name = "sounds/" + soundName;
 				String path = Vars.tree.get(name + ".ogg").exists() ? name + ".ogg" : name + ".mp3";
