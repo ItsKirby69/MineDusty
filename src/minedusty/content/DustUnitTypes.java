@@ -423,55 +423,57 @@ public class DustUnitTypes {
         }};*/
 		//end region
 
-
-
-
-
-
-
 		cricket = new UnitType("cricket"){{
 			aiController = BuilderAI::new;
 			isEnemy = false;
 			
 			constructor = UnitEntity::create;
 
+            lowAltitude = true;
 			flying = true;
 			mineSpeed = 8f;
 			mineTier = 1;
-			buildSpeed = 0.5f;
+			buildSpeed = 0.6f;
 			drag = 0.05f;
-			speed = 1.8f;
+			speed = 2.8f;
 			rotateSpeed = 15f;
 			accel = 0.1f;
 			fogRadius = 0f;
-			itemCapacity = 40;
+			itemCapacity = 45;
 			health = 220f;
-			hitSize = 12f;
+			hitSize = 10f;
 			alwaysUnlocked = true;
 			engineOffset = 6.9f;
-			trailLength = 4;
 			outlines = false;
-			//outlineColor = Color.valueOf("41ffb8"); //2f3734
 			
 			weapons.add(new Weapon("minedusty-cricket-weapon"){{
-				reload = 30f;
-				shootSound = Sounds.lasershoot;
+				reload = 25f;
+				shootSound = Sounds.missile;
 				top = false;
 				ejectEffect = Fx.none;
-				//alternate = false;
 				x = 3.7f;
 				y = 2f;
-				layerOffset = -4f;
-				recoil = 1.2f;
+				layerOffset = -0.01f;
 				//speed dmg
-				bullet = new LaserBoltBulletType(3f, 10){{
-					lifetime = 50f;
-					healPercent = 3.5f;
+				bullet = new MissileBulletType(3f, 8){{
+                    homingPower = 0.09f;
+                    homingDelay = 15f;
+                    weaveMag = 4f;
+                    weaveScale = 3f;
+                    width = 7f;
+                    height = 9f;
+					lifetime = 45f;
+                    keepVelocity = false;
+
+                    shootEffect = Fx.shootHeal;
+                    smokeEffect = Fx.hitLaser;
+                    hitEffect = despawnEffect = Fx.hitLaser;
+                    healPercent = 7.5f;
 					collidesTeam = true;
 					backColor = Pal.heal;
 					frontColor = Color.white;
+                    trailColor = Pal.heal;
 				}};
-			shoot = new ShootSpread(1, 0.5f);
 			}});
 		}};
 		mantis = new UnitType("mantis"){{
