@@ -7,7 +7,6 @@ import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
