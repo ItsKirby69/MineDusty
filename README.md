@@ -5,7 +5,7 @@
 [![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=6083b0&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
 [![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=⭐%20Stars&color=6083b0)](https://github.com/ItsKirby69/MineDusty)
 
-***Sandbox only (for now)***
+***Sandbox mostly (for now)***
 </div>
 
 # MineDusty
