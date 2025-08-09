@@ -30,7 +30,7 @@ For early releases which haven't been publicly posted, you can go to the `Action
 - **[Lixie](https://github.com/LixieWulf/)** - Environment Inspiration.
 - **[Sh1penfire](https://github.com/Sh1penfire/)** - Mechanic Inspiration.
 - **thomas_has_things** - Content Inspiration.
-- **MissionaryPoseIsTheBest** - Environment Inspiration.
+- **M1ss1onBest** - Environment Inspiration.
 - **[Sunny (Sk)](https://github.com/sk7725)** - Trees Inspiration.
 - **sl0tterleet** - Java help!
 - **[MeepofFaith](https://github.com/MEEPofFaith)** - Java & Visuals!
