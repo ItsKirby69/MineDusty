@@ -163,7 +163,6 @@ public class DustEnv {
 			shoreSmooth.asFloor().decoration = this;
 		}};
 
-		//why did i name it like this
 		largebasaltPillar = new BoulderProp("large-basaltder"){{
 			mapColor = Color.valueOf("706f74");
 			customShadow = true;
@@ -206,16 +205,14 @@ public class DustEnv {
 		//end region
 
 		//region Water Tiles
-
 		flowWater = new WaterTileEffect("flow-water", 1){{
 			speedMultiplier = 1.3f;
 			liquidMultiplier = 0.3f;
 			supportsOverlay = false;
 
-			effect = DustyEffects.flowWater;
-			chance = 0.8f;
-			effectSpacing = 5f;
-			soundEffect = Sounds.splash;
+			addEffect(DustyEffects.flowWater, 0.35f, 5f);
+			addEffect(DustyEffects.mistCloud, 0.4f, 12f);
+			//soundEffect = Sounds.splash;
 		}};
 
 		tropicalWater = new WaterFloor("trop-shallow-water"){{
@@ -237,7 +234,7 @@ public class DustEnv {
 			lightRadius = 50f;
 			lightColor = Color.orange.cpy().a(0.3f);
 
-			soundEffect = DustSounds.bubblePop;
+			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
 		}};
 		magmaWater = new WaterTileEffect("magma-water", 3){{
 			speedMultiplier = 0.5f;
@@ -248,7 +245,7 @@ public class DustEnv {
 			lightRadius = 70f;
 			lightColor = Color.orange.cpy().a(0.3f);
 
-			soundEffect = DustSounds.bubblePop;
+			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
 		}};
 		trophotWater = new WaterTileEffect("trop-hotrock-water", 3){{
 			speedMultiplier = 0.6f;
@@ -258,7 +255,7 @@ public class DustEnv {
             lightRadius = 50f;
             lightColor = Color.orange.cpy().a(0.3f);
 
-			soundEffect = DustSounds.bubblePop;
+			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
 		}};
 		
 		tropmagmaWater = new WaterTileEffect("trop-magma-water", 3){{
@@ -270,7 +267,7 @@ public class DustEnv {
 			lightRadius = 70f;
 			lightColor = Color.orange.cpy().a(0.3f);
 
-			soundEffect = DustSounds.bubblePop;
+			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
 		}};
 		
 		deeptrophotWater = new WaterTileEffect("trop-hotrock-deep-water", 3){{
@@ -282,22 +279,18 @@ public class DustEnv {
 			lightRadius = 30f;
 			lightColor = Color.orange.cpy().a(0.3f);
 
-			soundEffect = DustSounds.bubblePop;
+			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
 		}};
 
 		algaeWater = new WaterTileEffect("algae-water", 3){{
-			effectSpacing = 180f;
-			chance = 0.02f;
-			effect = DustyEffects.marshGas;
+			addEffect(DustyEffects.marshGas, 0.02f, 180f);
 
 			speedMultiplier = 0.35f;
 			liquidMultiplier = 0.5f;
 		}};
 
 		deepalgaeWater = new WaterTileEffect("deep-algae-water"){{
-			effectSpacing = 180f;
-			chance = 0.03f;
-			effect = DustyEffects.marshGas;
+			addEffect(DustyEffects.marshGas, 0.02f, 180f);
 
 			variants = 0;
 			speedMultiplier = 0.15f;
@@ -352,8 +345,7 @@ public class DustEnv {
 			liquidDrop = Liquids.oil;
 			liquidMultiplier = 0.8f;
 
-			effect = Fx.ventSteam;
-			effectColor = Color.valueOf("111316");
+			addEffect(Fx.ventSteam, Color.valueOf("111316"));
 		}};
 
 		oilSandWater = new WaterTileEffect("oil-sand-water", 3){{
@@ -363,8 +355,7 @@ public class DustEnv {
 			liquidMultiplier = 0.8f;
 			statusDuration = 50f;
 
-			effect = Fx.ventSteam;
-			effectColor = Color.valueOf("111316");
+			addEffect(Fx.ventSteam, Color.valueOf("111316"));
 		}};
 		
 		quickSand = new WaterFloor("quick-sand", 3){{
@@ -466,12 +457,11 @@ public class DustEnv {
 
 		//region Misc
 		fallingLeavesEffect = new TileEffect("falling-leaves"){{
-			effect = DustyEffects.fallingLeaves;
-			effectColor = Color.valueOf("c32121");
+			addEffect(DustyEffects.fallingLeaves, Color.valueOf("c32121"));
 		}};
 
 		flowingWaterEffect = new TileEffect("flow-water-effect"){{
-			effect = DustyEffects.flowWater;
+			addEffect(DustyEffects.flowWater);
 		}};
 
 		//end region
