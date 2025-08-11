@@ -13,7 +13,7 @@ public class DustItems {
 	//Other stuff
 	public static Item carbonicWaste;
 
-	public static final Seq<Item> terraItems = new Seq<>();
+	public static final Seq<Item> theiaItems = new Seq<>();
 	
 	public static void load(){
 
@@ -30,9 +30,6 @@ public class DustItems {
 		}};
 
 		divinityMatter = new Item("item-divinity-matter", DustPalette.divinityMatter){{
-			cost = 1.3f;
-			explosiveness = 0.15f;
-			flammability = 0.7f;
 		}};
 		
 		carbonicWaste = new Item("item-carbonicwaste", DustPalette.carbonicWaste){{}};
@@ -51,10 +48,9 @@ public class DustItems {
 		dustquartz = new Item("quartz-dust", DustPalette.dustquartz){{
 		}};
 
-		terraItems.addAll(
+		theiaItems.addAll(
 			chlorophyte, aquamarine, divinityMatter, carbonicWaste,
 			quartz, rosequartz, dustquartz, 
-			//serpulo + erkir stuff aswell that are present
 			Items.scrap, Items.copper, Items.lead, Items.graphite, Items.coal, Items.silicon, Items.sand, Items.metaglass, 
 			Items.oxide //contemplating between adding or not adding carbide for future plans.
 		);

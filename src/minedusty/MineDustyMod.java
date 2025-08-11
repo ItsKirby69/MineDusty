@@ -20,59 +20,52 @@ import mindustry.ui.fragments.MenuFragment;
 
 import static mindustry.Vars.*;
 
-public class MineDustyMod extends Mod{
+public class MineDustyMod extends Mod {
 
-    public MineDustyMod(){
-        Log.info("*cough* *cough* MineDusty is *cough* loaded");
-    
-		/*Events.on(EventType.ClientLoadEvent.class, e -> {
-			Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new DustMenuRender());
-		});*/
+	public MineDustyMod() {
+		Log.info("*cough* *cough* MineDusty is *cough* loaded");
+
+		/*
+		 * Events.on(EventType.ClientLoadEvent.class, e -> {
+		 * Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new
+		 * DustMenuRender());
+		 * });
+		 */
 	}
 
 	@Override
-	public void init(){
+	public void init() {
 		DustSettings.load();
-        //listen for game load event
-        Events.on(ClientLoadEvent.class, e -> {
-            //show dialog upon startup
+		Events.on(ClientLoadEvent.class, e -> {
+			// show dialog upon startup
 			DustyPopup.check();
-        });
+		});
 	}
 
-    @Override
-    public void loadContent(){
-		// @ts-ignore
+	@Override
+	public void loadContent() {
 		EntityRegistry.register();
-		if (!headless){
+		if (!headless) {
 			DustShaders.load();
 			DustCacheLayers.load();
 		}
-		//teams, items, fluids, effects. Thanks @sl0tterleet
+		// teams, items, fluids, effects. Thanks @sl0tterleet
 		DustTeams.load();
 		DustSounds.load();
 		DustItems.load();
 		DustLiquids.load();
 		DustAttributes.load();
 		DustStatusEffects.load();
-		//DustTeams.load();
 		DustWeathers.load();
 		DustUnitTypes.load();
-		//blocks
-		DustDefence.loadContent();
-		DustCrafters.loadContent();
-		
-		DustEnv.loadContent();
-        DustPlants.loadContent();
-		DustCore.loadContent();
-		
-		DustDistribution.loadContent();
+
+		// blocks
+		DustBlocks.load();
 
 		DustPlanets.load();
-		
 		DustSectors.load();
-        TheiaTechTree.load();
+		TheiaTechTree.load();
 
-    }
+	}
 
 }
