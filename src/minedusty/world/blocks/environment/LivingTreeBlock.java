@@ -3,17 +3,22 @@ package minedusty.world.blocks.environment;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Point2;
+import arc.math.geom.Vec2;
 import arc.util.*;
 import mindustry.Vars;
 import mindustry.entities.Effect;
+import mindustry.game.Team;
 import mindustry.gen.Sounds;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.BuildVisibility;
+import minedusty.content.DustSounds;
 import minedusty.content.DustyEffects;
 import minedusty.graphics.DrawPseudo3D;
 
 import static arc.Core.*;
+
+import arc.Core;
 
 /** Unique TreeBlock class which renders trees having many layers. If toggled, trees will fade when nearby as well as shower falling leaves. */
 public class LivingTreeBlock extends Block{
@@ -45,14 +50,16 @@ public class LivingTreeBlock extends Block{
 		solid = true;
 		clipSize = 120;
 		update = true;
-		breakSound = Sounds.plantBreak;
-		destroySound = Sounds.boom; //TODO custom tree breaking sound
+		breakSound = destroySound = DustSounds.destroyTree;
+		destroyPitchMin = 1f; destroyPitchMax = 1.5f;
 		buildVisibility = BuildVisibility.sandboxOnly;
 		destructible = true;
 		health = size * 4200;
 		teamPassable = true;
 		createRubble = false;
 		targetable = false;
+		forceTeam = Team.derelict;
+		drawTeamOverlay = false;
 	}
 
 
@@ -110,10 +117,17 @@ public class LivingTreeBlock extends Block{
 		float fade = 1f;
 		int variation = Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1));
 		float timeFactor = tallTree ? 0.3f : 1f;
+		if (settings.getBool("@setting.dusty-fade-enabled") && (Vars.player.unit() != null && !Vars.player.unit().dead())){
+			float fadeOpacity = settings.getInt("@setting.dusty-fade-opacity") / 100f;
+			float dst;
 
-		if(settings.getBool("dusty-fade-enabled", true) && Vars.player.unit() != null && !Vars.player.unit().dead()){
-			float dst = Mathf.dst(Vars.player.unit().x, Vars.player.unit().y, tile.worldx(), tile.worldy());
-			fade = Mathf.clamp((dst - fadeEnd) / (fadeStart - fadeEnd), settings.getInt("dusty-fade-opacity") / 100f, 1f);
+			if(settings.getBool("@setting.dusty-toggle-mouse-fade")){
+				Vec2 mouse = Core.input.mouseWorld(Core.input.mouseX(), Core.input.mouseY());
+				dst = Mathf.dst(mouse.x, mouse.y, tile.worldx(), tile.worldy());
+			} else {
+				dst = Mathf.dst(Vars.player.unit().x, Vars.player.unit().y, tile.worldx(), tile.worldy());
+			}
+			fade = Mathf.clamp((dst - fadeEnd) / (fadeStart - fadeEnd), fadeOpacity, 1f);
 		}
 
 		rand.setSeed(tile.pos());
@@ -211,7 +225,7 @@ public class LivingTreeBlock extends Block{
 		
 		// effects
 		if(Vars.state.isPaused()) return; // Particles stack when paused for some reason
-		if(settings.getBool("dusty-falling-leaves-enabled", true) && Mathf.chanceDelta(0.002f * size)){
+		if(settings.getBool("@setting.dusty-falling-leaves-enabled") && Mathf.chanceDelta(0.002f * size)){
 			effect.at(
 				tile.worldx() + Mathf.range(effectRange) * size,
 				tile.worldy() + Mathf.range(effectRange) * size,

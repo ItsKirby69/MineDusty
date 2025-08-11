@@ -42,7 +42,7 @@ public class LivingProp extends Block{
 		buildVisibility = BuildVisibility.sandboxOnly;
 		alwaysReplace = true;
 		solid = false;
-		update = false;
+		update = true;
 		clipSize = 90;
 		underBullets = true;
 

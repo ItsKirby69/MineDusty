@@ -12,8 +12,11 @@ import minedusty.graphics.DustPalette;
 
 import static arc.Core.atlas;
 import static arc.graphics.g2d.Draw.*;
+import static arc.graphics.g2d.Draw.rect;
+import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 import static mindustry.Vars.*;
+
 
 public class DustyEffects {
 	
@@ -41,14 +44,14 @@ public class DustyEffects {
 		});
 	}),
 
-	flowWater = new Effect(20f, e -> {
+	flowWater = new Effect(20f, 250f, e -> {
 		color(Color.valueOf("#8598EC"), Color.valueOf("#CAD2F6"), e.fslope());
-		Lines.stroke(1f * (0.8f + (e.fslope() / 2f)));
+		stroke(1f * (0.8f + (e.fslope() / 2f)));
 
 		rand.setSeed(e.id);
 		float angle = 90f + rand.random(-1.5f, 1.5f);
 		float offsetX = rand.random(-3.2f, 3.2f);
-		float offsetY = rand.random(-3f, 1f);
+		float offsetY = rand.random(-3.5f, 1.5f);
 		float speed = rand.random(0.15f);
 		float travel = e.fslope() * 10f * speed;
 
@@ -58,8 +61,18 @@ public class DustyEffects {
 		float length = Mathf.sin(e.fin() * Mathf.PI) * (4.5f + rand.random(1.5f));
 		alpha(e.fslope());
 
-		Lines.lineAngle(x,y,angle,length);
+		lineAngle(x,y,angle,length);
+
 	}).layer(30.1f),
+
+	mistCloud = new Effect(50f, e -> {
+		color(Color.valueOf("#aac1e3ff"), Color.valueOf("#cae6f6"), e.fin());
+		alpha(e.fslope()* 0.4f);
+
+		randLenVectors(e.id, 1, 2f + e.finpow() * 10f, (x, y) -> {
+			Fill.circle(e.x + x, e.y + y, 5f + e.fin() * 3f);
+		});
+	}),
 
 	// TODO use the weather's wind vector or something similar
 	fallingLeaves = new Effect(450f, e ->{

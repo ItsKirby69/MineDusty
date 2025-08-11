@@ -10,11 +10,11 @@ public class DustSounds {
 
 	public static Sound
 		bubblePop = new Sound(),
-		treeFall = new Sound();
+		destroyTree = new Sound();
 
 		public static void load(){
 			bubblePop = loadSound("bubblePop");
-			treeFall = loadSound("treefall");
+			destroyTree = loadSound("destroyTree");
 		}
 
 		public static Sound loadSound(String soundName){

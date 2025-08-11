@@ -3,6 +3,7 @@ package minedusty.blocks;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
 import mindustry.world.meta.BuildVisibility;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.*;
@@ -12,14 +13,14 @@ import minedusty.content.DustItems;
 
 public class DustPlants {
 	// Trees
-	public static Block worldTree, divineTree, aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
+	public static Block largebogTree, worldTree, divineTree, aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
 	//TODO mahogany spruceTree, mysticTree, frozenTree, glowberryTree, coconutTree?
 
 	//TODO night plants that bloom light in nighttime.
 	// Shrubs and small Plants (props)
 	public static Block nightBush;
 	public static Block grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
-	public static Block cactus, cattail, lilypad, largelilypad;
+	public static Block cactus, cattail, lilypad, largelilypad, lilypadFreshwater, largelilypadFreshwater;
 
 	public static void loadContent() {
 		//region Trees
@@ -56,11 +57,17 @@ public class DustPlants {
 		pineTree = new LivingTreeBlock("pine-tree", 1){{
 			mapColor = Color.valueOf("356a41");
 			rotateShadow = false;
-			size = 5;
+			size = 3;
 		}};
 		bogTree = new LivingTreeBlock("bog-tree", 1){{
 			mapColor = Color.valueOf("667113");
 			size = 3;
+		}};
+		largebogTree = new LivingTreeBlock("large-bog-tree", 1) {{
+			mapColor = Color.valueOf("667113");
+			fadeEnd = 30f;
+			baseLayer = Layer.legUnit + 3.5f;
+			size = 5;
 		}};
 		cheeseTree = new LivingTreeBlock("cheese-tree", 1){{
 			mapColor = Color.valueOf("d7d177");
@@ -196,6 +203,15 @@ public class DustPlants {
 		}};
 		largelilypad = new LivingProp("large-lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
+			size = 3;
+		}};
+
+		lilypadFreshwater = new LivingProp("freshwater-lily-pad", 3){{
+			size = 2;
+		}};
+
+		largelilypadFreshwater = new LivingProp("large-freshwater-lily-pad", 3){{
+			size = 4;
 		}};
 		//end region
 	}
