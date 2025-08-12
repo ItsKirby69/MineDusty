@@ -14,16 +14,20 @@ import static arc.Core.*;
 
 /** Custom Prop class which has rare sprites appear at a chance. */
 public class LivingProp extends Block{
-	public TextureRegion region, rareRegion;
+	public TextureRegion rareRegion;
 	public TextureRegion[] topRegions, centerRegions, shadowRegions;
 
 
 	public float layer = Layer.blockProp;
-	/** Don't use this*/
+	/** Rotates shadow or not specifically*/
 	public boolean rotateProp = true;
 	public boolean rare = true;
 	public float rareChance = 1.0f;
-	public boolean swayProp = false;
+	/** If base sprite sways with the wind. */
+	public boolean swayProp = true;
+	public float shadowOffset = 0;
+	public float shadowAlpha = 0.6f;
+
 	
 	public LivingProp(String name){
 		this(name, 3);
@@ -32,7 +36,7 @@ public class LivingProp extends Block{
 	public LivingProp(String name, int variants){
 		super(name);
 		this.variants = variants;
-		hasShadow = true;
+		hasShadow = false;
 		customShadow = true;
 		breakSound = Sounds.plantBreak;
 		breakEffect = Fx.breakProp;
@@ -81,48 +85,47 @@ public class LivingProp extends Block{
 	@Override
 	public void drawBase(Tile tile){
 		rand.setSeed(tile.pos());
-		
+		int variation = Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1));
+		TextureRegion currRegion = variantRegions[variation];
+
 		float x = tile.worldx(), y = tile.worldy(),
-		w = region.width * region.scl(),
-		h = region.height * region.scl(),
+		w = currRegion.width * currRegion.scl(),
+		h = currRegion.height * currRegion.scl(),
 		rot = Mathf.sin(Time.time + x, 50f, 0.5f) + Mathf.sin(Time.time - y, 65f, 0.9f) + Mathf.sin(Time.time + y - x, 85f, 0.9f),
 		scl = 30f, mag = 0.2f; //Mathf.randomSeed(tile.pos(), 0, 4)
-
 
 		//main sprite
 		Draw.z(layer);
 		
 		if(swayProp){
-			Draw.rectv(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
+			Draw.rectv(variantRegions[variation], x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
 		}else{
-			Draw.rect(variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))], x, y);
+			Draw.rect(variantRegions[variation], x, y);
 		}
 		
 		//shadow sprite | if they have one (which they should)
-		if(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))].found()){
+		if(shadowRegions[variation].found()){
 			Draw.z(layer - 1);
-			if (rotateProp == true){
-				Draw.rectv(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
-					Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
-					Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
-					));
-			} else {
-				Draw.rectv(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], x, y, w, h, 0, vec -> vec.add(
-					Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
-					Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
-					));
+			if (rotateProp == false){
+				rot = 0;
 			}
+			Draw.color(0f, 0f, 0f, shadowAlpha);
+			Draw.rectv(shadowRegions[variation], x + shadowOffset, y + shadowOffset, w, h, rot, vec -> vec.add(
+				Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*3 - Time.time, 70, 0.8f),
+				Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time, 50, 0.2f)
+				));
+			Draw.color();
 		}
 
 		boolean useRare = rare && rand.chance(rareChance);
 		//center sprite
 		if(useRare){
-			if(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))].found()){
+			if(centerRegions[variation].found()){
 				Draw.z(layer + 1);
-				Draw.rectv(centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))], x, y, w, h, rot, vec -> vec.add(
+				Draw.rectv(centerRegions[variation], x, y, w, h, rot, vec -> vec.add(
 					Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 					Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 					));
@@ -130,9 +133,9 @@ public class LivingProp extends Block{
 		}
 
 		//top sprite | if they have one //Should I make them move funny?
-		if(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))].found()){
+		if(topRegions[variation].found()){
 			Draw.z(layer + 2);
-			Draw.rect(topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))], x, y);
+			Draw.rect(topRegions[variation], x, y);
 		}
 	}
 }

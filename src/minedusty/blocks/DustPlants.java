@@ -20,7 +20,7 @@ public class DustPlants {
 	// Shrubs and small Plants (props)
 	public static Block nightBush;
 	public static Block grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
-	public static Block cactus, cattail, lilypad, largelilypad, lilypadFreshwater, largelilypadFreshwater;
+	public static Block cactus, cattail, lilypad, largelilypad, marshlilypad, largemarshlilypad;
 
 	public static void loadContent() {
 		//region Trees
@@ -169,8 +169,7 @@ public class DustPlants {
 			buildVisibility = BuildVisibility.sandboxOnly;
 			destructible = true;
 			targetable = false;
-			hasShadow = true;
-			customShadow = true;
+			hasShadow = false;
 			underBullets = true;
 
 			breakSound = Sounds.plantBreak;
@@ -183,7 +182,6 @@ public class DustPlants {
 			variants = 2;
 			rotate = false;
 			breakable = true;
-			swayProp = true;
 			rareChance = 0.2f;
 		}};
 
@@ -200,18 +198,22 @@ public class DustPlants {
 
 		lilypad = new LivingProp("lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
+			shadowOffset = -4f;
 		}};
 		largelilypad = new LivingProp("large-lily-pad", 3){{
 			mapColor = Color.valueOf("74d660");
+			shadowOffset = -4f;
 			size = 3;
 		}};
 
-		lilypadFreshwater = new LivingProp("freshwater-lily-pad", 3){{
+		marshlilypad = new LivingProp("marsh-lily-pad", 3){{
+			shadowOffset = -4f;
 			size = 2;
 		}};
 
-		largelilypadFreshwater = new LivingProp("large-freshwater-lily-pad", 3){{
-			size = 4;
+		largemarshlilypad = new LivingProp("large-marsh-lily-pad", 1){{
+			shadowOffset = -4f;
+			size = 3;
 		}};
 		//end region
 	}
