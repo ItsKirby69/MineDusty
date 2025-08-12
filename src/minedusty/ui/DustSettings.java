@@ -27,7 +27,7 @@ public class DustSettings {
             t.checkPref("@setting.dusty-falling-leaves-enabled", true);
             t.checkPref("@setting.dusty-fade-enabled", true);
             t.checkPref("@setting.dusty-toggle-mouse-fade", false);
-            t.sliderPref("@setting.dusty-fade-opacity", 10, 0, 100, 5, s -> s + "%");
+            t.sliderPref("@setting.dusty-fade-opacity", 0, 0, 100, 5, s -> s + "%");
 
             t.pref(new Title("@setting.dusty-misc-title"));
 
