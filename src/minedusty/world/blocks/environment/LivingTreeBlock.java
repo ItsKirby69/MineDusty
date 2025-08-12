@@ -116,6 +116,7 @@ public class LivingTreeBlock extends Block{
 	public void drawBase(Tile tile) {
 		float fade = 1f;
 		int variation = Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1));
+
 		float timeFactor = tallTree ? 0.3f : 1f;
 		if (settings.getBool("@setting.dusty-fade-enabled") && (Vars.player.unit() != null && !Vars.player.unit().dead())){
 			float fadeOpacity = settings.getInt("@setting.dusty-fade-opacity") / 100f;
@@ -134,6 +135,7 @@ public class LivingTreeBlock extends Block{
 
 		float x = tile.worldx(), y = tile.worldy(),
 		rot = Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time* timeFactor + x, 50f, 0.5f) + Mathf.sin(Time.time* timeFactor - y, 65f, 0.9f) + Mathf.sin(Time.time* timeFactor + y - x, 85f, 0.9f),
+		rotStatic = Mathf.randomSeed(tile.pos(), 0, 4) * 90,
 		w = region.width * region.scl(), h = region.height * region.scl(),
 		scl = 30f, mag = 0.2f;
 
@@ -148,7 +150,7 @@ public class LivingTreeBlock extends Block{
 		if (trunkRegions[variation].found()) {
 			Draw.z(Layer.groundUnit - 1f);
 			Draw.alpha(1f);
-			Draw.rect(trunkRegions[variation], x, y, rot);
+			Draw.rect(trunkRegions[variation], x, y, rotStatic);
 		}
 
 		//Shadow above ground units
