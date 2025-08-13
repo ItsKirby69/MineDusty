@@ -1,8 +1,10 @@
 package minedusty.content;
 
+import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Angles;
+import arc.math.Interp;
 import arc.math.Mathf;
 import arc.math.Rand;
 import arc.math.geom.Vec2;
@@ -74,6 +76,74 @@ public class DustyEffects {
 		});
 	}),
 
+	treeBreak = new Effect(120f, e -> {
+		rand.setSeed(e.id);
+
+		float cutThresh = 0.8f;
+		float fade = e.fin() <= cutThresh ? 1f : 1f - Mathf.clamp((e.fin() - cutThresh) / (1f - cutThresh));
+		int randCount = Mathf.randomSeed(e.id, 50, 80);
+
+		for (int i = 0; i < randCount; i++) {
+			
+			float rot = e.rotation + rand.range(180f);
+			int randRegion = rand.random(1, 4);
+			if (randRegion != 1) { //if leaves
+				Color base = e.color.cpy();
+				float darkFactor = rand.random(0.5f, 1f);
+				base.r *= darkFactor;
+				base.g *= darkFactor;
+				base.b *= darkFactor;
+				color(base, base.a(fade), e.fin());
+			} else {
+				color(Color.valueOf("ffffff"), Color.valueOf("ffffff").a(fade), e.fin());
+			}
+			TextureRegion region = Core.atlas.find("minedusty-tree-prop" + randRegion);
+
+			v.trns(rot, rand.random(0f, 12f) * e.finpow());
+			float fout = Math.max(e.fout(), 0.5f);
+			float size = fout * 20f + 0.8f;
+			float rotFactor = rot + rand.random(-180f, 180f) * Interp.pow2Out.apply(Mathf.clamp(e.fin() / 0.8f));
+
+			float spawnRadius = rand.random(0f, 23f);
+			Draw.rect(region, e.x + Mathf.cosDeg(rot) * spawnRadius + v.x * 4f, e.y + Mathf.sinDeg(rot) * spawnRadius + v.y * 4f, size, size, rotFactor);
+		}
+	}).layer(Layer.debris),
+
+	treeBreakWhite = new Effect(120f, e -> {
+		rand.setSeed(e.id);
+
+		float cutThresh = 0.8f;
+		float fade = e.fin() <= cutThresh ? 1f : 1f - Mathf.clamp((e.fin() - cutThresh) / (1f - cutThresh));
+		int randCount = Mathf.randomSeed(e.id, 50, 80);
+
+		for (int i = 0; i < randCount; i++) {
+			
+			float rot = e.rotation + rand.range(180f);
+			int randRegion = rand.random(1, 4);
+			TextureRegion region;
+			if (randRegion != 1) { //if leaves
+				Color base = e.color.cpy();
+				float darkFactor = rand.random(0.5f, 1f);
+				base.r *= darkFactor;
+				base.g *= darkFactor;
+				base.b *= darkFactor;
+				color(base, base.a(fade), e.fin());
+				region = Core.atlas.find("minedusty-tree-prop" + randRegion);
+			} else {
+				color(Color.valueOf("ffffff"), Color.valueOf("ffffff").a(fade), e.fin());
+				region = Core.atlas.find("minedusty-tree-prop-white");
+			}
+
+			v.trns(rot, rand.random(0f, 12f) * e.finpow());
+			float fout = Math.max(e.fout(), 0.5f);
+			float size = fout * 20f + 0.8f;
+			float rotFactor = rot + rand.random(-180f, 180f) * Interp.pow2Out.apply(Mathf.clamp(e.fin() / 0.8f));
+
+			float spawnRadius = rand.random(0f, 23f);
+			Draw.rect(region, e.x + Mathf.cosDeg(rot) * spawnRadius + v.x * 4f, e.y + Mathf.sinDeg(rot) * spawnRadius + v.y * 4f, size, size, rotFactor);
+		}
+	}).layer(Layer.debris),
+
 	// TODO use the weather's wind vector or something similar
 	fallingLeaves = new Effect(450f, e ->{
 		color(e.color, e.color, e.fslope());
@@ -81,7 +151,7 @@ public class DustyEffects {
 
 		float drift = -20f * e.fin() * 4f;
 		randLenVectors(e.id, 3, 30f + e.finpow() * 40f, (x, y) -> {
-			Draw.rect(atlas.find("minedusty-leaf"), e.x + x + drift, e.y + y + drift, 8f, 8f, e.fin() * 360f);
+			Draw.rect(atlas.find("minedusty-tree-prop3"), e.x + x + drift, e.y + y + drift, 16f, 16f, e.fin() * 360f);
 		});
 	}).layer(Layer.power + 2),
 

@@ -10,6 +10,7 @@ import mindustry.world.blocks.environment.*;
 
 import minedusty.world.blocks.environment.*;
 import minedusty.content.DustItems;
+import minedusty.content.DustyEffects;
 
 public class DustPlants {
 	// Trees
@@ -27,6 +28,7 @@ public class DustPlants {
 		/* Disabled for now since atlas is messed up
 		worldTree = new LivingTreeBlock("world-tree", 1){{
 			mapColor = Color.valueOf("c32121");
+			breakEffect = DustyEffects.treeBreakWhite;
 			size = 12;
 			shadowOffset = -30f;
 			tallTree = true;
@@ -39,6 +41,7 @@ public class DustPlants {
 		divineTree = new LivingTreeBlock("divine-tree", 2){{
 			itemDrop = DustItems.divinityMatter; //for extraction in future
 			mapColor = Color.valueOf("c32121");
+			breakEffect = DustyEffects.treeBreakWhite;
 			size = 3;
 		}};
 
