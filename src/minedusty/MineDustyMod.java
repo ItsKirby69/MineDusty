@@ -10,15 +10,21 @@ import minedusty.planets.*;
 import minedusty.ui.DustSettings;
 import minedusty.ui.DustyPopup;
 import arc.*;
+import arc.struct.Seq;
 import arc.util.*;
 import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
+import mindustry.mod.Mods.ModMeta;
 import mindustry.ui.dialogs.*;
 import mindustry.ui.fragments.MenuFragment;
 
+import static arc.Core.bundle;
 import static mindustry.Vars.*;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class MineDustyMod extends Mod {
 
@@ -44,6 +50,16 @@ public class MineDustyMod extends Mod {
 
 	@Override
 	public void loadContent() {
+		/** Gets random line from a text file. */
+		Seq<String> subtitles = new Seq<>(bundle.get("subtitle.lines").split("/"));
+		Log.info("Lines: " + subtitles.random());
+		Vars.mods.list().forEach(mod -> {
+			if(mod.main == this){
+				mod.meta.subtitle = "[acid]" + subtitles.random();
+				Log.info("LOADED SUBTITLE AS: " + subtitles.random());
+			}
+		});
+		
 		EntityRegistry.register();
 		if (!headless) {
 			DustShaders.load();
