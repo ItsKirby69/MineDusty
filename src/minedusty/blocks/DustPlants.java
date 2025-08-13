@@ -1,7 +1,17 @@
 package minedusty.blocks;
 
+import static arc.graphics.g2d.Draw.color;
+
+import arc.Core;
 import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.TextureRegion;
+import arc.math.Interp;
+import arc.math.Mathf;
+import arc.math.Rand;
+import arc.math.geom.Vec2;
 import mindustry.content.*;
+import mindustry.entities.Effect;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
 import mindustry.world.meta.BuildVisibility;
@@ -11,6 +21,7 @@ import mindustry.world.blocks.environment.*;
 import minedusty.world.blocks.environment.*;
 import minedusty.content.DustItems;
 import minedusty.content.DustyEffects;
+import minedusty.utils.EffectHelper;
 
 public class DustPlants {
 	// Trees
@@ -29,6 +40,7 @@ public class DustPlants {
 		worldTree = new LivingTreeBlock("world-tree", 1){{
 			mapColor = Color.valueOf("c32121");
 			breakEffect = DustyEffects.treeBreakWhite;
+			destroyEffect = DustyEffects.withColor(DustyEffects.treeBreak, mapColor);
 			size = 12;
 			shadowOffset = -30f;
 			tallTree = true;
@@ -42,58 +54,68 @@ public class DustPlants {
 			itemDrop = DustItems.divinityMatter; //for extraction in future
 			mapColor = Color.valueOf("c32121");
 			breakEffect = DustyEffects.treeBreakWhite;
-			size = 3;
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreakWhite, mapColor);
 		}};
-
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			size = 3;
 		}};
 		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
 			mapColor = Color.valueOf("f3b9c3");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			size = 3;
 		}};
 		elmTree = new LivingTreeBlock("elm-tree", 1){{
 			mapColor = Color.valueOf("ECB01E");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			size = 3;
 		}};
 		pineTree = new LivingTreeBlock("pine-tree", 1){{
 			mapColor = Color.valueOf("356a41");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			rotateShadow = false;
 			size = 3;
 		}};
 		bogTree = new LivingTreeBlock("bog-tree", 1){{
 			mapColor = Color.valueOf("667113");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			size = 3;
 		}};
 		largebogTree = new LivingTreeBlock("large-bog-tree", 1) {{
 			mapColor = Color.valueOf("667113");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			fadeEnd = 30f;
 			baseLayer = Layer.legUnit + 3.5f;
 			size = 5;
 		}};
 		cheeseTree = new LivingTreeBlock("cheese-tree", 1){{
 			mapColor = Color.valueOf("d7d177");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 		}};
 
 		//dead/static trees (trees with no layers)
 		burntTree = new TreeBlock("burnt-tree"){{
 			mapColor = Color.valueOf("172025");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			shadowOffset = -1f;
 		}};
 		ashTree = new TreeBlock("ash-tree"){{
 			mapColor = Color.valueOf("98a3a8");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			shadowOffset = -1f;
 		}};
 		deadTree = new TreeBlock("dead-tree"){{
 			mapColor = Color.valueOf("744700");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 2;
 		}};
 		mossydeadTree = new TreeBlock("mossydead-tree"){{
 			mapColor = Color.valueOf("744700");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 2;
 		}};
@@ -200,21 +222,25 @@ public class DustPlants {
 		}};
 
 		lilypad = new LivingProp("lily-pad", 3){{
-			mapColor = Color.valueOf("74d660");
+			mapColor = Color.valueOf("97c51e");
 			shadowOffset = -4f;
 		}};
 		largelilypad = new LivingProp("large-lily-pad", 3){{
-			mapColor = Color.valueOf("74d660");
-			shadowOffset = -4f;
-			size = 3;
+			mapColor = Color.valueOf("97c51e");
+			shadowOffset = -3f;
+			propOffset = 4f;
+			size = 2;
 		}};
 
-		marshlilypad = new LivingProp("marsh-lily-pad", 3){{
-			shadowOffset = -4f;
+		marshlilypad = new LivingProp("marsh-lily-pad", 2){{
+			mapColor = Color.valueOf("7b990b");
+			shadowOffset = -3f;
+			propOffset = 4f;
 			size = 2;
 		}};
 
 		largemarshlilypad = new LivingProp("large-marsh-lily-pad", 1){{
+			mapColor = Color.valueOf("7b990b");
 			shadowOffset = -4f;
 			size = 3;
 		}};

@@ -9,6 +9,7 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.BuildVisibility;
+import minedusty.content.DustyEffects;
 
 import static arc.Core.*;
 
@@ -26,6 +27,8 @@ public class LivingProp extends Block{
 	/** If base sprite sways with the wind. */
 	public boolean swayProp = true;
 	public float shadowOffset = 0;
+	/** Used to fix even sized props (because they have a weird offset for god who know why) */
+	public float propOffset = 0;
 	public float shadowAlpha = 0.6f;
 
 	
@@ -39,7 +42,7 @@ public class LivingProp extends Block{
 		hasShadow = false;
 		customShadow = true;
 		breakSound = Sounds.plantBreak;
-		breakEffect = Fx.breakProp;
+		breakEffect = DustyEffects.breakLily;
 		destructible = false;
 		targetable = false;
 		instantDeconstruct = true;
@@ -98,17 +101,17 @@ public class LivingProp extends Block{
 		Draw.z(layer);
 		
 		if(swayProp){
-			Draw.rectv(variantRegions[variation], x, y, w, h, rot, vec -> vec.add(
+			Draw.rectv(variantRegions[variation], x + propOffset, y + propOffset, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 				Mathf.cos(vec.x*2 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 				));
 		}else{
-			Draw.rect(variantRegions[variation], x, y);
+			Draw.rect(variantRegions[variation], x + propOffset, y + propOffset);
 		}
 		
 		//shadow sprite | if they have one (which they should)
 		if(shadowRegions[variation].found()){
-			Draw.z(layer - 1);
+			Draw.z(Layer.block - 1);
 			if (rotateProp == false){
 				rot = 0;
 			}
@@ -125,7 +128,7 @@ public class LivingProp extends Block{
 		if(useRare){
 			if(centerRegions[variation].found()){
 				Draw.z(layer + 1);
-				Draw.rectv(centerRegions[variation], x, y, w, h, rot, vec -> vec.add(
+				Draw.rectv(centerRegions[variation], x + propOffset, y + propOffset, w, h, rot, vec -> vec.add(
 					Mathf.sin(vec.y*3 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 70, 0.8f),
 					Mathf.cos(vec.x*3 + Time.time + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time, 50, 0.2f)
 					));
@@ -135,7 +138,7 @@ public class LivingProp extends Block{
 		//top sprite | if they have one //Should I make them move funny?
 		if(topRegions[variation].found()){
 			Draw.z(layer + 2);
-			Draw.rect(topRegions[variation], x, y);
+			Draw.rect(topRegions[variation], x + propOffset, y + propOffset);
 		}
 	}
 }

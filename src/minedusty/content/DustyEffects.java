@@ -8,6 +8,7 @@ import arc.math.Interp;
 import arc.math.Mathf;
 import arc.math.Rand;
 import arc.math.geom.Vec2;
+import arc.util.Tmp;
 import mindustry.entities.*;
 import mindustry.graphics.*;
 import minedusty.graphics.DustPalette;
@@ -28,6 +29,20 @@ public class DustyEffects {
 	public static final Effect
 
 	none = new Effect(0f, 0f, e -> {}),
+
+	breakLily = new Effect(35, e -> {
+		rand.setSeed(e.id);
+        float scl = Math.max(e.rotation / 2, 1);
+		float darkFactor = rand.random(0.5f, 1f);
+		color(
+			e.color.r * darkFactor,
+			e.color.g * darkFactor,
+			e.color.b * darkFactor
+			);
+        randLenVectors(e.id, 6 * (int)e.rotation, 19f * e.finpow() * scl, (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, e.fout() * 3.5f * scl + 0.3f);
+        });
+    }).layer(Layer.debris),
 
 	airBubble = new Effect(100f, e -> {
 		alpha(e.fin() * 0.8f);
