@@ -64,6 +64,7 @@ public class LivingTreeBlock extends Block{
 		targetable = false;
 		forceTeam = Team.derelict;
 		drawTeamOverlay = false;
+		allowDerelictRepair = false;
 	}
 
 
