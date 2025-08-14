@@ -89,6 +89,7 @@ public class LivingBush extends Prop{
     @Override
     public void drawBase(Tile tile){
 		rand.setSeed(tile.pos());
+		int variation = Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1));
 
         float offset = rand.random(180f);
         int lobes = rand.random(lobesMin, lobesMax);
@@ -161,7 +162,7 @@ public class LivingBush extends Prop{
         }
 		
 		boolean useRare = rare && rareRegion.found() && rand.chance(rareChance);
-		//centerRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, centerRegions.length - 1))]
+		
 		TextureRegion centerToDraw = useRare ? rareRegion : centerRegions[Mathf.randomSeed(tile.pos(), 0, centerRegions.length - 1)];
         if(centerToDraw.found()){ 
 			Draw.z(layer + 3);

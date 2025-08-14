@@ -232,7 +232,7 @@ public class DustPlants {
 			size = 2;
 		}};
 
-		marshlilypad = new LivingProp("marsh-lily-pad", 2){{
+		marshlilypad = new LivingProp("marsh-lily-pad", 3){{
 			mapColor = Color.valueOf("7b990b");
 			shadowOffset = -3f;
 			propOffset = 4f;
@@ -243,6 +243,7 @@ public class DustPlants {
 			mapColor = Color.valueOf("7b990b");
 			shadowOffset = -4f;
 			size = 3;
+			rareChance = 0.4f;
 		}};
 		//end region
 	}
