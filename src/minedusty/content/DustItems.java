@@ -8,10 +8,12 @@ import mindustry.type.Item;
 public class DustItems {
 	
 	//Ores
-	public static Item chlorophyte, aquamarine, divinityMatter, quartz, rosequartz, dustquartz;
+	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
 
 	//Other stuff
 	public static Item carbonicWaste;
+
+	protected static Object aquamarine;
 
 	public static final Seq<Item> theiaItems = new Seq<>();
 	
@@ -24,7 +26,7 @@ public class DustItems {
 			cost = 1f;
 		}};
 
-		aquamarine = new Item("item-aquamarine", DustPalette.aquamarine){{
+		aquamerium = new Item("item-aquamerium", DustPalette.aquamerium){{
 			hardness = 3;
 			cost = 1f;
 		}};
@@ -49,7 +51,7 @@ public class DustItems {
 		}};
 
 		theiaItems.addAll(
-			chlorophyte, aquamarine, divinityMatter, carbonicWaste,
+			chlorophyte, aquamerium, divinityMatter, carbonicWaste,
 			quartz, rosequartz, dustquartz, 
 			Items.scrap, Items.copper, Items.lead, Items.graphite, Items.coal, Items.silicon, Items.sand, Items.metaglass, 
 			Items.oxide //contemplating between adding or not adding carbide for future plans.

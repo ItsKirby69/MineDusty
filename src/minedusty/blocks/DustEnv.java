@@ -29,7 +29,7 @@ public class DustEnv {
 	public static Block flowWater;
 
 	// Ores
-	public static Block oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamarine, wallOxide;
+	public static Block oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamerium, wallOxide;
 	
 	// Walls
 	public static Block mossStoneWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
@@ -435,7 +435,7 @@ public class DustEnv {
 			lightColor = Color.valueOf("a7db32").cpy().a(0.6f);
 		}};
 
-		oreAquamarine = new OreBlock("ore-aquamarine", DustItems.aquamarine){{
+		oreAquamerium = new OreBlock("ore-aquamerium", DustItems.aquamerium){{
 			oreDefault = false;
 			variants = 5;
 

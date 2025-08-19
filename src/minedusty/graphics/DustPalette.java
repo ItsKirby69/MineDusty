@@ -10,7 +10,7 @@ public class DustPalette {
 	dustquartz = Color.valueOf("#a39ea2"),
 
 	chlorophyte = Color.valueOf("89ca1e"),
-	aquamarine = Color.valueOf("a4ecfd"),
+	aquamerium = Color.valueOf("a4ecfd"),
 	divinityMatter = Color.valueOf("c32121"),
 	carbonicWaste = Color.valueOf("2f241a"),
 
