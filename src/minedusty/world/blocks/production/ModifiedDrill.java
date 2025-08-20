@@ -5,16 +5,10 @@ import arc.graphics.Blending;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
-import arc.util.Nullable;
 import arc.util.Time;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
-import mindustry.type.Liquid;
 import mindustry.world.blocks.production.Drill;
-import mindustry.world.consumers.ConsumeLiquidBase;
-import mindustry.world.meta.Stat;
-import mindustry.world.meta.StatUnit;
-import mindustry.world.meta.StatValues;
 
 public class ModifiedDrill extends Drill{
     public TextureRegion teamRegion;

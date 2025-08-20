@@ -2,18 +2,15 @@ package minedusty.blocks;
 
 import mindustry.content.*;
 import mindustry.type.Category;
-import mindustry.type.Liquid;
-import mindustry.type.LiquidStack;
 import mindustry.world.*;
-import mindustry.world.blocks.production.Drill;
 import mindustry.world.meta.Env;
-import minedusty.content.DustItems;
-import minedusty.content.DustLiquids;
+import minedusty.content.*;
 import minedusty.world.blocks.production.*;
 
 import static mindustry.type.ItemStack.*;
 
 public class DustDrills {
+    // TODO bore drill.
     public static Block mechanicalDrill, chloroDrill;
 
     public static void loadContent(){

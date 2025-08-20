@@ -1,17 +1,7 @@
 package minedusty.blocks;
 
-import static arc.graphics.g2d.Draw.color;
-
-import arc.Core;
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
-import arc.math.Interp;
-import arc.math.Mathf;
-import arc.math.Rand;
-import arc.math.geom.Vec2;
 import mindustry.content.*;
-import mindustry.entities.Effect;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
 import mindustry.world.meta.BuildVisibility;
