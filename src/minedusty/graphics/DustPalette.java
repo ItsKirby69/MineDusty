@@ -5,6 +5,9 @@ import arc.graphics.Color;
 public class DustPalette {
 	public static Color
 	//name = Color.valueOf("#00000"),
+
+	oxidecopper = Color.valueOf("c99b8f"),
+
 	quartz = Color.valueOf("a997a6"),
 	rosequartz = Color.valueOf("c26ab3"),
 	dustquartz = Color.valueOf("#a39ea2"),

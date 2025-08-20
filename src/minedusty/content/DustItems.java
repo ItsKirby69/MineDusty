@@ -8,6 +8,7 @@ import mindustry.type.Item;
 public class DustItems {
 	
 	//Ores
+	public static Item oxidecopper, amethyst;
 	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
 
 	//Other stuff
@@ -20,6 +21,10 @@ public class DustItems {
 	public static void load(){
 
 		//ore items
+		oxidecopper = new Item("item-oxidecopper", DustPalette.oxidecopper){{
+			hardness = 3;
+		}};
+
 		chlorophyte = new Item("item-chlorophyte", DustPalette.chlorophyte){{
 			//frames = 7;
 			hardness = 6;
