@@ -34,6 +34,7 @@ public class DustDefence {
         oxidecopperWallLarge = new Wall("oxide-copper-wall-large"){{
             requirements(Category.defense, ItemStack.mult(aquaWall.requirements, 4));
             health = 75 * 4 * wallHealthMulti;
+			variants = 2;
             size = 2;
         }};
 	}

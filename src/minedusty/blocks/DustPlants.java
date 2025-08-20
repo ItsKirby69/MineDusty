@@ -234,7 +234,7 @@ public class DustPlants {
 
 		marshlilypad = new LivingProp("marsh-lily-pad", 3){{
 			mapColor = Color.valueOf("7b990b");
-			shadowOffset = -3f;
+			shadowOffset = -2f;
 			propOffset = 4f;
 			size = 2;
 		}};
