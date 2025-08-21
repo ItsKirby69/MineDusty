@@ -6,9 +6,9 @@ import mindustry.content.Items;
 import mindustry.type.Item;
 
 public class DustItems {
-	
+	// Annealed Copper?
 	//Ores
-	public static Item oxidecopper, amethyst;
+	public static Item oxidecopper, amethyst, bioplastic;
 	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
 
 	//Other stuff
@@ -22,7 +22,9 @@ public class DustItems {
 
 		//ore items
 		oxidecopper = new Item("item-oxidecopper", DustPalette.oxidecopper){{
-			hardness = 3;
+			hardness = 1;
+			cost = 0.5f;
+			alwaysUnlocked = true;
 		}};
 
 		chlorophyte = new Item("item-chlorophyte", DustPalette.chlorophyte){{

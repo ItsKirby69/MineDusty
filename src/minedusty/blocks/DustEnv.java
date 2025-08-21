@@ -417,7 +417,6 @@ public class DustEnv {
         }};
 
         oreChlorophyteChunk = new OreBlock("ore-chlorophyte-chunk", DustItems.chlorophyte){{
-            oreDefault = false;
 			variants = 3;
 
 			emitLight = true;
@@ -426,7 +425,6 @@ public class DustEnv {
         }};
 
 		wallChlorophyte = new OreBlock("wall-chlorophyte", DustItems.chlorophyte){{
-			oreDefault = false;
 			wallOre = true;
 			variants = 3;
 
@@ -436,7 +434,6 @@ public class DustEnv {
 		}};
 
 		oreAquamerium = new OreBlock("ore-aquamerium", DustItems.aquamerium){{
-			oreDefault = false;
 			variants = 5;
 
 			emitLight = true;
@@ -448,10 +445,7 @@ public class DustEnv {
 			oreDefault = true;
 		}};
 
-		
-
 		wallOxide = new OreBlock("wall-oxide", Items.oxide){{
-			oreDefault = false;
 			wallOre = true;
 			variants = 3;
 

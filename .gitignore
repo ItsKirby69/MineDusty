@@ -27,3 +27,4 @@ build/
 *.kra
 # ignore temp/backup files
 *.png~
+*.log
