@@ -4,10 +4,9 @@ import arc.graphics.Blending;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.*;
-import arc.util.io.Reads;
-import arc.util.io.Writes;
 import mindustry.content.Weathers;
 import mindustry.world.blocks.defense.Wall;
+import minedusty.utils.WeatherUtil;
 
 import static mindustry.Vars.*;
 import static arc.Core.*;
@@ -16,7 +15,7 @@ import static arc.Core.*;
 public class OxideWall extends Wall {
 
     public int maxStages = 3;
-    public float stageDur = 60 * 10f;
+    public float stageDur = 60f*3;//3600 * 5f;
     /** How fast stagetime passes by if rainy weather */
     public float rainAccel = 2f;
 
@@ -56,14 +55,13 @@ public class OxideWall extends Wall {
         }
 
         public void randomStageDur(){
-            currStageDuration = stageDur + Mathf.random(60f * 3f, 60f * 8f);
+            currStageDuration = stageDur ;//+ Mathf.random(3600f * 1f, 3600f * 12f);
         }
 
         @Override
         public void updateTile(){
-            boolean isRaining = state.rules.weather.contains(w -> w.weather == Weathers.rain);
             
-            timeScale = isRaining ? rainAccel : 1f;
+            timeScale = WeatherUtil.containsWeather(Weathers.rain) ? rainAccel : 1f;
 
             if(currentStage < maxStages){
                 stageTimer += Time.delta * timeScale;
