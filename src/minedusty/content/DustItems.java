@@ -1,6 +1,7 @@
 package minedusty.content;
 
 import minedusty.graphics.*;
+import arc.graphics.Color;
 import arc.struct.Seq;
 import mindustry.content.Items;
 import mindustry.type.Item;
@@ -8,7 +9,7 @@ import mindustry.type.Item;
 public class DustItems {
 	// Annealed Copper?
 	//Ores
-	public static Item oxidecopper, amethyst, bioplastic;
+	public static Item oxidecopper, saltcrystal, amethyst, bioplastic;
 	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
 
 	//Other stuff
@@ -21,6 +22,11 @@ public class DustItems {
 	public static void load(){
 
 		//ore items
+		saltcrystal = new Item("item-salt-crystal", Color.valueOf("e2f0f1")){{
+			hardness = 1;
+			cost = 0.5f;
+		}};
+
 		oxidecopper = new Item("item-oxidecopper", DustPalette.oxidecopper){{
 			hardness = 1;
 			cost = 0.5f;
