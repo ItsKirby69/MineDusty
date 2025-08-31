@@ -4,18 +4,17 @@ import minedusty.graphics.*;
 import arc.graphics.Color;
 import arc.struct.Seq;
 import mindustry.content.Items;
+import mindustry.graphics.Pal;
 import mindustry.type.Item;
 
 public class DustItems {
 	// Annealed Copper?
 	//Ores
-	public static Item oxidecopper, saltcrystal, amethyst, bioplastic;
+	public static Item oxidecopper, saltcrystal, amethyst, bioplastic, electrum, gold, silicadust;
 	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
 
 	//Other stuff
 	public static Item carbonicWaste;
-
-	protected static Object aquamarine;
 
 	public static final Seq<Item> theiaItems = new Seq<>();
 	
@@ -42,6 +41,12 @@ public class DustItems {
 		aquamerium = new Item("item-aquamerium", DustPalette.aquamerium){{
 			hardness = 3;
 			cost = 1f;
+		}};
+
+		// products
+		silicadust = new Item("item-silicadust", Color.valueOf("918e96")){{}};
+		electrum = new Item("item-electrum", Color.valueOf("918e96")){{}};
+		bioplastic = new Item("item-bioplastic", Color.valueOf("ffffff")){{
 		}};
 
 		divinityMatter = new Item("item-divinity-matter", DustPalette.divinityMatter){{
