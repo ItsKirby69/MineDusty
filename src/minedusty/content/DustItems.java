@@ -21,6 +21,10 @@ public class DustItems {
 	public static void load(){
 
 		//ore items
+		amethyst = new Item("item-amethyst", Color.valueOf("ffffff")){{
+			hardness = 1f;
+		}};
+		
 		saltcrystal = new Item("item-salt-crystal", Color.valueOf("e2f0f1")){{
 			hardness = 1;
 			cost = 0.5f;
