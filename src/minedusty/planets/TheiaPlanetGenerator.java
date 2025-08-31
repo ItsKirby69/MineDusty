@@ -10,7 +10,7 @@ import arc.util.Log;
 import arc.util.noise.Ridged;
 import mindustry.Vars;
 import mindustry.game.Schematics;
-import mindustry.maps.generators.PlanetGenerator;
+import mindustry.maps.generators.*;
 import mindustry.type.Sector;
 import minedusty.utils.Simplex;
 

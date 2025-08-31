@@ -113,7 +113,7 @@ public class LivingBush extends Prop{
                 h = region.height * region.scl();
                 
                 Draw.z(layer + 2);
-                Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, bottomRegions.length - 1))] : variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))],
+                Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[variation] : variantRegions[variation],
                     tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
                     tile.worldy() - Angles.trnsy(angle, origin),
                     w, h,
@@ -131,7 +131,7 @@ public class LivingBush extends Prop{
                 h = region.height * region.scl();
                 
                 Draw.z(layer + 2);
-                Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomTopRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, bottomTopRegions.length - 1))] : topRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, topRegions.length - 1))],
+                Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomTopRegions[variation] : topRegions[variation],
                     tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
                     tile.worldy() - Angles.trnsy(angle, origin),
                     w, h,
@@ -151,7 +151,7 @@ public class LivingBush extends Prop{
                 h = region.height * region.scl();
                 
                 Draw.z(layer + 2);
-                Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, bottomRegions.length - 1))] : variantRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1))],
+                Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[variation] : variantRegions[variation],
                     tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
                     tile.worldy() - Angles.trnsy(angle, origin),
                     w, h,
@@ -163,7 +163,7 @@ public class LivingBush extends Prop{
 		
 		boolean useRare = rare && rareRegion.found() && rand.chance(rareChance);
 		
-		TextureRegion centerToDraw = useRare ? rareRegion : centerRegions[Mathf.randomSeed(tile.pos(), 0, centerRegions.length - 1)];
+		TextureRegion centerToDraw = useRare ? rareRegion : centerRegions[variation];
         if(centerToDraw.found()){ 
 			Draw.z(layer + 3);
             //Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
@@ -173,9 +173,9 @@ public class LivingBush extends Prop{
 				));
         }
 		
-		if(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))].found()){
+		if(shadowRegions[variation].found()){
 			Draw.z(layer);
-            Draw.rect(shadowRegions[Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, shadowRegions.length - 1))], tile.worldx(), tile.worldy());
+            Draw.rect(shadowRegions[variation], tile.worldx(), tile.worldy());
         }
     }
 }

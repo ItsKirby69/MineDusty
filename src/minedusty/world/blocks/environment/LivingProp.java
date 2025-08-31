@@ -4,7 +4,6 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
-import mindustry.content.Fx;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
