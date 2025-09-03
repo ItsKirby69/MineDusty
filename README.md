@@ -1,37 +1,293 @@
-# <div align=center>![Logo](assets/sprites/icon-git.png?)</div>
-<div align="center">
+<p align="center">
+  <img src="main/assets-raw/sprites/img.png" alt="img.png" />
+</p>
 
-[![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?color=a6d626&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=a6d626&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
-[![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=6083b0&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
-[![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=⭐%20Stars&color=6083b0)](https://github.com/ItsKirby69/MineDusty)
+An advanced Java mod minedusty for [Mindustry](https://github.com/Anuken/Mindustry), designed for experienced modders. It features a robust annotation-driven code generation system, an automated asset processing pipeline, GitHub Actions CI for cross-platform builds, and Jabel integration for modern Java syntax with Java 8 bytecode compatibility.
 
-***Campaign being worked on***
-</div>
+This minedusty is based on the public version of the [ProjectUnity](https://github.com/AvantTeam/ProjectUnityPublic) mod by the AvantTeam.
 
-# MineDusty
-This mod aims to add more life into the game (literally!). Adding trees, shrubs, plants, and new environments to explore! The new green, luscious planet will have you fight against nature to excavate the resources within.
-Showcases will be shown in the Mindustry discord's [Modding forums](https://discord.com/channels/391020510269669376/1395862844427210862).
+## Using This Template
 
-*//TODO showcase gif*
+Before diving in, a good understanding of Java and Git is **highly recommended**. While not impossible to start without, you'll likely encounter fewer hurdles with prior experience. The Mindustry modding community, particularly on [Discord](https://discord.gg/mindustry), is a great resource for help.
 
-*Please note that everything is experimental and are subject to be changed/edited/removed.Add commentMore actions
-You are guaranteed to find bugs, unfinished content and more!!1!*
+1.  **Install Prerequisites:**
+    *   **JDK 17 or higher:** This is essential for compiling the minedusty and your mod. Checked by `settings.gradle`.
+    *   **IDE (Recommended):** [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Community Edition is free) is strongly suggested over basic text editors.
+2.  **Create Your Repository:**
+    *   Click the `Use this minedusty` button on the [GitHub repository page](https://github.com/stabu-dev/MindustryModTemplate) (or your fork).
+    *   Select "Create a new repository."
+3.  **Clone Your Repository:**
+    *   Clone the newly created repository to your local machine.
 
-For issues, contact me thru discord `itsdakirby69` or create a issue here in github!
+> [!IMPORTANT]
+> A **local copy** is *not* the ZIP archive you can download from GitHub. Use `git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git` or the cloning feature provided by your Git client (like GitHub Desktop), for version control and keeping your sanity.
+>
+> Downloading the ZIP bypasses Git's version control capabilities.
 
-Visit the **[Trello board](https://trello.com/b/1wTgcEBs/minedusty)** to see goals and planned features!
+4.  **Configure Your Mod:**
 
-## Downloading the mod!
-You can download the latest release in the `Releases` tab. Otherwise you can import from github in-game (`ItsKirby69/MineDusty`). 
-For early releases which haven't been publicly posted, you can go to the `Actions` tab at the top to download the Artifact.
+    This minedusty is designed to make initial setup straightforward. You'll primarily need to modify the following:
 
-## Special Thanks
-- **[Twcash](https://github.com/Twcash/)** - Content Inspiration.
-- **[Lixie](https://github.com/LixieWulf/)** - Environment Inspiration.
-- **[Sh1penfire](https://github.com/Sh1penfire/)** - Mechanic Inspiration.
-- **thomas_has_things** - Content Inspiration.
-- **M1ss1onBest** - Environment Inspiration.
-- **[Sunny (Sk)](https://github.com/sk7725)** - Trees Inspiration.
-- **sl0tterleet** - Java help!
-- **[MeepofFaith](https://github.com/MEEPofFaith)** - Java & Visuals!
-- **[Anuken](https://github.com/Anuken)** - For the base game.
+    *   **`mod.json`:** This file contains your mod's metadata.
+        *   `name`: The internal, unique ID for your mod (e.g., `my-awesome-mod`). This is critical.
+            *   **Java Package Naming:** For Java compatibility, this `name` will be "sanitized" by removing hyphens (e.g., `my-awesome-mod` becomes `myawesomemod`) when forming Java package names for both your manually created code and generated code.
+            *   **It's highly recommended that your main Java package and related initial `minedusty` folders (like `main/src/minedusty`, `annotations/src/minedusty/annotations`, `tools/src/minedusty/tools`) are renamed to match this sanitized value (e.g., if `name` is `my-awesome-mod`, rename the `minedusty` package to `myawesomemod`).** This consistency greatly improves clarity and compatibility.
+        *   `displayName`: The user-friendly name shown in Mindustry's mod browser (e.g., `My Awesome Mod`). This also influences the default names of your built JAR files via Gradle and the artifacts generated by GitHub Actions.
+        *   `author`: Your name or your team's name.
+        *   `description`: A brief description of your mod.
+        *   `version`: Your mod's version (e.g., `1.0.0`).
+        *   `minGameVersion`: The minimum Mindustry version your mod supports (e.g., `149`).
+        *   `main`: The fully qualified name of your main mod class (e.g., `myawesomemod.MyAwesomeMod`).
+    *   **`gradle.properties`:**
+        *   `classPrefix`: A prefix for certain generated Java classes (like `YourPrefixSounds.java`, `YourPrefixEntityMapping.java`). If left empty, it defaults to your `displayName` from `mod.json` (with spaces removed). For example, if `displayName` is "My Awesome Mod", `classPrefix` would default to `MyAwesomeMod`.
+        *   `mindustryPath` (Optional): Path to your Mindustry installation directory.
+            *   If this path points to a Steam Mindustry installation (containing `Mindustry.exe`), tasks like `install`, `installClient`, and `runClient` will correctly target its subdirectories (e.g., `saves/mods/`).
+            *   If set to a non-Steam directory, these tasks will use a `mods` subdirectory within it (e.g. `[mindustryPath]/mods/`).
+            *   If left empty, tasks default to using a `run/` directory within your project's root (e.g., `[projectDir]/run/mods/` for `install`, `[projectDir]/run/client-[version].jar` for `installClient`). This `run/` directory will be created if it doesn't exist.
+        *   `mindustryVersion`: The version of Mindustry client to download for the `installClient` and `runClient` tasks (e.g., `v146`). This should match a release tag on Mindustry's GitHub repository.
+    *   **Java Source Files:**
+        *   Rename the default package `minedusty` in `main/src/` to your sanitized mod name (e.g., to `myawesomemod` if your `mod.json` `name` is `my-awesome-mod`).
+        *   Rename the main mod class `main/src/(your-new-package-name)/Template.java` to your desired class name (e.g., `MyAwesomeMod.java`).
+        *   Ensure the `main` property in `mod.json` matches the new fully qualified name of this class (e.g., `myawesomemod.MyAwesomeMod`).
+        *   Refactor package names within the `annotations` and `tools` modules similarly (e.g., `annotations/src/minedusty/annotations/...` to `annotations/src/myawesomemod/annotations/...`).
+        *   Update the `package` declarations within the Java files in these refactored directories.
+
+    Here's an example of a properly configured mod base, assuming the mod's `displayName` is "My Awesome Mod" and `name` in `mod.json` is `my-awesome-mod` (leading to sanitized package name `myawesomemod`):
+
+    ```mermaid
+    ---
+    title: Project Hierarchy Example name my-awesome-mod sanitized package myawesomemod
+    ---
+    graph LR;
+    %%{init:{'flowchart':{'nodeSpacing': 10, 'rankSpacing': 10}}}%%;
+
+    classDef folder fill:#465768,stroke:#bdcedf;
+    classDef file fill:#468868,stroke:#bdffdf;
+    classDef importantFile fill:#884668,stroke:#ffbddf,font-weight:bold;
+
+    root{{"/"}};
+    github{{".github/"}};
+    workflows{{"workflows/"}};
+    annotations_mod{{"annotations/"}};
+    annotations_src{{"src/"}};
+    annotations_pkg_root{{"myawesomemod/"}};
+    annotations_pkg_sub{{"annotations/"}};
+    main_mod{{"main/"}};
+    main_assets{{"assets/"}};
+    main_assets_raw{{"assets-raw/"}};
+    main_src{{"src/"}};
+    main_pkg{{"myawesomemod/"}};
+    tools_mod{{"tools/"}};
+    tools_src{{"src/"}};
+    tools_pkg_root{{"myawesomemod/"}};
+    tools_pkg_sub{{"tools/"}};
+
+    ci_yml(["ci.yml"]);
+    mod_json(["mod.json"]);
+    gradle_properties(["gradle.properties"]);
+    root_build_gradle(["build.gradle"]);
+    settings_gradle(["settings.gradle"]);
+    main_build_gradle(["build.gradle"]);
+    main_java_file(["MyAwesomeMod.java"]);
+    annotations_java_file(["Annotations.java, ..."]);
+    tools_java_file(["Tools.java, ..."]);
+
+    class root,github,workflows,annotations_mod,annotations_src,annotations_pkg_root,annotations_pkg_sub,main_mod,main_assets,main_assets_raw,main_src,main_pkg,tools_mod,tools_src,tools_pkg_root,tools_pkg_sub folder;
+    class root_build_gradle,settings_gradle,main_build_gradle file;
+    class mod_json,gradle_properties,main_java_file,annotations_java_file,tools_java_file,ci_yml importantFile;
+
+    root-->github-->workflows-->ci_yml;
+    root-->annotations_mod-->annotations_src-->annotations_pkg_root-->annotations_pkg_sub-->annotations_java_file;
+    root-->main_mod;
+    main_mod-->main_assets;
+    main_mod-->main_assets_raw;
+    main_mod-->main_src-->main_pkg-->main_java_file;
+    main_mod-->main_build_gradle;
+    root-->tools_mod-->tools_src-->tools_pkg_root-->tools_pkg_sub-->tools_java_file;
+    root-->mod_json & gradle_properties & root_build_gradle & settings_gradle;
+    ```
+
+    Example changes:
+
+    `mod.json`:
+    ```diff
+    {
+    -    "name": "minedusty",
+    -    "displayName": "Template",
+    -    "author": "Someone",
+    -    "description": "No description provided",
+    +    "name": "my-awesome-mod",
+    +    "displayName": "My Awesome Mod",
+    +    "author": "A Modder",
+    +    "description": "An awesome mod for Mindustry!",
+        "version": "1.0",
+        "minGameVersion": 149,
+    -    "main": "minedusty.MineDustyMod",
+    +    "main": "myawesomemod.MyAwesomeMod",
+        "java": true,
+        "hideBrowser": true
+    }
+    ```
+
+    `gradle.properties` (only `classPrefix` shown, others might be adjusted):
+    ```diff
+    # ...
+    - classPrefix =
+    + classPrefix = MyAwesomeMod
+    # ...
+    ```
+
+    `main/src/myawesomemod/MyAwesomeMod.java` (after renaming package `minedusty` to `myawesomemod` and file `Template.java` to `MyAwesomeMod.java`):
+    ```diff
+    - package minedusty;
+    + package myawesomemod;
+
+    import arc.*;
+    import arc.util.*;
+    // ... other imports ...
+    - import minedusty.gen.*;
+    + import myawesomemod.gen.*;
+    
+    - public class Template extends Mod{
+    + public class MyAwesomeMod extends Mod{
+        // ...
+    }
+    ```
+
+5.  **Asset Workflow:**
+    *   Place your **raw, unprocessed assets** (e.g., original PNGs for sprites, WAV files for sounds) into the `main/assets-raw/` directory. Use a logical subdirectory structure (e.g., `sprites/units/`, `sounds/effects/`).
+    *   Run the asset processing task: `./gradlew tools:proc` (or `gradlew.bat tools:proc` on Windows).
+    *   Processed assets will be output to `main/assets/`, mirroring the structure from `assets-raw/`. These are the assets bundled into your mod.
+    *   Generated asset classes like `Regions.java`, `MyAwesomeModSounds.java` (if `classPrefix` is `MyAwesomeMod`) will be created/updated in the `main/build/generated/sources/annotationProcessor/java/main/myawesomemod/gen/` directory (e.g., if your sanitized mod name is `myawesomemod`) and automatically included in compilation.
+
+    That's the core setup! You can now start developing your mod.
+
+## Building the Mod
+
+Mindustry Java mods are typically cross-platform. Builds are managed via Gradle.
+This minedusty uses Jabel to allow you to write modern Java syntax (e.g., Java 17 features) in your `main` module, which is then compiled down to Java 8 compatible bytecode. This ensures your mod can run on Mindustry instances using Java 8. All modules in this minedusty are standardized to use Java 17.
+
+### Desktop Build (PC)
+
+Ideal for quick testing on PC. The resulting JAR will have `Desktop` appended (e.g., `MyAwesomeModDesktop.jar`).
+
+1.  Open your terminal in the project's root directory.
+2.  Ensure you have an internet connection for the first build or after a `./gradlew clean`, as Gradle might download dependencies.
+3.  Run:
+    ```bash
+    ./gradlew main:deploy
+    ```
+    (Use `gradlew.bat main:deploy` on Windows).
+    The JAR will be in `main/build/libs/`.
+4.  To automatically copy this JAR to your Mindustry mods folder:
+    ```bash
+    ./gradlew install
+    ```
+    You can combine these: `./gradlew main:deploy install`.
+
+    For a complete build, install, and launch cycle for testing (will download Mindustry client if needed and not a Steam install):
+    ```bash
+    ./gradlew runClient
+    ```
+
+### Android Build (Cross-Platform)
+
+This produces a JAR compatible with both Android and PC (e.g., `MyAwesomeMod.jar`).
+
+*   **Using GitHub Actions (Recommended):**
+    *   Push your changes to your GitHub repository.
+    *   The CI workflow (defined in `.github/workflows/ci.yml`) will automatically build both Desktop and Android JARs using names derived from your `mod.json`.
+    *   You can download these from the "Artifacts" section of the completed workflow run. The cross-platform JAR artifact might be named something like `MyAwesomeMod (in a box).zip` (containing `MyAwesomeMod.jar`).
+    *   When you create a GitHub Release, the cross-platform JAR (e.g., `MyAwesomeMod.jar`) is automatically uploaded.
+
+*   **Local Android Build (Optional):**
+    If you need to build for Android locally:
+
+    1.  **Install Android SDK:**
+        *   Download the "**Command line tools only**" package from the [Android Studio page](https://developer.android.com/studio#command-line-tools-only) for your OS.
+        *   Extract the ZIP to a directory (e.g., `~/AndroidSDK` on Linux/macOS, `C:\AndroidSDK` on Windows).
+        *   Inside the extracted `cmdline-tools` folder, create a new folder named `latest`. Move all contents of `cmdline-tools` (like `bin`, `lib`, etc.) *into* this `latest` folder. The structure should be `AndroidSDK/cmdline-tools/latest/`.
+        *   Set the `ANDROID_HOME` (or `ANDROID_SDK_ROOT`) environment variable to the full path of your `AndroidSDK` directory (e.g., `~/AndroidSDK`). Restart your terminal for changes to take effect.
+        *   Navigate your terminal to `AndroidSDK/cmdline-tools/latest/bin/`.
+        *   Run `sdkmanager --licenses` (or `sdkmanager.bat --licenses` on Windows) and accept all licenses by typing 'y' and pressing Enter for each.
+        *   Install the necessary SDK platforms and build tools. The versions are specified in `.github/workflows/ci.yml` (look for the `sdkmanager` command):
+            ```bash
+            sdkmanager "platforms;android-33" "build-tools;33.0.2"
+            ```
+            (Use `sdkmanager.bat` on Windows).
+    2.  **Build the Mod:**
+        *   In your mod's root directory, run:
+            ```bash
+            ./gradlew main:dex
+            ```
+            (Use `gradlew.bat main:dex` on Windows).
+        *   The cross-platform JAR will be located in `main/build/libs/`.
+
+## Notable Gradle Tasks
+
+*   `main:deploy`: Builds the desktop-only JAR (e.g., `YourModDisplayNameDesktop.jar`).
+*   `main:dex`: Builds the Android-compatible (cross-platform) JAR (e.g., `YourModDisplayName.jar`).
+*   `install`: Copies the `main:deploy` output (desktop JAR) to the local Mindustry mods folder. The target directory depends on the `mindustryPath` property in `gradle.properties`:
+    *   `[mindustryPath]/saves/mods/` if `mindustryPath` points to a Steam installation (contains `Mindustry.exe`).
+    *   `[mindustryPath]/mods/` if `mindustryPath` points to a non-Steam directory.
+    *   `[projectDir]/run/mods/` if `mindustryPath` is not set (where `[projectDir]` is your mod's root directory).
+*   `installClient`: Downloads the Mindustry client JAR (version specified by `mindustryVersion` property in `gradle.properties`) into the directory determined by `mindustryPath` (or `[projectDir]/run/` if `mindustryPath` is unset).
+    *   This task is skipped if the target path appears to be a Steam Mindustry installation (contains `Mindustry.exe`).
+    *   Primarily used by the `runClient` task to ensure a Mindustry client is available for testing.
+*   `runClient`: A comprehensive task to test your mod locally. It performs the following sequence:
+    1.  Ensures the Mindustry client is available by running `installClient` (unless it's a Steam setup).
+    2.  Builds and installs your mod by running `install`.
+    3.  Launches Mindustry with your mod:
+        *   If the target path (from `mindustryPath` or defaulting to `[projectDir]/run/`) is a Steam installation, it runs `Mindustry.exe`.
+        *   Otherwise, it runs the client JAR (e.g., `client-[mindustryVersion].jar`) using `java -jar ... -debug`.
+            *   **Note:** When launching the non-Steam client JAR this way, Mindustry's console output will be displayed directly in your IDE/terminal. This is not possible with the Steam version due to how Steam launches applications.
+    *   Sets `MINDUSTRY_DATA_DIR` to the appropriate data/saves directory and `DEVELOPMENT=true` environment variables for the game instance.
+*   `tools:proc`: Runs the asset processing pipeline (defined in the `tools` module), processing files from `main/assets-raw/` to `main/assets/`.
+*   `main:fetchComps`: Downloads and adapts Mindustry's core entity components into a temporary build directory for compilation. This task is automatically run before compilation.
+*   `updateBundles`: Synchronizes localization files in `main/assets/bundles/` based on `bundle.properties`. Changes are automatically committed and pushed by the CI workflow if changes are detected.
+*   `clean`: Deletes all `build` directories across all modules.
+
+## Adding Dependencies
+
+*   **Mindustry / Arc / Other Mindustry Mods:**
+    Always use `compileOnly` in your `main/build.gradle` as these are provided by the game at runtime and should not be bundled.
+    ```gradle
+    // In main/build.gradle
+    dependencies {
+        compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+        compileOnly "com.github.Anuken.Arc:arc-core:$arcVersion"
+        // Example for another mod's API:
+        // compileOnly "com.github.theiruser:their-mod-api:1.2.3"
+
+        // For annotation processing
+        annotationProcessor project(':annotations')
+        compileOnly project(':annotations') // If you need to reference annotations directly in main code
+    }
+    ```
+
+*   **External Java Libraries (to be bundled with your mod):**
+    Use `implementation` in your `main/build.gradle`.
+    ```gradle
+    // In main/build.gradle
+    dependencies {
+        implementation "com.google.code.gson:gson:2.10.1" // Example for a JSON library
+    }
+    ```
+
+## Future Plans / TODO
+
+List of planned features and improvements for the minedusty itself.
+
+*`🙏` - Planned, `🔃` - Working on It, `✅` - Done*
+
+| Status |                                                                                                                                                                            |
+|:------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|   ✅   | Fix inconsistencies, bugs, improve quality, and enhance documentation.                                                                                                     |
+|   🙏   | Add more generating classes like `PrefixSounds`/`PrefixMusics` for other things.                                                                                           |
+|   🙏   | Add text icon generation for mod content with support for custom icons (e.g., non-content). <br/>Investigate vanilla copy integration (e.g., Shift+Click inside Database). |
+|   ✅   | Add `run` task kinda like Mindustry's one (`runClient`).                                                                                                                   |
+
+## License
+
+This mod minedusty is provided as a starting point and does not impose a specific license on your derivative work. You are free to choose the license for your mod.
+Many Mindustry mods adopt the [GNU GPL v3 License](https://www.gnu.org/licenses/gpl-3.0.en.html). If you opt for this, ensure you include a `LICENSE` file with the GPLv3 text in your project's root directory. Always be mindful of the licenses of Mindustry itself, Arc, and any other libraries or assets you incorporate.

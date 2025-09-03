@@ -1,0 +1,7 @@
+minedusty.annotations.processors.impl.AssetsProcessor
+minedusty.annotations.processors.impl.LoadProcessor
+minedusty.annotations.processors.impl.StructProcessor
+minedusty.annotations.processors.impl.RegionsProcessor
+minedusty.annotations.processors.entity.EntityProcessor
+minedusty.annotations.processors.entity.MergeProcessor
+minedusty.annotations.processors.entity.DupeProcessor

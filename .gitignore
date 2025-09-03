@@ -6,24 +6,25 @@ build/
 .project
 .classpath
 
+run/
+
+# Project
+main/assets/sprites/
+
 # IDE-specific
 .idea/
 .vscode/
 .kateproject
+build.bat
+ftp.txt
+ftpcmd.log
+sshcommands.bat
 
-#project files and random shit
+#ignore project files and random shit
 /.history
-/assets/sprites/junkyard
-/assets/sprites/blocks/core/kra
-/assets/sprites/blocks/environment/kra
-/assets/sprites/blocks/environment/ref
-/assets/sprites/blocks/production/kra
-/assets/sprites/blocks/production/ref
-/assets/sprites/blocks/props/kra
-/assets/sprites/blocks/props/scrap
-/assets/sprites/items/kra
-/assets/sprites/units/projfile
-# ignore project files
+main/assets/sprites/junkyard
+
+# ignore krita project files
 *.kra
 # ignore temp/backup files
 *.png~
