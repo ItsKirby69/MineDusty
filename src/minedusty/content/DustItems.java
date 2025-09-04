@@ -22,7 +22,7 @@ public class DustItems {
 
 		//ore items
 		amethyst = new Item("item-amethyst", Color.valueOf("ffffff")){{
-			hardness = 1f;
+			hardness = 1;
 		}};
 		
 		saltcrystal = new Item("item-salt-crystal", Color.valueOf("e2f0f1")){{
