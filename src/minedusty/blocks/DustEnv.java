@@ -22,6 +22,7 @@ public class DustEnv {
 	public static Block pattedGrass, taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
 	public static Block carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
 	public static Block shoreSmooth, shoreRock, duneSand; //Kinda bad ones
+	public static Block saltLumps, clayFloor;
 
 	public static Block shorestoneWater, basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater, quickSand;
@@ -33,6 +34,7 @@ public class DustEnv {
 	
 	// Walls
 	public static Block mossStoneWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
+	public static Block hardenedClayWall;
 
 	// Misc
 	public static Block fallingLeavesEffect, flowingWaterEffect;
@@ -71,6 +73,17 @@ public class DustEnv {
         //     attributes.set(Attribute.oil, 0.7f);
 		// 	wall = Blocks.sandWall;
 		// }};
+
+		Blocks.salt.itemDrop = DustItems.salt;
+
+		saltLumps = new Floor("salt-lumps", 1){{
+			itemDrop = DustItems.salt;
+			//playerUnmineable = true;
+		}};
+
+		clayFloor = new Floor("clay-floor", 3){{
+
+		}};
 
 		// TODO update textures
 		shoreRock = new Floor("shorestone", 3){{
@@ -376,7 +389,12 @@ public class DustEnv {
 		//end region
 
 		//region Walls
+		hardenedClayWall = new StaticWall("hardened-clay-wall"){{
+			variants = 3;
+		}};
+
 		mossStoneWall = new StaticWall("moss-stone-wall"){{
+			
 		}};
 
 		grassyWall = new TreeBlock("grassy-wall"){{
