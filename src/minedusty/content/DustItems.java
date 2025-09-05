@@ -10,7 +10,7 @@ import mindustry.type.Item;
 public class DustItems {
 	// Annealed Copper?
 	//Ores
-	public static Item oxidecopper, saltcrystal, amethyst, bioplastic, electrum, gold, silicadust;
+	public static Item oxidecopper, salt, amethyst, bioplastic, electrum, gold, silicadust;
 	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
 
 	//Other stuff
@@ -25,7 +25,7 @@ public class DustItems {
 			hardness = 1;
 		}};
 		
-		saltcrystal = new Item("item-salt-crystal", Color.valueOf("e2f0f1")){{
+		salt = new Item("item-salt", Color.valueOf("e2f0f1")){{
 			hardness = 1;
 			cost = 0.5f;
 		}};
