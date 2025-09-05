@@ -15,6 +15,7 @@ import minedusty.world.blocks.environment.*;
 public class DustEnv {
 	// TODO Chalcedony rock and Agate stone maybe
 	// Boulders / Props
+	public static Block clayBall;
 	public static Block driftWood, largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
 	public static Block divineSapling;
 	
@@ -213,6 +214,10 @@ public class DustEnv {
 		largesandBoulder = new BoulderProp("large-sand-boulder"){{
 			variants = 2;
 			shadowOffset = -2f;
+		}};
+
+		clayBall = new BoulderProp("clay-ball"){{
+			variants = 2;
 		}};
 
 		//end region
