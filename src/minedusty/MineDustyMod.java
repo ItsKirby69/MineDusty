@@ -52,11 +52,9 @@ public class MineDustyMod extends Mod {
 	public void loadContent() {
 		/** Gets random line from a text file. */
 		Seq<String> subtitles = new Seq<>(bundle.get("subtitle.lines").split("/"));
-		Log.info("Lines: " + subtitles.random());
-		Vars.mods.list().forEach(mod -> {
+		Vars.mods.list().each(mod -> {
 			if(mod.main == this){
 				mod.meta.subtitle = "[acid]" + subtitles.random();
-				Log.info("LOADED SUBTITLE AS: " + subtitles.random());
 			}
 		});
 		
