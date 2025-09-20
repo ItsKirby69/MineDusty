@@ -3,27 +3,27 @@
 
 [![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?color=a6d626&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=a6d626&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
 [![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=6083b0&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
-[![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=⭐%20Stars&color=6083b0)](https://github.com/ItsKirby69/MineDusty)
+[![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=⭐%20Star%20Me!&color=6083b0)](https://github.com/ItsKirby69/MineDusty)
 
 ***Campaign being worked on***
 </div>
 
 # MineDusty
-This mod aims to add more life into the game (literally!). Adding trees, shrubs, plants, and new environments to explore! The new green, luscious planet will have you fight against nature to excavate the resources within.
-Showcases will be shown in the Mindustry discord's [Modding forums](https://discord.com/channels/391020510269669376/1395862844427210862).
+This mod aims to add more life into the game (literally!). Adding trees, shrubs, plants, and new environments to explore! The new luscious planet will have you fight against nature and the Crux one again for a battle against the resourceful planet.
+
+There is much more than just plants which you may find. The mod is undergoing a content and campaign update.
+
+Showcases will be shown in the Mindustry discord's [Modding forums](https://discord.com/channels/391020510269669376/1395862844427210862)! Come over for frequent update announcements as well as for questions or issues related!
 
 *//TODO showcase gif*
 
-*Please note that everything is experimental and are subject to be changed/edited/removed.Add commentMore actions
-You are guaranteed to find bugs, unfinished content and more!!1!*
-
-For issues, contact me thru discord `itsdakirby69` or create a issue here in github!
-
-Visit the **[Trello board](https://trello.com/b/1wTgcEBs/minedusty)** to see goals and planned features!
+Visit the *(Fairly outdated)* **[Trello board](https://trello.com/b/1wTgcEBs/minedusty)** to see goals and planned features!
 
 ## Downloading the mod!
-You can download the latest release in the `Releases` tab. Otherwise you can import from github in-game (`ItsKirby69/MineDusty`). 
-For early releases which haven't been publicly posted, you can go to the `Actions` tab at the top to download the Artifact.
+You can download the latest release manually by heading over to the `Releases` and downloading the `.jar` file below. Upload the file in the mod list and reload the game.
+You can also download the mod remotely using the github link (`ItsKirby69/MineDusty`)!
+
+For early releases and versions, you can go to the `Actions` tab at the top to download the zipped Artifact below.
 
 ## Special Thanks
 - **[Twcash](https://github.com/Twcash/)** - Content Inspiration.
