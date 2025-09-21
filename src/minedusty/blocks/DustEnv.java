@@ -170,6 +170,12 @@ public class DustEnv {
 			calciteRough.asFloor().decoration = this;
 		}};
 
+		pearlBoulder = new BoulderProp("pearl-boulder"){{
+			mapColor = Color.valueOf("#f3ddb3");
+			shadowAlpha = 0.5f;
+			//silkSand.asFloor().decoration = this;
+		}};
+
 		largeBoulder = new BoulderProp("large-boulder"){{
 			mapColor = Color.valueOf("706f74");
 			shadowOffset = -1.5f;
@@ -358,6 +364,8 @@ public class DustEnv {
 		calciteTropWater = new WaterFloor("trop-calcite-water", 3){{
 			speedMultiplier = 0.9f;
 		}};
+
+		pattedGrassWater = new WaterFloor("patted-grass-water", 3){{}};
 
 		oilWater = new WaterTileEffect("oil-water", 3){{
 			speedMultiplier = 0.5f;
