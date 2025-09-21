@@ -1,31 +1,68 @@
 package minedusty.blocks;
 
 import static mindustry.type.ItemStack.with;
+import static minedusty.content.DustItems.*;
+import static minedusty.content.DustLiquids.*;
 
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.gen.Sounds;
 import mindustry.type.*;
-import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.power.*;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.production.HeatCrafter;
-import mindustry.world.blocks.production.WallCrafter;
-import mindustry.world.consumers.ConsumeItemExplode;
-import mindustry.world.consumers.ConsumeItemFlammable;
+import mindustry.world.blocks.production.*;
+import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import minedusty.DustAttributes;
 import minedusty.content.DustItems;
 import minedusty.content.DustLiquids;
 
 public class DustCrafters {
-	//TODO new heating block
-	//TODO new extraction block for underwater oils (more efficient than drills and work for deep waters)
-	//TODO new extraction block for sap-like sources (using attributes)
+	// Refineries
+	public static Block silicaFurnace;
+
+	// Extractors/Mixers
+	public static Block salinator;
+
+	// I'VE GOT THE POWER!
+	public static Block solarPanel, largesolarPanel;
+
+
+	// Legacy crafters
 	public static Block nitroplastChamber, bioLiquidMixer, bioFuelCombustionChamber, miniCrusher;
 	
 	public static void loadContent() {
+		//region Crafters
+		//silicaFurnace = new 
+
+		salinator = new AttributeCrafter("salinator"){{
+			requirements(Category.production, with(oxidecopper, 45, Items.lead, 50, aquamerium, 25));
+			outputLiquid = new LiquidStack(saltWater, 12f/60f);
+			craftTime = 100f;
+			baseEfficiency = 0f;
+			size = 2;
+			hasItems = true;
+			hasLiquids = true;
+			liquidCapacity = 60f;
+			
+			craftEffect = Fx.none;
+			attribute = DustAttributes.salt;
+
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile(Liquids.water),
+				new DrawLiquidTile(saltWater),
+				new DrawDefault()
+			);
+
+			//maxBoost = 2f;
+
+			consumeLiquid(Liquids.water, 12f/60f);
+		}};
+
+		//endregion
+		//region Legacy Crafters
+		
 		// Crafts bioLiquid using water and chlorophyte
 		bioLiquidMixer = new GenericCrafter("bioliquid-mixer"){{
 			requirements(Category.crafting, with(Items.titanium, 60, Items.silicon, 70, Items.metaglass, 40));
@@ -140,5 +177,6 @@ public class DustCrafters {
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.04f;
         }};
+		//endregion
 	}
 }
