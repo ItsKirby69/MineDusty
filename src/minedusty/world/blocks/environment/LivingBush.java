@@ -4,6 +4,7 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
+import mindustry.game.Team;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
 import mindustry.world.*;
@@ -18,6 +19,7 @@ public class LivingBush extends Prop{
 	public TextureRegion[] bottomRegions, bottomTopRegions, topRegions, centerRegions, shadowRegions;
 
 	public float layer = Layer.blockProp;
+	public float shadowAlpha = 0.8f;
 	/** Determines if center region rotates or not. not actually sure if it works or not lol*/
 	public float rot = 0;
 	/**If enabled, sprite has two circle layers. Normal then -top variant at, you know it, the top. */
@@ -33,8 +35,6 @@ public class LivingBush extends Prop{
 		this.variants = variants;
 		hasShadow = true;
 		breakSound = Sounds.plantBreak;
-		buildVisibility = BuildVisibility.sandboxOnly;
-		drawTeamOverlay = false;
 		targetable = false;
 		//moved these changes here as it seems like all bushes use these.
 		lobesMin = 5;
@@ -43,6 +43,11 @@ public class LivingBush extends Prop{
 		magMax = 6;
 		sclMin = 20f;
 		sclMax = 60f;
+
+		// Team stuff
+		drawTeamOverlay = false;
+		forceTeam = Team.derelict;
+		allowDerelictRepair = false; 
     }
 
 	@Override
@@ -175,6 +180,7 @@ public class LivingBush extends Prop{
 		
 		if(shadowRegions[variation].found()){
 			Draw.z(layer);
+			Draw.color(0f, 0f, 0f, shadowAlpha);
             Draw.rect(shadowRegions[variation], tile.worldx(), tile.worldy());
         }
     }

@@ -4,6 +4,7 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
+import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
@@ -51,8 +52,12 @@ public class LivingProp extends Block{
 		update = true;
 		clipSize = 90;
 		underBullets = true;
+		createRubble = false;
 
+		// Team stuff
 		drawTeamOverlay = false;
+		forceTeam = Team.derelict;
+		allowDerelictRepair = false; 
 	}
 
 	@Override

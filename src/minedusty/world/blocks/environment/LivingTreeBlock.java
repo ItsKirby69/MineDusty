@@ -46,6 +46,7 @@ public class LivingTreeBlock extends Block{
 		customShadow = true;
 		hasShadow = false; //remove block shadow
 		solid = true;
+		size = 3;
 		clipSize = 120;
 		update = true;
 		breakSound = DustSounds.destroyTree;
@@ -174,7 +175,7 @@ public class LivingTreeBlock extends Block{
 
 		// Center leaves. Also just means those leaves from the edgemost of the tree branches.
 		if (centerRegions[variation].found()) {
-			float height = 0.004f;
+			float height = 0.0015f * size;
 			float drawX = DrawPseudo3D.xHeight(x, height);
 			float drawY = DrawPseudo3D.yHeight(y, height);
 
@@ -188,7 +189,7 @@ public class LivingTreeBlock extends Block{
 
 		// Middle leaves in between Center leaves and the Top leaves.
 		if (middleRegions[variation].found()) {
-			float height = 0.005f;
+			float height = 0.002f * size;
 			float drawX = DrawPseudo3D.xHeight(x, height);
 			float drawY = DrawPseudo3D.yHeight(y, height);
 
@@ -212,7 +213,7 @@ public class LivingTreeBlock extends Block{
 
 		// Top leaves. Massive trees would have this above flying units.
 		if (topRegions[variation].found()) {
-			float height = 0.008f;
+			float height = 0.003f * size;
 			float drawX = DrawPseudo3D.xHeight(x, height);
 			float drawY = DrawPseudo3D.yHeight(y, height);
 
