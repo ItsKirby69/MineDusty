@@ -353,6 +353,11 @@ public class DustEnv {
 			speedMultiplier = 0.9f;
 		}};
 
+		calciteWater = new WaterFloor("calcite-water", 3){{
+		}};
+
+		calciteTropWater = new WaterFloor("trop-calcite-water", 3){{
+			speedMultiplier = 0.9f;
 		}};
 
 		oilWater = new WaterTileEffect("oil-water", 3){{
