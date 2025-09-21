@@ -74,10 +74,13 @@ public class DustEnv {
 		// 	wall = Blocks.sandWall;
 		// }};
 
-		Blocks.salt.itemDrop = DustItems.salt;
+		//Blocks.salt.itemDrop = DustItems.salt;
+		Blocks.salt.attributes.set(DustAttributes.salt, 0.3f);
+		Blocks.sand.attributes.set(DustAttributes.salt, 0.1f);
 
 		saltLumps = new Floor("salt-lumps", 1){{
-			itemDrop = DustItems.salt;
+			//itemDrop = DustItems.salt;
+			attributes.set(DustAttributes.salt, 0.15f);
 			//playerUnmineable = true;
 		}};
 

@@ -4,13 +4,12 @@ import minedusty.graphics.*;
 import arc.graphics.Color;
 import arc.struct.Seq;
 import mindustry.content.Items;
-import mindustry.graphics.Pal;
 import mindustry.type.Item;
 
 public class DustItems {
 	// Annealed Copper?
 	//Ores
-	public static Item oxidecopper, salt, amethyst, bioplastic, electrum, gold, silicadust;
+	public static Item galena, oxidecopper, salt, amethyst, bioplastic, electrum, gold, silver, silicadust;
 	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
 
 	//Other stuff
@@ -21,12 +20,13 @@ public class DustItems {
 	public static void load(){
 
 		//ore items
-		amethyst = new Item("item-amethyst", Color.valueOf("ffffff")){{
+		galena = new Item("item-galena", Color.valueOf("#9492a7")){{
 			hardness = 1;
 		}};
 		
-		salt = new Item("item-salt", Color.valueOf("e2f0f1")){{
+		amethyst = new Item("item-amethyst", Color.valueOf("#caa4ff")){{
 			hardness = 1;
+		}};
 			cost = 0.5f;
 		}};
 
@@ -39,7 +39,6 @@ public class DustItems {
 		chlorophyte = new Item("item-chlorophyte", DustPalette.chlorophyte){{
 			//frames = 7;
 			hardness = 6;
-			cost = 1f;
 		}};
 
 		aquamerium = new Item("item-aquamerium", DustPalette.aquamerium){{
@@ -48,9 +47,13 @@ public class DustItems {
 		}};
 
 		// products
-		silicadust = new Item("item-silicadust", Color.valueOf("918e96")){{}};
-		electrum = new Item("item-electrum", Color.valueOf("918e96")){{}};
-		bioplastic = new Item("item-bioplastic", Color.valueOf("ffffff")){{
+		silicadust = new Item("item-silicadust", Color.valueOf("#918e96")){{}};
+		gold = new Item("item-gold", Color.valueOf("#ffd641")){{}};
+		silver = new Item("item-silver", Color.valueOf("#bfcadd")){{
+			cost = 1.5f;
+		}};
+		electrum = new Item("item-electrum", Color.valueOf("#bea558")){{}};
+		bioplastic = new Item("item-bioplastic", Color.valueOf("#ffffff")){{
 		}};
 
 		divinityMatter = new Item("item-divinity-matter", DustPalette.divinityMatter){{
