@@ -16,16 +16,16 @@ public class DustEnv {
 	// TODO Chalcedony rock and Agate stone maybe
 	// Boulders / Props
 	public static Block clayBall;
-	public static Block driftWood, largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
-	public static Block divineSapling;
+	public static Block pearlBoulder, largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
+	public static Block divineSapling, driftWood;
 	
 	// Tiles
 	public static Block pattedGrass, taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
 	public static Block carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
 	public static Block shoreSmooth, shoreRock, duneSand; //Kinda bad ones
-	public static Block saltLumps, clayFloor;
+	public static Block prismate, prismite, silkSand, saltLumps, clayFloor;
 
-	public static Block shorestoneWater, basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
+	public static Block silkSandTropWater, silkSandWater, pattedGrassWater, calciteWater, calciteTropWater, shorestoneWater, basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater, quickSand;
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
 	public static Block flowWater;
@@ -51,7 +51,6 @@ public class DustEnv {
 			mapColor = Color.valueOf("#418A5D");
 		}};
 		
-		// TODO rework the overlay leaves (blossom and elms)
 		blossomGrass = new Floor("blossom-grass", 5){{
 		}};
 		
@@ -91,9 +90,15 @@ public class DustEnv {
 		prismate = new Floor("prismate", 1){{
 			cacheLayer = DustCacheLayers.prismite;
 		}};
+		// Supposed to be a pristine version of sand
+		silkSand = new TileEffect("silksand"){{
+			attributes.set(Attribute.oil, -0.4f);
+			//cacheLayer = DustCacheLayers.silksand;
+			//itemDrop = Items.sand;
+			//playerUnmineable = true;
+			addEffect(DustyEffects.sparkles, 0.05f, 300f, Color.valueOf("#fff2d9"));
 		}};
 
-		// TODO update textures
 		shoreRock = new Floor("shorestone", 3){{
 			wall = shorestoneWall;
 			attributes.set(Attribute.water, 0.25f);
@@ -304,10 +309,6 @@ public class DustEnv {
 			statusDuration = 120f;
 		}};
 
-		daciteWater = new WaterFloor("dacite-water", 3){{
-			statusDuration = 50f;
-		}};
-
 		sanddeepWater = new WaterFloor("sand-deep-water", 3){{
             speedMultiplier = 0.3f;
             statusDuration = 100f;
@@ -317,27 +318,32 @@ public class DustEnv {
         }};
 		
 		// Watered tiles
+		
+		silkSandWater = new WaterTileEffect("silksand-water", 3){{
+			addEffect(DustyEffects.sparkles, 0.05f,300f, Color.valueOf("#d9fcff"));
+		}};
+		silkSandTropWater = new WaterTileEffect("trop-silksand-water", 3){{
+			addEffect(DustyEffects.sparkles, 0.05f,300f, Color.valueOf("#d9fcff"));
+		}};
 
 		shorestoneWater = new WaterFloor("shorestone-water", 3){{
-			statusDuration = 50f;
 		}};
 
 		basaltSandsWater = new WaterFloor("basalt-sands-water", 3){{
-			statusDuration = 50f;
 		}};
 
 		basaltWater = new WaterFloor("basalt-water", 3){{
-			statusDuration = 50f;
 		}};
 
 		basaltTropWater = new WaterFloor("trop-basalt-water", 3){{
 			speedMultiplier = 0.9f;
-			statusDuration = 50f;
 		}};
 
 		sandyTropWater = new WaterFloor("trop-sand-water", 3){{
 			speedMultiplier = 0.9f;
-			statusDuration = 50f;
+		}};
+
+		daciteWater = new WaterFloor("dacite-water", 3){{
 		}};
 
 		daciteTropWater = new WaterFloor("trop-dacite-water", 3){{

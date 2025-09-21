@@ -5,8 +5,8 @@ import mindustry.entities.Effect;
 
 public class EffectHelper {
 	/** Allows passthrough for color on given effects. 
-     * Made specifically for destroyEffect for trees which apparently
-     * doesn't pass the mapColor to the effect??/./?.
+     * Made specifically for destroyEffect for trees which give the leaves
+	 * and other greenery sprites the color.
      */
 	public static Effect withColor(Effect originalEffect, Color color){
 		return new Effect(originalEffect.lifetime, e -> {

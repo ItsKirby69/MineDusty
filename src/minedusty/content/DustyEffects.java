@@ -29,6 +29,39 @@ public class DustyEffects {
 
 	none = new Effect(0f, 0f, e -> {}),
 
+	sparkles = new Effect(40, e -> {
+		rand.setSeed(e.id);
+		float angle = rand.random(360f);
+		float dist = rand.random(4f);
+		float x = e.x + Angles.trnsx(angle, dist);
+		float y = e.y + Angles.trnsy(angle, dist);
+
+		color(e.color, Color.valueOf("#fffaf1"),1f - e.finpow());
+		
+		float randScl = Mathf.randomSeed(e.id, 0.8f, 1.3f);
+		float scale = randScl * 2.5f * Interp.pow2Out.apply(1f - Math.abs(e.fin() * 2f - 1f));
+		Draw.scl(scale);
+		
+		float outerSize = 1.5f * scale;
+		float innerSize = 0.56f * scale;
+		
+		// Pain
+		for(int i = 0; i < 4; i++){
+			float angle1 = i * 90f;
+			float angle2 = angle1 + 45f;
+			
+			float x1 = x + Angles.trnsx(angle1, outerSize);
+			float y1 = y + Angles.trnsy(angle1, outerSize);
+			float x2 = x + Angles.trnsx(angle2, innerSize);
+			float y2 = y + Angles.trnsy(angle2, innerSize);
+			float x3 = x + Angles.trnsx(angle1 + 90f, outerSize);
+			float y3 = y + Angles.trnsy(angle1 + 90f, outerSize);
+			
+			Fill.tri(x, y, x1, y1, x2, y2);
+			Fill.tri(x, y, x2, y2, x3, y3);
+		}
+    }).layer(Layer.blockProp - 0.8f),
+	
 	breakLily = new Effect(35, e -> {
 		rand.setSeed(e.id);
         float scl = Math.max(e.rotation / 2, 1);
