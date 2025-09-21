@@ -38,7 +38,7 @@ public class DustEnv {
 	public static Block hardenedClayWall;
 
 	// Misc
-	public static Block fallingLeavesEffect, flowingWaterEffect;
+	public static Block waterSmokeEffect, fallingLeavesEffect, flowingWaterEffect, logoBlock;
 
 	public static void loadContent() {
 		
@@ -84,6 +84,13 @@ public class DustEnv {
 
 		clayFloor = new Floor("clay-floor", 3){{
 
+		
+		prismite = new Floor("prismite", 1){{
+			cacheLayer = DustCacheLayers.prismite;
+		}};
+		prismate = new Floor("prismate", 1){{
+			cacheLayer = DustCacheLayers.prismite;
+		}};
 		}};
 
 		// TODO update textures
@@ -153,21 +160,15 @@ public class DustEnv {
 		}};
 		
 		divineSapling = new BoulderProp("divine-sapling"){{
-			customShadow = true;
-			variants = 2;
 			calciteRough.asFloor().decoration = this;
 		}};
 
 		largeBoulder = new BoulderProp("large-boulder"){{
 			mapColor = Color.valueOf("706f74");
-			customShadow = true;
 			shadowOffset = -1.5f;
-			variants = 2;
 		}};
 
 		largeshorestoneBoulder = new BoulderProp("large-shorestone"){{
-			customShadow = true;
-			variants = 2;
 			mapColor = Color.valueOf("706f74");
 		}};
 		shorestoneBoulder = new Prop("shorestone-boulder"){{
@@ -179,8 +180,6 @@ public class DustEnv {
 
 		largebasaltPillar = new BoulderProp("large-basaltder"){{
 			mapColor = Color.valueOf("706f74");
-			customShadow = true;
-			variants = 2;
 		}};
 		basaltPillar = new Prop("basalt-boulder"){{
 			variants = 3;
@@ -191,14 +190,10 @@ public class DustEnv {
 
 		largedaciteBoulder = new BoulderProp("large-dacite-boulder"){{
 			mapColor = Color.valueOf("706f74");
-			customShadow = true;
-			variants = 2;
 		}};
 
 		largesoapstoneBoulder = new BoulderProp("large-soapstone-boulder"){{
 			mapColor = Color.valueOf("706f74");
-			customShadow = true;
-			variants = 2;
 		}};
 
 		calciteBoulder = new Prop("calcite-boulder"){{
@@ -212,7 +207,6 @@ public class DustEnv {
 		}};
 		
 		largesandBoulder = new BoulderProp("large-sand-boulder"){{
-			variants = 2;
 			shadowOffset = -2f;
 		}};
 
@@ -223,17 +217,10 @@ public class DustEnv {
 		//end region
 
 		//region Water Tiles
-		flowWater = new WaterTileEffect("flow-water", 1){{
-			speedMultiplier = 1.3f;
-			liquidMultiplier = 0.3f;
-			supportsOverlay = false;
-
-			addEffect(DustyEffects.flowWater, 0.35f, 5f);
-			addEffect(DustyEffects.mistCloud, 0.4f, 12f);
-			//soundEffect = Sounds.splash;
-		}};
+		// TODO replace with just an effect block with direction arro
 
 		tropicalWater = new WaterFloor("trop-shallow-water"){{
+			statusDuration = 90f;
 			speedMultiplier = 0.6f;
 		}};
 
@@ -301,14 +288,14 @@ public class DustEnv {
 		}};
 
 		algaeWater = new WaterTileEffect("algae-water", 3){{
-			addEffect(DustyEffects.marshGas, 0.02f, 180f);
+			addEffect(DustyEffects.marshGas, 0.5f/60f, 180f);
 
 			speedMultiplier = 0.35f;
 			liquidMultiplier = 0.5f;
 		}};
 
 		deepalgaeWater = new WaterTileEffect("deep-algae-water"){{
-			addEffect(DustyEffects.marshGas, 0.02f, 180f);
+			addEffect(DustyEffects.marshGas, 0.5f/60f, 180f);
 
 			variants = 0;
 			speedMultiplier = 0.15f;
@@ -354,8 +341,9 @@ public class DustEnv {
 		}};
 
 		daciteTropWater = new WaterFloor("trop-dacite-water", 3){{
-			speedMultiplier = 0.8f;
-			statusDuration = 50f;
+			speedMultiplier = 0.9f;
+		}};
+
 		}};
 
 		oilWater = new WaterTileEffect("oil-water", 3){{
@@ -371,7 +359,6 @@ public class DustEnv {
 			liquidDrop = Liquids.oil;
 			attributes.set(Attribute.oil, 0.8f);
 			liquidMultiplier = 0.8f;
-			statusDuration = 50f;
 
 			addEffect(Fx.ventSteam, Color.valueOf("111316"));
 		}};
@@ -483,8 +470,19 @@ public class DustEnv {
 			addEffect(DustyEffects.fallingLeaves, Color.valueOf("c32121"));
 		}};
 
-		flowingWaterEffect = new TileEffect("flow-water-effect"){{
-			addEffect(DustyEffects.flowWater);
+		// TODO make this rotatable with the effect working
+		flowingWaterEffect = new FlowWaterTile("flow-water"){{
+			//addEffect(DustyEffects.flowWater, 1.0f, 8f, true);
+		}};
+
+		waterSmokeEffect = new WaterEffectTile("water-smoke"){{
+			addEffect(DustyEffects.mistCloud, 1.0f, 20f);
+		}};
+
+		logoBlock = new BoulderProp("icon-block"){{
+			customShadow = true;
+			buildVisibility = BuildVisibility.sandboxOnly;
+			variants = 0;
 		}};
 
 		//end region

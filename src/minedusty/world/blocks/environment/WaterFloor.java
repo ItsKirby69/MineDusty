@@ -20,7 +20,7 @@ public class WaterFloor extends Floor{
         //trop // deep 0.4, shallow 0.6, material 0.9
         speedMultiplier = 0.8f; 
         // deep 120f, shallow, 90f, mat, 50f
-        statusDuration = 90f;
+        statusDuration = 50f;
         // deep 1.5f, shallow & mat 1f, unless unique.
         liquidMultiplier = 1f;
         albedo = 0.9f;

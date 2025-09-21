@@ -1,12 +1,15 @@
 package minedusty.content;
 
 import arc.Core;
+import arc.graphics.Blending;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Vec2;
+import arc.util.Log;
 import mindustry.entities.*;
 import mindustry.graphics.*;
+import minedusty.graphics.DustCacheLayers;
 import minedusty.graphics.DustPalette;
 
 import static arc.Core.atlas;
@@ -43,49 +46,76 @@ public class DustyEffects {
 	airBubble = new Effect(100f, e -> {
 		alpha(e.fin() * 0.8f);
 		randLenVectors(e.id, 1, e.fin() * 10f, (x, y) -> {
-			//REMINDER: margins changed from 0.06f -> 0.1f. This makes that weird effect seen now
 			rect(renderer.bubbles[Math.min((int)(renderer.bubbles.length * Mathf.curveMargin(e.fin(), 0.06f, 0.06f)), renderer.bubbles.length - 1)], e.x + x, e.y + y);
 		});
 	}).layer(Layer.darkness - 1f), 
 	
-	marshGas = new Effect(220f, e -> {
-		color(e.color, Color.valueOf("346524"), e.fin());
-		alpha(e.fslope()* 0.4f);
+	marshGas = new Effect(1200f, e -> {
+		color(Color.valueOf("#72a027ff"), Color.valueOf("#9fb12dff"), e.fin());
 
-		randLenVectors(e.id, 3, 2f + e.finpow() * 20f, (x, y) -> {
-			Fill.circle(e.x + x, e.y + y, 16f + e.fin() * 9f);
-		});
-	}),
+		float progress = e.fin();
+		float sizeScale;
+		float alpha = 0f;
 
-	flowWater = new Effect(20f, 250f, e -> {
-		color(Color.valueOf("#8598EC"), Color.valueOf("#CAD2F6"), e.fslope());
-		stroke(1f * (0.8f + (e.fslope() / 2f)));
+		if (progress < 0.5f) {
+			sizeScale = Interp.pow3Out.apply(0f, 1f, progress * 2f);
+			alpha = Interp.pow4Out.apply(0, 0.6f, progress * 2f);
+		} else {
+			sizeScale = Interp.pow2In.apply(1f, 0f, (progress - 0.5f) * 2f);
+			alpha = Interp.pow2In.apply(0.6f, 0f, (progress - 0.5f));
+		}
+		alpha(alpha);
+
+		float baseSize = 20f * sizeScale * Mathf.randomSeed(e.id, 1f, 1.8f);
+		randLenVectors(e.id, 1, 2f + sizeScale * 20f, (x, y) -> {
+			float finalSize = baseSize + sizeScale * 30f;
+			rect(Core.atlas.find("minedusty-circool"), e.x + x, e.y + y, finalSize, finalSize);
+		});		
+	}).layer(Layer.legUnit + 3.77f),
+
+	flowWater = new Effect(40f, 250f, e -> {
+		float fade = Mathf.clamp(Mathf.slope(e.fin() * 1.3f), 0.3f, 1f); 
+		color(Color.valueOf("#8598EC"), Color.valueOf("#CAD2F6"), fade);
+
+		float width = 2.0f * (1.2f - e.fin() * e.fin()); 
+		stroke(Mathf.clamp(width, 0.4f, 2f));
 
 		rand.setSeed(e.id);
-		float angle = 90f + rand.random(-1.5f, 1.5f);
+		float baseAngle = e.rotation;
+		float angle = baseAngle + rand.random(-1.5f, 1.5f);
 		float offsetX = rand.random(-3.2f, 3.2f);
 		float offsetY = rand.random(-3.5f, 1.5f);
 		float speed = rand.random(0.15f);
 		float travel = e.fslope() * 10f * speed;
 
-		float x = e.x + offsetX + Angles.trnsx(angle, travel);
-		float y = e.y + offsetY + Angles.trnsx(angle, travel);
+		float rise = 12f * e.fin(); 
+		float shrink = Mathf.lerp(1f, 0.3f, e.fin());
 
-		float length = Mathf.sin(e.fin() * Mathf.PI) * (4.5f + rand.random(1.5f));
-		alpha(e.fslope());
+		float cx = e.x + offsetX + Angles.trnsx(angle, travel);
+		float cy = e.y + offsetY + Angles.trnsy(angle, travel);
+		cy += Angles.trnsy(baseAngle, rise);
+		cx += Angles.trnsx(baseAngle, rise);
 
-		lineAngle(x,y,angle,length);
+		float baseLen = 6.5f + rand.random(1.5f);
+		float length = Mathf.sin(e.fin() * Mathf.PI) * baseLen * 2.0f * shrink;
 
-	}).layer(30.1f),
+		float half = length / 2f;
+		float sx = cx - Angles.trnsx(angle, half);
+		float sy = cy - Angles.trnsy(angle, half);
 
+		alpha(fade);
+		lineAngle(sx, sy, angle, length);
+	}).layer(28f).rotWithParent(true).followParent(true),
+
+	// reduce color brightening
 	mistCloud = new Effect(50f, e -> {
-		color(Color.valueOf("#aac1e3ff"), Color.valueOf("#cae6f6"), e.fin());
-		alpha(e.fslope()* 0.4f);
+		//color(Color.valueOf("#f3f8ffff"), Color.valueOf("#a1d1eeff"), e.fin());
+		alpha(Mathf.clamp(e.fslope()* 0.5f, 0f, 1f));
 
-		randLenVectors(e.id, 1, 2f + e.finpow() * 10f, (x, y) -> {
-			Fill.circle(e.x + x, e.y + y, 5f + e.fin() * 3f);
+		randLenVectors(e.id, 1, 1f + e.finpow() * 4f, (x, y) -> {
+			Fill.circle(e.x + x, e.y + y, 7f + e.fin() * 3f);
 		});
-	}),
+	}).layer(Layer.effect + 1.22f),
 
 	treeBreak = new Effect(120f, e -> {
 		rand.setSeed(e.id);
