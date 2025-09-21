@@ -15,7 +15,7 @@ import minedusty.utils.EffectHelper;
 
 public class DustPlants {
 	// Trees
-	public static Block largebogTree, worldTree, divineTree, aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
+	public static Block largealiveTree, largebogTree, worldTree, divineTree, aliveTree, blossomTree, elmTree, pineTree, bogTree, cheeseTree, burntTree, ashTree, deadTree, mossydeadTree;
 	//TODO mahogany spruceTree, mysticTree, frozenTree, glowberryTree, coconutTree?
 
 	//TODO night plants that bloom light in nighttime.
@@ -49,6 +49,13 @@ public class DustPlants {
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+		}};
+		largealiveTree = new LivingTreeBlock("large-alive-tree", 1){{
+			mapColor = Color.valueOf("74d660");
+			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			fadeEnd = 30f;
+			baseLayer = Layer.legUnit + 3.5f;
+			size = 5;
 		}};
 		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
 			mapColor = Color.valueOf("f3b9c3");
