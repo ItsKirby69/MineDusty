@@ -85,7 +85,6 @@ public class DustEnv {
 		}};
 
 		clayFloor = new Floor("clay-floor", 3){{
-
 		
 		prismite = new Floor("prismite", 1){{
 			cacheLayer = DustCacheLayers.prismite;

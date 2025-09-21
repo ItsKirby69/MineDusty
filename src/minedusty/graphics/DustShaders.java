@@ -9,12 +9,16 @@ import static arc.Core.*;
 import static mindustry.Vars.*;
 
 public class DustShaders {
-	public static @Nullable SurfaceShader quicksand;
+	public static @Nullable SurfaceShader quicksand, bog, mist, prismite;
 
 	// not exactly sure how to do shader stuff properly
 	public static void load(){
 		quicksand = new SurfaceShader("quicksand");
+        bog = new SurfaceShader("bog");
+        mist = new SurfaceShader("mist");
+        prismite = new SurfaceShader("prismite");
 	}
+
     public static class SurfaceShader extends Shader {
         Texture noiseTex;
 

@@ -21,7 +21,7 @@ public class DustPlants {
 	//TODO night plants that bloom light in nighttime.
 	// Shrubs and small Plants (props)
 	public static Block nightBush;
-	public static Block grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
+	public static Block clayshrub, grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
 	public static Block cactus, cattail, lilypad, largelilypad, marshlilypad, largemarshlilypad;
 
 	public static void loadContent() {
@@ -49,30 +49,27 @@ public class DustPlants {
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("74d660");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
-			size = 3;
 		}};
 		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
 			mapColor = Color.valueOf("f3b9c3");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
-			size = 3;
 		}};
 		elmTree = new LivingTreeBlock("elm-tree", 1){{
 			mapColor = Color.valueOf("ECB01E");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
-			size = 3;
 		}};
 		pineTree = new LivingTreeBlock("pine-tree", 1){{
 			mapColor = Color.valueOf("356a41");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			rotateShadow = false;
-			size = 3;
 		}};
 		bogTree = new LivingTreeBlock("bog-tree", 1){{
+			requiresWater = true;
 			mapColor = Color.valueOf("667113");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
-			size = 3;
 		}};
 		largebogTree = new LivingTreeBlock("large-bog-tree", 1) {{
+			requiresWater = true;
 			mapColor = Color.valueOf("667113");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			fadeEnd = 30f;
@@ -126,7 +123,6 @@ public class DustPlants {
 		//end region
 
 		//region Props
-		//TODO need to work more with the decoration feature maybe?
 
 		shrub = new LivingBush("shrub"){{
 			mapColor = Color.valueOf("74d660");
@@ -136,11 +132,21 @@ public class DustPlants {
 		sandyshrub = new LivingBush("sandy-shrub"){{
 			mapColor = Color.valueOf("f7cba4");
 			Blocks.sand.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
+			lobesMin = 3;
+			lobesMax = 5;
 		}};
 
 		dustyshrub = new LivingBush("dusty-shrub"){{
 			mapColor = Color.valueOf("f7cba4");
-			Blocks.stone.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
+			DustEnv.basaltSands.asFloor().decoration = this;
+		}};
+
+		clayshrub = new LivingBush("clay-shrub"){{
+			mapColor = Color.valueOf("925e46");
+			DustEnv.clayFloor.asFloor().decoration = this;
+			lobesMin = 3;
+			lobesMax = 5;
+			variants = 1;
 		}};
 
 		//WIP. These suck so bad o_o
@@ -168,10 +174,11 @@ public class DustPlants {
 		}};
 		fernBush = new LivingBush("fern-bush", 1){{
 			dualCircleMode = true;
+			shadowAlpha = 0.7f;
 			mapColor = Color.valueOf("356a41");
 			rot = 0;
-			lobesMin = 6;
-			lobesMax = 8;
+			lobesMin = 3;
+			lobesMax = 7;
 			magMin = 2;
 			magMax = 4;
 		}};
@@ -201,6 +208,7 @@ public class DustPlants {
 		}};
 
 		cattail = new LivingBush("cattail", 2){{
+			placeableLiquid = true;
 			rare = true;
 			mapColor = Color.valueOf("74d660");
 			lobesMin = 7;
@@ -212,24 +220,28 @@ public class DustPlants {
 		}};
 
 		lilypad = new LivingProp("lily-pad", 3){{
+			placeableLiquid = true;
 			mapColor = Color.valueOf("97c51e");
 			shadowOffset = -4f;
 		}};
 		largelilypad = new LivingProp("large-lily-pad", 3){{
+			placeableLiquid = true;
 			mapColor = Color.valueOf("97c51e");
-			shadowOffset = -3f;
+			shadowOffset = -1f;
 			propOffset = 4f;
 			size = 2;
 		}};
 
 		marshlilypad = new LivingProp("marsh-lily-pad", 3){{
+			placeableLiquid = true;
 			mapColor = Color.valueOf("7b990b");
-			shadowOffset = -2f;
+			shadowOffset = -1f;
 			propOffset = 4f;
 			size = 2;
 		}};
 
 		largemarshlilypad = new LivingProp("large-marsh-lily-pad", 1){{
+			placeableLiquid = true;
 			mapColor = Color.valueOf("7b990b");
 			shadowOffset = -4f;
 			size = 3;
