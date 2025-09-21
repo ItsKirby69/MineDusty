@@ -5,17 +5,27 @@ import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.*;
 import minedusty.content.DustItems;
-import minedusty.world.blocks.defense.OxideWall;
+import minedusty.world.blocks.defense.*;
 
 import static mindustry.type.ItemStack.*;
 
-import mindustry.content.Items;
-
 public class DustDefence {
-	public static Block aquaWall, aquaWallLarge, oxidecopperWall, oxidecopperWallLarge;
+	public static Block chloroWall, chloroWallLarge, aquaWall, aquaWallLarge, oxidecopperWall, oxidecopperWallLarge;
 
 	public static void loadContent() {
 		int wallHealthMulti = 4;
+
+		chloroWall = new HealWall("chlorophyte-wall") {{
+			requirements(Category.defense, with(DustItems.chlorophyte, 6));
+			health = 100 * wallHealthMulti;
+
+		}};
+
+        chloroWallLarge = new HealWall("chlorophyte-wall-large"){{
+            requirements(Category.defense, ItemStack.mult(chloroWall.requirements, 4));
+            health = 100 * 4 * wallHealthMulti;
+            size = 2;
+        }};
 
 		aquaWall = new Wall("aquamerium-wall") {{
 			requirements(Category.defense, with(DustItems.aquamerium, 6));
