@@ -27,6 +27,8 @@ public class DustItems {
 		amethyst = new Item("item-amethyst", Color.valueOf("#caa4ff")){{
 			hardness = 1;
 		}};
+		
+		salt = new Item("item-salt", Color.valueOf("e2f0f1")){{
 			cost = 0.5f;
 		}};
 

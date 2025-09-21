@@ -31,7 +31,7 @@ public class DustEnv {
 	public static Block flowWater;
 
 	// Ores
-	public static Block oreOxidecopper, oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamerium, wallOxide;
+	public static Block oreGalena, oreOxidecopper, oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamerium, wallOxide;
 	
 	// Walls
 	public static Block mossStoneWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
@@ -84,7 +84,7 @@ public class DustEnv {
 			//playerUnmineable = true;
 		}};
 
-		clayFloor = new Floor("clay-floor", 3){{
+		clayFloor = new Floor("clay-floor", 3){{}};
 		
 		prismite = new Floor("prismite", 1){{
 			cacheLayer = DustCacheLayers.prismite;
@@ -474,6 +474,9 @@ public class DustEnv {
 
 		oreOxidecopper = new OreBlock("ore-oxidecopper", DustItems.oxidecopper){{
 			oreDefault = true;
+		}};
+
+		oreGalena = new TieredOreBlock("ore-galena", Items.lead, DustItems.galena, 3){{
 		}};
 
 		wallOxide = new OreBlock("wall-oxide", Items.oxide){{
