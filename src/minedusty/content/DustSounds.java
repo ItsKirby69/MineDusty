@@ -9,10 +9,19 @@ import mindustry.Vars;
 public class DustSounds {
 
 	public static Sound
+		chromaPew1 = new Sound(),
+		chromaPew2 = new Sound(),
+		chromartillery = new Sound(),
+		chromalastershoot = new Sound(),
 		bubblePop = new Sound(),
 		destroyTree = new Sound();
 
 		public static void load(){
+			chromaPew1 = loadSound("chromaPew1");
+			chromaPew2 = loadSound("chromaPew2");
+			chromartillery = loadSound("chromartillery");
+			chromalastershoot = loadSound("chromalastershoot");
+			
 			bubblePop = loadSound("bubblePop");
 			destroyTree = loadSound("destroyTree");
 		}
