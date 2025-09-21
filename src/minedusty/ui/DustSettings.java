@@ -1,11 +1,7 @@
 package minedusty.ui;
 
-import static mindustry.Vars.*;
-
 import arc.Core;
-import arc.scene.ui.CheckBox;
 import arc.scene.ui.ImageButton;
-import arc.scene.ui.Tooltip;
 import arc.scene.ui.layout.Table;
 import mindustry.Vars;
 import mindustry.gen.Icon;

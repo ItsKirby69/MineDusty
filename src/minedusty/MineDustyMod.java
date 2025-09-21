@@ -3,33 +3,31 @@ package minedusty;
 import minedusty.blocks.*;
 import minedusty.content.*;
 import minedusty.gen.*;
-import minedusty.graphics.DustCacheLayers;
-import minedusty.graphics.DustMenuRender;
-import minedusty.graphics.DustShaders;
+import minedusty.graphics.*;
 import minedusty.planets.*;
 import minedusty.ui.DustSettings;
 import minedusty.ui.DustyPopup;
 import arc.*;
+import arc.files.Fi;
+import arc.graphics.Texture;
+import arc.graphics.g2d.TextureRegion;
+import arc.scene.style.TextureRegionDrawable;
 import arc.struct.Seq;
 import arc.util.*;
 import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
-import mindustry.mod.Mods.ModMeta;
-import mindustry.ui.dialogs.*;
-import mindustry.ui.fragments.MenuFragment;
 
 import static arc.Core.bundle;
 import static mindustry.Vars.*;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import org.w3c.dom.events.EventTarget;
 
 public class MineDustyMod extends Mod {
 
 	public MineDustyMod() {
-		Log.info("*cough* *cough* MineDusty is *cough* loaded");
+		Log.info("[lightgray]*cough* *cough* [][acid]MineDusty[] [white]is [][lightgray]*cough*[] [white]loaded");
 
 		/*
 		 * Events.on(EventType.ClientLoadEvent.class, e -> {
@@ -41,6 +39,7 @@ public class MineDustyMod extends Mod {
 
 	@Override
 	public void init() {
+		Events.run(EventType.Trigger.draw, Renderer::draw);
 		DustSettings.load();
 		Events.on(ClientLoadEvent.class, e -> {
 			// show dialog upon startup

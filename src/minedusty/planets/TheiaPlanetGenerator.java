@@ -1,20 +1,15 @@
 package minedusty.planets;
 
-import arc.files.Fi;
 import arc.graphics.Color;
-import arc.graphics.Pixmap;
-import arc.graphics.PixmapIO;
 import arc.math.Mathf;
 import arc.math.geom.Vec3;
-import arc.util.Log;
 import arc.util.noise.Ridged;
-import mindustry.Vars;
 import mindustry.game.Schematics;
 import mindustry.maps.generators.*;
 import mindustry.type.Sector;
 import minedusty.utils.Simplex;
 
-/** The Planet's looks and bumpiness. Nothing much yet. */
+/** The Planet's looks and bumpiness. */
 public class TheiaPlanetGenerator extends PlanetGenerator{
 	float rotation = 120; // degrees to rotate the planet
 
@@ -47,6 +42,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 		defaultLoadout = Schematics.readBase64("bXNjaAF4nGNgZmBmZmDJS8xNZWBJzi9KZeBOSS1OLsosKMnMz2NgYGDLSUxKzSlmYIqOZWQQzs3MS00pLS6p1AWp1c1LLS4BqmEEISABAPVFEvQ=");
 	}
 	// Preview highmap
+	/* 
 	{
 		int size = 256*4;
 		Pixmap pixmap = new Pixmap(size, size);
@@ -71,7 +67,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 		pixmap.dispose();
 		Log.info("Saved terra-height.png to " + ouputt.absolutePath());
 	}
-	
+	*/
 	@Override
 	public void generateSector(Sector sector){
 		//nothing yet
@@ -104,6 +100,117 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 	//  PlanetDialog.debugSelect = true
 	//this is really really really really really really really really really jank (i think)
 	@Override
+	/*public void getColor(Vec3 position, Color out) {
+		position = rotateY(position, rotation);
+		Vec3 pos = new Vec3(position).scl(4.5f);
+		
+		float height = rawHeight(position);
+		float depth = Simplex.noise3d(baseSeed, 4, 0.7f, 0.8f, position.x, position.y, position.z);
+		float mountains = Ridged.noise3d(baseSeed, pos.x, pos.y, pos.z, 5, 0.3f);
+		float IceTex = Ridged.noise3d(baseSeed+2, pos.x, pos.y, pos.z, 5, 0.65f);
+		float IceWaterTex = Ridged.noise3d(baseSeed+2, pos.x, pos.y, pos.z, 4, 0.6f);
+		
+		float pole = 1f - Math.abs(position.y);
+		float basalts = Ridged.noise3d(baseSeed-1, pos.x, pos.y, pos.z, 4, 0.25f);
+		
+		float desertBiome = Simplex.noise3d(baseSeed+3, 4, 0.7f, 0.76f, position.x*0.5f, position.y*0.5f, position.z*0.5f);
+
+		float divineMask = Simplex.noise3d(baseSeed-4, 2, 0.2, 0.13, pos.x, pos.y, pos.z);
+		float divineBiome = Simplex.noise3d(baseSeed-4, 5, 0.4f, 0.55f, position.x, position.y, position.z);
+		float divineVoronoi = Simplex.voronoi3d(baseSeed-1, 3, 0, 1.1, pos.x, pos.y, pos.z);
+		
+		// For deserts
+		if ((desertBiome * depth )> 0.32 && height < 0.42f && height > waterLevel + 0.1f && Math.abs(position.y) < 0.37){
+			if (getSlope(position, 0.065f) > 0.074f){
+				out.set(desert1).lerp(desert2, Mathf.clamp(Mathf.round(desertBiome, 0.22f))).a(0.8f);
+				return;
+			}
+			out.set(beaches1).write(out).lerp(beaches2, height * 1.5f);
+			return;
+		}
+
+		// For the Divine Faction
+		if (divineBiome * (pole * 0.4f) * divineMask > 0.1){
+			if (height > waterLevel){
+				// Beaches
+				if (height < waterLevel + 0.08f){
+					out.set(divine2).lerp(divine1, Mathf.clamp(Mathf.round(divineBiome, 0.15f))).a(0.8f);
+					return;
+				// Valleys
+				} else {
+					float t = divineVoronoi / (1.0f);
+					t = Mathf.clamp(Mathf.round(t, 0.1f));
+
+					int index = (int) (t * (DivineGrad.length - 1));
+					float segmentT = (t * (DivineGrad.length - 1)) % 1.0f;
+
+					out.set(DivineGrad[index])
+					.lerp(DivineGrad[Math.min(index + 1, DivineGrad.length - 1)], segmentT).a(0.9f);
+					return;
+				}
+			// Stained waters.
+			} else {
+				out.set(divine1).lerp(divine3, Mathf.clamp(Mathf.round(Mathf.clamp(Math.abs(height)) * 6.5f, 0.25f))).a(0.1f);
+				return;
+			}
+		}
+
+		// Normal biomes
+		if(height > waterLevel){
+			// Ice caps
+			if(Math.abs(position.y) + height > 1.2f){
+				out.set(poleColor1).lerp(poleColor2, Mathf.clamp(Mathf.round(height, 0.25f))).a(0.6f);
+				return;
+			} else if (Math.abs(position.y) > 0.77 && mountains * Math.abs(position.y) > 0.51f){		
+				out.set(stones1).lerp(stones2, Mathf.clamp(Mathf.round(mountains, 0.35f))).a(1.2f);
+				return;
+
+			} else if (getSlope(position, 0.07f) > 0.07f && height > 0.29f){
+				out.set(poleColor1).lerp(poleColor2, Mathf.clamp(Mathf.round(height, 0.25f))).a(0.6f);
+				return;
+			
+			// Pine forests
+			} else if (height > 0.4f && height > waterLevel + 0.1f && Math.abs(position.y) > 0.3){
+				out.set(peaks1).lerp(peaks2, Mathf.clamp(Mathf.round(height, 0.35f))).a(1.1f);
+				return;
+			} else if (mountains > 0.67f){
+				out.set(peaks1).lerp(peaks2, Mathf.clamp(Mathf.round(height, 0.2f))).a(1.1f);
+				return;
+			
+			/// Beaches
+			} else if (height < waterLevel + 0.1f){
+				if (basalts + (Math.abs(position.y) * 0.4f) > 0.28){
+					out.set(basalts1).write(out).lerp(basalts2, Mathf.clamp(Mathf.round(depth, 0.15f))).a(1.2f);
+					return;
+				}
+				if (pole + height > 0.3) {
+					out.set(beaches1).lerp(beaches2, Mathf.clamp(Mathf.round(height, 0.15f))).a(0.8f);
+					return;
+				// Ice beaches close to the pole
+				} else if (IceTex < 0.5 && pole < 0.25){
+					out.set(IcedBeach1).lerp(IcedBeach2, Mathf.clamp(Mathf.round(IceTex, 0.3f))).a(0.5f);
+					return;
+				}
+			/// Valleys
+			} else if (pole + height < 0.3){
+				// Iced up valleys
+				if (IceTex < 0.45){
+					out.set(Iced1).lerp(Iced2, Mathf.clamp(Mathf.round(depth, 0.15f)));
+					return;
+				}
+			}
+			out.set(valley1).lerp(valley2, Mathf.clamp(Mathf.round(depth, 0.15f))).a(0.5f);
+			return;
+		}
+		// Oceans
+		if(Math.abs(position.y) + IceWaterTex > 0.65 && pole < 0.25){
+			out.set(poleOcean1).lerp(poleOcean2, Mathf.clamp(Mathf.round(IceWaterTex, 0.35f))).a(0.1f);	
+			return;
+		}
+		out.set(oceanColor1).lerp(oceanColor2, Mathf.clamp(Mathf.round(Mathf.clamp(Math.abs(height)) * 6.5f, 0.25f))).a(0.1f);	
+		return;
+	}
+*/
 	public Color getColor(Vec3 position) {
 		position = rotateY(position, rotation);
 		Vec3 pos = new Vec3(position).scl(4.5f);

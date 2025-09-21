@@ -6,6 +6,7 @@ import arc.Core;
 import arc.scene.actions.Actions;
 import arc.scene.ui.TextButton;
 import arc.util.Align;
+import arc.util.Log;
 import mindustry.ui.dialogs.*;
 
 // Gratefully taken from Omaloon's dialogue system.
@@ -20,7 +21,7 @@ public class DustyPopup extends BaseDialog{
         
         cont.add("@popup.dusty-message")
         .wrap()
-        .width(750f)
+        .width(600f)
         .pad(7f)
         .get().setAlignment(Align.center, Align.center);
 
@@ -37,7 +38,7 @@ public class DustyPopup extends BaseDialog{
     }
     
     public static void check(){
-        if(!settings.getBool("dusty-disable-popup", true)){
+        if(!(settings.getBool("@setting.dusty-disable-popup"))){
             new DustyPopup().show();
         }
     }

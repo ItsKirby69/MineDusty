@@ -1,10 +1,10 @@
 package minedusty.entities.comp;
 
-import ent.anno.Annotations.*;
+// import ent.anno.Annotations.*;
 import mindustry.gen.*;
 
 // Unused
-@EntityComponent
+// @EntityComponent
 abstract class MainComp implements Unitc{
     
 }
