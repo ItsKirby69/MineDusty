@@ -11,7 +11,7 @@ import static mindustry.type.ItemStack.*;
 
 public class DustDrills {
     // TODO bore drill.
-    public static Block mechanicalDrill, chloroDrill;
+    public static Block waterDrill, mechanicalDrill, chloroDrill;
 
     public static void loadContent(){
         mechanicalDrill = new ModifiedDrill("mechanical-drill"){{
@@ -32,6 +32,16 @@ public class DustDrills {
             drawTopUnder = true;
 
             consumeLiquid(DustLiquids.bioLiquid, 0.1f).boost();
+        }};
+
+        // TODO make it perhaps require water to be pumped out
+        waterDrill = new ModifiedDrill("water-drill"){{
+            requirements(Category.production, with(DustItems.aquamerium, 30, DustItems.oxidecopper, 25, Items.lead, 30, DustItems.chlorophyte, 10));
+            tier = 3;
+            drillTime = 350;
+            size = 2;
+            floating = true;
+            requiresWater = true;
         }};
     }
 }

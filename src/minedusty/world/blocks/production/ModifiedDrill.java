@@ -8,9 +8,9 @@ import arc.math.Mathf;
 import arc.util.Time;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
-import mindustry.world.blocks.production.Drill;
 
-public class ModifiedDrill extends Drill{
+/** Drill that allows for -team region */
+public class ModifiedDrill extends TierDrill{
     public TextureRegion teamRegion;
     public boolean drawTopUnder = false;
     
