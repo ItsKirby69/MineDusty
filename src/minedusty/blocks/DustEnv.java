@@ -28,7 +28,7 @@ public class DustEnv {
 	public static Block silkSandTropWater, silkSandWater, pattedGrassWater, calciteWater, calciteTropWater, shorestoneWater, basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater, quickSand;
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
-	public static Block flowWater;
+	public static Block stoneWater, magmaBasalt, hotRockBasalt;
 
 	// Ores
 	public static Block oreGalena, oreOxidecopper, oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamerium, wallOxide;
@@ -152,6 +152,26 @@ public class DustEnv {
 			attributes.set(Attribute.water, -1f);
 			wall = Blocks.carbonWall;
 		}};
+
+		magmaBasalt = new Floor("magma-basalt", 3){{
+            attributes.set(Attribute.heat, 0.75f);
+            attributes.set(Attribute.water, -0.75f);
+            blendGroup = basaltFloor;
+
+            emitLight = true;
+            lightRadius = 50f;
+            lightColor = Color.orange.cpy().a(0.3f);
+		}};
+
+        hotRockBasalt = new Floor("hotrock-basalt", 3){{
+            attributes.set(Attribute.heat, 0.5f);
+            attributes.set(Attribute.water, -0.5f);
+            blendGroup = basaltFloor;
+
+            emitLight = true;
+            lightRadius = 30f;
+            lightColor = Color.orange.cpy().a(0.15f);
+        }};
 
 		//end region
 
@@ -326,7 +346,8 @@ public class DustEnv {
         }};
 		
 		// Watered tiles
-		
+		stoneWater = new WaterFloor("stone-water", 3){{
+		}};
 		silkSandWater = new WaterTileEffect("silksand-water", 3){{
 			addEffect(DustyEffects.sparkles, 0.05f,300f, Color.valueOf("#d9fcff"));
 		}};
