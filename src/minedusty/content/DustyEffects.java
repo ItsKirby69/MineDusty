@@ -227,7 +227,7 @@ public class DustyEffects {
 		randLenVectors(e.id, 3, 30f + e.finpow() * 40f, (x, y) -> {
 			Draw.rect(atlas.find("minedusty-tree-prop3"), e.x + x + drift, e.y + y + drift, 16f, 16f, e.fin() * 360f);
 		});
-	}).layer(Layer.power + 2),
+	}).layer(Layer.darkness + 1),
 
 	rotting = new Effect(35f, e -> {
 		color(DustPalette.divineBulletRed, DustPalette.divineBulletRedBack, e.fin());

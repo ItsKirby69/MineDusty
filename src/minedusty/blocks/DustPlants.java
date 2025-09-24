@@ -21,7 +21,7 @@ public class DustPlants {
 	//TODO night plants that bloom light in nighttime.
 	// Shrubs and small Plants (props)
 	public static Block nightBush;
-	public static Block clayshrub, grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
+	public static Block aloeVera, deadShrub, clayshrub, grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
 	public static Block cactus, cattail, lilypad, largelilypad, marshlilypad, largemarshlilypad;
 
 	public static void loadContent() {
@@ -144,7 +144,7 @@ public class DustPlants {
 		}};
 
 		dustyshrub = new LivingBush("dusty-shrub"){{
-			mapColor = Color.valueOf("f7cba4");
+			mapColor = Color.valueOf("#f7cba4");
 			DustEnv.basaltSands.asFloor().decoration = this;
 		}};
 
@@ -154,6 +154,17 @@ public class DustPlants {
 			lobesMin = 3;
 			lobesMax = 5;
 			variants = 1;
+		}};
+
+		deadShrub = new LivingBush("dead-shrub", 1){{
+			mapColor = Color.valueOf("#796961");
+			DustEnv.clayFloor.asFloor().decoration = this;
+			lobesMax = 6;
+		}};
+
+		aloeVera = new LivingBush("aloevera", 1){{
+			mapColor = Color.valueOf("#308e51");
+			lobesMax = 7;
 		}};
 
 		//WIP. These suck so bad o_o
