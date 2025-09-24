@@ -21,6 +21,7 @@ public class DustUnitTypes {
 
 	//region Enemy units
 
+	// TODO Green units
 	//mechs
 	public static @EntityDef({Unitc.class, Legsc.class}) UnitType divineFlathead;
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer; // crawler and suicide type units
@@ -210,62 +211,6 @@ public class DustUnitTypes {
             }});
 
             rotateSpeed = 2.1f;
-
-            // weapons.add(new Weapon("tecta-weapon"){{
-            //     shootSound = Sounds.malignShoot;
-            //     mirror = true;
-            //     top = false;
-
-            //     x = 62/4f;
-            //     y = 1f;
-            //     shootY = 47 / 4f;
-            //     recoil = 3f;
-            //     reload = 40f;
-            //     shake = 3f;
-            //     cooldownTime = 40f;
-
-            //     shoot.shots = 3;
-            //     inaccuracy = 3f;
-            //     velocityRnd = 0.33f;
-            //     heatColor = Color.red;
-
-            //     bullet = new MissileBulletType(4.2f, 60){{
-            //         homingPower = 0.2f;
-            //         weaveMag = 4;
-            //         weaveScale = 4;
-            //         lifetime = 55f;
-            //         shootEffect = Fx.shootBig2;
-            //         smokeEffect = Fx.shootSmokeTitan;
-            //         splashDamage = 70f;
-            //         splashDamageRadius = 30f;
-            //         frontColor = Color.white;
-            //         hitSound = Sounds.none;
-            //         width = height = 10f;
-
-            //         lightColor = trailColor = backColor = Pal.techBlue;
-            //         lightRadius = 40f;
-            //         lightOpacity = 0.7f;
-
-            //         trailWidth = 2.8f;
-            //         trailLength = 20;
-            //         trailChance = -1f;
-            //         despawnSound = Sounds.dullExplosion;
-
-            //         despawnEffect = Fx.none;
-            //         hitEffect = new ExplosionEffect(){{
-            //             lifetime = 20f;
-            //             waveStroke = 2f;
-            //             waveColor = sparkColor = trailColor;
-            //             waveRad = 12f;
-            //             smokeSize = 0f;
-            //             smokeSizeBase = 0f;
-            //             sparks = 10;
-            //             sparkRad = 35f;
-            //             sparkLen = 4f;
-            //             sparkStroke = 1.5f;
-            //         }};
-            //     }};
-            // }});
         }};
 		//end region
 

@@ -9,7 +9,6 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
-import mindustry.world.meta.BuildVisibility;
 
 import static arc.Core.*;
 
