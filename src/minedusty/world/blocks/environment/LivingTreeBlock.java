@@ -150,7 +150,7 @@ public class LivingTreeBlock extends Block{
 		
 		// Trunk below base layer
 		if (trunkRegions[variation].found()) {
-			Draw.z(Layer.groundUnit - 1f);
+			Draw.z(Layer.blockProp - 0.5f);
 			Draw.alpha(1f);
 			Draw.rect(trunkRegions[variation], x, y, rotStatic);
 		}
