@@ -25,6 +25,30 @@ public class DustyEffects {
 	public static final Effect
 
 	none = new Effect(0f, 0f, e -> {}),
+	
+	sandExplosion = new Effect(20, e -> {
+        color(DustPalette.sandColor);
+
+        e.scaled(6, i -> {
+            stroke(3f * i.fout());
+            Lines.circle(e.x, e.y, 3f + i.fin() * 10f);
+        });
+
+        color(DustPalette.sandColorBack);
+
+        randLenVectors(e.id, 5, 2f + 23f * e.finpow(), (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.5f);
+        });
+
+        color(DustPalette.sandColor);
+        stroke(e.fout());
+
+        randLenVectors(e.id + 1, 4, 1f + 23f * e.finpow(), (x, y) -> {
+            lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + e.fout() * 3f);
+        });
+
+        Drawf.light(e.x, e.y, 50f, DustPalette.sandColor, 0.8f * e.fout());
+    }),
 
 	sparkles = new Effect(40, e -> {
 		rand.setSeed(e.id);

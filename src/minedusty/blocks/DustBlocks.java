@@ -12,5 +12,6 @@ public class DustBlocks {
         DustDrills.loadContent();
         DustCore.loadContent();
 
+        DustTurret.loadContent();
     }
 }
