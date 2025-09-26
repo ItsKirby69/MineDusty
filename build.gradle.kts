@@ -6,7 +6,7 @@ import java.io.*
 
 buildscript{
     val arcVersion: String by project
-    val useJitpack = property("mindustryBE").toString().toBooleanStrict()
+    val useJitpack = true //property("mindustryBE").toString().toBooleanStrict()
 
     dependencies{
         classpath("com.github.Anuken.Arc:arc-core:$arcVersion")
@@ -20,7 +20,8 @@ buildscript{
 
 plugins{
     java
-    id("com.github.GglLfr.EntityAnno") apply false
+    val entVersion: String by project
+    id("com.github.ItsKirby69.EntityAnno") version (entVersion) apply false
 }
 
 val arcVersion: String by project
@@ -38,7 +39,7 @@ val androidSdkVersion: String by project
 val androidBuildVersion: String by project
 val androidMinVersion: String by project
 
-val useJitpack = property("mindustryBE").toString().toBooleanStrict()
+val useJitpack = true //property("mindustryBE").toString().toBooleanStrict()
 
 fun arc(module: String): String{
     return "com.github.Anuken.Arc$module:$arcVersion"
@@ -49,7 +50,7 @@ fun mindustry(module: String): String{
 }
 
 fun entity(module: String): String{
-    return "com.github.GglLfr.EntityAnno$module:$entVersion"
+    return "com.github.ItsKirby69.EntityAnno$module:$entVersion"
 }
 
 allprojects{
@@ -60,8 +61,6 @@ allprojects{
         // Resolve the correct Mindustry dependency, and force Arc version.
         resolutionStrategy.eachDependency{
             if(useJitpack && requested.group == "com.github.Anuken.Mindustry"){
-                useTarget("com.github.Anuken.MindustryJitpack:${requested.module.name}:$mindustryBEVersion")
-            }else if(requested.group == "com.github.Anuken.Arc"){
                 useVersion(arcVersion)
             }
         }
@@ -77,7 +76,7 @@ allprojects{
         mavenCentral()
         maven("https://oss.sonatype.org/content/repositories/snapshots/")
         maven("https://oss.sonatype.org/content/repositories/releases/")
-        maven("https://raw.githubusercontent.com/GglLfr/EntityAnnoMaven/main")
+        maven("https://raw.githubusercontent.com/ItsKirby69/EntityAnnoMaven/main")
 
         // Use xpdustry's non-buggy repository for release Mindustry and Arc builds.
         if(!useJitpack) maven("https://maven.xpdustry.com/mindustry")
@@ -98,10 +97,10 @@ allprojects{
 }
 
 project(":"){
-    apply(plugin = "com.github.GglLfr.EntityAnno")
+    apply(plugin = "com.github.ItsKirby69.EntityAnno")
     configure<EntityAnnoExtension>{
         modName = project.properties["modName"].toString()
-        mindustryVersion = project.properties[if(useJitpack) "mindustryBEVersion" else "mindustryVersion"].toString()
+        mindustryVersion = project.properties["mindustryVersion"].toString()
         isJitpack = useJitpack
         revisionDir = layout.projectDirectory.dir("revisions").asFile
         fetchPackage = modFetch
@@ -209,11 +208,31 @@ project(":"){
             folder.mkdirs()
 
             val input = desktopJar.get().asFile
+            val modName = input.nameWithoutExtension
+
             folder.child(input.name).delete()
+            folder.child("${modName}.zip").delete()
             folder.child(dexJar.get()).delete()
+            folder.child("${dexJar.get()}.zip").delete()
             Fi(input).copyTo(folder)
 
             logger.lifecycle("Copied :jar output to $folder.")
+        }
+    }
+
+    tasks.register("runGame"){
+        dependsOn("install")
+
+        doLast {
+            val mindustryVersion: String by project
+            val mindustryJar = File(System.getProperty("user.home"), "Desktop/Mindustry$mindustryVersion.jar")
+            if(!mindustryJar.exists()) throw IllegalStateException("Could not find Mindustry jar at $mindustryJar")
+
+            ProcessBuilder(
+                listOf("java", "-jar", mindustryJar.absolutePath)
+            ).inheritIO().start()
+
+            logger.lifecycle("Launched Mindustry from $mindustryJar.")
         }
     }
 }
