@@ -4,25 +4,22 @@ import static minedusty.content.DustItems.*;
 
 import arc.graphics.Color;
 import arc.math.Interp;
-import mindustry.content.Blocks;
-import mindustry.content.Fx;
-import mindustry.content.Items;
+import mindustry.content.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.part.DrawPart.PartProgress;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Layer;
 import mindustry.entities.part.RegionPart;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.DrawTurret;
-import minedusty.content.DustSounds;
-import minedusty.content.DustyEffects;
+import minedusty.content.*;
 import minedusty.graphics.DustPalette;
-import minedusty.type.DustSectorPreset;
 
 public class DustTurret {
+    // 1x1 turrets
     public static Block sandSpitter, sleet;
+    // 2x2 turrets
+    public static Block hyaline;
 
     public static void loadContent() {
         sandSpitter = new ItemTurret("sandspitter"){{
@@ -121,14 +118,12 @@ public class DustTurret {
                     under = true;
                     colorTo = new Color(1f, 1f, 1f, 0f);
                     color = Color.white;
-                    growProgress = PartProgress.recoil;
-                    progress = PartProgress.recoil;
+                    progress = PartProgress.reload;
                     recoilIndex = 0;
                     mixColor = new Color(1f, 1f, 1f, 0f);
                     mixColorTo = Color.black;
                     y = 0f;
-                    growX = -1f;
-                    growY = -0.4f;
+                    moveY = -1f;
                 }});
                 parts.add(new RegionPart("-back"){{
                     under = true;                    
@@ -137,7 +132,7 @@ public class DustTurret {
             targetAir = false;
             reload = 60f;
             recoil = 2f;
-            range = 210;
+            range = 200;
             health = 250;
             shootCone = 12f;
             inaccuracy = 2f;
@@ -145,5 +140,9 @@ public class DustTurret {
 
             limitRange(0);
         }};
+
+        // hyaline = new ItemTurret("hyaline"){{
+
+        // }};
     }
 }
