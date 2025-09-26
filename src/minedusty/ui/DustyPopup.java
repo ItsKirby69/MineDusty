@@ -6,7 +6,6 @@ import arc.Core;
 import arc.scene.actions.Actions;
 import arc.scene.ui.TextButton;
 import arc.util.Align;
-import arc.util.Log;
 import mindustry.ui.dialogs.*;
 
 // Gratefully taken from Omaloon's dialogue system.

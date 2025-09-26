@@ -8,10 +8,6 @@ import minedusty.planets.*;
 import minedusty.ui.DustSettings;
 import minedusty.ui.DustyPopup;
 import arc.*;
-import arc.files.Fi;
-import arc.graphics.Texture;
-import arc.graphics.g2d.TextureRegion;
-import arc.scene.style.TextureRegionDrawable;
 import arc.struct.Seq;
 import arc.util.*;
 import mindustry.Vars;
@@ -21,8 +17,6 @@ import mindustry.mod.*;
 
 import static arc.Core.bundle;
 import static mindustry.Vars.*;
-
-import org.w3c.dom.events.EventTarget;
 
 public class MineDustyMod extends Mod {
 

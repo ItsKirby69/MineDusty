@@ -1,8 +1,5 @@
 package minedusty.content;
 
-import static mindustry.Vars.bases;
-
-import arc.Core;
 import arc.graphics.Color;
 import arc.util.Time;
 import mindustry.content.*;

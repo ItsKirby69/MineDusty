@@ -6,7 +6,6 @@ import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.struct.Seq;
-import arc.util.Log;
 import arc.util.Time;
 import mindustry.content.Blocks;
 import mindustry.entities.Effect;
