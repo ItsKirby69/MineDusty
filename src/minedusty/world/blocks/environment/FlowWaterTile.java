@@ -30,6 +30,9 @@ public class FlowWaterTile extends Block {
         solid = false;
         useColor = false;
         placeableLiquid = true;
+        breakable = false;
+        replaceable = false;
+        destructible = false;
 
         buildType = () -> new FlowWaterTileBuild();
     }

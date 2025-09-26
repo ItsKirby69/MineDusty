@@ -8,8 +8,10 @@ import static mindustry.content.TechTree.*;
 
 import static minedusty.content.DustSectors.*;
 
+import arc.struct.Seq;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
+import mindustry.game.Objectives;
 import mindustry.type.ItemStack;
 
 public class TheiaTechTree {
@@ -88,7 +90,11 @@ public class TheiaTechTree {
                 });
             });
 
-            node(verdantSpill, () -> {
+            node(verdantSpills, () -> {
+                node(basalticShore, Seq.with(
+                    new Objectives.SectorComplete(verdantSpills)
+
+                ), () -> {});
             });
 
             nodeProduce(Items.copper, () -> {

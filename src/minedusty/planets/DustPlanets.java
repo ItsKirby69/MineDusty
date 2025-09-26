@@ -9,8 +9,7 @@ import mindustry.world.meta.Env;
 import minedusty.content.*;
 
 public class DustPlanets {
-	public static Planet // TODO add clutter asteroids and stuff near theia's surroundings (similar to
-							// how asteroids exist)
+	public static Planet
 		// remake
 		theia,
 		// theia's oceanic moon
@@ -24,11 +23,12 @@ public class DustPlanets {
 					// new AtmosphereHexMesh(this, 6),
 					new HexMesh(this, 6));
 			cloudMeshLoader = () -> new MultiMesh(
-					new HexSkyMesh(this, 0, 0.85f, 0.13f, 5, new Color().set(Color.valueOf("#87a0a0ff")).a(0.7f), 2,
+					new HexSkyMesh(this, 0, 0.85f, 0.13f, 5, 
+							Color.white.cpy().lerp(Color.valueOf("#b8d5e0ff"), 0.7f).a(0.5f), 2,
 							0.5f, 0.8f, 0.3f),
 					new HexSkyMesh(this, 0, 0.8f, 0.16f, 5,
-							Color.white.cpy().lerp(Color.valueOf("#72a0adff"), 0.55f).a(0.75f), 2, 0.55f, 0.85f,
-							0.35f));
+							Color.white.cpy().lerp(Color.valueOf("#89bfcdff"), 0.55f).a(0.5f), 2, 
+							0.55f, 0.85f, 0.35f));
 
 			startSector = 111;
 

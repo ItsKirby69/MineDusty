@@ -20,6 +20,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 	divine5 = Color.valueOf("#ffcfe0"),
 	valley1 = Color.valueOf("#60b243"), valley2 = Color.valueOf("#478e2d"),
 	peaks1 = Color.valueOf("#1c873f"), peaks2 = Color.valueOf("#6db58d"),
+	dacite1 = Color.valueOf("#a2a3b7ff"), dacite2 = Color.valueOf("#737487ff"),
 	
 	Iced1 = Color.valueOf("#afe0cb"), Iced2 = Color.valueOf("#ceebe5"),
 	
@@ -100,7 +101,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 	//  PlanetDialog.debugSelect = true
 	//this is really really really really really really really really really jank (i think)
 	@Override
-	/*public void getColor(Vec3 position, Color out) {
+	public void getColor(Vec3 position, Color out) {
 		position = rotateY(position, rotation);
 		Vec3 pos = new Vec3(position).scl(4.5f);
 		
@@ -109,19 +110,20 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 		float mountains = Ridged.noise3d(baseSeed, pos.x, pos.y, pos.z, 5, 0.3f);
 		float IceTex = Ridged.noise3d(baseSeed+2, pos.x, pos.y, pos.z, 5, 0.65f);
 		float IceWaterTex = Ridged.noise3d(baseSeed+2, pos.x, pos.y, pos.z, 4, 0.6f);
-		
+		/** 0 at poles and 1 at equator */
 		float pole = 1f - Math.abs(position.y);
-		float basalts = Ridged.noise3d(baseSeed-1, pos.x, pos.y, pos.z, 4, 0.25f);
+		float basalts = Ridged.noise3d(baseSeed-2, pos.x, pos.y, pos.z, 3, 0.25f);
+		float dacites = Simplex.noise3d(baseSeed-3, 5, 0.2, 1.2f, position.x, position.y, position.z);
 		
 		float desertBiome = Simplex.noise3d(baseSeed+3, 4, 0.7f, 0.76f, position.x*0.5f, position.y*0.5f, position.z*0.5f);
 
-		float divineMask = Simplex.noise3d(baseSeed-4, 2, 0.2, 0.13, pos.x, pos.y, pos.z);
-		float divineBiome = Simplex.noise3d(baseSeed-4, 5, 0.4f, 0.55f, position.x, position.y, position.z);
+		float divineMask = Simplex.noise3d(baseSeed+17, 2, 0.2, 0.2f, pos.x, pos.y, pos.z);
+		float divineBiome = Simplex.noise3d(baseSeed+14, 5, 0.4f, 0.55f, position.x, position.y, position.z);
 		float divineVoronoi = Simplex.voronoi3d(baseSeed-1, 3, 0, 1.1, pos.x, pos.y, pos.z);
 		
 		// For deserts
-		if ((desertBiome * depth )> 0.32 && height < 0.42f && height > waterLevel + 0.1f && Math.abs(position.y) < 0.37){
-			if (getSlope(position, 0.065f) > 0.074f){
+		if ((desertBiome * depth )> 0.32 && height < 0.56f && height > waterLevel + 0.1f && Math.abs(position.y) < 0.37){
+			if (getSlope(position, 0.065f) > 0.072f){
 				out.set(desert1).lerp(desert2, Mathf.clamp(Mathf.round(desertBiome, 0.22f))).a(0.8f);
 				return;
 			}
@@ -129,8 +131,8 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 			return;
 		}
 
-		// For the Divine Faction
-		if (divineBiome * (pole * 0.4f) * divineMask > 0.1){
+		// For the Divine Factions
+		if (divineBiome * (pole * 0.5f) + divineMask * 1.8f > 1.35f){
 			if (height > waterLevel){
 				// Beaches
 				if (height < waterLevel + 0.08f){
@@ -161,7 +163,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 			if(Math.abs(position.y) + height > 1.2f){
 				out.set(poleColor1).lerp(poleColor2, Mathf.clamp(Mathf.round(height, 0.25f))).a(0.6f);
 				return;
-			} else if (Math.abs(position.y) > 0.77 && mountains * Math.abs(position.y) > 0.51f){		
+			} else if (Math.abs(position.y) > 0.70 && mountains * Math.abs(position.y) > 0.63f){		
 				out.set(stones1).lerp(stones2, Mathf.clamp(Mathf.round(mountains, 0.35f))).a(1.2f);
 				return;
 
@@ -179,7 +181,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 			
 			/// Beaches
 			} else if (height < waterLevel + 0.1f){
-				if (basalts + (Math.abs(position.y) * 0.4f) > 0.28){
+				if (basalts + (Math.abs(position.y) * 0.4f) > 0.32){
 					out.set(basalts1).write(out).lerp(basalts2, Mathf.clamp(Mathf.round(depth, 0.15f))).a(1.2f);
 					return;
 				}
@@ -198,6 +200,9 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 					out.set(Iced1).lerp(Iced2, Mathf.clamp(Mathf.round(depth, 0.15f)));
 					return;
 				}
+			}else if (dacites * (pole * 0.6f) * 1.8f> 0.52f){
+				out.set(dacite1).lerp(dacite2, Mathf.clamp(Mathf.round(dacites, 0.35f))).a(1.2f);
+				return;
 			}
 			out.set(valley1).lerp(valley2, Mathf.clamp(Mathf.round(depth, 0.15f))).a(0.5f);
 			return;
@@ -210,8 +215,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 		out.set(oceanColor1).lerp(oceanColor2, Mathf.clamp(Mathf.round(Mathf.clamp(Math.abs(height)) * 6.5f, 0.25f))).a(0.1f);	
 		return;
 	}
-*/
-	public Color getColor(Vec3 position) {
+	/*public Color getColor(Vec3 position) {
 		position = rotateY(position, rotation);
 		Vec3 pos = new Vec3(position).scl(4.5f);
 		
@@ -303,7 +307,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 			return poleOcean1.write(out).lerp(poleOcean2, Mathf.clamp(Mathf.round(IceWaterTex, 0.35f))).a(0.1f);	
 		}
 		return oceanColor1.write(out).lerp(oceanColor2, Mathf.clamp(Mathf.round(Mathf.clamp(Math.abs(height)) * 6.5f, 0.25f))).a(0.1f);	
-	}
+	}*/
 
 	float waterOffset = -0.16f;
 	float waterLevel = 0f;
