@@ -1,15 +1,12 @@
 package minedusty.content;
 
 import arc.Core;
-import arc.graphics.Blending;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Vec2;
-import arc.util.Log;
 import mindustry.entities.*;
 import mindustry.graphics.*;
-import minedusty.graphics.DustCacheLayers;
 import minedusty.graphics.DustPalette;
 
 import static arc.Core.atlas;

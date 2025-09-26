@@ -21,7 +21,7 @@ public class DustEnv {
 	
 	// Tiles
 	public static Block pattedGrass, taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
-	public static Block carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
+	public static Block dacitePlates, carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
 	public static Block shoreSmooth, shoreRock, duneSand; //Kinda bad ones
 	public static Block prismate, prismite, silkSand, saltLumps, clayFloor;
 
@@ -152,6 +152,8 @@ public class DustEnv {
 			attributes.set(Attribute.water, -1f);
 			wall = Blocks.carbonWall;
 		}};
+
+		dacitePlates = new Floor("dacite-plates", 4){{}};
 
 		magmaBasalt = new Floor("magma-basalt", 3){{
             attributes.set(Attribute.heat, 0.75f);

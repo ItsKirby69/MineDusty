@@ -43,6 +43,9 @@ public class DustSettings {
                     }
                 }).size(50f).tooltip("@setting.dusty-github").right().bottom();    
             })));
+
+            // t.pref(new Title("@setting.dusty-debug-title"));
+            // t.sliderPref("@setting.dusty-debug-planet1", 0, -50, 50, 1, s -> s + " id");
             
         });
     }
