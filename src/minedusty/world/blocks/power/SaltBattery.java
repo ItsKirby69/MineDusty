@@ -1,7 +1,6 @@
 package minedusty.world.blocks.power;
 
-import static minedusty.content.DustItems.salt;
-import static minedusty.content.DustLiquids.saltWater;
+import static minedusty.content.DustItems.*;
 import static mindustry.Vars.*;
 
 import arc.Events;
@@ -20,9 +19,7 @@ import minedusty.content.DustLiquids;
 
 public class SaltBattery extends Battery {
     public Color coolColor = new Color(1, 1, 1, 0f);
-    public Color hotColor = Color.valueOf("ff9575a3");
-    public Color bufferColor = Color.valueOf("0a0a0a");
-    public Color requiredColor = Color.valueOf("#74371e");
+    public Color hotColor = Color.valueOf("#ff9575a3");
 
     public float liquidConsume = 0.5f/60f;
     public float saltProduction = 0.2f/60f;
