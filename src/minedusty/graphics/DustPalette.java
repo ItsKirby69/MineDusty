@@ -13,6 +13,7 @@ public class DustPalette {
 	dustquartz = Color.valueOf("#a39ea2"),
 
 	chlorophyte = Color.valueOf("#89ca1e"),
+	chlorophyteBack = Color.valueOf("#4b7a09ff"),
 	aquamerium = Color.valueOf("#a4ecfd"),
 	aquameriumBack = Color.valueOf("#2e91bfff"),
 

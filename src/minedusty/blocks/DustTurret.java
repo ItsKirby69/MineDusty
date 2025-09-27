@@ -5,9 +5,13 @@ import static minedusty.content.DustItems.*;
 import arc.graphics.Color;
 import arc.math.Interp;
 import mindustry.content.*;
+import mindustry.entities.Effect;
 import mindustry.entities.bullet.*;
+import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Pal;
+import mindustry.entities.part.DrawPart.PartProgress;
 import mindustry.entities.part.RegionPart;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
@@ -19,7 +23,7 @@ public class DustTurret {
     // 1x1 turrets
     public static Block sandSpitter, sleet;
     // 2x2 turrets
-    public static Block hyaline;
+    public static Block pellucid;
 
     public static void loadContent() {
         sandSpitter = new ItemTurret("sandspitter"){{
@@ -62,6 +66,7 @@ public class DustTurret {
             inaccuracy = 12f;
             rotateSpeed = 6f;
             targetAir = false;
+            itemCapacity = 6;
             // Needs a sandy pew sound
             // shootSound = DustSounds.chromaPew1;
 
@@ -137,12 +142,50 @@ public class DustTurret {
             shootCone = 12f;
             inaccuracy = 2f;
             shootSound = Sounds.bang;
+            itemCapacity = 6;
 
             limitRange(0);
         }};
 
-        // hyaline = new ItemTurret("hyaline"){{
+        pellucid = new ItemTurret("pellucid"){{
 
-        // }};
+            Effect sfe = new MultiEffect(Fx.shootSmallColor, Fx.colorSpark);
+
+            ammo(DustItems.chlorophyte, new BasicBulletType(4.5f, 30){{
+                lifetime = 50f;
+                width = 7f;
+                height = 10f;
+                shootEffect = sfe;
+                hitEffect = despawnEffect = Fx.hitBulletColor;
+                pierce = true;
+                pierceCap = 3;
+                pierceBuilding = false;
+                hitColor = backColor = trailColor = DustPalette.chlorophyteBack;
+                frontColor = Color.white;
+                trailWidth = 1.8f;
+                trailLength = 5;
+                ammoMultiplier = 3f;
+                // splashDamage = 20f;
+                // splashDamageRadius = 16f;
+            }});
+
+            reload = 45f;
+            range = 210f;
+            recoil = 1f;
+            size = 2;
+            shootY = -0.5f;
+            targetAir = false;
+            ammoPerShot = 2;
+
+            rotateSpeed = 2f;
+            inaccuracy = 0.5f;
+            shootCone = 15f;
+
+            scaledHealth = 170;
+            // TODO more lasery shoot sfx
+            shootSound = Sounds.shootSnap;
+
+            limitRange(2);
+        }};
     }
 }
