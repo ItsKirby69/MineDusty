@@ -1,12 +1,14 @@
 package minedusty.content;
 
 import arc.Core;
+import arc.graphics.Blending;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Vec2;
 import mindustry.entities.*;
 import mindustry.graphics.*;
+import mindustry.world.Block;
 import minedusty.graphics.DustPalette;
 
 import static arc.Core.atlas;
@@ -26,6 +28,17 @@ public class DustyEffects {
 
 	none = new Effect(0f, 0f, e -> {}),
 	
+    healWallhealing = new Effect(25, e -> {
+        if(!(e.data instanceof Block block)) return;
+
+		blend(Blending.additive);
+        color(Color.white, 0.2f);
+        alpha(e.fout());
+        Draw.rect(block.fullIcon, e.x, e.y);
+		blend();
+		reset();
+    }),
+
 	sandExplosion = new Effect(20, e -> {
         color(DustPalette.sandColor);
 

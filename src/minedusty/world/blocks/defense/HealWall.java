@@ -1,11 +1,13 @@
 package minedusty.world.blocks.defense;
 
+import arc.graphics.Color;
 import arc.scene.ui.layout.Table;
 import arc.util.Time;
 import arc.util.Tmp;
 import mindustry.content.Fx;
 import mindustry.graphics.Pal;
 import mindustry.world.blocks.defense.Wall;
+import minedusty.content.DustyEffects;
 
 /** Wall that heals in pulses after a delay when damaged. */
 public class HealWall extends Wall{
@@ -40,7 +42,7 @@ public class HealWall extends Wall{
                         heal(maxHealth * healPercent);
                         healtimer = 0f;
 
-                        Fx.healBlockFull.at(x, y, block.size, Tmp.c1.set(Pal.heal));
+                        DustyEffects.healWallhealing.at(x, y, block.size, Color.valueOf("#84f491"), block);
                     }
                 }
             } else {
@@ -62,14 +64,18 @@ public class HealWall extends Wall{
         @Override
         public void display(Table table) {
             super.display(table);
-            if (health < maxHealth) {
+
+            if(health < maxHealth){
                 table.row();
-                // Show time until healing starts or healing status
-                if (damageTimer < healDelay) {
-                    table.add("[lightgray]Healing in: " + String.format("%.1f", (healDelay - damageTimer) / 60f) + "s");
-                } else {
-                    table.add("[green]Healing: +" + healPercent + "/s");
-                }
+                table.table(t -> {
+                    t.label(() -> {
+                        if(damageTimer < healDelay){
+                            return "[lightgray]Healing in: " + String.format("%.1f", (healDelay - damageTimer) / 60f) + "s";
+                        }else{
+                            return "[green]Healing: +" + healPercent + "/s";
+                        }
+                    }).left().growX();
+                }).growX();
             }
         }
     }
