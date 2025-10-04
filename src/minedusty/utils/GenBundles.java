@@ -19,12 +19,16 @@ public class GenBundles {
     public static final String MODNAME = "minedusty";
     private static Properties existingBundles;
 
+    // Generates the bundle
     public static void generate(){
+        // Output directory (filename included)
         Fi outFile = new Fi("assets/bundles/generated_bundles.properties");
+        // The existing bundle to copy already existing properties
         Fi existingFile = new Fi("assets/bundles/bundle.properties");
 
         loadBundle(existingFile);
         
+        // Which classes to make bundles for
         try(PrintWriter out = new PrintWriter(outFile.write(false))) {
             writeCategory(out, "units", DustUnitTypes.class, "unit");
             writeCategory(out, "items", DustItems.class, "item", true);
@@ -40,7 +44,7 @@ public class GenBundles {
             writeCategory(out, "power", DustPower.class, true);
             writeCategory(out, "defence", DustDefence.class, true);
 
-            writeCategory(out, " Sectors", DustSectors.class, true);
+            writeCategory(out, " Sectors", DustSectors.class, "sector", true);
 
             Log.info(outFile.path() + " generated successfully.");
         } catch(Exception e){
@@ -72,6 +76,15 @@ public class GenBundles {
         writeCategory(out, header, clazz, suffix, false);
     }
 
+    /**  Actual writing of the bundle keys.
+     * 
+     * Suffix: is the type of key. For example, blocks like walls etc would be "block".
+     * For a block internally named 'rocky-wall' -> block.modid-rocky-wall = 
+     * 
+     * Items = "item", Block = "block", Units = "unit", Sectors = "sector"
+     * 
+     * Description: to generate a description field for the class. Items and Sectors usually have this enabled
+     * */
     private static void writeCategory(PrintWriter out, String header, Class<?> clazz, String suffix, boolean description) {
         out.println("# " + header);
         for(Field f : clazz.getDeclaredFields()){
@@ -107,14 +120,13 @@ public class GenBundles {
     }
 
     private static String getObjectName(Object obj) {
-        // Simple name extraction that works for most Mindustry types
+        // Simple name extraction that works for most Mindustry types. Beware for set values that aren't actually valid objects. Like Seq or whatnot.
+        // This should automatically get the object's whole internal name, including modid
         try {
-            // Try to get the 'name' field
             Field nameField = obj.getClass().getField("name");
             Object nameValue = nameField.get(obj);
             if(nameValue instanceof String) return (String)nameValue;
         } catch(Exception e) {
-            // If that fails, try toString and clean it up
             String toString = obj.toString();
             if(toString.contains(".")){
                 return toString.substring(toString.lastIndexOf('.') + 1);
