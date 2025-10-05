@@ -495,7 +495,8 @@ public class DustEnv {
             lightColor = Color.cyan.cpy().a(0.3f);
 		}};
 
-		oreOxidecopper = new OreBlock("ore-oxidecopper", DustItems.oxidecopper){{
+		oreOxidecopper = new NoiseOreBlock("ore-oxidecopper", DustItems.oxidecopper){{
+			variants = 3;
 			oreDefault = true;
 		}};
 
