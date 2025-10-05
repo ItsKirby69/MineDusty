@@ -19,3 +19,4 @@ build/
 # ignore temp/backup files
 *.png~
 *.log
+/assets/bundles/generated_bundles.properties

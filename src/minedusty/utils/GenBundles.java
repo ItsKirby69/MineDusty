@@ -2,12 +2,9 @@ package minedusty.utils;
 
 import arc.files.Fi;
 import arc.util.Log;
-import mindustry.world.Block;
 import minedusty.blocks.*;
-import minedusty.content.DustItems;
-import minedusty.content.DustLiquids;
-import minedusty.content.DustSectors;
-import minedusty.content.DustUnitTypes;
+import minedusty.content.*;
+import minedusty.planets.DustPlanets;
 
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
@@ -30,6 +27,8 @@ public class GenBundles {
         
         // Which classes to make bundles for
         try(PrintWriter out = new PrintWriter(outFile.write(false))) {
+            writeCategory(out, "planets", DustPlanets.class, "planet", true);
+            writeCategory(out, "weathers", DustWeathers.class, "weather");
             writeCategory(out, "units", DustUnitTypes.class, "unit");
             writeCategory(out, "items", DustItems.class, "item", true);
             writeCategory(out, "fluids", DustLiquids.class, "liquid", true);
