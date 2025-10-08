@@ -140,39 +140,46 @@ public class DustyEffects {
 		});		
 	}).layer(Layer.legUnit + 3.77f),
 
-	flowWater = new Effect(40f, 250f, e -> {
-		float fade = Mathf.clamp(Mathf.slope(e.fin() * 1.3f), 0.3f, 1f); 
-		color(Color.valueOf("#8598EC"), Color.valueOf("#CAD2F6"), fade);
+	// TODO, make it start from further, make ending slow down more significantly and grow rapidly at the end
+	flowWater = new Effect(85f, 250f, e -> {
+		float thresh = 0.6f;
+		float fade = e.fin() < thresh ?
+			Interp.pow3Out.apply(e.fin() / thresh) :
+			1f - Interp.pow3In.apply((e.fin() - thresh) / (1f - thresh));
+		
+		fade *= 0.5f;
 
-		float width = 2.0f * (1.2f - e.fin() * e.fin()); 
-		stroke(Mathf.clamp(width, 0.4f, 2f));
+		color(Color.valueOf("#4f5fb8"), Color.valueOf("#fbfcffff"), e.finpow());
 
 		rand.setSeed(e.id);
 		float baseAngle = e.rotation;
-		float angle = baseAngle + rand.random(-1.5f, 1.5f);
-		float offsetX = rand.random(-3.2f, 3.2f);
-		float offsetY = rand.random(-3.5f, 1.5f);
+		float angle = baseAngle + rand.random(-2f, 2f);
+		// Keep in mind that the default position of the effect is pointing East
+		float offsetX = rand.random(-15f, -14f);
+		float offsetY = rand.random(-6f, 6f);
+		// Offsets according to direction.
+		float ox = Angles.trnsx(angle, offsetX, offsetY);
+		float oy = Angles.trnsy(angle, offsetX, offsetY);
+
 		float speed = rand.random(0.15f);
-		float travel = e.fslope() * 10f * speed;
+		float travel = 10f * speed;
 
-		float rise = 12f * e.fin(); 
-		float shrink = Mathf.lerp(1f, 0.3f, e.fin());
+		float rise = 36f * e.fin() * Mathf.clamp(1.75f - e.finpow(), 0f, 1f);
+		float shrink = Mathf.lerp(1f, 0.5f, e.fin());
 
-		float cx = e.x + offsetX + Angles.trnsx(angle, travel);
-		float cy = e.y + offsetY + Angles.trnsy(angle, travel);
+		float cx = e.x + ox + Angles.trnsx(angle, travel);
+		float cy = e.y + oy + Angles.trnsy(angle, travel);
 		cy += Angles.trnsy(baseAngle, rise);
 		cx += Angles.trnsx(baseAngle, rise);
 
-		float baseLen = 6.5f + rand.random(1.5f);
-		float length = Mathf.sin(e.fin() * Mathf.PI) * baseLen * 2.0f * shrink;
-
-		float half = length / 2f;
-		float sx = cx - Angles.trnsx(angle, half);
-		float sy = cy - Angles.trnsy(angle, half);
+		float baseSize = 4.5f + rand.random(3f);
+		float wid = baseSize * (2f + shrink);
+		float len = baseSize * (1f * 0.7f) * shrink * Mathf.clamp(e.finpow() * 7f - 4f, 1f, 7f); //Mathf.sin(e.fin() * Mathf.PI)
 
 		alpha(fade);
-		lineAngle(sx, sy, angle, length);
-	}).layer(28f).rotWithParent(true).followParent(true),
+		Draw.rect(Core.atlas.find("minedusty-circooler"), cx, cy, wid, len, angle);
+		// lineAngle(sx, sy, angle, length);
+	}).layer(35f).rotWithParent(true).followParent(true),
 
 	// reduce color brightening
 	mistCloud = new Effect(50f, e -> {

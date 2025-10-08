@@ -5,8 +5,10 @@ import static arc.Core.settings;
 import arc.audio.Sound;
 import arc.math.Mathf;
 import arc.util.*;
+import mindustry.Vars;
 import mindustry.editor.EditorTile;
 import mindustry.entities.Effect;
+import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.world.*;
 import minedusty.content.DustyEffects;
@@ -15,7 +17,7 @@ import minedusty.content.DustyEffects;
 public class FlowWaterTile extends Block {
     public Effect effect = DustyEffects.flowWater;
     public Sound soundEffect = Sounds.none;
-    public float effectSpacing = 8f;
+    public float effectSpacing = 6f;
     public float chance = 1.0f; // unused
 
     public FlowWaterTile(String name) {
@@ -31,8 +33,12 @@ public class FlowWaterTile extends Block {
         useColor = false;
         placeableLiquid = true;
         breakable = false;
-        replaceable = false;
         destructible = false;
+        alwaysReplace = false;
+
+		drawTeamOverlay = false;
+		forceTeam = Team.derelict;
+		allowDerelictRepair = false; 
 
         buildType = () -> new FlowWaterTileBuild();
     }
@@ -44,22 +50,21 @@ public class FlowWaterTile extends Block {
         }
     }
 
+	@Override
+	public boolean canBreak(Tile tile){
+		return Vars.state.rules.infiniteResources || Vars.state.rules.editor;
+	}
+
     // I will burn this planet // I can't believe I spent like 4 hours straight trying to figure out why
     // the damn effect isn't spawning now realizing that updateTile() doesn't update in the in-game editor.
     public class FlowWaterTileBuild extends Building {
         public float effectTimer;
-
-        // @Override
-        // public void created() {
-        //     super.created();
-        // }
         
         public void updateTile(){
             super.updateTile();
             effectTimer += Time.delta;
 
             if (effectTimer >= effectSpacing){
-                // if(Mathf.random() < chance){
                 effect.at(tile.worldx(), tile.worldy(), rotdeg());
                 soundEffect.at(tile.worldx(), tile.worldy(),
                     Mathf.random(0.8f, 1.2f), 
