@@ -15,6 +15,8 @@ public class BuoyMassDriver extends MassDriver{
     // For moving turret barrel a bit forward
     float barrelY = 2f;
     float barrelX = 0f;
+    
+    float shadowOffset = -2f;
 
     public BuoyMassDriver(String name){
         super(name);
@@ -50,14 +52,13 @@ public class BuoyMassDriver extends MassDriver{
             float offY = Angles.trnsy(rotation, barrelY) + Angles.trnsy(rotation + 90f, barrelX);
 
             Drawf.shadow(region,
-            x + offsetX + swayX + recoilX - (size / 2),
-            y + offsetY + swayY + recoilY - (size / 2), rotation - 90);
-            
+            x + offsetX - swayX + recoilX + offX - (size / 2),
+            y + offsetY - swayY + recoilY + offY - (size / 2), rotation - 90);
+
             // Making it 3d
             float drawX = DrawPseudo3D.xHeight(x, 0.001f);
             float drawY = DrawPseudo3D.yHeight(y, 0.001f);
 
-            // TODO maybe make the turret region itself wobble. Or show counter wobbling effects.
             Draw.rect(region,
             drawX + offsetX + recoilX + offX - (swayX * 0.34f),
             drawY + offsetY + recoilY + offY - (swayY * 0.34f), rotation - 90);
