@@ -87,9 +87,7 @@ public class DustEnv {
 
 
 		saltLumps = new Floor("salt-lumps", 1){{
-			//itemDrop = DustItems.salt;
 			attributes.set(DustAttributes.salt, 0.15f);
-			//playerUnmineable = true;
 		}};
 
 		clayFloor = new Floor("clay-floor", 3){{}};
@@ -433,12 +431,28 @@ public class DustEnv {
 		//end region
 
 		//region Walls
+		amethystCrystals = new TallBlock("amethyst-crystals"){{
+			variants = 2;
+			clipSize = 140f;
+			itemDrop = DustItems.amethyst;
+			attributes.set(DustAttributes.crystal, 1f);
+		}};
+
 		hardenedClayWall = new StaticWall("hardened-clay-wall"){{
 			variants = 3;
 		}};
 
+		amethystClusteredClayWall = new StaticWall("amethyst-clustered-clay-wall"){{
+			variants = 2;
+			itemDrop = DustItems.amethyst;
+			attributes.set(DustAttributes.crystal, 0.8f);
+		}};
+
+		prismiteBlock = new StaticWall("prismite-block"){{
+			variants = 1;
+		}};
+
 		mossStoneWall = new StaticWall("moss-stone-wall"){{
-			
 		}};
 
 		grassyWall = new TreeBlock("grassy-wall"){{
