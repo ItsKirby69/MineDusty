@@ -10,6 +10,7 @@ public class DustSectorPreset extends SectorPreset{
         super(name, planet, sector);
     }
 
+    // Note to self: The campaign does not update when adding sector icons. Resetting campaign and tree seems to make them appear
     @Override
     public void loadIcon(){
         if(Icon.terrain != null){

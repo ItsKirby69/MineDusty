@@ -5,7 +5,7 @@ import minedusty.type.DustSectorPreset;
 import static minedusty.planets.DustPlanets.theia;
 
 public class DustSectors {
-	public static DustSectorPreset verdantSpills, basalticShore;
+	public static DustSectorPreset verdantSpills, basalticShore, lushCorridors;
 
     public  static void load(){
 
@@ -19,14 +19,18 @@ public class DustSectors {
             startWaveTimeMultiplier = 1.5f;
         }};
 
-        // TODO finish basaltic shore with waves
         basalticShore = new DustSectorPreset("basalticShore", theia, 50){{
-            alwaysUnlocked = true;
             addStartingItems = true;
             captureWave = 15;
             difficulty = 3;
+            overrideLaunchDefaults = true;
+            startWaveTimeMultiplier = 1.5f;
+        }};
 
-            // showSectorLandInfo = false;
+        lushCorridors = new DustSectorPreset("lushCorridors", theia, 110){{
+            addStartingItems = true;
+            captureWave = 15;
+            difficulty = 5;
             overrideLaunchDefaults = true;
             startWaveTimeMultiplier = 1.5f;
         }};
