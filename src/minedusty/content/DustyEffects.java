@@ -224,6 +224,39 @@ public class DustyEffects {
 		}
 	}).layer(Layer.debris),
 
+	treeBreakLarge = new Effect(180f, e -> {
+		rand.setSeed(e.id);
+
+		float cutThresh = 0.8f;
+		float fade = e.fin() <= cutThresh ? 1f : 1f - Mathf.clamp((e.fin() - cutThresh) / (1f - cutThresh));
+		int randCount = Mathf.randomSeed(e.id, 100, 120);
+
+		for (int i = 0; i < randCount; i++) {
+			
+			float rot = e.rotation + rand.range(180f);
+			int randRegion = rand.random(1, 5);
+			if (randRegion != 1) { //if leaves
+				Color base = e.color.cpy();
+				float darkFactor = rand.random(0.5f, 1f);
+				base.r *= darkFactor;
+				base.g *= darkFactor;
+				base.b *= darkFactor;
+				color(base, base.a(fade), e.fin());
+			} else {
+				color(Color.valueOf("ffffff"), Color.valueOf("ffffff").a(fade), e.fin());
+			}
+			TextureRegion region = Core.atlas.find("minedusty-tree-prop" + randRegion);
+
+			v.trns(rot, rand.random(0f, 12f) * e.finpow());
+			float fout = Math.max(e.fout(), 0.5f);
+			float size = fout * (region.width/2.6f) + 0.8f;
+			float rotFactor = rot + rand.random(-180f, 180f) * Interp.pow2Out.apply(Mathf.clamp(e.fin() / 0.8f));
+
+			float spawnRadius = rand.random(0f, 39f);
+			Draw.rect(region, e.x + Mathf.cosDeg(rot) * spawnRadius + v.x * 4f, e.y + Mathf.sinDeg(rot) * spawnRadius + v.y * 4f, size, size, rotFactor);
+		}
+	}).layer(Layer.blockOver),
+
 	treeBreakWhite = new Effect(120f, e -> {
 		rand.setSeed(e.id);
 
@@ -251,7 +284,7 @@ public class DustyEffects {
 
 			v.trns(rot, rand.random(0f, 12f) * e.finpow());
 			float fout = Math.max(e.fout(), 0.5f);
-			float size = fout * 20f + 0.8f;
+			float size = fout * (region.width/3.2f) + 0.8f;
 			float rotFactor = rot + rand.random(-180f, 180f) * Interp.pow2Out.apply(Mathf.clamp(e.fin() / 0.8f));
 
 			float spawnRadius = rand.random(0f, 23f);
@@ -265,7 +298,7 @@ public class DustyEffects {
 		alpha(e.fslope() * 3f);
 
 		float drift = -20f * e.fin() * 4f;
-		randLenVectors(e.id, 3, 30f + e.finpow() * 40f, (x, y) -> {
+		randLenVectors(e.id, 1, 30f + e.finpow() * 40f, (x, y) -> {
 			Draw.rect(atlas.find("minedusty-tree-prop3"), e.x + x + drift, e.y + y + drift, 16f, 16f, e.fin() * 360f);
 		});
 	}).layer(Layer.darkness + 1),
