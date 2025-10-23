@@ -2,12 +2,13 @@ pluginManagement{
     repositories{
         gradlePluginPortal()
         maven("https://jitpack.io")
+        maven("https://raw.githubusercontent.com/GglLfr/EntityAnnoMaven/main")
         //maven("https://raw.githubusercontent.com/ItsKirby69/EntityAnnoMaven/main")
     }
 
     plugins{
         val entVersion: String by settings
-        id("com.github.ItsKirby69.EntityAnno") version(entVersion)
+        id("com.github.GglLfr.EntityAnno") version(entVersion)
     }
 }
 
