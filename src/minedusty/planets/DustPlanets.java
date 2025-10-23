@@ -1,6 +1,7 @@
 package minedusty.planets;
 
 import arc.graphics.Color;
+import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.Planet;
@@ -16,8 +17,8 @@ public class DustPlanets {
 		nautilune;
 
 	public static void load() {
-		// my dudes look how clean this is compared to "gaia"
 		theia = new Planet("theia", Planets.sun, 1f, 3) {{
+			icon = "minedusty-theia"; // why not working
 			generator = new TheiaPlanetGenerator();
 			meshLoader = () -> new MultiMesh(
 					// new AtmosphereHexMesh(this, 6),
@@ -57,13 +58,17 @@ public class DustPlanets {
 				// Make it less punishing to get items back from buildings.
 				r.deconstructRefundMultiplier = 0.8f;
 
-				r.weather.add(
-					new Weather.WeatherEntry() {{
-						weather = Weathers.fog;
-					}},
-					new Weather.WeatherEntry() {{
-						weather = DustWeathers.heavyRain;
-				}});
+				// r.weather.add(
+				// 	new Weather.WeatherEntry() {{
+				// 		weather = Weathers.fog;
+				// 	}},
+				// 	new Weather.WeatherEntry() {{
+				// 		weather = DustWeathers.heavyRain;
+				// 	}},
+				// 	new Weather.WeatherEntry() {{
+				// 		weather = DustWeathers.heavyRain;
+				// 	}}
+				// );
 			};
 		}};
 

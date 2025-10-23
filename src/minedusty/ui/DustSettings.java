@@ -24,6 +24,7 @@ public class DustSettings {
             t.checkPref("@setting.dusty-fade-enabled", true);
             t.checkPref("@setting.dusty-toggle-mouse-fade", false);
             t.sliderPref("@setting.dusty-fade-opacity", 0, 0, 100, 5, s -> s + "%");
+            t.sliderPref("@setting.dusty-falling-density", 6, 1, 15, 1, s -> s + "");
 
             t.pref(new Title("@setting.dusty-misc-title"));
 
@@ -34,6 +35,15 @@ public class DustSettings {
                 c.button("@setting.dusty-cleartree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
                     Vars.ui.showConfirm("@setting.dusty-cleartree-confirm", () -> DustData.resetTree(DustPlanets.theia.techTree)
                 )).width(230f);
+
+                c.button("@setting.dusty-clearcampaign", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
+                    Vars.ui.showConfirm("@setting.dusty-clearcampaign-confirm", () -> DustData.resetCampaign(DustPlanets.theia)
+                )).width(230f);
+
+                /*
+                c.button("@setting.dusty-unlocktree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
+                    DustData.unlockTree(DustPlanets.theia.techTree)).width(230f);
+                */
 
                 c.button(Icon.github, new ImageButton.ImageButtonStyle(), () ->{
                     String url = "https://github.com/ItsKirby69/MineDusty";
