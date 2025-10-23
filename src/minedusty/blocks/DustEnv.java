@@ -469,7 +469,7 @@ public class DustEnv {
 		//end region
 
 		//region Ores & Resources
-        oreChlorophyte = new OreBlock("ore-chlorophyte", DustItems.chlorophyte){{
+        oreChlorophyte = new TieredOreBlock("ore-chlorophyte", DustItems.chlorophyte){{
             oreDefault = false;
 			variants = 3;
 
@@ -478,7 +478,7 @@ public class DustEnv {
             lightColor = Color.acid.cpy().a(0.3f);
         }};
 
-        oreChlorophyteChunk = new OreBlock("ore-chlorophyte-chunk", DustItems.chlorophyte){{
+        oreChlorophyteChunk = new TieredOreBlock("ore-chlorophyte-chunk", DustItems.chlorophyte){{
 			variants = 3;
 
 			emitLight = true;
@@ -486,7 +486,7 @@ public class DustEnv {
             lightColor = Color.acid.cpy().a(0.3f);
         }};
 
-		wallChlorophyte = new OreBlock("wall-chlorophyte", DustItems.chlorophyte){{
+		wallChlorophyte = new TieredOreBlock("wall-chlorophyte", DustItems.chlorophyte){{
 			wallOre = true;
 			variants = 3;
 
@@ -495,7 +495,7 @@ public class DustEnv {
 			lightColor = Color.valueOf("a7db32").cpy().a(0.6f);
 		}};
 
-		oreAquamerium = new OreBlock("ore-aquamerium", DustItems.aquamerium){{
+		oreAquamerium = new TieredOreBlock("ore-aquamerium", DustItems.aquamerium){{
 			variants = 5;
 
 			emitLight = true;
@@ -508,10 +508,10 @@ public class DustEnv {
 			oreDefault = true;
 		}};
 
-		oreGalena = new TieredOreBlock("ore-galena", Items.lead, DustItems.galena, 3){{
+		oreGalena = new TieredOreBlock("ore-galena", Items.lead, DustItems.galena, 4){{
 		}};
 
-		wallOxide = new OreBlock("wall-oxide", Items.oxide){{
+		wallOxide = new TieredOreBlock("wall-oxide", Items.oxide){{
 			wallOre = true;
 			variants = 3;
 
@@ -522,11 +522,22 @@ public class DustEnv {
 		//end region
 
 		//region Misc
+		// These two aren't working out
+		basaltChimney = new ChimneyVent("basalt-chimney"){{
+			parent = Blocks.basalt;
+		}};
+
+		smallbasaltChimney = new ChimneyVent("small-basalt-chimney"){{
+			parent = Blocks.basalt;
+			totalHeight = 0.0045f;
+			pillarCount = 3;
+			size = 2;
+		}};
+
 		fallingLeavesEffect = new TileEffect("falling-leaves"){{
 			addEffect(DustyEffects.fallingLeaves, Color.valueOf("c32121"));
 		}};
 
-		// TODO make this rotatable with the effect working
 		flowingWaterEffect = new FlowWaterTile("flow-water"){{
 			//addEffect(DustyEffects.flowWater, 1.0f, 8f, true);
 		}};

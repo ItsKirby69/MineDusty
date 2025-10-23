@@ -15,7 +15,7 @@ import static arc.Core.*;
 public class OxideWall extends Wall {
 
     public int maxStages = 3;
-    public float stageDur = 3600 * 5f;
+    public float stageDur = 3600 * 2f;
     /** How fast stagetime passes by if rainy weather */
     public float rainAccel = 2f;
 
