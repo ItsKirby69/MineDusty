@@ -3,11 +3,13 @@ package minedusty.content;
 import minedusty.graphics.*;
 import arc.graphics.Color;
 import arc.struct.Seq;
-import mindustry.content.Items;
 import mindustry.type.Item;
 
 public class DustItems {
-	// Annealed Copper?
+	// NOTE TO SELF: It seems that item sprites require to have little to no transparent margins.
+	// The game doesn't automatically resizes the sprites so textures with margins make the item appear
+	// Much smaller than you'd expect.
+	// Annealed Copper? Gangue? 
 	//Ores
 	public static Item galena, oxidecopper, salt, amethyst, bioplastic, electrum, gold, silver, silicadust;
 	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
@@ -15,7 +17,7 @@ public class DustItems {
 	//Other stuff
 	public static Item carbonicWaste;
 
-	public static final Seq<Item> theiaItems = new Seq<>();
+	// public static final Seq<Item> theiaItems = new Seq<>(); // Useless
 	
 	public static void load(){
 
@@ -39,17 +41,21 @@ public class DustItems {
 		}};
 
 		chlorophyte = new Item("item-chlorophyte", DustPalette.chlorophyte){{
+			cost = 0.5f;
+			hardness = 2;
 			//frames = 7;
-			hardness = 6;
 		}};
 
 		aquamerium = new Item("item-aquamerium", DustPalette.aquamerium){{
+			cost = 2f;
 			hardness = 3;
-			cost = 1f;
 		}};
 
 		// products
-		silicadust = new Item("item-silicadust", Color.valueOf("#918e96")){{}};
+		silicadust = new Item("item-silicadust", Color.valueOf("#918e96")){{
+			explosiveness = 0.7f; // lol
+		}};
+
 		gold = new Item("item-gold", Color.valueOf("#ffd641")){{}};
 		silver = new Item("item-silver", Color.valueOf("#bfcadd")){{
 			cost = 1.5f;
@@ -61,7 +67,10 @@ public class DustItems {
 		divinityMatter = new Item("item-divinity-matter", DustPalette.divinityMatter){{
 		}};
 		
-		carbonicWaste = new Item("item-carbonicwaste", DustPalette.carbonicWaste){{}};
+		carbonicWaste = new Item("item-carbonicwaste", DustPalette.carbonicWaste){{
+			flammability = 1.1f;
+			explosiveness = 0.4f;
+		}};
 		
 		//quartz can be made using silicon and a machine. idk what yet.
 		quartz = new Item("ore-quartz", DustPalette.quartz){{
@@ -76,12 +85,5 @@ public class DustItems {
 		//crushed quartz
 		dustquartz = new Item("quartz-dust", DustPalette.dustquartz){{
 		}};
-
-		theiaItems.addAll(
-			chlorophyte, aquamerium, divinityMatter, carbonicWaste,
-			quartz, rosequartz, dustquartz, 
-			Items.scrap, Items.copper, Items.lead, Items.graphite, Items.coal, Items.silicon, Items.sand, Items.metaglass, 
-			Items.oxide //contemplating between adding or not adding carbide for future plans.
-		);
 	}
 }
