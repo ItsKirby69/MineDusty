@@ -14,33 +14,122 @@ import mindustry.world.blocks.production.*;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import minedusty.DustAttributes;
-import minedusty.content.DustItems;
-import minedusty.content.DustLiquids;
+import minedusty.content.*;
+import minedusty.graphics.*;
+import minedusty.world.blocks.production.*;
 
 public class DustCrafters {
 	// Refineries
-	public static Block silicaFurnace;
+	// A sintering machine for high melting point metals?
+	public static Block silicaForge, carbonicPress;
+	public static Block carbonicConcentrator;
 
 	// Extractors/Mixers
 	public static Block salinator;
-
-	// I'VE GOT THE POWER!
-	public static Block solarPanel, largesolarPanel;
-
+	public static Block crystalCrusher;
+	public static Block bioSludgeChamber;
 
 	// Legacy crafters
 	public static Block nitroplastChamber, bioLiquidMixer, bioFuelCombustionChamber, miniCrusher;
 	
 	public static void loadContent() {
 		//region Crafters
-		//silicaFurnace = new 
+		carbonicConcentrator = new GenericCrafter("carbonic-concentrator"){{
+			requirements(Category.crafting, with(oxidecopper, 30, Items.lead, 50));
+			researchCost = with(oxidecopper, 100);
+			craftTime = 175f;
+			size = 2;
+			health = 340;
+			outputItem = new ItemStack(carbonicWaste, 2);
+
+			craftEffect = Fx.none; //DustyEffects.carbonicDust;
+			
+			consumeItem(Items.coal, 4);
+			consumePower(60f/60f);
+
+			// TODO fix the missing texture issue here
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawPistons(){{
+					sinMag = 2f;
+				}},
+				new DrawParticles() {{
+					color = DustPalette.carbon;
+					alpha = 0.3f;
+					particleSize = 2.5f;
+					particles = 14;
+					particleRad = 6f;
+					rotateScl = 3f;
+					particleLife = 60f;
+				}},
+				new DrawDefault()
+			);
+		}};
+
+        carbonicPress = new GenericCrafter("carbonic-press"){{
+            requirements(Category.crafting, with(oxidecopper, 80, Items.lead, 35));
+			researchCost = with(oxidecopper, 220, Items.lead, 150);
+            craftEffect = Fx.pulverizeMedium;
+            outputItem = new ItemStack(Items.graphite, 1);
+            craftTime = 75f;
+            size = 2;
+			health = 260;
+			
+			drawer = new DrawMulti(
+				new DrawDefault(), 
+				new DrawPress("-top"){{
+				}}
+			);
+            consumeItem(carbonicWaste, 1);
+        }};
+
+        silicaForge = new GenericCrafter("silica-forge"){{
+            requirements(Category.crafting, with(oxidecopper, 35, Items.lead, 40));
+			researchCost = with(oxidecopper, 600, Items.lead, 200);
+
+            craftEffect = Fx.smeltsmoke;
+            outputItem = new ItemStack(Items.silicon, 2);
+            craftTime = 60f;
+            size = 2;
+			health = 400;
+            hasPower = true;
+            hasLiquids = false;
+
+            drawer = new DrawMulti(
+				new DrawDefault(), 
+				new DrawFlame(Color.valueOf("#d399ffff")) //ffef99
+			); 
+            
+				ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.07f;
+
+            consumeItems(with(carbonicWaste, 1, silicadust, 3));
+            consumePower(35f/ 60f);
+        }};
+
+        crystalCrusher = new WallCrafter("crystal-crusher"){{
+            requirements(Category.production, with(Items.graphite, 15, Items.lead, 30));
+            researchCost = with(oxidecopper, 350, Items.graphite, 100);
+			consumePower(13 / 60f);
+
+            drillTime = 160f;
+            size = 2;
+			health = 200;
+            attribute = DustAttributes.crystal;
+            output = DustItems.silicadust;
+            fogRadius = 2;
+            ambientSound = Sounds.drill;
+            ambientSoundVolume = 0.04f;
+        }};
 
 		salinator = new AttributeCrafter("salinator"){{
-			requirements(Category.production, with(oxidecopper, 45, Items.lead, 50, aquamerium, 25));
+			requirements(Category.crafting, with(oxidecopper, 45, Items.lead, 25, chlorophyte, 50));
+			researchCost = with(Items.lead, 350, chlorophyte, 550, oxidecopper, 200);
 			outputLiquid = new LiquidStack(saltWater, 12f/60f);
 			craftTime = 100f;
 			baseEfficiency = 0f;
 			size = 2;
+			health = 320;
 			hasItems = true;
 			hasLiquids = true;
 			liquidCapacity = 60f;
@@ -58,6 +147,45 @@ public class DustCrafters {
 			//maxBoost = 2f;
 
 			consumeLiquid(Liquids.water, 12f/60f);
+		}};
+
+		// Maybe nitroplast chamber used in other crafts in the future. 
+		bioSludgeChamber = new SolarAttributeCrafter("biosludge-chamber"){{
+			requirements(Category.crafting, with(Items.silicon, 80, chlorophyte, 60, Items.graphite, 25));
+			researchCost = with(chlorophyte, 500, Items.graphite, 200);
+			size = 3;
+			health = 450;
+			warmupSpeed = 0.01f;
+			craftTime = 425;
+			hasLiquids = true;
+			liquidCapacity = 25;
+			craftEffect = DustyEffects.steam;
+			outputItem = new ItemStack(carbonicWaste, 1);
+
+			minEfficiency = 0.5f;
+			maxBoost = 2f;
+
+			consumeLiquids(LiquidStack.with(Liquids.water, 12f/60f));
+			consumeItem(chlorophyte, 2);
+			outputLiquid = new LiquidStack(DustLiquids.bioLiquid, 12/60f);
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawRegion("-rails"),
+				new DrawLiquidTile(DustLiquids.bioLiquid){{
+					alpha = 0.5f;
+				}},
+				new DrawLiquidTile(Liquids.water){{
+					alpha = 0.5f;
+				}},
+				new DrawBubbles(){{
+					amount = 25;
+					sides = 8;
+					spread = 9;
+					color = Color.valueOf("#417663ff");
+				}},
+				new DrawDefault(),
+				new DrawHeatCrafterEff()
+			);
 		}};
 
 		//endregion
@@ -88,43 +216,6 @@ public class DustCrafters {
 					spread = 8;
 					timeScl = 55f;
 					color = Color.valueOf("07b142");
-				}},
-				new DrawDefault()
-			);
-		}};
-		// Crafts bioFuel using bioLiquid, Oxygen and Nitrogen
-		nitroplastChamber = new HeatCrafter("nitroplast-chamber"){{
-			requirements(Category.crafting, with(Items.titanium, 110, Items.silicon, 50, Items.metaglass, 30));
-			size = 3;
-			warmupSpeed = 0.01f;
-			craftTime = 225;
-			hasLiquids = true;
-			liquidCapacity = 25;
-			craftEffect = Fx.smokeCloud;
-			heatRequirement = 4f;
-			maxEfficiency = 3.0f;
-			consumeLiquids(LiquidStack.with(DustLiquids.bioLiquid, 30/60f, Liquids.nitrogen, 8/60f)); //TODO Oxygen needed
-			outputLiquid = new LiquidStack(DustLiquids.bioFuel, 12/60f);
-			drawer = new DrawMulti(
-				new DrawRegion("-bottom"),
-				new DrawRegion("-rails"),
-				new DrawLiquidTile(Liquids.nitrogen),
-				new DrawLiquidTile(DustLiquids.bioLiquid),
-				new DrawCells(){{
-					recurrence = 3.5f;
-					radius = 2f;
-					lifetime = 200;
-					range = 9.5f;
-					particles = 70;
-					color = Color.valueOf("489e0e");
-					particleColorFrom = Color.valueOf("92c80b");
-					particleColorTo = Color.valueOf("07b142");
-				}},
-				new DrawBubbles(){{
-					amount = 60;
-					sides = 8;
-					spread = 9;
-					color = Color.valueOf("b0ff00");
 				}},
 				new DrawDefault()
 			);
