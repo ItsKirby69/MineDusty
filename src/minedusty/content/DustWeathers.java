@@ -10,9 +10,25 @@ import mindustry.world.meta.*;
 import minedusty.content.weathers.StormWeather;
 
 public class DustWeathers {
-	public static Weather heavyRain, snowStorm, testWeather2;
+	// Heatwave which increases light (solar) among other things
+	public static Weather heavyRain, snowStorm, heatWave;
 
 	public static void load() {
+		// WIP
+		heatWave = new ParticleWeather("heatwave"){{
+            color = noiseColor = Color.valueOf("#faf3a7ff");
+            particleRegion = "particle";
+            statusGround = false;
+            useWindVector = true;
+            sizeMax = 4f;
+            sizeMin = 1.4f;
+            minAlpha = 0.5f;
+            maxAlpha = 1f;
+            density = 10000f;
+            baseSpeed = 0.03f;
+			attrs.set(Attribute.light, 0.15f);
+        }};
+		// WIP
 		snowStorm = new ParticleWeather("snow-storm"){{
 			color = noiseColor = Color.valueOf("e6feff");
 			particleRegion = "particle";
@@ -31,7 +47,7 @@ public class DustWeathers {
 			soundVolOscMag = 1.5f;
 			soundVolOscScl = 1100f;
 			duration = 7f * Time.toMinutes;
-			attrs.set(Attribute.light, -0.2f);
+			attrs.set(Attribute.light, -0.15f);
 		}};
 
 		//heavy rain and we need thunder storm aswell TODO: make heavy rain more heavier and darker
@@ -41,7 +57,7 @@ public class DustWeathers {
 			density = 700f;
 			stroke = 1.2f;
 
-			attrs.set(Attribute.light, -1.2f);
+			attrs.set(Attribute.light, -0.6f);
 			attrs.set(Attribute.water, 0.5f);
 
 			color = Color.valueOf("5e6fa5ff");
@@ -59,7 +75,7 @@ public class DustWeathers {
 			status = StatusEffects.wet;
 			sound = Sounds.rain;
 			force = 0.4f;
-			soundVol = 0.75f;
+			soundVol = 0.8f;
 			duration = 7f * Time.toMinutes;
 		}};
 	}
