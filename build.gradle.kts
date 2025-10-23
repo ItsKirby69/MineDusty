@@ -222,10 +222,12 @@ project(":"){
 
     tasks.register("runGame"){
         dependsOn("install")
+        group = "modding"
+        description = "Compiles game and runs the given .jar file of the game of specified version from your desktop."
 
         doLast {
-            val mindustryVersion: String by project
-            val mindustryJar = File(System.getProperty("user.home"), "Desktop/Mindustry$mindustryVersion.jar")
+            val applicationVersion: String by project
+            val mindustryJar = File(System.getProperty("user.home"), "Desktop/Mindustry$applicationVersion.jar")
             if(!mindustryJar.exists()) throw IllegalStateException("Could not find Mindustry jar at $mindustryJar")
 
             ProcessBuilder(
