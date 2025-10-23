@@ -28,7 +28,7 @@ public class DustPlants {
 		//region Trees
 		/* Disabled for now since atlas is messed up
 		worldTree = new LivingTreeBlock("world-tree", 1){{
-			mapColor = Color.valueOf("c32121");
+			mapColor = Color.valueOf("#c32121");
 			breakEffect = DustyEffects.treeBreakWhite;
 			destroyEffect = DustyEffects.withColor(DustyEffects.treeBreak, mapColor);
 			size = 12;
@@ -42,73 +42,75 @@ public class DustPlants {
 
 		divineTree = new LivingTreeBlock("divine-tree", 2){{
 			itemDrop = DustItems.divinityMatter; //for extraction in future
-			mapColor = Color.valueOf("c32121");
+			mapColor = Color.valueOf("#c32121");
 			breakEffect = DustyEffects.treeBreakWhite;
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreakWhite, mapColor);
 		}};
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
-			mapColor = Color.valueOf("74d660");
+			mapColor = Color.valueOf("#74d660");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 		}};
 		largealiveTree = new LivingTreeBlock("large-alive-tree", 1){{
-			mapColor = Color.valueOf("74d660");
+			mapColor = Color.valueOf("#74d660");
+			breakEffect = DustyEffects.treeBreakLarge;
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			fadeEnd = 30f;
 			baseLayer = Layer.legUnit + 3.5f;
 			size = 5;
 		}};
 		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
-			mapColor = Color.valueOf("f3b9c3");
+			mapColor = Color.valueOf("#df7a9c");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 		}};
 		elmTree = new LivingTreeBlock("elm-tree", 1){{
-			mapColor = Color.valueOf("ECB01E");
+			mapColor = Color.valueOf("#ECB01E");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 		}};
 		pineTree = new LivingTreeBlock("pine-tree", 1){{
-			mapColor = Color.valueOf("356a41");
+			mapColor = Color.valueOf("#398654");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			rotateShadow = false;
 		}};
 		bogTree = new LivingTreeBlock("bog-tree", 1){{
 			requiresWater = true;
-			mapColor = Color.valueOf("667113");
+			mapColor = Color.valueOf("#6d922b");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 		}};
 		largebogTree = new LivingTreeBlock("large-bog-tree", 1) {{
 			requiresWater = true;
-			mapColor = Color.valueOf("667113");
+			mapColor = Color.valueOf("#6d922b");
+			breakEffect = DustyEffects.treeBreakLarge;
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			fadeEnd = 30f;
 			baseLayer = Layer.legUnit + 3.5f;
 			size = 5;
 		}};
 		cheeseTree = new LivingTreeBlock("cheese-tree", 1){{
-			mapColor = Color.valueOf("d7d177");
+			mapColor = Color.valueOf("#d7d177");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 		}};
 
 		//dead/static trees (trees with no layers)
 		burntTree = new TreeBlock("burnt-tree"){{
-			mapColor = Color.valueOf("172025");
+			mapColor = Color.valueOf("#172025");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			shadowOffset = -1f;
 		}};
 		ashTree = new TreeBlock("ash-tree"){{
-			mapColor = Color.valueOf("98a3a8");
+			mapColor = Color.valueOf("#98a3a8");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			shadowOffset = -1f;
 		}};
 		deadTree = new TreeBlock("dead-tree"){{
-			mapColor = Color.valueOf("744700");
+			mapColor = Color.valueOf("#744700");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 2;
 		}};
 		mossydeadTree = new TreeBlock("mossydead-tree"){{
-			mapColor = Color.valueOf("744700");
+			mapColor = Color.valueOf("#744700");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 2;
@@ -116,7 +118,7 @@ public class DustPlants {
 
 		//maybe i don't need a coconut tree
 		/*coconutTree = new LivingBush("coconut-tree"){{
-			mapColor = Color.valueOf("000000");
+			mapColor = Color.valueOf("#000000");
 			lobesMin = 3;
 			lobesMax = 3;
 			magMin = 4;
@@ -132,12 +134,12 @@ public class DustPlants {
 		//region Props
 
 		shrub = new LivingBush("shrub"){{
-			mapColor = Color.valueOf("74d660");
+			mapColor = Color.valueOf("#74d660");
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 		}};
 		
 		sandyshrub = new LivingBush("sandy-shrub"){{
-			mapColor = Color.valueOf("f7cba4");
+			mapColor = Color.valueOf("#f7cba4");
 			Blocks.sand.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			lobesMin = 3;
 			lobesMax = 5;
@@ -149,7 +151,7 @@ public class DustPlants {
 		}};
 
 		clayshrub = new LivingBush("clay-shrub"){{
-			mapColor = Color.valueOf("925e46");
+			mapColor = Color.valueOf("#925e46");
 			DustEnv.clayFloor.asFloor().decoration = this;
 			lobesMin = 3;
 			lobesMax = 5;
@@ -170,7 +172,7 @@ public class DustPlants {
 		//WIP. These suck so bad o_o
 		/* 
 		tallGrass = new LivingBush("tallgrass", 2){{
-			mapColor = Color.valueOf("87d661");
+			mapColor = Color.valueOf("#87d661");
 			lobesMin = 4;
 			lobesMax = 8;
 			magMin = 4;
@@ -179,7 +181,7 @@ public class DustPlants {
 		}};
 		grassBunch = new LivingBush("grass-bunch"){{
 			variants = 1;
-			mapColor = Color.valueOf("74d660");
+			mapColor = Color.valueOf("#74d660");
 			Blocks.grass.asFloor().decoration = Blocks.stone.asFloor().decoration = this;
 			lobesMin = 8;
 			lobesMax = 12;
@@ -193,7 +195,7 @@ public class DustPlants {
 		fernBush = new LivingBush("fern-bush", 1){{
 			dualCircleMode = true;
 			shadowAlpha = 0.7f;
-			mapColor = Color.valueOf("356a41");
+			mapColor = Color.valueOf("#356a41");
 			rot = 0;
 			lobesMin = 3;
 			lobesMax = 7;
@@ -205,7 +207,7 @@ public class DustPlants {
 			variants = 3;
 			rotate = true;
 			update = true;
-			mapColor = Color.valueOf("667113");
+			mapColor = Color.valueOf("#667113");
 			buildVisibility = BuildVisibility.sandboxOnly;
 			destructible = true;
 			targetable = false;
@@ -218,7 +220,7 @@ public class DustPlants {
 		}};
 
 		cactus = new LivingProp("cactus"){{
-			mapColor = Color.valueOf("d7d177");
+			mapColor = Color.valueOf("#d7d177");
 			variants = 2;
 			rotate = false;
 			breakable = true;
@@ -228,7 +230,7 @@ public class DustPlants {
 		cattail = new LivingBush("cattail", 2){{
 			placeableLiquid = true;
 			rare = true;
-			mapColor = Color.valueOf("74d660");
+			mapColor = Color.valueOf("#74d660");
 			lobesMin = 7;
 			lobesMax = 10;
 			magMin = 3;
@@ -239,12 +241,12 @@ public class DustPlants {
 
 		lilypad = new LivingProp("lily-pad", 3){{
 			placeableLiquid = true;
-			mapColor = Color.valueOf("97c51e");
+			mapColor = Color.valueOf("#97c51e");
 			shadowOffset = -4f;
 		}};
 		largelilypad = new LivingProp("large-lily-pad", 3){{
 			placeableLiquid = true;
-			mapColor = Color.valueOf("97c51e");
+			mapColor = Color.valueOf("#97c51e");
 			shadowOffset = -1f;
 			propOffset = 4f;
 			size = 2;
@@ -252,7 +254,7 @@ public class DustPlants {
 
 		marshlilypad = new LivingProp("marsh-lily-pad", 3){{
 			placeableLiquid = true;
-			mapColor = Color.valueOf("7b990b");
+			mapColor = Color.valueOf("#7b990b");
 			shadowOffset = -1f;
 			propOffset = 4f;
 			size = 2;
@@ -260,7 +262,7 @@ public class DustPlants {
 
 		largemarshlilypad = new LivingProp("large-marsh-lily-pad", 1){{
 			placeableLiquid = true;
-			mapColor = Color.valueOf("7b990b");
+			mapColor = Color.valueOf("#7b990b");
 			shadowOffset = -4f;
 			size = 3;
 			rareChance = 0.4f;

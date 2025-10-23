@@ -3,10 +3,11 @@ package minedusty.content;
 import arc.graphics.Color;
 import ent.anno.Annotations.*;
 import mindustry.ai.types.*;
-import mindustry.content.Fx;
-import mindustry.content.Items;
+import mindustry.content.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.part.RegionPart;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -21,16 +22,132 @@ public class DustUnitTypes {
 
 	//region Enemy units
 
-	// TODO Green units
-	//mechs
+	// Divine Faction
 	public static @EntityDef({Unitc.class, Legsc.class}) UnitType divineFlathead;
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer; // crawler and suicide type units
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineCyst, divineGlaive, divineBulwark; // normal mech
+	
+	public static @EntityDef({Unitc.class, Legsc.class}) UnitType devineNanitic;
+
+	
 	//end region
  
 	//region Enemies
 	public static void load(){
-		
+
+		// WIP
+		devineNanitic = new DivineUnitType("divine-nanitic"){{
+            constructor = LegsUnit::create;
+            drag = 0.08f;
+            speed = 0.65f;
+            hitSize = 13f;
+            health = 800;
+            armor = 2f;
+			stepShake = 0.2f;
+
+            legCount = 6;
+            legLength = 15f;
+			legSpeed = 0.2f;
+            legGroupSize = 3;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -2f;
+            legBaseOffset = 2.5f;
+            legMaxLength = 1.1f;
+            legMinLength = 0.2f;
+            legLengthScl = 0.95f;
+            legForwardScl = 0.6f;
+			legStraightness = 0.3f;
+
+			legMoveSpace = 1f;
+			hoverable = true;
+			mechSideSway = 0.2f;
+			
+			rotateSpeed = 7f;
+			shadowElevation = 0.07f;
+			groundLayer = Layer.legUnit - 1f;
+			
+			// Make head 
+			parts.add(
+				new RegionPart("-antenna"){{
+					mirror = true;
+					under = true;
+					outline = true;
+					x = 3f; y = 11.5f;
+				}},
+				new RegionPart("-antenna"){{
+					mirror = true;
+					under = false;
+					outline = false;
+					x = 3f; y = 11.5f;
+					layerOffset = 0.001f;
+				}});
+
+            weapons.add(new Weapon("minedusty-divine-stinger"){{
+                mirror = false;
+                rotate = true;
+				rotationLimit = 70f;
+				rotateSpeed = 8f;
+				// alwaysShootWhenMoving = true;
+
+                reload = 90f;
+				recoil = 5f;
+				shake = 3f;
+                x = 0f;
+				y = -7f;
+				shootX = 0f;
+				shootY = -3f;
+                shootSound = Sounds.mineDeploy;
+                
+
+                // shoot.shots = 1;
+                shoot.shotDelay = 7f;
+
+                bullet = new BasicBulletType(){{
+                    sprite = "mine-bullet";
+                    width = height = 8f;
+                    // layer = Layer.scorch;
+                    shootEffect = smokeEffect = Fx.none;
+
+                    maxRange = 45f;
+                    ignoreRotation = true;
+
+                    backColor = DustPalette.divineBulletRedBack;
+                    frontColor = Color.white;
+                    mixColorTo = Color.white;
+
+                    hitSound = Sounds.plasmaboom;
+                    // underwater = true;
+
+                    ejectEffect = Fx.none;
+                    hitSize = 22f;
+
+                    collidesAir = true;
+
+                    lifetime = 87f;
+
+                    hitEffect = new MultiEffect(Fx.blastExplosion, DustyEffects.redCloud);
+                    keepVelocity = false;
+
+                    shrinkX = shrinkY = 0.2f;
+
+                    inaccuracy = 1.25f;
+                    weaveMag = 5f;
+                    weaveScale = 4f;
+                    speed = 0.7f;
+                    drag = -0.017f;
+                    homingPower = 0.05f;
+                    // collideFloor = true;
+                    trailColor = DustPalette.divineBulletRed;
+                    trailWidth = 3f;
+                    trailLength = 8;
+
+                    splashDamage = 40f;
+                    splashDamageRadius = 32f;
+                }};
+            }});
+		}};
+
         divineSwarmer = new DivineUnitType("divine-swarmer"){{
 			constructor = MechUnit::create;
 			
@@ -215,14 +332,16 @@ public class DustUnitTypes {
 		//end region
 
 		cricket = new UnitType("cricket"){{
-			aiController = BuilderAI::new;
+			controller = u -> u.team.isAI() ? new BuilderAI(true, 400f) : new CommandAI();
+			//aiController = BuilderAI::new;
 			isEnemy = false;
 			
 			constructor = UnitEntity::create;
 
+			targetBuildingsMobile = false;
             lowAltitude = true;
 			flying = true;
-			mineSpeed = 8f;
+			mineSpeed = 7f;
 			mineTier = 1;
 			buildSpeed = 0.6f;
 			drag = 0.05f;
@@ -232,38 +351,26 @@ public class DustUnitTypes {
 			fogRadius = 0f;
 			itemCapacity = 45;
 			health = 220f;
-			hitSize = 10f;
+			hitSize = 9f;
 			alwaysUnlocked = true;
-			engineOffset = 6.9f;
-			outlines = false;
+			engineOffset = 6f;
+			// outlines = false;
 			
 			weapons.add(new Weapon("minedusty-cricket-weapon"){{
-				reload = 25f;
-				shootSound = Sounds.missile;
+				reload = 17.5f;
 				top = false;
-				ejectEffect = Fx.none;
-				x = 3.7f;
-				y = 2f;
-				layerOffset = -0.01f;
+				ejectEffect = Fx.casing1;
+				x = 3.25f;
+				y = 2.5f;
+				// layerOffset = -0.01f;
 				//speed dmg
-				bullet = new MissileBulletType(3f, 8){{
-                    homingPower = 0.09f;
-                    homingDelay = 15f;
-                    weaveMag = 4f;
-                    weaveScale = 3f;
-                    width = 7f;
-                    height = 9f;
-					lifetime = 45f;
-                    keepVelocity = false;
-
-                    shootEffect = Fx.shootHeal;
-                    smokeEffect = Fx.hitLaser;
-                    hitEffect = despawnEffect = Fx.hitLaser;
-                    healPercent = 7.5f;
-					collidesTeam = true;
-					backColor = Pal.heal;
-					frontColor = Color.white;
-                    trailColor = Pal.heal;
+				bullet = new BasicBulletType(2.5f, 11){{
+					width = 7f;
+					height = 10f;
+					lifetime = 75f;
+					shootEffect = Fx.shootSmall;
+					shootEffect = Fx.shootSmallSmoke;
+					buildingDamageMultiplier = 0.5f;
 				}};
 			}});
 		}};

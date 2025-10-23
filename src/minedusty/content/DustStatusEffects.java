@@ -1,14 +1,48 @@
 package minedusty.content;
 
+import static mindustry.Vars.state;
+
+import arc.Events;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import mindustry.content.*;
+import mindustry.game.EventType.Trigger;
 import mindustry.type.StatusEffect;
+import minedusty.graphics.DustPalette;
 
 public class DustStatusEffects {
-    public static StatusEffect rotting;
+    public static StatusEffect rotting, healingWash, saltcorrosion;
 
     public static void load(){
+        saltcorrosion = new StatusEffect("salt-corrosion"){{
+            color = Color.valueOf("#c8d7e2");
+            intervalDamage = 10f;
+            intervalDamageTime = 50f;
+            damageMultiplier = 0.95f;
+
+            effectChance = 0.08f;
+            effect = DustyEffects.corrosionSalt;
+            transitionDamage = 10f;
+
+            init(() -> {
+                affinity(StatusEffects.shocked, (unit, result, time) -> {
+                    unit.damage(transitionDamage);
+
+                    if(unit.team == state.rules.waveTeam){
+                        Events.fire(Trigger.shock);
+                    }
+                });
+            });
+        }};
+
+        healingWash = new StatusEffect("healing-wash"){{;
+            color = DustPalette.chlorophyteWater;
+            effect = DustyEffects.healingwet;
+            effectChance = 0.09f;
+            speedMultiplier = 1f;
+            healthMultiplier = 1f;
+        }};
+
         rotting = new StatusEffect("rotting"){{
             color = Color.valueOf("C32121");
             damage = 0.125f;
