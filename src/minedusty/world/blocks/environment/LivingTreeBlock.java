@@ -34,7 +34,6 @@ public class LivingTreeBlock extends Block{
 	/** Effects for falling leaves */
 	public Effect effect = DustyEffects.fallingLeaves;
 	public float effectRange = 6f;
-	//public Color effectColor = Color.valueOf("ffffff");
 
 	public LivingTreeBlock(String name){
 		this(name, 3);
@@ -48,15 +47,14 @@ public class LivingTreeBlock extends Block{
 		solid = true;
 		size = 3;
 		clipSize = 120;
-		update = true;
-		breakSound = DustSounds.destroyTree;
-		destroySound = DustSounds.destroyTree;
+		update = false;
+		breakSound = destroySound = DustSounds.destroyTree;
 		breakEffect = DustyEffects.treeBreak;
-		destroyPitchMin = 1f; destroyPitchMax = 1.5f;
 		buildVisibility = BuildVisibility.sandboxOnly;
 		destructible = true;
-		health = size * 4200;
-		teamPassable = true;
+		breakable = false;
+		health = size * 800;
+		alwaysReplace = false;
 		createRubble = false;
 		targetable = false;
 		forceTeam = Team.derelict;
@@ -64,6 +62,11 @@ public class LivingTreeBlock extends Block{
 		allowDerelictRepair = false; // Sandbox mode weirdly has the repair available? Vanilla bug
 	}
 
+	@Override
+	public boolean canBreak(Tile tile){
+		// breakable in sandBox or in-game editor
+		return Vars.state.rules.infiniteResources || Vars.state.rules.editor;
+	}
 
 	@Override
 	public void load(){
@@ -229,7 +232,8 @@ public class LivingTreeBlock extends Block{
 		
 		// effects
 		if(Vars.state.isPaused()) return; // Particles stack when paused for some reason
-		if(settings.getBool("@setting.dusty-falling-leaves-enabled") && Mathf.chanceDelta(0.002f * size)){
+		int effectChance = settings.getInt("@setting.dusty-falling-density");
+		if(settings.getBool("@setting.dusty-falling-leaves-enabled") && Mathf.chanceDelta((effectChance * 0.001f) * size)){
 			effect.at(
 				tile.worldx() + Mathf.range(effectRange) * size,
 				tile.worldy() + Mathf.range(effectRange) * size,

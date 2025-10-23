@@ -143,4 +143,15 @@ public class LivingProp extends Block{
 			Draw.rect(topRegions[variation], x + propOffset, y + propOffset);
 		}
 	}
+
+	public class LivingPropBuild extends Building{
+		@Override
+		public boolean damaged() {
+			return false;
+		}
+
+		@Override
+		public void damage(float damage) {
+		}
+	}
 }
