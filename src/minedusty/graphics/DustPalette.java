@@ -5,8 +5,17 @@ import arc.graphics.Color;
 public class DustPalette {
 	public static Color
 	//name = Color.valueOf("#00000"),
+	// Random stuff
+	laserColor2 = Color.valueOf("#ffe18f"),
+	turretOutline = Color.valueOf("#394046"),
+	chlorophyteWater = Color.valueOf("#7effdc"),
 
-	oxidecopper = Color.valueOf("#c99b8f"),
+	carbon = Color.valueOf("#777c71"),
+
+	// Blocks Items etc
+	oxidecopper = Color.valueOf("#c5896dff"),
+	oxidecopperMid = Color.valueOf("#78bd87"),
+	oxidecopperBack = Color.valueOf("#475f5b"),
 
 	quartz = Color.valueOf("#a997a6"),
 	rosequartz = Color.valueOf("#c26ab3"),
@@ -18,11 +27,14 @@ public class DustPalette {
 	aquameriumBack = Color.valueOf("#2e91bfff"),
 
 	divinityMatter = Color.valueOf("#c32121"),
-	carbonicWaste = Color.valueOf("#2f241a"),
+	carbonicWaste = Color.valueOf("#25332e"),
 
 	// Bullet palette
 	sandColor = Color.valueOf("#f3e2b3"),
 	sandColorBack = Color.valueOf("#c2b280"),
+
+    leadAmmoBack = Color.valueOf("#9b7dd8ff"),
+    leadAmmoFront = Color.valueOf("#e4daeeff"),
 
 	// Divine palette
 	divineHeal = Color.valueOf("#ff4a34"),
