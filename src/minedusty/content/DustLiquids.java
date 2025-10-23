@@ -7,14 +7,20 @@ import mindustry.type.Liquid;
 
 public class DustLiquids {
 	public static Liquid bioLiquid, bioFuel, sap, saltWater; 
-	//TODO oxygen. Thinking about having oxygen compatible with other mod's oxygen? Or maybe just use ozone for recipies
-
+	public static Liquid smog;
+	
 	//temp
 	public static void load(){
-		bioLiquid = new Liquid("bio-liquid", Color.valueOf("#05dd91")){{
+		// Composition of ozone?
+		smog = new Liquid("smog", Color.valueOf("#f3e2b8")){{
+			gasColor = Color.valueOf("#bfad80ff");
+			gas = true;
+		}};
+
+		bioLiquid = new Liquid("bio-liquid", Color.valueOf("#05dd83ff")){{
 			effect = StatusEffects.wet;
 			boilPoint = 0.5f;
-			lightColor = Color.valueOf("#02ddac").a(0.45f);
+			lightColor = Color.valueOf("#0bceceff").a(0.45f);
             gasColor = Color.valueOf("#a9f2e4");
         }};
 		bioFuel = new Liquid("bio-fuel", Color.valueOf("#92c80b")){{
