@@ -7,6 +7,8 @@ import minedusty.graphics.*;
 import minedusty.planets.*;
 import minedusty.ui.DustSettings;
 import minedusty.ui.DustyPopup;
+import minedusty.utils.GenBundles;
+import minedusty.world.units.DustOverrides;
 import arc.*;
 import arc.struct.Seq;
 import arc.util.*;
@@ -74,6 +76,7 @@ public class MineDustyMod extends Mod {
 		DustPlanets.load();
 		DustSectors.load();
 		TheiaTechTree.load();
+		// WIP
+		GenBundles.generate();
 	}
-
 }
