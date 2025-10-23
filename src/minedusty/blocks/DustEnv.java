@@ -34,10 +34,11 @@ public class DustEnv {
 	public static Block oreGalena, oreOxidecopper, oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamerium, wallOxide;
 	
 	// Walls
-	public static Block mossStoneWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
-	public static Block hardenedClayWall;
+	public static Block prismiteBlock, mossStoneWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
+	public static Block amethystCrystals, hardenedClayWall, amethystClusteredClayWall;
 
 	// Misc
+	public static Block smallbasaltChimney, basaltChimney;
 	public static Block waterSmokeEffect, fallingLeavesEffect, flowingWaterEffect, logoBlock;
 
 	public static void loadContent() {
@@ -45,10 +46,12 @@ public class DustEnv {
 		//region Tiles
 		pattedGrass = new Floor("patted-grass", 5){{
 			mapColor = Color.valueOf("#4C864C");
+			attributes.set(DustAttributes.turf, 0.3f);
 		}};
 		
 		taigaGrass = new Floor("taiga-grass", 5){{
 			mapColor = Color.valueOf("#418A5D");
+			attributes.set(DustAttributes.turf, 0.2f);
 		}};
 		
 		blossomGrass = new Floor("blossom-grass", 5){{
@@ -75,8 +78,13 @@ public class DustEnv {
 		// }};
 
 		//Blocks.salt.itemDrop = DustItems.salt;
+		Blocks.dirtWall.attributes.set(DustAttributes.chlorophyte, 0.1f);
+
 		Blocks.salt.attributes.set(DustAttributes.salt, 0.3f);
-		Blocks.sand.attributes.set(DustAttributes.salt, 0.1f);
+		Blocks.sand.attributes.set(DustAttributes.salt, 0.12f);
+
+		Blocks.grass.attributes.set(DustAttributes.turf, 0.25f);
+
 
 		saltLumps = new Floor("salt-lumps", 1){{
 			//itemDrop = DustItems.salt;
