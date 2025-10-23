@@ -5,18 +5,14 @@ import mindustry.world.Tile;
 import mindustry.world.blocks.production.Drill;
 import minedusty.world.blocks.environment.TieredOreBlock;
 
-/** Mines tiered ores and normal ores. If tier is sufficient, the drill will mine tiered resource from the ore. */
+/** A normal drill with the capabilities of mining the higher tiered resource from an ore
+ * if it has sufficient tier. Galena for example, requires a certain tier to mine galena itself,
+ * otherwise it drops lead.
+*/
 public class TierDrill extends Drill {
     public TierDrill(String name) {
         super(name);
     }
-
-    /*@Override
-    public boolean canMine(Tile tile){
-        if(tile == null || tile.block().isStatic()) return false;
-        Item drops = tile.drop();
-        return drops != null && drops.hardness <= tier && (blockedItems == null || !blockedItems.contains(drops));
-    }*/
 
     @Override
     public Item getDrop(Tile tile){

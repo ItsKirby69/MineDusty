@@ -16,6 +16,7 @@ public class ModifiedDrill extends TierDrill{
     
     public ModifiedDrill(String name){
         super(name);
+        size = 2;
     }
 
     @Override
