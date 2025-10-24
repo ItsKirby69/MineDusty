@@ -15,7 +15,7 @@ There is much more than just plants which you may find. The mod is undergoing a 
 
 Showcases will be shown in the Mindustry discord's [Modding forums](https://discord.com/channels/391020510269669376/1395862844427210862)! Come over for frequent update announcements as well as for questions or issues related!
 
-**This mod uses a modified version of [Glenn's template](https://github.com/GglLfr/MindustryModTemplate) with a fork of EntityAnno found [Here](https://github.com/ItsKirby69/EntityAnno)**
+**This mod uses a modified version of [Glenn's template](https://github.com/GglLfr/MindustryModTemplate)**
 
 *//TODO showcase gif*
 
