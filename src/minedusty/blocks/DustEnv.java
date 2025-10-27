@@ -188,7 +188,7 @@ public class DustEnv {
 		//region Props and Decorations
 
 		driftWood = new Prop("driftwood"){{
-			variants = 1;
+			variants = 2;
 			customShadow = true;
 			shoreRock.asFloor().decoration = this;
 			shoreSmooth.asFloor().decoration = this;
