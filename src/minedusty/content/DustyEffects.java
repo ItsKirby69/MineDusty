@@ -374,6 +374,35 @@ public class DustyEffects {
 		});
 	}).layer(Layer.darkness + 1),
 
+	fallingEmbers = new Effect(140f, e ->{
+		float a = Mathf.sin(e.fin() * Mathf.PI) * 0.9f;
+		a = Mathf.clamp(a, 0f, 0.8f);
+		Color curr;
+
+		float drift = -10f * e.fin() * 2.5f;
+		if(e.fin() < 0.8f){
+			float t = e.fin() * 2f;
+			curr = Color.valueOf("#ee6339ff").lerp(Color.valueOf("#eda445"), t);
+		}else{
+			float t = (e.fin() - 0.8f) * 2f;
+			curr = Color.valueOf("#b3b78dff").lerp(Color.valueOf("#595959ff"), t);
+		}
+		curr.a(a);
+		Draw.blend(Blending.additive);
+		Draw.color(curr);
+
+		float oscX = Mathf.sin((e.fin() * 6f) + e.id) * 4f;
+		float oscY = Mathf.cos((e.fin() * 5f) + e.id) * 4f;
+
+		float radi = Mathf.clamp((e.fslope() + 0.7f), 0.7f, 1f);
+
+		randLenVectors(e.id, 1, 30f + e.finpow() * 40f, (x, y) -> {
+			Draw.rect(atlas.find("minedusty-circooler"), e.x + drift + oscX, e.y + drift + oscY, 4.5f * radi, 4.5f * radi, e.fin());
+		});
+		Draw.blend();
+		Draw.reset();
+	}).layer(Layer.darkness + 1),
+
 	rotting = new Effect(35f, e -> {
 		color(DustPalette.divineBulletRed, DustPalette.divineBulletRedBack, e.fin());
 

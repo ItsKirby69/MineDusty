@@ -92,17 +92,19 @@ public class DustPlants {
 		}};
 
 		//dead/static trees (trees with no layers)
-		burntTree = new TreeBlock("burnt-tree"){{
+		burntTree = new TreeBlockEffect("burnt-tree"){{
 			mapColor = Color.valueOf("#172025");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			shadowOffset = -1f;
+			effect = DustyEffects.fallingEmbers;
 		}};
-		ashTree = new TreeBlock("ash-tree"){{
+		ashTree = new TreeBlockEffect("ash-tree"){{
 			mapColor = Color.valueOf("#98a3a8");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			shadowOffset = -1f;
+			effect = DustyEffects.fallingEmbers;
 		}};
 		deadTree = new TreeBlock("dead-tree"){{
 			mapColor = Color.valueOf("#744700");
