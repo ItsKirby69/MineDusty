@@ -22,6 +22,7 @@ public class DustPlants {
 	// Shrubs and small Plants (props)
 	public static Block nightBush;
 	public static Block aloeVera, deadShrub, clayshrub, grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
+	public static Block monstera;
 	public static Block cactus, cattail, lilypad, largelilypad, marshlilypad, largemarshlilypad;
 
 	public static void loadContent() {
@@ -189,6 +190,20 @@ public class DustPlants {
 			magMax = 10;
 		}};
 		*/
+
+		monstera = new LivingBush("monstera", 1){{
+			layer = Layer.blockProp + 2f;
+			dualCircleMode = true;
+			mapColor = Color.valueOf("#4c864c");
+			lobesMin = 5;
+			lobesMax = 7;
+			oddlobes = true;
+			magMin = 3;
+			magMax = 7;
+			sclMin = 30f;
+			sclMax = 50f;
+		}};
+
 		nightBush = new NightBush("night-bush"){{
 			
 		}};

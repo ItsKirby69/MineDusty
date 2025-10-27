@@ -15,16 +15,21 @@ import static arc.Core.*;
 /** Custom Bush class having rare sprites at a chance as well as customized rotation of sprites. */
 public class LivingBush extends Prop{
 	public TextureRegion region, rareRegion;
-	public TextureRegion[] bottomRegions, bottomTopRegions, topRegions, centerRegions, shadowRegions;
+	public TextureRegion[] bottomRegions, bottomTopRegions, topRegions, centerRegions, shadowRegions, topshadowRegions;
 
 	public float layer = Layer.blockProp;
 	public float shadowAlpha = 0.8f;
 	/** Determines if center region rotates or not. not actually sure if it works or not lol*/
 	public float rot = 0;
-	/**If enabled, sprite has two circle layers. Normal then -top variant at, you know it, the top. */
+	/** If enabled, sprite has two circle layers. Normal variant (main & -bot region) then top variant (-top & -topbot)*/
 	public boolean dualCircleMode = false;
+	/** If it has a rare variant "-rare" */
 	public boolean rare = false;
 	public float rareChance = 0.01f;
+	/** If lobe count must be odd. */
+	public boolean oddlobes = false;
+
+	public int lobesMin, lobesMax;
 
 	public LivingBush(String name){
 		this(name, 2);
@@ -58,6 +63,7 @@ public class LivingBush extends Prop{
 			topRegions = new TextureRegion[variants];
 			centerRegions = new TextureRegion[variants];
 			shadowRegions = new TextureRegion[variants];
+			topshadowRegions = new TextureRegion[variants];
 
 			for(int i = 0; i < variants; i++){
 				bottomRegions[i] = atlas.find(name + "-bot" + (i + 1));
@@ -65,6 +71,7 @@ public class LivingBush extends Prop{
 				topRegions[i] = atlas.find(name + "-top" + (i + 1));
 				centerRegions[i] = atlas.find(name + "-center" + (i + 1));
 				shadowRegions[i] = atlas.find(name + "-shadow" + (i + 1));
+				topshadowRegions[i] = atlas.find(name + "-topshadow" + (i + 1));
 			}
 		}else{
 			variantRegions = new TextureRegion[1];
@@ -79,16 +86,16 @@ public class LivingBush extends Prop{
 			centerRegions[0] = atlas.find(name + "-center1");
 			shadowRegions = new TextureRegion[1];
 			shadowRegions[0] = atlas.find(name + "-shadow1");
+			topshadowRegions = new TextureRegion[1];
+			topshadowRegions[0] = atlas.find(name + "-topshadow1");
 		}
 		rareRegion = atlas.find(name + "-rare");
 		region = variantRegions[0];
 	}
 
-    public int lobesMin = 13, lobesMax = 13;
     public float botAngle = 60f, origin = 0.3f;
     public float sclMin = 30f, sclMax = 50f, magMin = 5f, magMax = 15f, timeRange = 40f, spread = 0f;
     static Rand rand = new Rand();
-
 
     @Override
     public void drawBase(Tile tile){
@@ -96,7 +103,14 @@ public class LivingBush extends Prop{
 		int variation = Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1));
 
         float offset = rand.random(180f);
-        int lobes = rand.random(lobesMin, lobesMax);
+        int lobes = rand.random(lobesMin, lobesMax);;
+		if(oddlobes && lobes % 2 == 0){
+			if (lobes + 1 <= lobesMax){
+				lobes++;
+			}else{
+				lobes--;
+			}
+		}
 		float x = tile.worldx(), 
 		y = tile.worldy(),
 		w = region.width * region.scl(),
@@ -125,6 +139,12 @@ public class LivingBush extends Prop{
                     angle
                 );
             }
+			if(topshadowRegions[variation].found()){
+				Draw.z(layer + 2.5f);
+				Draw.color(0f, 0f, 0f, shadowAlpha);
+				Draw.rect(topshadowRegions[variation], tile.worldx(), tile.worldy());
+				Draw.color();
+			}
 			// Top sprites
             for (int i = 0; i < lobes; i++) {
                 float ba = i / (float) lobes * 360f + offset + lobeAngleOffset + rand.range(spread), 
@@ -134,7 +154,7 @@ public class LivingBush extends Prop{
                 w = region.width * region.scl(); 
                 h = region.height * region.scl();
                 
-                Draw.z(layer + 2);
+                Draw.z(layer + 3);
                 Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomTopRegions[variation] : topRegions[variation],
                     tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
                     tile.worldy() - Angles.trnsy(angle, origin),
