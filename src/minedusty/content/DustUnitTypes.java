@@ -355,6 +355,7 @@ public class DustUnitTypes {
 			alwaysUnlocked = true;
 			engineOffset = 6f;
 			// outlines = false;
+			outlineColor = DustPalette.turretOutline;
 			
 			weapons.add(new Weapon("minedusty-cricket-weapon"){{
 				reload = 17.5f;
