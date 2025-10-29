@@ -4,10 +4,9 @@ import arc.graphics.Color;
 import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.graphics.g3d.*;
-import mindustry.type.Planet;
-import mindustry.type.Weather;
-import mindustry.world.meta.Env;
-import minedusty.content.*;
+import mindustry.type.*;
+import mindustry.world.meta.*;
+import minedusty.world.meta.DustEnvs;
 
 public class DustPlanets {
 	public static Planet
@@ -46,7 +45,7 @@ public class DustPlanets {
 			allowLaunchToNumbered = false;
 			allowLaunchLoadout = false;
 
-			defaultEnv = Env.terrestrial & ~Env.spores;
+			defaultEnv = DustEnvs.lush | Env.terrestrial & ~Env.spores;
 			atmosphereColor = Color.valueOf("1e3c40"); // 438e99
 			iconColor = Color.valueOf("32e341"); // 2cc429
 			ruleSetter = r -> {
