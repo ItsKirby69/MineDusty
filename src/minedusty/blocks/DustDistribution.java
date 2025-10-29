@@ -64,7 +64,8 @@ public class DustDistribution {
             speed = 0.04f;
             displayedSpeed = 5.5f;
             buildCostMultiplier = 2f;
-            researchCost = with(DustItems.oxidecopper, 5);
+            // researchCost = with(DustItems.oxidecopper, 5);
+            alwaysUnlocked = true;
         }};
 
         aquameriumConveyor = new Conveyor("aquamerium-conveyor"){{
