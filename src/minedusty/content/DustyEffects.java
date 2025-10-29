@@ -363,8 +363,7 @@ public class DustyEffects {
 		}
 	}).layer(Layer.debris),
 
-	// TODO use the weather's wind vector or something similar
-	fallingLeaves = new Effect(450f, e ->{
+	fallingLeaves = new Effect(450f, 150f, e ->{
 		color(e.color, e.color, e.fslope());
 		alpha(e.fslope() * 3f);
 
