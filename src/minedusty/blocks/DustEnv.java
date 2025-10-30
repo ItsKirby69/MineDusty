@@ -39,7 +39,7 @@ public class DustEnv {
 
 	// Misc
 	public static Block smallbasaltChimney, basaltChimney;
-	public static Block waterSmokeEffect, fallingLeavesEffect, flowingWaterEffect, logoBlock;
+	public static Block waterSmokeEffect, fallingLeavesEffect, flowingWaterEffect, logoBlock, titleBlock;
 
 	public static void loadContent() {
 		
@@ -561,6 +561,12 @@ public class DustEnv {
 		}};
 
 		logoBlock = new BoulderProp("icon-block"){{
+			customShadow = true;
+			buildVisibility = BuildVisibility.sandboxOnly;
+			variants = 0;
+		}};
+
+		titleBlock = new BoulderProp("title-block"){{
 			customShadow = true;
 			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 0;
