@@ -164,6 +164,7 @@ public class DustCrafters {
 
 			minEfficiency = 0.5f;
 			maxBoost = 2f;
+			dumpExcess = true;
 
 			consumeLiquids(LiquidStack.with(Liquids.water, 12f/60f));
 			consumeItem(chlorophyte, 2);

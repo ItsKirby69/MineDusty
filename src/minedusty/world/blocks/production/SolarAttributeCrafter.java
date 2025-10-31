@@ -26,7 +26,9 @@ public class SolarAttributeCrafter extends SolarCrafter {
     public boolean displayEfficiency = true;
     /** If the liquid consumption rate should scale based on the efficiency of the block. */
     public boolean scaleLiquidConsumption = true;
-
+    /** If true, dumps/discards extra produced items past itemCapacity. Keeps factory running even when itemCap is met. */
+    public boolean dumpExcess = false;
+    
     public SolarAttributeCrafter(String name) {
         super(name);
     }
@@ -47,7 +49,7 @@ public class SolarAttributeCrafter extends SolarCrafter {
 
         if(!displayEfficiency) return;
 
-        addBar("efficiency", (AttributeCrafterBuild entity) ->
+        addBar("efficiency", (SolarAttributeCrafterBuild entity) ->
             new Bar(
             () -> Core.bundle.format("bar.efficiency", (int)(entity.efficiencyMultiplier() * 100 * displayEfficiencyScale)),
             () -> Pal.lightOrange,
@@ -69,8 +71,67 @@ public class SolarAttributeCrafter extends SolarCrafter {
         stats.add(Stat.maxEfficiency, (int)(maxBoost * 100f), StatUnit.percent);
     }
 
-    public class AttributeCrafterBuild extends SolarCrafterBuild{
+    public class SolarAttributeCrafterBuild extends SolarCrafterBuild{
         public float attrsum;
+
+        @Override
+        public boolean shouldConsume(){
+            if(!dumpExcess){
+                if(outputItems != null){
+                    for(var output : outputItems){
+                        if(items.get(output.item) + output.amount > itemCapacity){
+                            return false;
+                        }
+                    }
+                }
+            }
+            if(outputLiquids != null && !ignoreLiquidFullness){
+                boolean allFull = true;
+                for(var output : outputLiquids){
+                    if(liquids.get(output.liquid) >= liquidCapacity - 0.001f){
+                        if(!dumpExtraLiquid){
+                            return false;
+                        }
+                    }else{
+                        //if there's still space left, it's not full for all liquids
+                        allFull = false;
+                    }
+                }
+
+                //if there is no space left for any liquid, it can't reproduce
+                if(allFull){
+                    return false;
+                }
+            }
+
+            return enabled;
+        }
+
+        @Override
+        public void craft(){
+            consume();
+
+            if(outputItems != null){
+                for(var output : outputItems){
+                    int stored = items.get(output.item);
+
+                    for(int i = 0; i < output.amount; i++){
+                        if(dumpExcess){
+                            if(stored < itemCapacity){
+                                offload(output.item);
+                            }
+                        } else {
+                            offload(output.item);
+                        }
+                    }
+                }
+            }
+
+            if(wasVisible){
+                craftEffect.at(x, y);
+            }
+            progress %= 1f;
+        }
 
         @Override
         public float getProgressIncrease(float base){
