@@ -59,6 +59,10 @@ public class FlowWaterTile extends Block {
     // the damn effect isn't spawning now realizing that updateTile() doesn't update in the in-game editor.
     public class FlowWaterTileBuild extends Building {
         public float effectTimer;
+
+        @Override
+        public void damage(float amoutn){
+        }
         
         public void updateTile(){
             super.updateTile();
