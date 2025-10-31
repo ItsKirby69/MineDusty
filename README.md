@@ -1,5 +1,6 @@
-# <div align=center>![Logo](assets/sprites/icon-git.png?)</div>
 <div align="center">
+  
+# <img src="assets/gifo.gif" width=75%>
 
 [![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?color=a6d626&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=a6d626&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
 [![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=6083b0&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
