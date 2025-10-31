@@ -47,6 +47,7 @@ public class DustEnv {
 		pattedGrass = new Floor("patted-grass", 5){{
 			mapColor = Color.valueOf("#4C864C");
 			attributes.set(DustAttributes.turf, 0.3f);
+			attributes.set(DustAttributes.salt, -0.15f);
 		}};
 		
 		taigaGrass = new Floor("taiga-grass", 5){{
@@ -67,30 +68,24 @@ public class DustEnv {
 		elmLeaves = new OverlayFloor("elm-leaves"){{
 			variants = 3;
 		}};
-
-
-		// TODO replace dune sand
-		// duneSand = new Floor("dune-sand", 3){{
-		// 	itemDrop = Items.sand;
-		// 	playerUnmineable = true;
-        //     attributes.set(Attribute.oil, 0.7f);
-		// 	wall = Blocks.sandWall;
-		// }};
-
-		//Blocks.salt.itemDrop = DustItems.salt;
+		
 		Blocks.dirtWall.attributes.set(DustAttributes.chlorophyte, 0.1f);
 
-		Blocks.salt.attributes.set(DustAttributes.salt, 0.3f);
-		Blocks.sand.attributes.set(DustAttributes.salt, 0.12f);
+		Blocks.salt.attributes.set(DustAttributes.salt, 0.35f);
+		Blocks.sand.attributes.set(DustAttributes.salt, 0.2f);
+		Blocks.dacite.attributes.set(DustAttributes.salt, 0.25f);
+		Blocks.stone.attributes.set(DustAttributes.salt, 0.1f);
+		Blocks.grass.attributes.set(DustAttributes.salt, -0.1f);
 
 		Blocks.grass.attributes.set(DustAttributes.turf, 0.25f);
 
-
 		saltLumps = new Floor("salt-lumps", 1){{
-			attributes.set(DustAttributes.salt, 0.15f);
+			attributes.set(DustAttributes.salt, 0.3f);
 		}};
 
-		clayFloor = new Floor("clay-floor", 3){{}};
+		clayFloor = new Floor("clay-floor", 3){{
+			attributes.set(DustAttributes.salt, 0.15f);
+		}};
 		
 		prismite = new Floor("prismite", 1){{
 			cacheLayer = DustCacheLayers.prismite;
