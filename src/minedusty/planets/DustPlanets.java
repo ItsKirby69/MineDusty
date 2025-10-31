@@ -1,7 +1,6 @@
 package minedusty.planets;
 
 import arc.graphics.Color;
-import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
@@ -56,18 +55,6 @@ public class DustPlanets {
 
 				// Make it less punishing to get items back from buildings.
 				r.deconstructRefundMultiplier = 0.8f;
-
-				// r.weather.add(
-				// 	new Weather.WeatherEntry() {{
-				// 		weather = Weathers.fog;
-				// 	}},
-				// 	new Weather.WeatherEntry() {{
-				// 		weather = DustWeathers.heavyRain;
-				// 	}},
-				// 	new Weather.WeatherEntry() {{
-				// 		weather = DustWeathers.heavyRain;
-				// 	}}
-				// );
 			};
 		}};
 

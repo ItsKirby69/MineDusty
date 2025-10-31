@@ -8,25 +8,35 @@ import mindustry.type.*;
 import mindustry.type.weather.ParticleWeather;
 import mindustry.world.meta.*;
 import minedusty.content.weathers.StormWeather;
+import minedusty.type.weather.CloudyWeather;
 
 public class DustWeathers {
-	// Heatwave which increases light (solar) among other things
-	public static Weather heavyRain, snowStorm, heatWave;
+	public static Weather heavyRain, snowStorm, heatWave, clouds;
 
 	public static void load() {
 		// WIP
-		heatWave = new ParticleWeather("heatwave"){{
-            color = noiseColor = Color.valueOf("#faf3a7ff");
-            particleRegion = "particle";
-            statusGround = false;
-            useWindVector = true;
-            sizeMax = 4f;
-            sizeMin = 1.4f;
-            minAlpha = 0.5f;
-            maxAlpha = 1f;
-            density = 10000f;
-            baseSpeed = 0.03f;
-			attrs.set(Attribute.light, 0.15f);
+		clouds = new CloudyWeather("clouds"){{
+			baseColor = Color.valueOf("#d3f5ff");
+		}};
+
+        heatWave = new ParticleWeather("heatwave"){{
+            duration = 15f * Time.toMinutes;
+            noiseLayers = 4;
+            noiseLayerSclM = 0.8f;
+            noiseLayerAlphaM = 0.6f;
+            noiseLayerSpeedM = 1.7f;
+            noiseLayerSclM = 0.6f;
+            baseSpeed = 0.05f;
+            color = noiseColor = Color.valueOf("#faf3a7");
+            noiseScale = 3000f;
+            noisePath = "fog";
+            drawParticles = false;
+            drawNoise = true;
+            useWindVector = false;
+            xspeed = 1f;
+            yspeed = 0.04f;
+            attrs.set(Attribute.light, 0.2f);
+            opacityMultiplier = 0.27f;
         }};
 		// WIP
 		snowStorm = new ParticleWeather("snow-storm"){{

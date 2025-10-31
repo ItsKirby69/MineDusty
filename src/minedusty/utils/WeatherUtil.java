@@ -1,12 +1,13 @@
 package minedusty.utils;
 
+import arc.util.Log;
 import mindustry.type.Weather;
 import mindustry.type.Weather.WeatherEntry;
 
 import static mindustry.Vars.*;
 
-import arc.util.Log;
 
+/** Weather related utilities. */
 public class WeatherUtil {
     /** For checking current weathers in a sector/map */
 

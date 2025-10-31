@@ -3,11 +3,22 @@ package minedusty.planets;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.math.geom.Vec3;
+import arc.struct.*;
+import arc.struct.ObjectIntMap.Entry;
+import arc.util.Log;
 import arc.util.noise.Ridged;
+import mindustry.content.*;
+import mindustry.ctype.UnlockableContent;
+import mindustry.game.Rules;
 import mindustry.game.Schematics;
 import mindustry.maps.generators.*;
-import mindustry.type.Sector;
+import mindustry.type.*;
+import mindustry.type.Weather.WeatherEntry;
+import mindustry.world.*;
+import minedusty.content.DustWeathers;
 import minedusty.utils.Simplex;
+
+import static mindustry.Vars.*;
 
 /** The Planet's looks and bumpiness. */
 public class TheiaPlanetGenerator extends PlanetGenerator{
@@ -34,44 +45,11 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 
 	desert1 = Color.valueOf("#6b604d"), desert2 = Color.valueOf("#b8a78c");
 	
-	//Color[] DivineGrad = {divine3, divine3, divine1, divine1, divine2, divine4, divine5, divine2};
 	Color[] DivineGrad = {divine1, divine1, divine5, divine5, divine4, divine2, divine1, divine3};
-	//Color[] DivineGrad = {divine2, divine5, divine4, divine2, divine1, divine3, divine3};
-	
+
 	{
 		baseSeed = 2;
 		defaultLoadout = Schematics.readBase64("bXNjaAF4nGNgZmBmZmDJS8xNZWBJzi9KZeBOSS1OLsosKMnMz2NgYGDLSUxKzSlmYIqOZWQQzs3MS00pLS6p1AWp1c1LLS4BqmEEISABAPVFEvQ=");
-	}
-	// Preview highmap
-	/* 
-	{
-		int size = 256*4;
-		Pixmap pixmap = new Pixmap(size, size);
-		
-		for(int x = 0; x < size; x++){
-			for(int y = 0; y < size; y++){
-				
-				float nx = (x / (float)(size - 1)) * 2f - 1f;
-				float ny = (y / (float)(size - 1)) * 2f - 1f;
-				Vec3 pos = new Vec3(nx, ny, 1f).nor();
-
-				float h = testHeight(pos);
-				float g = Mathf.clamp(h);
-				Color c = new Color(g, g, g, 1f);
-
-				pixmap.setRaw(x, y, c.rgba8888());
-			}
-		}
-
-		Fi ouputt = Vars.tmpDirectory.child("terra-height.png");
-		PixmapIO.writePng(ouputt, pixmap);
-		pixmap.dispose();
-		Log.info("Saved terra-height.png to " + ouputt.absolutePath());
-	}
-	*/
-	@Override
-	public void generateSector(Sector sector){
-		//nothing yet
 	}
 
 	/** Rotates the whole planet. In degrees of course. NOTE: this weirdly behaves between v147 and v149. */
@@ -252,6 +230,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 		return base;
     }
 
+	/** Gets the slope valud of a sample radius. */
 	float getSlope(Vec3 position, float sampleRadius) {
 		float center = getHeight(position);
 		Vec3[] samples = {
@@ -267,4 +246,62 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 		}
 		return slopeSum / samples.length;
 	}
+
+	@Override
+    public void addWeather(Sector sector, Rules rules){
+        ObjectIntMap<Block> floorc = new ObjectIntMap<>();
+        ObjectSet<UnlockableContent> content = new ObjectSet<>();
+
+        for(Tile tile : world.tiles){
+            if(world.getDarkness(tile.x, tile.y) >= 3){
+                continue;
+            }
+
+            Liquid liquid = tile.floor().liquidDrop;
+            if(tile.floor().itemDrop != null) content.add(tile.floor().itemDrop);
+            if(tile.overlay().itemDrop != null) content.add(tile.overlay().itemDrop);
+            if(liquid != null) content.add(liquid);
+
+            if(!tile.block().isStatic()){
+                floorc.increment(tile.floor());
+                if(tile.overlay() != Blocks.air){
+                    floorc.increment(tile.overlay());
+                }
+            }
+        }
+
+        Seq<Entry<Block>> entries = floorc.entries().toArray();
+        entries.sort(e -> -e.value);
+        entries.removeAll(e -> e.value < 30);
+
+        Block[] floors = new Block[entries.size];
+        for(int i = 0; i < entries.size; i++){
+            floors[i] = entries.get(i).key;
+        }
+
+        boolean hasSnow = floors.length > 0 && (floors[0].name.contains("ice") || floors[0].name.contains("snow"));
+        boolean hasRain = floors.length > 0 && !hasSnow && content.contains(Liquids.water) && !floors[0].name.contains("sand");
+        boolean hasDesert = floors.length > 0 && !hasSnow && !hasRain && floors[0] == Blocks.sand;
+        
+        if(hasSnow){
+            rules.weather.add(new WeatherEntry(Weathers.snow));
+			rules.weather.add(new WeatherEntry(DustWeathers.snowStorm));
+        }
+
+        if(hasRain){
+			rules.weather.add(new WeatherEntry(DustWeathers.heavyRain));
+            rules.weather.add(new WeatherEntry(Weathers.rain));
+            rules.weather.add(new WeatherEntry(Weathers.fog));
+        }
+
+        if(hasDesert){
+			rules.weather.add(new WeatherEntry(DustWeathers.heatWave));
+            rules.weather.add(new WeatherEntry(Weathers.sandstorm));
+        }
+
+		Log.info("Weather for sector " + sector.name() + ":");
+		for(WeatherEntry w : rules.weather){
+			Log.info(" - " + w.weather.name);
+		}
+    }
 }
