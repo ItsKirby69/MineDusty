@@ -369,6 +369,13 @@ public class DustUnitTypes {
 					width = 7f;
 					height = 10f;
 					lifetime = 75f;
+
+					trailLength = 4;
+					trailWidth = 1.4f;
+
+					hitColor = backColor = DustPalette.oxidecopperMid;
+					trailColor = DustPalette.oxidecopperBack;
+					frontColor = DustPalette.oxidecopper;
 					shootEffect = Fx.shootSmall;
 					shootEffect = Fx.shootSmallSmoke;
 					buildingDamageMultiplier = 0.5f;
