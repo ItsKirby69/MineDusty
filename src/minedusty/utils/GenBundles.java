@@ -11,11 +11,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 // For importing Misc sections from the bundle to the generated bundle
 class BundleSection {
@@ -87,7 +83,7 @@ public class GenBundles {
                 // out.println();
             }
 
-            Log.info(outFile.path() + " generated successfully.");
+            Log.info("[gold]" + outFile.path() + " generated successfully!");
         } catch(Exception e){
             Log.err("Error generating bundles: " + e.getMessage());
         }
