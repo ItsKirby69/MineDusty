@@ -195,6 +195,7 @@ public class DustPlants {
 
 		monstera = new LivingBush("monstera", 1){{
 			layer = Layer.blockProp + 2f;
+			clipSize = 20;
 			dualCircleMode = true;
 			mapColor = Color.valueOf("#4c864c");
 			lobesMin = 5;
