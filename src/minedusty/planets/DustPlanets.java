@@ -37,6 +37,8 @@ public class DustPlanets {
 			orbitOffset = 210f;
 			atmosphereRadOut = 0.3f;
 
+			lightSrcTo = 0.85f;
+
 			alwaysUnlocked = true;
 			updateLighting = true;
 			accessible = true;

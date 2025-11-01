@@ -44,7 +44,7 @@ public class DustEnvRenderers {
                 float x = (rand.random(0f, world.unitWidth()) + (pos % 100)*753) % world.unitWidth();
                 float y = (rand.random(0f, world.unitHeight()) + (pos % 120)*453) % world.unitHeight() - 200f;
                 float rot = rand.range(7f);
-                float sizeScale = 0.4f + rand.range(0.3f);
+                float sizeScale = 0.7f + rand.range(0.3f);
 
                 float topDst = (Core.camera.position.y + Core.camera.height/2f) - (y + tex.height/2f + tex.height*1.9f*sizeScale/2f);
                 float invDst = topDst/1000f;
