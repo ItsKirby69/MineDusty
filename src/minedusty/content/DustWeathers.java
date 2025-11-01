@@ -2,7 +2,6 @@ package minedusty.content;
 
 import arc.graphics.Color;
 import arc.util.Time;
-import mindustry.content.*;
 import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.type.weather.ParticleWeather;
@@ -65,26 +64,25 @@ public class DustWeathers {
 			yspeed = 13f;
 			xspeed = 10f;
 			density = 700f;
-			stroke = 1.2f;
+			stroke = 1.4f;
 
-			attrs.set(Attribute.light, -0.6f);
+			attrs.set(Attribute.light, -0.75f);
 			attrs.set(Attribute.water, 0.5f);
 
-			color = Color.valueOf("5e6fa5ff");
-			noiseColor = Color.valueOf("2E3752");
+			noiseColor = Color.valueOf("#2E3752");
 			particleRegion = "particle";
 			drawNoise = true;
 			useWindVector = true;
-			sizeMax = 230f;
-			sizeMax = 120f;
+			sizeMax = 80f;
             minAlpha = 0.1f;
             maxAlpha = 0.25f;
 			baseSpeed = 6.5f;
 			opacityMultiplier = 0.35f;
+			splashTimeScale = 12f;
 
-			status = StatusEffects.wet;
+			status = DustStatusEffects.drenched;
 			sound = Sounds.rain;
-			force = 0.4f;
+			force = 0.7f;
 			soundVol = 0.8f;
 			duration = 7f * Time.toMinutes;
 		}};
