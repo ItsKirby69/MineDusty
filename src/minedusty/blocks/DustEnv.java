@@ -3,6 +3,7 @@ package minedusty.blocks;
 import arc.graphics.Color;
 import mindustry.content.*;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.Attribute;
@@ -184,6 +185,7 @@ public class DustEnv {
 
 		driftWood = new Prop("driftwood"){{
 			variants = 2;
+			layer = Layer.blockProp + 0.75f;
 			customShadow = true;
 			shoreRock.asFloor().decoration = this;
 			shoreSmooth.asFloor().decoration = this;

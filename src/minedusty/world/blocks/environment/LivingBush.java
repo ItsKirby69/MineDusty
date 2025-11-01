@@ -130,7 +130,7 @@ public class LivingBush extends Prop{
                 w = region.width * region.scl(); 
                 h = region.height * region.scl();
                 
-                Draw.z(layer + 2);
+                Draw.z(layer + 0.5f);
                 Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[variation] : variantRegions[variation],
                     tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
                     tile.worldy() - Angles.trnsy(angle, origin),
@@ -140,7 +140,7 @@ public class LivingBush extends Prop{
                 );
             }
 			if(topshadowRegions[variation].found()){
-				Draw.z(layer + 2.5f);
+				Draw.z(layer + 1f);
 				Draw.color(0f, 0f, 0f, shadowAlpha);
 				Draw.rect(topshadowRegions[variation], tile.worldx(), tile.worldy());
 				Draw.color();
@@ -154,7 +154,7 @@ public class LivingBush extends Prop{
                 w = region.width * region.scl(); 
                 h = region.height * region.scl();
                 
-                Draw.z(layer + 3);
+                Draw.z(layer + 1.5f);
                 Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomTopRegions[variation] : topRegions[variation],
                     tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
                     tile.worldy() - Angles.trnsy(angle, origin),
@@ -174,7 +174,7 @@ public class LivingBush extends Prop{
                 w = region.width * region.scl(); 
                 h = region.height * region.scl();
                 
-                Draw.z(layer + 2);
+                Draw.z(layer + 0.5f);
                 Draw.rect(Angles.angleDist(ba, 225f) <= botAngle ? bottomRegions[variation] : variantRegions[variation],
                     tile.worldx() - Angles.trnsx(angle, origin) + w*0.5f, 
                     tile.worldy() - Angles.trnsy(angle, origin),
@@ -189,7 +189,7 @@ public class LivingBush extends Prop{
 		
 		TextureRegion centerToDraw = useRare ? rareRegion : centerRegions[variation];
         if(centerToDraw.found()){ 
-			Draw.z(layer + 3);
+			Draw.z(layer + 2f);
             //Draw.rect(centerRegions[sprite], tile.worldx(), tile.worldy());
 			Draw.rectv(centerToDraw, x, y, w, h, rot, vec -> vec.add(
 				Mathf.sin(vec.y*2 + Time.time, scl, mag) + Mathf.sin(vec.x*2 - Time.time, 50, 0.6f),
@@ -198,7 +198,7 @@ public class LivingBush extends Prop{
         }
 		
 		if(shadowRegions[variation].found()){
-			Draw.z(layer);
+			Draw.z(layer - 0.5f);
 			Draw.color(0f, 0f, 0f, shadowAlpha);
             Draw.rect(shadowRegions[variation], tile.worldx(), tile.worldy());
         }
