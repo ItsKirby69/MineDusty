@@ -13,7 +13,29 @@ import minedusty.graphics.DustPalette;
 public class DustStatusEffects {
     public static StatusEffect rotting, healingWash, saltcorrosion;
 
+    public static StatusEffect drenched;
+
     public static void load(){
+        // TODO icons
+        drenched = new StatusEffect("drenched"){{
+            color = Color.valueOf("#3b51b1");
+            speedMultiplier = 0.9f;
+            effect = Fx.wet;
+            effectChance = 0.09f;
+            transitionDamage = 22;
+
+            init(() -> {
+                affinity(StatusEffects.shocked, (unit, result, time) -> {
+                    unit.damage(transitionDamage);
+
+                    if(unit.team == state.rules.waveTeam){
+                        Events.fire(Trigger.shock);
+                    }
+                });
+                opposite(StatusEffects.burning, StatusEffects.melting);
+            });
+        }};
+
         saltcorrosion = new StatusEffect("salt-corrosion"){{
             color = Color.valueOf("#c8d7e2");
             intervalDamage = 10f;
