@@ -127,6 +127,8 @@ public class DustEnv {
 		
 		basaltSands = new Floor("basalt-sands", 5){{
 			wall = basaltWall;
+			itemDrop = Items.sand;
+			playerUnmineable = true;
 			attributes.set(Attribute.oil, 0.8f);
 		}};
 
