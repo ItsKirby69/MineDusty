@@ -135,11 +135,13 @@ public class TheiaTechTree {
             });
 
             node(verdantSpills, () -> {
+                node(thicketValley);
                 node(basalticShore, Seq.with(
-                    new SectorComplete(verdantSpills), // Maybe have some expensive unlocks required. Like certain machines
+                    new SectorComplete(thicketValley),
                     new Research(salinator)
-                ), () -> {});
-                node(lushCorridors, () -> {});
+                    ), () -> {
+                });
+                node(lushCorridors);
             });
 
             nodeProduce(oxidecopper, () -> {

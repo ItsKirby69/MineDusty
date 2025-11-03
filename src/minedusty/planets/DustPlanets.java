@@ -5,6 +5,8 @@ import mindustry.content.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
 import mindustry.world.meta.*;
+import minedusty.blocks.DustCore;
+import minedusty.graphics.DustCacheLayers;
 import minedusty.world.meta.DustEnvs;
 
 public class DustPlanets {
@@ -45,7 +47,9 @@ public class DustPlanets {
 			allowLaunchSchematics = false;
 			allowLaunchToNumbered = false;
 			allowLaunchLoadout = false;
-
+			clearSectorOnLose = true;
+			
+			defaultCore = DustCore.coreNest;
 			defaultEnv = DustEnvs.lush | Env.terrestrial & ~Env.spores;
 			atmosphereColor = Color.valueOf("1e3c40"); // 438e99
 			iconColor = Color.valueOf("32e341"); // 2cc429
