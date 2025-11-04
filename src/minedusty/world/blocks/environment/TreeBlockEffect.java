@@ -8,6 +8,7 @@ import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.world.Tile;
 import mindustry.world.blocks.environment.TreeBlock;
+import mindustry.world.meta.BuildVisibility;
 
 /** Just a tree block with spawning effects */
 public class TreeBlockEffect extends TreeBlock{
@@ -16,6 +17,10 @@ public class TreeBlockEffect extends TreeBlock{
 
     public TreeBlockEffect(String name){
         super(name);
+        emitLight = true;
+        shadowOffset = -1.5f;
+        buildVisibility = BuildVisibility.sandboxOnly;
+
     }
 
     @Override

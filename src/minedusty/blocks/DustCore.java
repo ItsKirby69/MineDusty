@@ -18,7 +18,7 @@ public class DustCore {
 			alwaysUnlocked = true;
 
 			isFirstTier = true;
-			unitType = DustUnitTypes.cricket;//DustUnitTypes.cricket; temporarily alpha
+			unitType = DustUnitTypes.cricket;
 			health = 2500;
 			itemCapacity = 5500;
 			size = 3;

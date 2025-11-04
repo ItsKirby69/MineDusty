@@ -95,16 +95,16 @@ public class DustPlants {
 		burntTree = new TreeBlockEffect("burnt-tree"){{
 			mapColor = Color.valueOf("#172025");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
-			buildVisibility = BuildVisibility.sandboxOnly;
-			shadowOffset = -1f;
 			effect = DustyEffects.fallingEmbers;
+			lightRadius = 50f;
+			lightColor = Color.valueOf("#ffd754dd");
 		}};
 		ashTree = new TreeBlockEffect("ash-tree"){{
 			mapColor = Color.valueOf("#98a3a8");
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
-			buildVisibility = BuildVisibility.sandboxOnly;
-			shadowOffset = -1f;
 			effect = DustyEffects.fallingEmbers;
+			lightRadius = 50f;
+			lightColor = Color.valueOf("#ffd754dd");
 		}};
 		deadTree = new TreeBlock("dead-tree"){{
 			mapColor = Color.valueOf("#744700");
