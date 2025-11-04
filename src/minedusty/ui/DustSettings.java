@@ -33,7 +33,7 @@ public class DustSettings {
 
             t.pref(new TableSetting("github-linko", new Table(c -> {
                 c.button("@setting.dusty-cleartree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
-                    Vars.ui.showConfirm("@setting.dusty-cleartree-confirm", () -> DustData.resetTree(DustPlanets.theia.techTree)
+                    Vars.ui.showConfirm("@setting.dusty-cleartree-confirm", () -> DustData.resetTree()
                 )).width(230f);
 
                 c.button("@setting.dusty-clearcampaign", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
