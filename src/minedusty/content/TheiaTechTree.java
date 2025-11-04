@@ -18,7 +18,6 @@ import static minedusty.blocks.DustPower.largesaltBattery;
 import static minedusty.blocks.DustPower.powerHub;
 import static minedusty.blocks.DustPower.powerPylon;
 import static minedusty.blocks.DustPower.saltBattery;
-import static minedusty.blocks.DustCore.*;
 
 import static mindustry.content.Items.*;
 import static mindustry.content.Items.sand;
@@ -36,9 +35,7 @@ import static mindustry.game.Objectives.*;
 public class TheiaTechTree {
 
     public static void load() {
-        // TODO BIG TODO, need to remake all these blocks from scratch since vanilla
-        // items would be tied to Serpulo's tech tree.
-        DustPlanets.theia.techTree = nodeRoot("theia", coreNest, () -> {
+        DustPlanets.theia.techTree = nodeRoot("theia", DustCore.coreNest, () -> {
             node(copperConveyor, () -> {
                 node(copperJunction, () -> {
                     node(copperRouter, () -> {
@@ -69,7 +66,10 @@ public class TheiaTechTree {
                     node(DustDrills.offshoreDrill, () -> {});
                 });
 
-                node(crystalCrusher); // TODO make it unlock the bore
+                node(crystalCrusher, Seq.with(
+                    new Produce(graphite),
+                    new SectorComplete(basalticShore)
+                ), () -> {}); // TODO make it unlock the bore
                 node(carbonicConcentrator, Seq.with(
                     new Research(coal)
                 ), () -> {});
@@ -80,7 +80,9 @@ public class TheiaTechTree {
                     node(salinator, () -> {});
                 });
 
-                node(carbonicCombustor, () -> {
+                node(carbonicCombustor, Seq.with(
+                    new Produce(coal)
+                ), () -> {
                     node(DustPower.solarPanel, () -> {
                         node(DustPower.largeSolarPanel, () -> {});
                         node(geothermalGenerator, () -> {});
@@ -125,11 +127,11 @@ public class TheiaTechTree {
             // Need to add my custom turrets as well
             node(sandSpitter, () -> {
                 node(sleet, Seq.with(
-                    new Research(graphite)
+                    new Research(graphite),
+                    new Produce(carbonicWaste)
                 ), () -> {});
                 node(pellucid, Seq.with(
-                    new Research(chlorophyte),
-                    new Research(aquaWall)
+                    new Research(chlorophyte)
                 ), () -> {});
                 node(spout);
             });
