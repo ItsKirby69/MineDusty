@@ -13,7 +13,7 @@ public class DustSectors {
         verdantSpills = new DustSectorPreset("verdantSpills", theia, 111){{
             alwaysUnlocked = true;
             unlocked = true;
-            addStartingItems = false;
+            addStartingItems = true;
             captureWave = 7;
             difficulty = 1;
             overrideLaunchDefaults = true;
@@ -21,7 +21,7 @@ public class DustSectors {
         }};
 
         basalticShore = new DustSectorPreset("basalticShore", theia, 50){{
-            addStartingItems = false;
+            addStartingItems = true;
             captureWave = 15;
             difficulty = 3;
             overrideLaunchDefaults = true;
@@ -29,7 +29,7 @@ public class DustSectors {
         }};
 
         lushCorridors = new DustSectorPreset("lushCorridors", theia, 110){{
-            addStartingItems = false;
+            addStartingItems = true;
             captureWave = 15;
             difficulty = 5;
             overrideLaunchDefaults = true;

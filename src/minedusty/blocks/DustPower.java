@@ -28,6 +28,7 @@ public class DustPower {
         // Potentially have pylons be a bit longer with less connections for powerHubs to have lower range but high conections?
         powerPylon = new PowerPylon("power-pylon", 3){{
             requirements(Category.power, with(oxidecopper, 3, Items.lead, 5));
+            researchCost = with(oxidecopper, 20, Items.lead, 50);
             laserScale = 0.2f;
             laserRange = 8.5f;
             underBullets = true;
