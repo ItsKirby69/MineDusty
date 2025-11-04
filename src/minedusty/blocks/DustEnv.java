@@ -30,6 +30,7 @@ public class DustEnv {
 	public static Block algaeWater, deepalgaeWater, quickSand;
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
 	public static Block stoneWater, magmaBasalt, hotRockBasalt;
+	public static Block divineGrass;
 
 	// Ores
 	public static Block oreGalena, oreOxidecopper, oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamerium, wallOxide;
@@ -137,6 +138,11 @@ public class DustEnv {
 		}};
 		calciteRough = new Floor("calcite-rough", 4){{
 			wall = calciteWall;
+		}};
+
+		divineGrass = new Floor("divine-grass", 3){{
+			mapColor = Color.valueOf("#c63f48");
+			attributes.set(DustAttributes.turf, 0.2f);
 		}};
 
 		yellow = new Floor("yellow", 1){{
