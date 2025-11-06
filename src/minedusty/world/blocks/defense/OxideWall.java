@@ -6,6 +6,7 @@ import arc.math.Mathf;
 import arc.util.*;
 import mindustry.content.Weathers;
 import mindustry.world.blocks.defense.Wall;
+import minedusty.content.DustWeathers;
 import minedusty.utils.WeatherUtil;
 
 import static mindustry.Vars.*;
@@ -61,7 +62,7 @@ public class OxideWall extends Wall {
         @Override
         public void updateTile(){
             
-            timeScale = WeatherUtil.containsWeather(Weathers.rain) ? rainAccel : 1f;
+            timeScale = WeatherUtil.containsWeather(Weathers.rain, Weathers.fog, DustWeathers.heavyRain) ? rainAccel : 1f;
 
             if(currentStage < maxStages){
                 stageTimer += Time.delta * timeScale;

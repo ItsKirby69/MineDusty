@@ -11,16 +11,19 @@ import static mindustry.Vars.*;
 public class WeatherUtil {
     /** For checking current weathers in a sector/map */
 
-    public static boolean containsWeather(Weather weather){
+    public static boolean containsWeather(Weather... weathers){
         if (!state.isGame() || state.rules == null || state.rules.weather == null){
             return false;
         }
 
         try {
             for (WeatherEntry entry : state.rules.weather){
-                if (entry.weather == weather){
-                    return true;
+                for (Weather w : weathers){
+                    if (entry.weather == w){
+                        return true;
+                    }
                 }
+
             }
             return false;
         } catch (Exception e){
