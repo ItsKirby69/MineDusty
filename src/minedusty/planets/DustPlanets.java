@@ -18,7 +18,7 @@ public class DustPlanets {
 
 	public static void load() {
 		theia = new Planet("theia", Planets.sun, 1f, 3) {{
-			icon = "minedusty-theia"; // why not working
+			// icon = "theia";
 			generator = new TheiaPlanetGenerator();
 			meshLoader = () -> new MultiMesh(
 					// new AtmosphereHexMesh(this, 6),
@@ -51,8 +51,8 @@ public class DustPlanets {
 			
 			defaultCore = DustCore.coreNest;
 			defaultEnv = DustEnvs.lush | Env.terrestrial & ~Env.spores;
-			atmosphereColor = Color.valueOf("1e3c40"); // 438e99
-			iconColor = Color.valueOf("32e341"); // 2cc429
+			atmosphereColor = Color.valueOf("#1e3c40"); // 438e99
+			iconColor = Color.valueOf("#64e332ff"); // 2cc429
 			ruleSetter = r -> {
 
 				r.placeRangeCheck = false;
