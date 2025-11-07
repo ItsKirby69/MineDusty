@@ -16,7 +16,10 @@ import static arc.Core.*;
 public class OxideWall extends Wall {
 
     public int maxStages = 3;
-    public float stageDur = 3600 * 2f;
+    /** Minimum Duration of each stage in ticks (60 ticks per second) */
+    public float stageDur = 3600 * 3f;
+    /** Randomness value. Randomly multiplies with stageDur then added to final time for a proper stage duration. */
+    public float durationRandomness = 10f;
     /** How fast stagetime passes by if rainy weather */
     public float rainAccel = 2f;
 
@@ -56,7 +59,7 @@ public class OxideWall extends Wall {
         }
 
         public void randomStageDur(){
-            currStageDuration = stageDur + Mathf.random(3600f * 1f, 3600f * 12f);
+            currStageDuration = stageDur + Mathf.random(0, stageDur * durationRandomness);
         }
 
         @Override
