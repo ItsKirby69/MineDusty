@@ -58,7 +58,7 @@ public class TheiaTechTree {
                 node(lobePump, () -> {
                     node(aquameriumConduit, () -> {
                         node(aquaLiquidJunction, () -> {
-                            node(aquaLiquidJunction);
+                            node(aquaLiquidRouter);
                         });
                     });
                 });
