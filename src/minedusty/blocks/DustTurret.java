@@ -253,10 +253,10 @@ public class DustTurret {
                         collidesGround = true;
                     }};
                 }},
-                lead, new FlakBulletType(3f, 12f){{
+                lead, new FlakBulletType(2.5f, 10f){{
                     lifetime = 40;
                     width = height = 9;
-                    splashDamage = 10f;
+                    splashDamage = 8f;
                     splashDamageRadius = 20f;
                     reloadMultiplier = 0.75f;
                     collidesTiles = false;
@@ -279,6 +279,43 @@ public class DustTurret {
 
                     fragBullets = 6;
                     fragBullet = new BasicBulletType(3f, 10){{
+                        keepVelocity = true;
+                        inaccuracy = 1;
+                        width = height = 8;
+                        shrinkY = 1;
+                        lifetime = 20;
+                        backColor = trailColor = DustPalette.leadAmmoBack;
+                        hitColor = frontColor = DustPalette.leadAmmoFront;
+                        despawnEffect = Fx.none;
+                        collidesGround = true;
+                    }};
+                }},
+                graphite, new FlakBulletType(3f, 15f){{
+                    lifetime = 40;
+                    width = height = 10;
+                    splashDamage = 13f;
+                    splashDamageRadius = 30f;
+                    reloadMultiplier = 0.6f;
+                    collidesTiles = false;
+                    collides = false;
+                    collidesAir = false;
+                    scaleLife = true;
+
+                    hitColor = backColor = trailColor = Pal.graphiteAmmoBack;
+                    frontColor = Pal.graphiteAmmoFront;
+                    despawnEffect = Fx.hitBulletColor;
+                    hitShake = 1f;
+                    hitSound = Sounds.explosion;
+                    hitEffect = Fx.flakExplosion;
+                    shootEffect = Fx.shootBig;
+                    trailEffect = Fx.artilleryTrail;
+
+                    shrinkX = 0.15f;
+                    shrinkY = 0.63f;
+                    shrinkInterp = Interp.slope;
+
+                    fragBullets = 3;
+                    fragBullet = new BasicBulletType(3f, 12){{
                         keepVelocity = true;
                         inaccuracy = 1;
                         width = height = 8;
