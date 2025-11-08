@@ -18,12 +18,12 @@ public class DustDefence {
 
 		chloroWall = new HealWall("chlorophyte-wall") {{
 			requirements(Category.defense, with(DustItems.chlorophyte, 6));
-			health = 80 * wallHealthMulti;
+			health = 90 * wallHealthMulti;
 		}};
 
         chloroWallLarge = new HealWall("chlorophyte-wall-large"){{
             requirements(Category.defense, ItemStack.mult(chloroWall.requirements, 4));
-            health = 80 * 4 * wallHealthMulti;
+            health = 90 * 4 * wallHealthMulti;
             size = 2;
         }};
 
