@@ -1,6 +1,5 @@
 package minedusty.world.blocks.production;
 
-import arc.Core;
 import arc.math.Mathf;
 import mindustry.Vars;
 import mindustry.graphics.Pal;

@@ -184,7 +184,7 @@ public class DustCrafters {
 					amount = 25;
 					sides = 8;
 					spread = 9;
-					color = Color.valueOf("#417663ff");
+					color = Color.valueOf("#3dcfb077");
 				}},
 				new DrawDefault(),
 				new DrawHeatCrafterEff(){{

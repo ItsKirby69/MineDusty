@@ -93,7 +93,9 @@ public class TheiaTechTree {
                         ), () -> {
                             node(largesaltBattery, () -> {});
                         });
-                        node(powerHub, () -> {}
+                        node(powerHub, Seq.with(
+                            new SectorComplete(lushCorridors)
+                        ), () -> {}
                         );
                     });
                 });
