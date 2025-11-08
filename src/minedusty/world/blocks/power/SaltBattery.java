@@ -122,22 +122,10 @@ public class SaltBattery extends Battery {
         addBar("required-liquid", (SaltBatteryBuild entity)  ->
             new Bar(
                 () -> {
-                    //float percentage = (entity.liquids.currentAmount() / minLiquidLevel) * 100f;
-                    //String color = percentage >= 100f ? "[accent]" : "[scarlet]";
-                    // "Salt Water: " + color + String.format("%.0f", percentage) + "%[]";
-
                     String color = entity.liquids.currentAmount() >= minLiquidLevel ? "[accent]" : "[scarlet]";
                     return "Salt Water: " + color + (int)entity.liquids.currentAmount() + "[] / " + (int)minLiquidLevel;
                 },
-                () -> entity.liquids.currentAmount() >= minLiquidLevel ? Pal.lightOrange : Color.scarlet
-                // {
-                //     if (entity.liquids.currentAmount() < minLiquidLevel) {
-                //         return Color.scarlet;
-                //     } else { //if (entity.liquids.currentAmount() < minLiquidLevel * 1.5f) 
-                //         return Pal.lightOrange;
-                //     }
-                // }
-                ,
+                () -> entity.liquids.currentAmount() >= minLiquidLevel ? Pal.lightOrange : Color.scarlet,
                 () -> Math.min(entity.liquids.currentAmount() / minLiquidLevel, 1f)
             ));
     }

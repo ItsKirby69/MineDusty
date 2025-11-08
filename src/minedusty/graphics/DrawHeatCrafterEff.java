@@ -17,6 +17,8 @@ public class DrawHeatCrafterEff extends DrawBlock{
     public Color color = new Color(1f, 0.22f, 0.22f, 0.8f);
     public float pulse = 0.3f, pulseScl = 10f;
     public float layer = Layer.blockAdditive;
+    /** Minimum efficiency to show effect */
+    public float minEfficiency = 0.5f;
 
     public TextureRegion heat;
     public String suffix = "-heat";
@@ -36,8 +38,7 @@ public class DrawHeatCrafterEff extends DrawBlock{
     @Override
     public void draw(Building build){
         Draw.z(Layer.blockAdditive);
-        if(build instanceof GenericCrafterBuild pf && pf.efficiencyScale() > 0){
-
+        if(build instanceof GenericCrafterBuild pf && pf.efficiencyScale() > minEfficiency){
             float z = Draw.z();
             if(layer > 0) Draw.z(layer);
             Draw.blend(Blending.additive);
