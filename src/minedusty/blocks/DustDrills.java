@@ -65,7 +65,10 @@ public class DustDrills {
             requirements(Category.production, with(DustItems.chlorophyte, 30, DustItems.oxidecopper, 25, Items.lead, 30));
             researchCost = with(oxidecopper, 400, chlorophyte, 150);
             tier = 3;
-            drillTime = 550;
+            drillTime = 700;
+
+            liquidBoostIntensity = 1.25f;
+            consumeLiquid(DustLiquids.bioLiquid, 0.06f).boost();
         }};
     }
 }

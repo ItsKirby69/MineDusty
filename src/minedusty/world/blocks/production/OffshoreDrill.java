@@ -11,7 +11,7 @@ public class OffshoreDrill extends ModifiedDrill{
     /** How the efficiency scales. */
     public float waterEfficiencyScale = 1f;
     /** The minimum efficiency the drill would have. */
-    public float baseWaterEfficiency = 0.25f;
+    public float baseWaterEfficiency = 0f;
     /** Uses average liquid multiplier of the tiles. */
     public boolean useAverage = true;
 
@@ -39,7 +39,6 @@ public class OffshoreDrill extends ModifiedDrill{
     
     public class OffshoreDrillBuild extends ModifiedDrillBuild{
 
-        // BROKEN
         public float efficiencyMultiplier(){
             float total = 0f;
             int count = 0;
@@ -58,14 +57,12 @@ public class OffshoreDrill extends ModifiedDrill{
         @Override
         public void onProximityUpdate(){
             super.onProximityUpdate();
-            efficiency *= efficiencyMultiplier();
         }
 
         @Override
         public void updateTile(){
-            efficiency *= efficiencyMultiplier();
+            efficiency = efficiencyMultiplier();
             super.updateTile();
         }
-        
     }
 }
