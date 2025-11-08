@@ -54,7 +54,7 @@ public class DustEnv {
 		
 		taigaGrass = new Floor("taiga-grass", 5){{
 			mapColor = Color.valueOf("#418A5D");
-			attributes.set(DustAttributes.turf, 0.2f);
+			attributes.set(DustAttributes.turf, 0.15f);
 		}};
 		
 		blossomGrass = new Floor("blossom-grass", 5){{
@@ -79,7 +79,10 @@ public class DustEnv {
 		Blocks.stone.attributes.set(DustAttributes.salt, 0.1f);
 		Blocks.grass.attributes.set(DustAttributes.salt, -0.1f);
 
-		Blocks.grass.attributes.set(DustAttributes.turf, 0.25f);
+		Blocks.grass.attributes.set(DustAttributes.turf, 0.167f);
+		Blocks.moss.attributes.set(DustAttributes.turf, 0.167f);
+		Blocks.dirt.attributes.set(DustAttributes.turf, 0.08333f);
+		Blocks.mud.attributes.set(DustAttributes.turf, 0.08333f);
 
 		saltLumps = new Floor("salt-lumps", 1){{
 			attributes.set(DustAttributes.salt, 0.3f);
@@ -142,7 +145,7 @@ public class DustEnv {
 
 		divineGrass = new Floor("divine-grass", 3){{
 			mapColor = Color.valueOf("#c63f48");
-			attributes.set(DustAttributes.turf, 0.2f);
+			attributes.set(DustAttributes.turf, 0.167f);
 		}};
 
 		yellow = new Floor("yellow", 1){{

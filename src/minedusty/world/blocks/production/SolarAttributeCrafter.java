@@ -21,6 +21,7 @@ public class SolarAttributeCrafter extends SolarCrafter {
     public float baseEfficiency = 0f;
     public float boostScale = 1f;
     public float maxBoost = 1.5f;
+    /** Minimum tile attribute efficiency */
     public float minEfficiency = 0.5f;
     public float displayEfficiencyScale = 1f;
     public boolean displayEfficiency = true;
@@ -140,6 +141,7 @@ public class SolarAttributeCrafter extends SolarCrafter {
 
         public float efficiencyMultiplier(){
             float solarEff = super.efficiencyScale();
+            if(solarEff < minSolar) return 0f; // Zero efficiency when solar is below needed
             float attrEff = baseEfficiency + Math.min(maxBoost, boostScale * attrsum * solarEff) + attribute.env();
             return attrEff;
         }

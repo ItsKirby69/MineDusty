@@ -15,6 +15,8 @@ public class SolarCrafter extends GenericCrafter{
     public float solarRequirement = 1f;
     /** Similar to overheatScale in the HeatCrafter, excess solar with this value multiplied */
     public float oversolarScale = 1f;
+    /** Minimum solar energy needed to run */
+    public float minSolar = 0.25f;
 
     public SolarCrafter(String name) {
         super(name);
@@ -25,16 +27,20 @@ public class SolarCrafter extends GenericCrafter{
         super.setBars();
 
         addBar("light", (SolarCrafterBuild entity) ->
-            new Bar(() -> 
-            Core.bundle.format("bar.solarpercent", (int)(entity.solarLevel * 100f), (int)(entity.efficiencyScale() * 100f)),
-            () -> Pal.accent,
-            () -> entity.solarLevel / solarRequirement));
+            new Bar(
+                () -> {
+                    String colorTag = entity.solarLevel >= minSolar ? "[accent]" : "[scarlet]";
+                    return "Solar: " + colorTag + (int)(entity.solarLevel * 100f) + "[]%";
+                },
+                () -> Pal.accent,
+                () -> (float)Mathf.clamp(entity.solarLevel / solarRequirement)
+            ));
     }
 
     @Override
     public void setStats(){
         super.setStats();
-        stats.add(DustStat.solarRequired, (int)(solarRequirement * 100f), StatUnit.percent);
+        stats.add(DustStat.solarRequired, (int)(minSolar * 100f), StatUnit.percent);
     }
 
     public class SolarCrafterBuild extends GenericCrafterBuild{
@@ -57,6 +63,7 @@ public class SolarCrafter extends GenericCrafter{
 
         @Override
         public float efficiencyScale(){
+            if(solarLevel < minSolar) return 0f;
             float over = Math.max(solarLevel - solarRequirement, 0f);
             return Mathf.clamp(solarLevel / solarRequirement) + over / solarRequirement * oversolarScale;
         }

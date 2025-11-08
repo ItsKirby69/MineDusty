@@ -130,6 +130,7 @@ public class DustCrafters {
 			baseEfficiency = 0f;
 			size = 2;
 			health = 320;
+			maxBoost = 1.25f;
 			hasItems = true;
 			hasLiquids = true;
 			liquidCapacity = 60f;
@@ -163,6 +164,7 @@ public class DustCrafters {
 			outputItem = new ItemStack(carbonicWaste, 1);
 
 			minEfficiency = 0.5f;
+			minSolar = 0.5f;
 			maxBoost = 2f;
 			dumpExcess = true;
 
@@ -185,7 +187,9 @@ public class DustCrafters {
 					color = Color.valueOf("#417663ff");
 				}},
 				new DrawDefault(),
-				new DrawHeatCrafterEff()
+				new DrawHeatCrafterEff(){{
+					minEfficiency = 0f;
+				}}
 			);
 		}};
 
