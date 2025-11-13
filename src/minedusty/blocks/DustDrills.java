@@ -4,6 +4,12 @@ import mindustry.content.*;
 import mindustry.type.Category;
 import mindustry.world.*;
 import mindustry.world.blocks.production.*;
+import mindustry.world.draw.DrawBlock;
+import mindustry.world.draw.DrawDefault;
+import mindustry.world.draw.DrawLiquidRegion;
+import mindustry.world.draw.DrawMulti;
+import mindustry.world.draw.DrawPumpLiquid;
+import mindustry.world.draw.DrawRegion;
 import mindustry.world.meta.Env;
 import minedusty.content.*;
 import minedusty.world.blocks.production.*;
@@ -12,7 +18,7 @@ import static mindustry.type.ItemStack.*;
 import static minedusty.content.DustItems.*;
 
 public class DustDrills {
-    public static Block offshoreDrill, copperDrill, chloroDrill, newdrill, lobePump;
+    public static Block offshoreDrill, copperDrill, chloroDrill, lobePump;
 
     public static Block crystalBore, gyratoryDrill;
 
@@ -21,11 +27,23 @@ public class DustDrills {
             requirements(Category.liquid, with(aquamerium, 20, Items.silicon, 50, oxidecopper, 35));
             consumePower(20f/60f);
             researchCost = with(aquamerium, 200, Items.silicon, 150);
-            pumpAmount = 8f / 60f;
+            pumpAmount = 7f / 60f;
             liquidCapacity = 60f;
             squareSprite = false;
             size = 2;
             hasPower = true;
+            drawer = new DrawMulti(
+                new DrawRegion("-bottom"),
+                new DrawLiquidRegion(){{
+                    suffix = "-pool";
+                }},
+                new DrawRegion("-rotator"){{
+                    spinSprite = true;
+                    rotateSpeed = 1f;
+                }},
+                new DrawDefault(),
+                new DrawPumpLiquid()
+            );
         }};
 
 		crystalBore = new BeamDrill("crystal-bore"){{
