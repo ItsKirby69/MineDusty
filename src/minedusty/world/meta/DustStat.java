@@ -5,6 +5,8 @@ import mindustry.world.meta.*;
 public class DustStat extends Stat{
 
     public static final Stat
+    powerRanged = new Stat("powerRanged", StatCat.power),
+
     solarRequired = new DustStat("solarrequirement", StatCat.crafting),
     requiredEfficiency = new DustStat("requiredefficiency", StatCat.crafting);
 

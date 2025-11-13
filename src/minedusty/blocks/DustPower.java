@@ -25,11 +25,10 @@ public class DustPower {
     public static Block powerPylon, powerTower, powerHub;
 
     public static void loadContent() {
-        powerPylon = new PowerPylon("power-pylon", 3){{
+        powerPylon = new BuoyPylon("power-pylon", 3){{
             requirements(Category.power, with(oxidecopper, 3, Items.lead, 5));
             researchCost = with(oxidecopper, 20, Items.lead, 50);
             laserScale = 0.2f;
-            laserRange = 8.5f;
             underBullets = true;
         }};
 
@@ -81,19 +80,6 @@ public class DustPower {
 
             drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
         }};
-
-        // TODO
-        // largegeothermalGenerator = new ThermalGenerator("large-geothermal-generator"){{
-        //     requirements(Category.power, with(oxidecopper, 60, Items.lead, 20, Items.silicon, 55, gold, 60));
-        //     powerProduction = 360f / 60f;
-        //     generateEffect = Fx.redgeneratespark;
-        //     effectChance = 0.04f;
-        //     size = 3;
-        //     floating = true;
-
-        //     ambientSound = Sounds.hum;
-        //     ambientSoundVolume = 0.08f;
-        // }};
 
         solarPanel = new SolarGenerator("solar-panel"){{
             requirements(Category.power, with(Items.lead, 30, Items.silicon, 45));

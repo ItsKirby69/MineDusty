@@ -1,9 +1,8 @@
 package minedusty.world.blocks.power;
 
 import arc.Core;
-import arc.math.Angles;
-import arc.math.Mathf;
-import mindustry.graphics.Drawf;
+import arc.math.*;
+import mindustry.graphics.*;
 import mindustry.world.blocks.power.PowerNode;
 import minedusty.graphics.DustPalette;
 
@@ -11,11 +10,9 @@ import static mindustry.Vars.*;
 
 /** Custom PowerNode only with custom laser textures (for now). */
 public class PowerPylon extends PowerNode{
-
-    public PowerPylon(String name, int maxNodes){
+    public PowerPylon(String name, int maxN){
         super(name);
-
-        this.maxNodes = maxNodes;
+        maxNodes = maxN;
         laserColor2 = DustPalette.laserColor2;
     }
 
