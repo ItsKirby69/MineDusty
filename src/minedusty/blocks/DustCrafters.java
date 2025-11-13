@@ -173,18 +173,17 @@ public class DustCrafters {
 			outputLiquid = new LiquidStack(DustLiquids.bioLiquid, 12/60f);
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
-				new DrawRegion("-rails"),
 				new DrawLiquidTile(DustLiquids.bioLiquid){{
 					alpha = 0.5f;
 				}},
 				new DrawLiquidTile(Liquids.water){{
 					alpha = 0.5f;
 				}},
-				new DrawBubbles(){{
+				new DrawAlphaBubbles(){{
 					amount = 25;
 					sides = 8;
 					spread = 9;
-					color = Color.valueOf("#3dcfb077");
+					color = Color.valueOf("#3dcfb0");
 				}},
 				new DrawDefault(),
 				new DrawHeatCrafterEff(){{
