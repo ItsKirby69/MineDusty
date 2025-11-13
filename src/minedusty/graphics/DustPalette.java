@@ -4,7 +4,6 @@ import arc.graphics.Color;
 
 public class DustPalette {
 	public static Color
-	//name = Color.valueOf("#00000"),
 	// Random stuff
 	laserColor2 = Color.valueOf("#ffe18f"),
 	turretOutline = Color.valueOf("#394046"),

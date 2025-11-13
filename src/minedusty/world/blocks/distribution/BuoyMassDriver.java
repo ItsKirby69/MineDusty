@@ -1,14 +1,18 @@
 package minedusty.world.blocks.distribution;
 
+import arc.Core;
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.*;
 import arc.util.Time;
 import mindustry.graphics.*;
+import mindustry.world.Tile;
 import mindustry.world.blocks.distribution.MassDriver;
 import minedusty.graphics.DrawPseudo3D;
 
 /** A mass driver built for the waters. Has moving regions depicting it on the water. */
 public class BuoyMassDriver extends MassDriver{
+    public TextureRegion shadowRegion;
     // Fix for weird offset of block as usual
     float offsetX = 4f;
     float offsetY = 4f;
@@ -17,11 +21,32 @@ public class BuoyMassDriver extends MassDriver{
     float barrelX = 0f;
     
     float shadowOffset = -2f;
+    float bobbingMag = 0.08f;
 
     public BuoyMassDriver(String name){
         super(name);
         outlineIcon = false;
         outlineRadius = 0;
+        customShadow = true;
+        hasShadow = true;
+    }
+
+    @Override
+    public void load(){
+        super.load();
+        shadowRegion = Core.atlas.find(name + "-shadow");
+    }
+
+    // Probably inefficient.
+    @Override
+    public void drawShadow(Tile tile) {
+        float x = tile.worldx(), y = tile.worldy(),
+        w = shadowRegion.width * shadowRegion.scl(), h = shadowRegion.height * shadowRegion.scl();
+
+        float bob = 0.98f + Mathf.sin(Time.time / 40f + x * 0.1f + y * 0.1f) * bobbingMag;
+        Draw.color(0.0F, 0.0F, 0.0F, BlockRenderer.shadowColor.a);
+        Draw.rect(shadowRegion, x + offset, y + offset, w * bob, h * bob);
+        Draw.color();
     }
 
     public class BuoyMassDriverBuild extends MassDriverBuild{
@@ -30,16 +55,12 @@ public class BuoyMassDriver extends MassDriver{
         public void draw(){
             Draw.z(Layer.block + 0.05f);
             float x = tile.worldx(), y = tile.worldy(),
-            w = baseRegion.width * baseRegion.scl(), h = baseRegion.height * baseRegion.scl(),
-            scl = 12f, mag = 0.2f;
+            w = baseRegion.width * baseRegion.scl(), h = baseRegion.height * baseRegion.scl();
 
-            float swayX = Mathf.sin(y*2 + Time.time, scl, mag) + Mathf.sin(x*2 - Time.time, 70, 1f);
-            float swayY = Mathf.sin(y*2 + Time.time + 16, scl + 3f, mag) + Mathf.sin(x*2 - Time.time, 50, 0.3f);
+            float bob = 1f + Mathf.sin(Time.time / 40f + x * 0.1f + y * 0.1f) * bobbingMag;
 
             // Making it smovin'
-            Draw.rectv(baseRegion, x + offsetX, y + offsetY, w, h, 
-                vec -> vec.add(swayX * 0.6f, swayY * 0.6f)
-            );
+            Draw.rect(baseRegion, x + offset, y + offset, w * bob, h * bob);
 
             Draw.z(Layer.turret);
 
@@ -52,16 +73,16 @@ public class BuoyMassDriver extends MassDriver{
             float offY = Angles.trnsy(rotation, barrelY) + Angles.trnsy(rotation + 90f, barrelX);
 
             Drawf.shadow(region,
-            x + offsetX - swayX + recoilX + offX - (size / 2),
-            y + offsetY - swayY + recoilY + offY - (size / 2), rotation - 90);
+            x + offsetX + recoilX + offX - (size / 2),
+            y + offsetY + recoilY + offY - (size / 2), rotation - 90);
 
             // Making it 3d
             float drawX = DrawPseudo3D.xHeight(x, 0.001f);
             float drawY = DrawPseudo3D.yHeight(y, 0.001f);
 
             Draw.rect(region,
-            drawX + offsetX + recoilX + offX - (swayX * 0.34f),
-            drawY + offsetY + recoilY + offY - (swayY * 0.34f), rotation - 90);
+            drawX + offsetX + recoilX + offX,
+            drawY + offsetY + recoilY + offY, rotation - 90);
         }
     }
 }

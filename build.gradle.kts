@@ -210,9 +210,9 @@ project(":"){
             val modName = input.nameWithoutExtension
 
             folder.child(input.name).delete()
-            folder.child("${modName}.zip").delete()
+            folder.child("${modName}Desktop.zip").delete()
             folder.child(dexJar.get()).delete()
-            folder.child("${dexJar.get()}.zip").delete()
+            folder.child("${dexJar.get()}Desktop.zip").delete()
             Fi(input).copyTo(folder)
 
             logger.lifecycle("Copied :jar output to $folder.")

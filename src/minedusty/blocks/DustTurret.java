@@ -99,7 +99,7 @@ public class DustTurret {
             itemCapacity = 30;
             reload = 250f;
             range = 170f;
-            consumePower(360f / 60f);
+            consumePower(160f / 60f);
 
             // Make it water baby
             floating = true;
