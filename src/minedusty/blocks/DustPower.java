@@ -39,29 +39,46 @@ public class DustPower {
             laserScale = 0.2f;
             laserRange = 12f;
             size = 2;
+            consumesPower = true;
+            outputsPower = true;
             consumePowerBuffered(6000);
+            baseExplosiveness = 0.25f;
         }};
 
         // Need custom effect
-        geothermalGenerator = new ThermalGenerator("geothermal-generator"){{
+        geothermalGenerator = new GeothermalGenerator("geothermal-generator"){{
             requirements(Category.power, with(oxidecopper, 55, Items.lead, 30, Items.silicon, 35, chlorophyte, 35));
             researchCost = with(oxidecopper, 400, Items.silicon, 600, chlorophyte, 200);
-            powerProduction = 105f / 60f;
-            generateEffect = Fx.redgeneratespark;
-            effectChance = 0.015f;
+            powerProduction = 90f / 60f;
             size = 2;
-            floating = true;
 
-            ambientSound = Sounds.hum;
-            ambientSoundVolume = 0.06f;
-
-            outputLiquid = new LiquidStack(Liquids.slag, 6f / 60f);
+            outputLiquid = new LiquidStack(Liquids.slag, 12f / 60f);
 
             drawer = new DrawMulti(
                 new DrawDefault(),
                 new DrawHeatEfficiency("-heat"),
                 new DrawSpinEfficiency("-rotator"){{
                     baseSpeed = 3.5f;
+                }}
+            );
+        }};
+
+        largegeothermalGenerator = new GeothermalGenerator("large-geothermal-generator"){{
+            requirements(Category.power, with(aquamerium, 70, Items.lead, 70, Items.silicon, 50, chlorophyte, 35));
+            researchCost = with(Items.lead, 800, Items.silicon, 1000, aquamerium, 500);
+            powerProduction = 230f / 60f;
+            size = 3;
+
+            outputLiquid = new LiquidStack(Liquids.slag, 32f / 60f);
+
+            drawer = new DrawMulti(
+                new DrawDefault(),
+                new DrawSpinEfficiency("-rotator"){{
+                    baseSpeed = 2.5f;
+                }},
+                new DrawRegion("-top"),
+                new DrawHeatEfficiency("-heat"){{
+                    pulse = 0.4f;
                 }}
             );
         }};
