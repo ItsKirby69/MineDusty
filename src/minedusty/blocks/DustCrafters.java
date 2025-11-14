@@ -13,6 +13,8 @@ import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
+import mindustry.world.meta.Attribute;
+import mindustry.world.meta.Env;
 import minedusty.DustAttributes;
 import minedusty.content.*;
 import minedusty.graphics.*;
@@ -25,6 +27,7 @@ public class DustCrafters {
 	public static Block carbonicConcentrator;
 
 	// Extractors/Mixers
+	public static Block oilExtractor;
 	public static Block salinator;
 	public static Block crystalCrusher;
 	public static Block bioSludgeChamber;
@@ -34,6 +37,19 @@ public class DustCrafters {
 	
 	public static void loadContent() {
 		//region Crafters
+		oilExtractor = new SolidPump("oil-extractor"){{
+            requirements(Category.production, with(aquamerium, 30, Items.graphite, 50, Items.lead, 30, oxidecopper, 20));
+            result = Liquids.oil;
+            pumpAmount = 6f/60f;
+            size = 2;
+            liquidCapacity = 60f;
+            rotateSpeed = 1.4f;
+            attribute = Attribute.oil;
+            envRequired |= Env.groundWater;
+
+            consumePower(1.5f);
+        }};
+		
 		carbonicConcentrator = new GenericCrafter("carbonic-concentrator"){{
 			requirements(Category.crafting, with(oxidecopper, 30, Items.lead, 50));
 			researchCost = with(oxidecopper, 100);
@@ -97,10 +113,10 @@ public class DustCrafters {
 
             drawer = new DrawMulti(
 				new DrawDefault(), 
-				new DrawFlame(Color.valueOf("#d399ffff")) //ffef99
+				new DrawFlame(Color.valueOf("#d399ff")) //ffef99
 			); 
             
-				ambientSound = Sounds.smelter;
+			ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.07f;
 
             consumeItems(with(carbonicWaste, 1, silicadust, 3));
@@ -144,8 +160,6 @@ public class DustCrafters {
 				new DrawLiquidTile(saltWater),
 				new DrawDefault()
 			);
-
-			//maxBoost = 2f;
 
 			consumeLiquid(Liquids.water, 12f/60f);
 		}};
