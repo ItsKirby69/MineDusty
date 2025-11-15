@@ -98,7 +98,7 @@ public class DustTurret {
             size = 2;
             itemCapacity = 30;
             reload = 250f;
-            range = 170f;
+            range = 210f;
             consumePower(160f / 60f);
 
             // Make it water baby
