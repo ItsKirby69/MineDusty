@@ -51,8 +51,9 @@ public class DustPower {
             researchCost = with(oxidecopper, 400, Items.silicon, 600, chlorophyte, 200);
             powerProduction = 90f / 60f;
             size = 2;
+            maxEfficiency = 2f;
 
-            outputLiquid = new LiquidStack(Liquids.slag, 12f / 60f);
+            outputLiquid = new LiquidStack(Liquids.slag, 8f / 60f);
 
             drawer = new DrawMulti(
                 new DrawDefault(),
@@ -67,9 +68,10 @@ public class DustPower {
             requirements(Category.power, with(aquamerium, 70, Items.lead, 70, Items.silicon, 50, chlorophyte, 35));
             researchCost = with(Items.lead, 800, Items.silicon, 1000, aquamerium, 500);
             powerProduction = 230f / 60f;
+            maxEfficiency = 2.5f;
             size = 3;
 
-            outputLiquid = new LiquidStack(Liquids.slag, 32f / 60f);
+            outputLiquid = new LiquidStack(Liquids.slag, 24f / 60f);
 
             drawer = new DrawMulti(
                 new DrawDefault(),

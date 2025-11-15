@@ -1,34 +1,44 @@
 package minedusty.world.blocks.power;
 
+import static mindustry.Vars.*;
+
 import arc.Core;
+import arc.Events;
 import arc.graphics.Color;
+import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.util.Nullable;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
+import mindustry.game.EventType.Trigger;
 import mindustry.game.Team;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Drawf;
+import mindustry.graphics.*;
 import mindustry.type.LiquidStack;
+import mindustry.ui.Bar;
 import mindustry.world.Tile;
 import mindustry.world.blocks.power.PowerGenerator;
-import mindustry.world.meta.Attribute;
-import mindustry.world.meta.Stat;
-import mindustry.world.meta.StatUnit;
-import mindustry.world.meta.StatValues;
+import mindustry.world.meta.*;
+import minedusty.world.meta.DustStat;
 
 /** A thermalGenerator that takes size of machine out of the equation. */
 public class GeothermalGenerator extends PowerGenerator{
-   public Effect generateEffect = Fx.redgeneratespark;;
-   public float effectChance = 0.05F;;
-   public float minEfficiency = 0.0F;
-   public float displayEfficiencyScale = 1.0F;
-   public boolean displayEfficiency = true;
-   @Nullable
-   public LiquidStack outputLiquid;
-   public Attribute attribute = Attribute.heat;
+    public Color coolColor = new Color(1, 1, 1, 0f);
+    public Color hotColor = Color.valueOf("#ff9575a3");
+    public Effect generateEffect = Fx.redgeneratespark;;
+    public float effectChance = 0.05F;;
+    public float minEfficiency = 0.0F;
+    public float displayEfficiencyScale = 1.0F;
+    public boolean displayEfficiency = true;
+    @Nullable
+    public LiquidStack outputLiquid;
+    public Attribute attribute = Attribute.heat;
+    /** Maximum heat capacity in efficiency. Block will explode if past this efficiency. */
+    public float maxEfficiency = 2.0F;
 
-   public GeothermalGenerator(String name) {
+    public float heating = 0.2f/60f;
+
+    public GeothermalGenerator(String name) {
         super(name);
         noUpdateDisabled = true;
         floating = true;
@@ -61,6 +71,12 @@ public class GeothermalGenerator extends PowerGenerator{
         if (outputLiquid != null) {
             stats.add(Stat.output, StatValues.liquid(outputLiquid.liquid, outputLiquid.amount * 60.0F, true));
         }
+        stats.add(DustStat.heatEfficiency, maxEfficiency * 100f, StatUnit.percent);
+    }
+
+    public void setBars(){
+        super.setBars();
+        addBar("heat", (GeothermalGeneratorBuild entity) -> new Bar("bar.heat", Pal.lightOrange, () -> entity.heat));
     }
 
     public void drawPlace(int x, int y, int rotation, boolean valid) {
@@ -78,6 +94,7 @@ public class GeothermalGenerator extends PowerGenerator{
 
     public class GeothermalGeneratorBuild extends GeneratorBuild{
         public float sum;
+        public float heat;
 
         @Override
         public void updateTile(){
@@ -87,10 +104,25 @@ public class GeothermalGenerator extends PowerGenerator{
                 generateEffect.at(x + Mathf.range(3f), y + Mathf.range(3f));
             }
 
+            // Logic for heating machine based on excess efficiency
+            if(productionEfficiency > maxEfficiency){
+                float excess = productionEfficiency - maxEfficiency;
+                heat += heating * excess * delta();
+            }else{
+                heat = Math.max(0f, heat - heating * delta());
+            }
+
             if(outputLiquid != null){
                 float added = Math.min(productionEfficiency * delta() * outputLiquid.amount, liquidCapacity - liquids.get(outputLiquid.liquid));
                 liquids.add(outputLiquid.liquid, added);
                 dumpLiquid(outputLiquid.liquid);
+            }
+
+            heat = Mathf.clamp(heat);
+
+            if (heat >= 1f) {
+                Events.fire(Trigger.thoriumReactorOverheat);
+                kill();
             }
         }
 
@@ -115,6 +147,14 @@ public class GeothermalGenerator extends PowerGenerator{
             super.onProximityAdded();
 
             sum = sumAttribute(attribute, tile.x, tile.y);
+        }
+
+        @Override
+        public void draw(){
+            super.draw();
+
+            Draw.color(coolColor, hotColor, heat);
+            Fill.rect(x, y, size * tilesize, size * tilesize);
         }
     }
 }
