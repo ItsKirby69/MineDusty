@@ -29,7 +29,7 @@ public class DustEnv {
 	public static Block silkSandTropWater, silkSandWater, pattedGrassWater, calciteWater, calciteTropWater, shorestoneWater, basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater, quickSand;
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
-	public static Block stoneWater, magmaBasalt, hotRockBasalt;
+	public static Block stoneWater, stoneTropWater, magmaBasalt, hotRockBasalt;
 	public static Block divineGrass;
 
 	// Ores
@@ -67,6 +67,7 @@ public class DustEnv {
 		elmGrass = new Floor("elm-grass", 5){{
 		}};
 
+		// TODO seems like overlays don't work on silksand?
 		elmLeaves = new OverlayFloor("elm-leaves"){{
 			variants = 3;
 		}};
@@ -86,6 +87,7 @@ public class DustEnv {
 
 		saltLumps = new Floor("salt-lumps", 1){{
 			attributes.set(DustAttributes.salt, 0.3f);
+			attributes.set(Attribute.oil, 0.5f);
 		}};
 
 		clayFloor = new Floor("clay-floor", 3){{
@@ -363,6 +365,8 @@ public class DustEnv {
 		
 		// Watered tiles
 		stoneWater = new WaterFloor("stone-water", 3){{
+		}};
+		stoneTropWater = new WaterFloor("trop-stone-water", 3){{
 		}};
 		silkSandWater = new WaterTileEffect("silksand-water", 3){{
 			addEffect(DustyEffects.sparkles, 0.05f,300f, Color.valueOf("#d9fcff"));
