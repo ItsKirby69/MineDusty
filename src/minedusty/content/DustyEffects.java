@@ -218,9 +218,9 @@ public class DustyEffects {
 			Interp.pow4Out.apply(e.fin() / thresh) :
 			1f - Interp.pow2In.apply((e.fin() - thresh) / (1f - thresh));
 		
-		fade *= 0.5f; 
+		fade *= 0.5f;
 
-		color(Color.valueOf("#4f5fb8"), Color.valueOf("#edefffff"), e.finpow());
+		color(Color.valueOf("#b5d7fdff"), Color.valueOf("#edefffff"), e.finpow());
 
 		rand.setSeed(e.id);
 		float baseAngle = e.rotation;
