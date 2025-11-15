@@ -25,6 +25,8 @@ public class DrawPress extends DrawRegion{
     public float easeDown = 2f;
     /** Offset for the press progress */
     public float progressOffset = 0f;
+    /** How many cycles in one period. Should be more or equal to 1 */
+    public float cycles = 1f;
 
 
     public DrawPress(String suffix){
@@ -35,7 +37,7 @@ public class DrawPress extends DrawRegion{
 
     @Override
     public void draw(Building build){
-        float prog = (build.progress() + progressOffset) % 1f;
+        float prog = ((build.progress() * cycles) + progressOffset) % 1f;
         float scale;
         if(prog < thresholdFall){
             float upProg = prog / thresholdFall;

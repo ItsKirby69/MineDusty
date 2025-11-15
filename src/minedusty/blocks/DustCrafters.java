@@ -1,5 +1,7 @@
 package minedusty.blocks;
 
+import static arc.Core.graphics;
+import static mindustry.content.Items.oxide;
 import static mindustry.type.ItemStack.with;
 import static minedusty.content.DustItems.*;
 import static minedusty.content.DustLiquids.*;
@@ -24,10 +26,10 @@ public class DustCrafters {
 	// Refineries
 	// A sintering machine for high melting point metals?
 	public static Block silicaForge, carbonicPress;
-	public static Block carbonicConcentrator;
+	public static Block carbonicConcentrator, carbonicRefinery;
 
 	// Extractors/Mixers
-	public static Block oilExtractor;
+	public static Block oilTap;
 	public static Block salinator;
 	public static Block crystalCrusher;
 	public static Block bioSludgeChamber;
@@ -37,19 +39,57 @@ public class DustCrafters {
 	
 	public static void loadContent() {
 		//region Crafters
-		oilExtractor = new SolidPump("oil-extractor"){{
+		oilTap = new Fracker("oil-tap"){{
             requirements(Category.production, with(aquamerium, 30, Items.graphite, 50, Items.lead, 30, oxidecopper, 20));
-            result = Liquids.oil;
-            pumpAmount = 6f/60f;
+            researchCost = with(Items.graphite, 300, aquamerium, 200);
+			result = Liquids.oil;
+			updateEffect = Fx.pulverize;
+            pumpAmount = 4f/60f;
             size = 2;
-            liquidCapacity = 60f;
+            liquidCapacity = 16f;
             rotateSpeed = 1.4f;
+			itemUseTime = 60f;
+			baseEfficiency = 0f;
             attribute = Attribute.oil;
-            envRequired |= Env.groundWater;
-
-            consumePower(1.5f);
+			
+			consumeItem(Items.sand);
+			consumePower(45f/60f);
+            // consumeLiquid(Liquids.water, 0.1f);
         }};
 		
+		carbonicRefinery = new GenericCrafter("carbonic-refinery"){{
+			requirements(Category.crafting, with(oxidecopper, 130, chlorophyte, 150, Items.graphite, 75, Items.silicon, 120, Items.lead, 110));
+			researchCost = with(Items.graphite, 400, Items.silicon, 300, chlorophyte, 1000, oxidecopper, 500);
+			craftTime = 250f;
+			size = 3;
+			health = 850;
+			outputItem = new ItemStack(carbonicWaste, 10);
+
+			craftEffect = Fx.none; // WIP
+
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile(Liquids.slag){{
+					drawLiquidLight = true;
+					alpha = 0.7f;
+				}},
+				new DrawLiquidTile(Liquids.oil){{
+					alpha = 0.5f;
+				}},
+				new DrawDefault(),
+				new DrawHeatRegion("-heat"),
+				new DrawPress("-top"){{
+					cycles = 8f;
+					thresholdFall = 0.5f;
+					easeUp = 0.7f;
+					x = -3.4f;
+					y = -3.4f;
+				}}
+			);
+			consumePower(90f/60f);
+			consumeLiquids(LiquidStack.with(Liquids.slag, 12f/60f, Liquids.oil, 7f/60f));
+		}};
+
 		carbonicConcentrator = new GenericCrafter("carbonic-concentrator"){{
 			requirements(Category.crafting, with(oxidecopper, 30, Items.lead, 50));
 			researchCost = with(oxidecopper, 100);
@@ -157,7 +197,9 @@ public class DustCrafters {
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawLiquidTile(Liquids.water),
-				new DrawLiquidTile(saltWater),
+				new DrawLiquidTile(saltWater){{
+					drawLiquidLight = true;
+				}},
 				new DrawDefault()
 			);
 
