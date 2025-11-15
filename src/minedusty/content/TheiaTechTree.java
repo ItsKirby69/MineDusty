@@ -14,6 +14,7 @@ import static minedusty.blocks.DustDistribution.*;
 import static minedusty.blocks.DustDrills.lobePump;
 import static minedusty.blocks.DustPower.carbonicCombustor;
 import static minedusty.blocks.DustPower.geothermalGenerator;
+import static minedusty.blocks.DustPower.largegeothermalGenerator;
 import static minedusty.blocks.DustPower.largesaltBattery;
 import static minedusty.blocks.DustPower.powerHub;
 import static minedusty.blocks.DustPower.powerPylon;
@@ -63,7 +64,9 @@ public class TheiaTechTree {
                     });
                 });
                 node(DustDrills.chloroDrill, () -> {
-                    node(DustDrills.offshoreDrill, () -> {});
+                    node(DustDrills.offshoreDrill, () -> {
+                        node(oilTap, () -> {});
+                    });
                 });
 
                 node(crystalCrusher, Seq.with(
@@ -72,7 +75,11 @@ public class TheiaTechTree {
                 ), () -> {}); // TODO make it unlock the bore
                 node(carbonicConcentrator, Seq.with(
                     new Research(coal)
-                ), () -> {});
+                ), () -> {
+                    node(carbonicRefinery, Seq.with(
+                        new SectorComplete(basalticShore)
+                    ), () -> {});
+                });
                 node(carbonicPress,  () -> {
                     node(silicaForge, Seq.with(
                         new Research(crystalCrusher)
@@ -85,7 +92,11 @@ public class TheiaTechTree {
                 ), () -> {
                     node(DustPower.solarPanel, () -> {
                         node(DustPower.largeSolarPanel, () -> {});
-                        node(geothermalGenerator, () -> {});
+                        node(geothermalGenerator, () -> {
+                            node(largegeothermalGenerator, Seq.with(
+                                new OnSector(basalticShore)
+                            ), () -> {});
+                        });
                     });
                     node(powerPylon, () ->{
                         node(saltBattery, Seq.with(
