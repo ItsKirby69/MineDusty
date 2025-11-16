@@ -8,6 +8,7 @@ import arc.util.*;
 import mindustry.Vars;
 import mindustry.entities.Effect;
 import mindustry.game.Team;
+import mindustry.gen.Building;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.BuildVisibility;
@@ -244,4 +245,15 @@ public class LivingTreeBlock extends Block{
 
 	@Override
 	public void drawShadow(Tile tile){}
+
+	//prevents the tree from breaking during wave shockwave
+	public class LivingTreeBlockBuild extends Building{
+		@Override
+		public void damage(float amount){
+			if(amount >= 9e7f){
+				return;
+			}
+			super.damage(amount);
+		}
+	}
 }
