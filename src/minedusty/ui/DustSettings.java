@@ -25,6 +25,7 @@ public class DustSettings {
             t.checkPref("@setting.dusty-toggle-mouse-fade", false);
             t.sliderPref("@setting.dusty-fade-opacity", 0, 0, 100, 5, s -> s + "%");
             t.sliderPref("@setting.dusty-falling-density", 6, 1, 15, 1, s -> s + "");
+            t.sliderPref("@setting.dusty-fade-dist-multi", 1, 1, 4, 1, s -> s + "");
 
             t.pref(new Title("@setting.dusty-misc-title"));
 

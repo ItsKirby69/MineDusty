@@ -127,6 +127,7 @@ public class LivingTreeBlock extends Block{
 		if (settings.getBool("@setting.dusty-fade-enabled") && (Vars.player.unit() != null && !Vars.player.unit().dead())){
 			float fadeOpacity = settings.getInt("@setting.dusty-fade-opacity") / 100f;
 			float dst;
+			float dstMulti = settings.getInt("@setting.dusty-fade-dist-multi");
 
 			if(settings.getBool("@setting.dusty-toggle-mouse-fade")){
 				Vec2 mouse = Core.input.mouseWorld(Core.input.mouseX(), Core.input.mouseY());
@@ -134,7 +135,7 @@ public class LivingTreeBlock extends Block{
 			} else {
 				dst = Mathf.dst(Vars.player.unit().x, Vars.player.unit().y, tile.worldx(), tile.worldy());
 			}
-			fade = Mathf.clamp((dst - fadeEnd) / (fadeStart - fadeEnd), fadeOpacity, 1f);
+			fade = Mathf.clamp((dst - (fadeEnd * dstMulti)) / ((fadeStart * dstMulti) - (fadeEnd * dstMulti)), fadeOpacity, 1f);
 		}
 
 		rand.setSeed(tile.pos());
