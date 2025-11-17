@@ -5,11 +5,19 @@ import minedusty.type.DustSectorPreset;
 import static minedusty.planets.DustPlanets.theia;
 
 public class DustSectors {
-	public static DustSectorPreset verdantSpills, thicketValley, basalticShore, lushCorridors;
-
+	public static DustSectorPreset verdantSpills, thicketValley, basalticShore, lushCorridors, tropicalLake;
+    
     public  static void load(){
 
         // Theia
+        tropicalLake = new DustSectorPreset("tropicalLake", theia, 49){{
+            addStartingItems = true;
+            captureWave = 21;
+            difficulty = 3;
+            overrideLaunchDefaults = true;
+            startWaveTimeMultiplier = 1.5f;
+        }};
+
         verdantSpills = new DustSectorPreset("verdantSpills", theia, 111){{
             alwaysUnlocked = true;
             unlocked = true;
