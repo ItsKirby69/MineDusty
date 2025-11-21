@@ -16,8 +16,6 @@ public class DustItems {
 
 	//Other stuff
 	public static Item carbonicWaste;
-
-	// public static final Seq<Item> theiaItems = new Seq<>(); // Useless
 	
 	public static void load(){
 

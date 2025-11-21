@@ -116,7 +116,9 @@ project(":"){
         add("kapt", entity(":entity"))
 
         compileOnly(mindustry(":core"))
+        compileOnly(mindustry(":core:sources"))
         compileOnly(arc(":arc-core"))
+        compileOnly(arc(":arc-core:sources"))
     }
 
     val jar = tasks.named<Jar>("jar"){

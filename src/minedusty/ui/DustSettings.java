@@ -17,7 +17,6 @@ public class DustSettings {
 
     public static void load() {
         ui.settings.addCategory("@setting.dusty-settings-title.title", "minedusty-settings-icon", t -> {
-            //TODO hover mouse transparent and categories.
             t.pref(new Title("@setting.dusty-visual-title"));
             
             t.checkPref("@setting.dusty-falling-leaves-enabled", true);

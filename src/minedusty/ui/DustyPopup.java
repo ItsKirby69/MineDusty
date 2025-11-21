@@ -5,7 +5,7 @@ import static arc.Core.settings;
 import arc.Core;
 import arc.scene.actions.Actions;
 import arc.scene.ui.TextButton;
-import arc.util.Align;
+import arc.util.*;
 import mindustry.ui.dialogs.*;
 
 // Gratefully taken from Omaloon's dialogue system.
@@ -34,6 +34,23 @@ public class DustyPopup extends BaseDialog{
 
         button_ok.getStyle().disabledFontColor = button_ok.getStyle().fontColor;
         button_ok.getStyle().disabled = button_ok.getStyle().up;
+
+        // Timer to close popup
+        int popDuration = 10;
+        final int[] remaining = {popDuration};
+
+        Core.app.post(() -> {
+            button_ok.setText("Alrighty (" + remaining[0] + ")");
+
+            Timer.schedule(() -> {
+                remaining[0]--;
+                if(remaining[0] > 0){
+                    button_ok.setText("Alrighty (" + remaining[0] + ")");
+                } else  {
+                    hide();
+                }
+            }, 1f, 1f, popDuration - 1);
+        });
     }
     
     public static void check(){
