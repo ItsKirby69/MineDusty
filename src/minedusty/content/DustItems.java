@@ -2,7 +2,6 @@ package minedusty.content;
 
 import minedusty.graphics.*;
 import arc.graphics.Color;
-import arc.struct.Seq;
 import mindustry.type.Item;
 
 public class DustItems {
@@ -11,15 +10,23 @@ public class DustItems {
 	// Much smaller than you'd expect.
 	// Annealed Copper? Gangue? 
 	//Ores
-	public static Item galena, oxidecopper, salt, amethyst, bioplastic, electrum, gold, silver, silicadust;
+	public static Item galena, oxidecopper, salt, amethyst, electrum, gold, silver, silicadust;
 	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
+	public static Item aluminum;
 
 	//Other stuff
-	public static Item carbonicWaste;
+	public static Item carbonicWaste, bioplastic, silumin;
 	
 	public static void load(){
 
-		//ore items
+		silumin = new Item("item-silumin", Color.valueOf("#8ba1a1")){{
+			cost = 1.1f;
+		}};
+		aluminum = new Item("item-aluminum", Color.valueOf("#909fc9")){{
+			cost = 1.1f;
+			hardness = 3;
+		}};
+
 		galena = new Item("item-galena", Color.valueOf("#9492a7")){{
 			hardness = 1;
 		}};
@@ -49,7 +56,6 @@ public class DustItems {
 			hardness = 3;
 		}};
 
-		// products
 		silicadust = new Item("item-silicadust", Color.valueOf("#918e96")){{
 			explosiveness = 0.7f; // lol
 		}};
