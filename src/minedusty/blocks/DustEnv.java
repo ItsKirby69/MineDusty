@@ -17,12 +17,12 @@ public class DustEnv {
 	// TODO Chalcedony rock and Agate stone maybe
 	// Boulders / Props
 	public static Block clayBall;
-	public static Block pearlBoulder, largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
+	public static Block largelimestoneBoulder, limestoneBoulder, pearlBoulder, largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
 	public static Block divineSapling, driftWood;
 	
 	// Tiles
 	public static Block pattedGrass, taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
-	public static Block dacitePlates, carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
+	public static Block limestone, limestonePlates, dacitePlates, carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
 	public static Block shoreSmooth, shoreRock, duneSand; //Kinda bad ones
 	public static Block prismate, prismite, silkSand, saltLumps, clayFloor;
 
@@ -163,6 +163,9 @@ public class DustEnv {
 
 		}};
 
+		limestone = new Floor("limestone", 3){{}};
+		limestonePlates = new Floor("limestone-plates", 3);
+
 		carbonPlates = new Floor("carbon-plates", 5){{
 			attributes.set(Attribute.water, -1f);
 			wall = Blocks.carbonWall;
@@ -206,6 +209,16 @@ public class DustEnv {
 		
 		divineSapling = new BoulderProp("divine-sapling"){{
 			calciteRough.asFloor().decoration = this;
+		}};
+
+		limestoneBoulder = new BoulderProp("limestone-boulder", 1){{
+			mapColor = Color.valueOf("#becccf");
+			shadowAlpha = 0.5f;
+		}};
+
+		largelimestoneBoulder = new BoulderProp("large-limestone-boulder", 1){{
+			mapColor = Color.valueOf("#becccf");
+			shadowAlpha = 0.5f;
 		}};
 
 		pearlBoulder = new BoulderProp("pearl-boulder"){{
