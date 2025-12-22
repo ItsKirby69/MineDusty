@@ -156,7 +156,7 @@ public class DustCrafters {
 				new DrawFlame(Color.valueOf("#d399ff")) //ffef99
 			); 
             
-			ambientSound = Sounds.smelter;
+			ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.07f;
 
             consumeItems(with(carbonicWaste, 1, silicadust, 3));
@@ -174,7 +174,7 @@ public class DustCrafters {
             attribute = DustAttributes.crystal;
             output = DustItems.silicadust;
             fogRadius = 2;
-            ambientSound = Sounds.drill;
+            ambientSound = Sounds.loopDrill;
             ambientSoundVolume = 0.04f;
         }};
 
@@ -325,7 +325,7 @@ public class DustCrafters {
             attribute = DustAttributes.chlorophyte;
             output = DustItems.chlorophyte;
             researchCost = with(Items.copper, 100, Items.graphite, 40);
-            ambientSound = Sounds.drill;
+            ambientSound = Sounds.loopDrill;
             ambientSoundVolume = 0.04f;
         }};
 		//endregion

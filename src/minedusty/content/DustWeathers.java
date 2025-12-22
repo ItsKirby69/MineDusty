@@ -51,7 +51,7 @@ public class DustWeathers {
 			baseSpeed = 7.0f;
 			opacityMultiplier = 0.7f;
 			force = 0.5f;
-			sound = Sounds.windhowl;
+			sound = Sounds.windHowl;
 			soundVol = 0.7f;
 			soundVolOscMag = 1.5f;
 			soundVolOscScl = 1100f;

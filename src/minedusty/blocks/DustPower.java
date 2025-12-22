@@ -91,7 +91,7 @@ public class DustPower {
             powerProduction = 75/60f;
             itemDuration = 155f;
 
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.03f;
             generateEffect = Fx.generatespark;
 

@@ -42,7 +42,7 @@ public class GeothermalGenerator extends PowerGenerator{
         super(name);
         noUpdateDisabled = true;
         floating = true;
-        ambientSound = Sounds.hum;
+        ambientSound = Sounds.loopHum;
         ambientSoundVolume = 0.03f * size;
         effectChance = 0.008f * size;
     }

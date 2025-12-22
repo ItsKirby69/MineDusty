@@ -447,7 +447,7 @@ public class DustEnv {
 			attributes.set(Attribute.water, 0.8f);
 			cacheLayer = DustCacheLayers.quicksand;//CacheLayer.mud;
             
-			walkSound = Sounds.mud; // need some custom sfx for these maybe
+			walkSound = Sounds.stepMud; // need some custom sfx for these maybe
             walkSoundVolume = 0.08f;
             walkSoundPitchMin = 0.4f;
             walkSoundPitchMax = 0.5f;

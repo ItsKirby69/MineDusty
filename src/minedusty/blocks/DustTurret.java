@@ -353,7 +353,7 @@ public class DustTurret {
             health = 250;
             shootCone = 12f;
             inaccuracy = 2f;
-            shootSound = Sounds.bang;
+            shootSound = Sounds.shootArtillerySmall;
             itemCapacity = 6;
             outlineColor = DustPalette.turretOutline;
 
@@ -440,7 +440,7 @@ public class DustTurret {
 
             scaledHealth = 170;
             // TODO more lasery shoot sfx
-            shootSound = Sounds.shootSnap;
+            shootSound = Sounds.shootScatter;
             outlineColor = DustPalette.turretOutline;
 
             // consumeLiquid(Liquids.water, 12f/60f).boost();

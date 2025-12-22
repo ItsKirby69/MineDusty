@@ -97,7 +97,7 @@ public class DustUnitTypes {
 				y = -7f;
 				shootX = 0f;
 				shootY = -3f;
-                shootSound = Sounds.mineDeploy;
+                shootSound = Sounds.shootRetusa;
                 
 
                 // shoot.shots = 1;
@@ -116,7 +116,7 @@ public class DustUnitTypes {
                     frontColor = Color.white;
                     mixColorTo = Color.white;
 
-                    hitSound = Sounds.plasmaboom;
+                    hitSound = Sounds.explosionQuad;
                     // underwater = true;
 
                     ejectEffect = Fx.none;
@@ -224,7 +224,7 @@ public class DustUnitTypes {
 			weapons.add(new Weapon("minedusty-divine-mech-finger"){{
 				layerOffset = -0.0001f;
 				top = false;
-				shootSound = Sounds.flame2;
+				shootSound = Sounds.shootFlame;
 				shootY = 1.2f;
 				y = 1.5f;
 				x = 5f;
@@ -271,7 +271,7 @@ public class DustUnitTypes {
 				recoil = 4f;
 				shake = 1f;
 				ejectEffect = Fx.casing2;
-				shootSound = Sounds.artillery;
+				shootSound = Sounds.shootArtillery;
 				//not touched below taken from Fortress
 				bullet = new ArtilleryBulletType(2f, 20, "shell"){{
 					pierce = true;
@@ -407,7 +407,7 @@ public class DustUnitTypes {
 
 			weapons.add(new Weapon("minedusty-mantis-weapon"){{
 				reload = 140f;
-				shootSound = Sounds.lasershoot;
+				shootSound = Sounds.shootLaser;
 				top = false;
 				ejectEffect = Fx.none;
 				//alternate = false;
