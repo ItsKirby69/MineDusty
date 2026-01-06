@@ -9,9 +9,9 @@ import static mindustry.Vars.*;
 
 /** Weather related utilities. */
 public class WeatherUtil {
-    /** For checking current weathers in a sector/map */
+    /** Returns true if given any of the given weathers are active. */
 
-    public static boolean containsWeather(Weather... weathers){
+    public static boolean activeWeather(Weather... weathers){
         if (!state.isGame() || state.rules == null || state.rules.weather == null){
             return false;
         }
@@ -19,7 +19,7 @@ public class WeatherUtil {
         try {
             for (WeatherEntry entry : state.rules.weather){
                 for (Weather w : weathers){
-                    if (entry.weather == w){
+                    if (entry.weather.isActive() && entry.weather == w){
                         return true;
                     }
                 }

@@ -19,9 +19,9 @@ public class OxideWall extends Wall {
     /** Minimum Duration of each stage in ticks (60 ticks per second) */
     public float stageDur = 3600 * 3f;
     /** Randomness value. Randomly multiplies with stageDur then added to final time for a proper stage duration. */
-    public float durationRandomness = 10f;
+    public float durationRandomness = 5f;
     /** How fast stagetime passes by if rainy weather */
-    public float rainAccel = 2f;
+    public float rainAccel = 5f;
 
     public TextureRegion[][] stageRegions;
 
@@ -65,7 +65,7 @@ public class OxideWall extends Wall {
         @Override
         public void updateTile(){
             
-            timeScale = WeatherUtil.containsWeather(Weathers.rain, Weathers.fog, DustWeathers.heavyRain) ? rainAccel : 1f;
+            timeScale = WeatherUtil.activeWeather(Weathers.rain, Weathers.fog, DustWeathers.heavyRain) ? rainAccel : 1f;
 
             if(currentStage < maxStages){
                 stageTimer += Time.delta * timeScale;
