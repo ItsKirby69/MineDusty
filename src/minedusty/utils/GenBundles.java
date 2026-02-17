@@ -63,7 +63,7 @@ public class GenBundles {
             writeCategory(out, "distribution", DustDistribution.class, true);
             writeCategory(out, "power", DustPower.class, true);
             writeCategory(out, "defence", DustDefence.class, true);
-            writeCategory(out, "turrets", DustTurret.class, true);
+            writeCategory(out, "turrets", DustTurrets.class, true);
 
             // For misc lines
             out.println("# MISC STUFF");

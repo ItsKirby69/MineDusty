@@ -5,6 +5,7 @@ import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.*;
 import minedusty.content.DustItems;
+import minedusty.content.DustyEffects;
 import minedusty.world.blocks.defense.*;
 
 import static mindustry.content.Items.silicon;
@@ -27,12 +28,12 @@ public class DustDefence {
             size = 2;
         }};
 
-		aquaWall = new Wall("aquamerium-wall") {{
+		aquaWall = new DustWall("aquamerium-wall") {{
 			requirements(Category.defense, with(DustItems.aquamerium, 6));
 			health = 130 * wallHealthMulti;
 		}};
 
-        aquaWallLarge = new Wall("aquamerium-wall-large"){{
+        aquaWallLarge = new DustWall("aquamerium-wall-large"){{
             requirements(Category.defense, ItemStack.mult(aquaWall.requirements, 4));
             health = 130 * 4 * wallHealthMulti;
             size = 2;

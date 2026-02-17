@@ -28,6 +28,34 @@ public class DustyEffects {
 
 	none = new Effect(0f, 0f, e -> {}),
 
+    frosting = new Effect(10, e -> {
+        stroke(e.fout() * 1.6f);
+        Lines.square(e.x, e.y, e.rotation * tilesize / 2f + e.fout() * 2f);
+    }),
+
+    frostinglarge = new Effect(10, e -> {
+        stroke(e.fout() * 1.6f);
+        Lines.square(e.x, e.y, tilesize + e.fout() * 2f);
+    }),
+
+    brittle = new Effect(10, e -> {
+        stroke(e.fout() * 1.6f);
+        Lines.square(e.x, e.y, e.rotation * tilesize / 2f + e.fout() * 2f);
+    }),
+
+    brittlelarge = new Effect(10, e -> {
+        stroke(e.fout() * 1.6f);
+        Lines.square(e.x, e.y, tilesize + e.fout() * 2f);
+    }),
+	
+	meltSteam = new Effect(70, e -> {
+        randLenVectors(e.id, e.fin(), 18, 20f, (x, y, fin, fout) -> {
+            color(e.color);
+            alpha((0.5f - Math.abs(fin - 0.2f)) * 1.5f);
+            Fill.circle(e.x + x, e.y + y, 0.5f + fout * 3f);
+        });
+    }),
+
     redCloud = new Effect(80f, e -> {
         color(DustPalette.divineBulletRed);
         randLenVectors(e.id, e.fin(), 7, 9f, (x, y, fin, fout) -> {

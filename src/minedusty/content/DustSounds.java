@@ -13,6 +13,8 @@ public class DustSounds {
 		chromaPew2 = new Sound(),
 		chromartillery = new Sound(),
 		chromalastershoot = new Sound(),
+
+		brittle = new Sound(),
 		bubblePop = new Sound(),
 		destroyTree = new Sound();
 
@@ -22,6 +24,7 @@ public class DustSounds {
 			chromartillery = loadSound("chromartillery");
 			chromalastershoot = loadSound("chromalastershoot");
 			
+			brittle = loadSound("brittle");
 			bubblePop = loadSound("bubblePop");
 			destroyTree = loadSound("destroyTree");
 		}

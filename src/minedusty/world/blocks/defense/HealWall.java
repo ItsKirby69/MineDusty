@@ -3,11 +3,10 @@ package minedusty.world.blocks.defense;
 import arc.graphics.Color;
 import arc.scene.ui.layout.Table;
 import arc.util.*;
-import mindustry.world.blocks.defense.Wall;
 import minedusty.content.DustyEffects;
 
 /** Wall that heals in pulses after a delay when damaged. */
-public class HealWall extends Wall{
+public class HealWall extends DustWall{
     
     public float healPercent = 0.05f;
     public float healDelay = 6f * 60f;
@@ -18,7 +17,7 @@ public class HealWall extends Wall{
         update = true;
     }
 
-    public class HealWallBuild extends WallBuild{
+    public class HealWallBuild extends DustWallBuild{
         private float healtimer;
         public float damageTimer;
         public boolean wasDamaged = false;

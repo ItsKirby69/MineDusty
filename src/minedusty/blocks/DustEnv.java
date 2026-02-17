@@ -176,6 +176,7 @@ public class DustEnv {
 		magmaBasalt = new Floor("magma-basalt", 3){{
             attributes.set(Attribute.heat, 0.75f);
             attributes.set(Attribute.water, -0.75f);
+			attributes.set(DustAttributes.thermalPower, 1.5f);
             blendGroup = basaltFloor;
 
             emitLight = true;
@@ -186,6 +187,7 @@ public class DustEnv {
         hotRockBasalt = new Floor("hotrock-basalt", 3){{
             attributes.set(Attribute.heat, 0.5f);
             attributes.set(Attribute.water, -0.5f);
+			attributes.set(DustAttributes.thermalPower, 1);
             blendGroup = basaltFloor;
 
             emitLight = true;
@@ -299,6 +301,7 @@ public class DustEnv {
 			speedMultiplier = 0.5f;
 			
 			attributes.set(Attribute.heat, 0.2f);
+			attributes.set(DustAttributes.thermalPower, 0.5f);
 			emitLight = true;
 			lightRadius = 50f;
 			lightColor = Color.orange.cpy().a(0.3f);
@@ -310,6 +313,7 @@ public class DustEnv {
             albedo = 0.5f;
 
             attributes.set(Attribute.heat, 0.35f);
+			attributes.set(DustAttributes.thermalPower, 0.5f);
 			emitLight = true;
 			lightRadius = 70f;
 			lightColor = Color.orange.cpy().a(0.3f);
@@ -320,6 +324,7 @@ public class DustEnv {
 			speedMultiplier = 0.6f;
 
 			attributes.set(Attribute.heat, 0.2f);
+			attributes.set(DustAttributes.thermalPower, 0.5f);
 			emitLight = true;
             lightRadius = 50f;
             lightColor = Color.orange.cpy().a(0.3f);
@@ -332,6 +337,7 @@ public class DustEnv {
             albedo = 0.5f;
 
             attributes.set(Attribute.heat, 0.35f);
+			attributes.set(DustAttributes.thermalPower, 0.5f);
 			emitLight = true;
 			lightRadius = 70f;
 			lightColor = Color.orange.cpy().a(0.3f);

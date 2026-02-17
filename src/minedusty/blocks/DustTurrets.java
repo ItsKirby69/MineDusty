@@ -25,7 +25,7 @@ import minedusty.content.*;
 import minedusty.graphics.DustPalette;
 import minedusty.world.blocks.distribution.BuoyMassDriver;
 
-public class DustTurret {
+public class DustTurrets {
     // 1x1 turrets
     // TODO 3x3 sandspitter shotgun. large flat face which obliterates enemies?
     public static Block sandSpitter, sleet, wipe;
