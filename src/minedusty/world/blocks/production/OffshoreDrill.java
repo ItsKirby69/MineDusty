@@ -5,7 +5,6 @@ import arc.graphics.Color;
 import mindustry.ui.Bar;
 import mindustry.world.Tile;
 import mindustry.world.meta.*;
-import minedusty.world.meta.DustStat;
 
 public class OffshoreDrill extends ModifiedDrill{
     /** How the efficiency scales. */
@@ -24,7 +23,7 @@ public class OffshoreDrill extends ModifiedDrill{
     @Override
     public void setStats(){
         super.setStats();
-        stats.add(DustStat.maxEfficiency, 100f * waterEfficiencyScale, StatUnit.percent);
+        stats.add(Stat.maxEfficiency, 100f * waterEfficiencyScale, StatUnit.percent);
     }
 
     @Override

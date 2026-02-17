@@ -7,7 +7,7 @@ import static mindustry.content.Blocks.*;
 import static mindustry.content.TechTree.*;
 import static minedusty.content.DustSectors.*;
 
-import static minedusty.blocks.DustTurret.*;
+import static minedusty.blocks.DustTurrets.*;
 import static minedusty.blocks.DustCrafters.*;
 import static minedusty.blocks.DustDefence.*;
 import static minedusty.blocks.DustDistribution.*;
@@ -156,7 +156,12 @@ public class TheiaTechTree {
                     new Research(salinator)
                     ), () -> {
                 });
-                node(lushCorridors);
+                node(lushCorridors, () ->{
+                    node(lushCorridors, Seq.with(
+                        new SectorComplete(basalticShore)
+                        ), () -> {
+                    });
+                });
             });
 
             nodeProduce(oxidecopper, () -> {

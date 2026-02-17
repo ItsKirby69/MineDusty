@@ -6,7 +6,6 @@ import mindustry.graphics.g3d.*;
 import mindustry.type.*;
 import mindustry.world.meta.*;
 import minedusty.blocks.DustCore;
-import minedusty.graphics.DustCacheLayers;
 import minedusty.world.meta.DustEnvs;
 
 public class DustPlanets {
