@@ -256,9 +256,10 @@ project(":"){
             }
 
             logger.lifecycle("Launching ${mindustryJar.name}...\n")
-            ProcessBuilder(
-                listOf("java", "-jar", mindustryJar.absolutePath)
-            ).inheritIO().start()
+            
+            exec {
+                commandLine("java", "-jar", mindustryJar.absolutePath)
+            }
         }
     }
 }
