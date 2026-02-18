@@ -5,11 +5,15 @@ import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
+import arc.struct.ObjectSet;
 import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.Effect;
+import mindustry.gen.Building;
 import mindustry.world.*;
-import mindustry.world.blocks.defense.Wall;
+import mindustry.world.blocks.defense.*;
+import mindustry.world.blocks.liquid.LiquidBlock;
+import mindustry.world.blocks.production.GenericCrafter.GenericCrafterBuild;
 import minedusty.DustAttributes;
 import minedusty.content.*;
 import minedusty.utils.WeatherUtil;
@@ -88,6 +92,7 @@ public class DustWall extends Wall {
         float frostAlpha = 0;
 
         int maxFrostStage = actualStages - 1;
+        ObjectSet<Building> counted = new ObjectSet<>(); //Copy of checked buildings
 
         @Override
         public void created(){
@@ -200,6 +205,8 @@ public class DustWall extends Wall {
             int minY = (int)(cy - heatRange);
             int maxY = (int)(cy + heatRange);
 
+            counted.clear();
+
             for(int x = minX; x <= maxX; x++){
                 for(int y = minY; y <= maxY; y++){
 
@@ -207,25 +214,53 @@ public class DustWall extends Wall {
                     if(other == null) continue;
 
                     int baseHeat = 0;
-                    
-                    if(other.build != null && other.build.block instanceof DefrosterBlock){
-                        DefrosterBlockBuild def = (DefrosterBlockBuild)other.build;
-                        baseHeat = Math.round(def.heat);
-                    }else{
-                        float blockHeat = other.block().attributes.get(DustAttributes.thermalPower);
-                        float floorHeat = other.floor().attributes.get(DustAttributes.thermalPower);
-                        baseHeat = Math.round(Math.max(blockHeat, floorHeat));
+
+                    // Buildings
+                    if(other.build != null){
+                        Building b = other.build;
+                        boolean isDefroster = b instanceof DefrosterBlockBuild;
+
+                        float bx = b.tile.x + (b.block.size - 1) / 2f;
+                        float by = b.tile.y + (b.block.size - 1) / 2f;
+
+                        int dst = (int)Math.max(Math.abs(bx - cx), Math.abs(by - cy));
+                        if(dst > heatRange) continue;
+
+                        if(!counted.add(b)) continue;
+                        // Check for running machines
+                        if(!isDefroster && b instanceof GenericCrafterBuild g && g.efficiency > 0f){
+                            baseHeat += 1;
+                        }
+                        // Check for defrosters
+                        if(isDefroster){
+                            baseHeat += Math.round(((DefrosterBlockBuild)b).heat);
+                        }
+                        // Check for slag filled pipes
+                        if(b.block instanceof LiquidBlock){
+                            if(b.liquids != null && b.liquids.get(Liquids.slag) > 1f){
+                                baseHeat += 1;
+                            }
+                        }
+                        // Check for env tiles
+                        baseHeat += Math.round(b.block.attributes.get(DustAttributes.thermalPower));
+
+                        if(baseHeat <= 0) continue;
+
+                        // every 2 tiles reduce 1 power
+                        int effective = Math.max(0, baseHeat - dst / 2);
+
+                        thermalPower += effective;
+                        continue;
                     }
 
-                    if(baseHeat <= 0) continue;
-
-                    int dst = (int)Math.max(Math.abs(x - cx), Math.abs(y - cy));
-                    if(dst > heatRange) continue;
-
-                    // every 2 tiles reduce 1 power
-                    int effective = Math.max(0, baseHeat - dst / 2);
-
-                    thermalPower += effective;
+                    float floorHeat = other.floor().attributes.get(DustAttributes.thermalPower);
+                    if(floorHeat > 0f){
+                        int dst = (int)Math.max(Math.abs(x - cx), Math.abs(y - cy));
+                        if(dst <= heatRange){
+                            int effective = Math.max(0, Math.round(floorHeat) - dst / 2);
+                            thermalPower += effective;
+                        }
+                    }
                 }
             }
         }
