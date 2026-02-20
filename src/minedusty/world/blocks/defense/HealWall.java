@@ -20,7 +20,6 @@ public class HealWall extends DustWall{
     public class HealWallBuild extends DustWallBuild{
         private float healtimer;
         public float damageTimer;
-        public boolean wasDamaged = false;
 
         @Override
         public void updateTile() {
@@ -44,7 +43,6 @@ public class HealWall extends DustWall{
             } else {
                 damageTimer = 0f;
                 healtimer = 0f;
-                wasDamaged = false;
             }
         }
 
@@ -53,7 +51,6 @@ public class HealWall extends DustWall{
             super.damage(damage);
             damageTimer = 0f;
             healtimer = 0f;
-            wasDamaged = true;
         }
         
         // TEMP

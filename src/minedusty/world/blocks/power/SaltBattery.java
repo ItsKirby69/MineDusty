@@ -5,8 +5,7 @@ import static mindustry.Vars.*;
 
 import arc.Events;
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import mindustry.game.EventType.Trigger;
 import mindustry.gen.Building;
@@ -16,6 +15,7 @@ import mindustry.ui.Bar;
 import mindustry.world.blocks.power.Battery;
 import mindustry.world.draw.*;
 import minedusty.content.DustLiquids;
+import minedusty.graphics.DrawSaltPower;
 
 public class SaltBattery extends Battery {
     public Color coolColor = new Color(1, 1, 1, 0f);
@@ -42,10 +42,8 @@ public class SaltBattery extends Battery {
             new DrawRegion("-bottom"),
             new DrawLiquidTile(DustLiquids.saltWater),
             new DrawDefault(),
-            new DrawPower(){{
-                emptyLightColor = SaltBattery.this.emptyLightColor;
-                fullLightColor = SaltBattery.this.fullLightColor;
-        }}, new DrawRegion("-top"));
+            new DrawSaltPower(),
+            new DrawRegion("-top"));
     }
 
     public class SaltBatteryBuild extends BatteryBuild {
@@ -122,7 +120,7 @@ public class SaltBattery extends Battery {
         addBar("required-liquid", (SaltBatteryBuild entity)  ->
             new Bar(
                 () -> {
-                    String color = entity.liquids.currentAmount() >= minLiquidLevel ? "[accent]" : "[scarlet]";
+                    String color = entity.liquids.currentAmount() >= minLiquidLevel ? "[]" : "[accent]";
                     return "Salt Water: " + color + (int)entity.liquids.currentAmount() + "[] / " + (int)minLiquidLevel;
                 },
                 () -> entity.liquids.currentAmount() >= minLiquidLevel ? Pal.lightOrange : Color.scarlet,

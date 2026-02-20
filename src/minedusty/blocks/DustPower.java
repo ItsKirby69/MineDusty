@@ -131,9 +131,9 @@ public class DustPower {
             liquidConsume = 1.5f/60f;
             saltProduction = 0.5f/60f;
 
-            minLiquidLevel = 125f;
             itemCapacity = 50;
-            liquidCapacity = 200;
+            minLiquidLevel = 125f;
+            liquidCapacity = 200f;
 
             consumeLiquid(saltWater, liquidConsume);
             consumePowerBuffered(45000f);
