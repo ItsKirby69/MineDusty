@@ -1,0 +1,43 @@
+name: Bug report
+description: Issue a bug to be fixed
+title: '[Bug]: '
+labels:
+  - bug
+body:
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which platform was used to play the mod when the bug occured?
+      options:
+        - Windows
+        - Linux
+        - Android
+        - Mac
+        - iOS
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Mod Version
+      description: The exact version of the mod played.
+      placeholder: 'For example: v1.0.0'
+    validations:
+      required: true
+  - type: input
+    id: description
+    attributes:
+      label: Description of Issue
+      description: Please provide the details of the bug and screenshots if applicable.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submit
+      options:
+        - label: My issue has not already been reported
+          required: true
+        - label: I do not have game altering mods installed alongside this mod
+          required: true
