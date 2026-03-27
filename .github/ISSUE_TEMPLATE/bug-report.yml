@@ -1,5 +1,6 @@
 name: Bug report
 description: Issue a bug to be fixed
+assignees: ItsKirby69
 title: '[Bug]: '
 labels:
   - bug
