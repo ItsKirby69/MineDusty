@@ -1,25 +1,28 @@
 package minedusty.blocks;
 
 import mindustry.content.*;
+import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.world.*;
 import mindustry.world.blocks.production.*;
-import mindustry.world.draw.DrawBlock;
-import mindustry.world.draw.DrawDefault;
-import mindustry.world.draw.DrawLiquidRegion;
-import mindustry.world.draw.DrawMulti;
-import mindustry.world.draw.DrawPumpLiquid;
-import mindustry.world.draw.DrawRegion;
+import mindustry.world.draw.*;
 import mindustry.world.meta.Env;
 import minedusty.content.*;
+import minedusty.world.blocks.liquid.SolarPump;
 import minedusty.world.blocks.production.*;
 
 import static mindustry.type.ItemStack.*;
 import static minedusty.content.DustItems.*;
+import static minedusty.content.DustLiquids.*;
+
+import arc.graphics.Color;
+
+import static mindustry.content.Items.*;
 
 public class DustDrills {
-    public static Block offshoreDrill, copperDrill, chloroDrill, lobePump;
+    public static Block offshoreDrill, copperDrill, chloroDrill, solarPump, lobePump;
 
+	public static Block crystalCrusher;
     public static Block crystalBore, gyratoryDrill;
 
     public static void loadContent(){
@@ -46,17 +49,24 @@ public class DustDrills {
             );
         }};
 
-		crystalBore = new BeamDrill("crystal-bore"){{
-            requirements(Category.production, with(oxidecopper, 40));
-            consumePower(0.15f);
+        crystalBore = new TierBeamDrill("crystal-bore"){{
+            requirements(Category.production, with(Items.graphite, 15, Items.lead, 30));
+            researchCost = with(oxidecopper, 350, Items.graphite, 100);
+			consumePower(13 / 60f);
+            consumeLiquid(bioLiquid, 0.25f/60).boost();
 
-			itemCapacity = 20;
-            drillTime = 140f;
-            tier = 3;
+            drillTime = 160f;
             size = 2;
-            range = 4;
+			health = 200;
+            tier = 2;
+            tierMap.put(silicadust, amethyst);
 
-            consumeLiquid(Liquids.water, 0.25f / 60f).boost();
+            sparkColor = Color.valueOf("#fd818e");
+            boostHeatColor = Color.valueOf("#9df572").cpy().mul(0.87f);
+            
+            fogRadius = 2;
+            ambientSound = Sounds.loopDrill;
+            ambientSoundVolume = 0.04f;
         }};
 
         copperDrill = new ModifiedDrill("copper-drill"){{
