@@ -16,17 +16,20 @@ import minedusty.world.blocks.environment.*;
 public class DustEnv {
 	// TODO Chalcedony rock and Agate stone maybe
 	// Boulders / Props
-	public static Block clayBall;
+	public static Block clayBall, frenchVanillaBoulder, permafrostBoulder;
 	public static Block largelimestoneBoulder, limestoneBoulder, pearlBoulder, largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
 	public static Block divineSapling, driftWood;
 	
 	// Tiles
-	public static Block pattedGrass, taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
-	public static Block limestone, limestonePlates, dacitePlates, carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
+	public static Block wildGrass, pattedGrass, taigaGrass, taigaLeaves, blossomGrass, blossomLeaves, elmGrass, elmLeaves;
+	public static Block basaltCrags, limestone, limestonePlates, dacitePlates, carbonPlates, basaltBumpy, yellow, yellowFlats, blueAsh, kaoliniteFloor, calciteFloor, calciteRough, basaltFloor, basaltSmooth, basaltSands;
 	public static Block shoreSmooth, shoreRock, duneSand; //Kinda bad ones
-	public static Block prismate, prismite, silkSand, saltLumps, clayFloor;
+	public static Block prismate, prismite, silkSand, saltLumps, clayFloor, clayPlates;
 
-	public static Block silkSandTropWater, silkSandWater, pattedGrassWater, calciteWater, calciteTropWater, shorestoneWater, basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
+	public static Block darkIce, denseSnow, slushSnow, snowLitter, iceShards, darkiceShards, permafrost, permafrostSlate;
+	public static Block frenchVanilla;
+
+	public static Block iceWater, permafrostWater, silkSandTropWater, silkSandWater, pattedGrassWater, calciteWater, calciteTropWater, shorestoneWater, basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
 	public static Block algaeWater, deepalgaeWater, quickSand;
 	public static Block hotWater, magmaWater, trophotWater, tropmagmaWater, tropicalWater, deeptropicalWater, deeptrophotWater;
 	public static Block stoneWater, stoneTropWater, magmaBasalt, hotRockBasalt;
@@ -36,8 +39,8 @@ public class DustEnv {
 	public static Block oreGalena, oreOxidecopper, oreChlorophyteChunk, oreChlorophyte, wallChlorophyte, oreAquamerium, wallOxide;
 	
 	// Walls
-	public static Block prismiteBlock, mossStoneWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
-	public static Block amethystCrystals, hardenedClayWall, amethystClusteredClayWall;
+	public static Block permafrostWall, prismiteBlock, mossStoneWall, grassyWall, shorestoneWall, basaltWall, coralWall, soapstoneWall, calciteWall, rhyoliteChlorophyte;
+	public static Block largeAmethystCrystals, largeQuartzCrystals, quartzCrystals, amethystCrystals, hardenedClayWall, amethystClusteredClayWall;
 
 	// Misc
 	public static Block smallbasaltChimney, basaltChimney;
@@ -202,9 +205,9 @@ public class DustEnv {
 		//region Props and Decorations
 
 		driftWood = new Prop("driftwood"){{
+			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 2;
 			layer = Layer.blockProp + 0.75f;
-			customShadow = true;
 			shoreRock.asFloor().decoration = this;
 			shoreSmooth.asFloor().decoration = this;
 		}};
@@ -231,7 +234,7 @@ public class DustEnv {
 
 		largeBoulder = new BoulderProp("large-boulder"){{
 			mapColor = Color.valueOf("706f74");
-			shadowOffset = -1.5f;
+			shadowOffset = -3f;
 		}};
 
 		largeshorestoneBoulder = new BoulderProp("large-shorestone"){{
@@ -273,7 +276,7 @@ public class DustEnv {
 		}};
 		
 		largesandBoulder = new BoulderProp("large-sand-boulder"){{
-			shadowOffset = -2f;
+			shadowOffset = -3f;
 		}};
 
 		clayBall = new BoulderProp("clay-ball"){{
@@ -381,8 +384,9 @@ public class DustEnv {
 			liquidMultiplier = 1.5f;
 			drownTime = 200f;
         }};
-		
-		// Watered tiles
+
+		//end region
+		//region Watered tiles
 		stoneWater = new WaterFloor("stone-water", 3){{
 		}};
 		stoneTropWater = new WaterFloor("trop-stone-water", 3){{
@@ -465,8 +469,29 @@ public class DustEnv {
 		amethystCrystals = new TallBlock("amethyst-crystals"){{
 			variants = 2;
 			clipSize = 140f;
-			itemDrop = DustItems.amethyst;
-			attributes.set(DustAttributes.crystal, 1f);
+			itemDrop = DustItems.silicadust;
+			attributes.set(DustAttributes.crystal, 0.75f);
+		}};
+
+		quartzCrystals = new TallBlock("quartz-crystals"){{
+			variants = 2;
+			clipSize = 140f;
+			itemDrop = DustItems.silicadust;
+			attributes.set(DustAttributes.crystal, 0.75f);
+		}};
+
+		largeAmethystCrystals = new BetterTallBlock("large-amethyst-crystals"){{
+			// size = 3;
+			clipSize = 240f;
+			itemDrop = DustItems.silicadust;
+			attributes.set(DustAttributes.crystal, 1.25f);
+		}};
+
+		largeQuartzCrystals = new BetterTallBlock("large-quartz-crystals"){{
+			// size = 3;
+			clipSize = 240f;
+			itemDrop = DustItems.silicadust;
+			attributes.set(DustAttributes.crystal, 1.25f);
 		}};
 
 		hardenedClayWall = new StaticWall("hardened-clay-wall"){{
@@ -475,8 +500,8 @@ public class DustEnv {
 
 		amethystClusteredClayWall = new StaticWall("amethyst-clustered-clay-wall"){{
 			variants = 2;
-			itemDrop = DustItems.amethyst;
-			attributes.set(DustAttributes.crystal, 0.8f);
+			itemDrop = DustItems.silicadust;
+			attributes.set(DustAttributes.crystal, 0.75f);
 		}};
 
 		prismiteBlock = new StaticWall("prismite-block"){{
