@@ -28,24 +28,40 @@ public class DustyEffects {
 
 	none = new Effect(0f, 0f, e -> {}),
 
-    frosting = new Effect(10, e -> {
+    hitChloroSpark = new Effect(40, e -> {
+        color(e.color);
         stroke(e.fout() * 1.6f);
-        Lines.square(e.x, e.y, e.rotation * tilesize / 2f + e.fout() * 2f);
+
+        randLenVectors(e.id, 18, e.finpow() * 27f, e.rotation, 360f, (x, y) -> {
+            float ang = Mathf.angle(x, y);
+            lineAngle(e.x + x, e.y + y, ang, e.fout() * 6 + 1f);
+        });
     }),
 
-    frostinglarge = new Effect(10, e -> {
-        stroke(e.fout() * 1.6f);
-        Lines.square(e.x, e.y, tilesize + e.fout() * 2f);
+    orbCharge = new Effect(60f, e -> {
+        color(DustPalette.chlorophyteWater);
+		alpha(1 - e.fin());
+        randLenVectors(e.id, 14, 1f + 20f * e.fout(), e.rotation, 200f, (x, y) -> {
+            lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fslope() * 3f + 1f);
+        });
     }),
 
-    brittle = new Effect(10, e -> {
-        stroke(e.fout() * 1.6f);
-        Lines.square(e.x, e.y, e.rotation * tilesize / 2f + e.fout() * 2f);
+    orbChargeBegin = new Effect(120f, e -> {
+        float margin = 1f - Mathf.curve(e.fin(), 0.9f);
+        float fin = Math.min(margin, e.fin());
+
+        color(DustPalette.chlorophyteWater);
+        Fill.circle(e.x, e.y, fin * 6f);
+
+        color();
+        Fill.circle(e.x, e.y, fin * 4f);
     }),
 
-    brittlelarge = new Effect(10, e -> {
-        stroke(e.fout() * 1.6f);
-        Lines.square(e.x, e.y, tilesize + e.fout() * 2f);
+    cregenParticle = new Effect(70f, e -> {
+        color(Pal.heal);
+		alpha(1 -e.fin());
+
+        Fill.square(e.x, e.y, e.fslope() * 1.5f + 0.14f, 45f);
     }),
 	
 	meltSteam = new Effect(70, e -> {
