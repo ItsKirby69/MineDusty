@@ -26,9 +26,6 @@ public class DustUnitTypes {
 	// airborne
 	public static @EntityDef({Unitc.class}) UnitType dazzle;
 
-	// transport
-	public static @EntityDef({Unitc.class, BuildingTetherc.class, Payloadc.class}) UnitType boat;
-
 	//region Enemy units
 
 	/** Crux Faction */
@@ -49,40 +46,6 @@ public class DustUnitTypes {
 	//region Units
 	public static void load(){
 		// bad bad bad
-		/*boat = new UnitType("boat"){{
-			controller = u -> new CargoAI();
-			constructor = BuildingTetherPayloadUnit::create; //UnitWaterMove::create;
-			pathCost = ControlPathfinder.costNaval;
-			isEnemy = false;
-			allowedInPayloads = false;
-			logicControllable = false;
-			playerControllable = false;
-			envDisabled = 0;
-			payloadCapacity = 0f;
-
-			moveSoundVolume = 0.3f;
-			moveSound = Sounds.shipMove;
-            naval = true;
-            canDrown = false;
-            emitWalkSound = false;
-            omniMovement = false;
-            immunities.add(StatusEffects.wet);
-
-			lowAltitude = true;
-			flying = false;
-			naval = true;
-			drag = 0.12f;
-			speed = 1.8f;
-			rotateSpeed = 5f;
-			trailLength = 20;
-			waveTrailX = 4f;
-			trailScl = 1.2f;
-			accel = 0.4f;
-			itemCapacity = 25;
-			health = 120f;
-			hitSize = 11f;
-		}};*/
-
 		cricket = new UnitType("cricket"){{
 			drawCell = false;
 			// Fiddle around with this in the future?
