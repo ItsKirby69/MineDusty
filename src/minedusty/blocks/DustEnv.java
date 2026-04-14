@@ -47,8 +47,63 @@ public class DustEnv {
 	public static Block waterSmokeEffect, fallingLeavesEffect, flowingWaterEffect, logoBlock, titleBlock;
 
 	public static void loadContent() {
-		
 		//region Tiles
+		basaltCrags = new Floor("basalt-crags"){{
+			variants = 5;
+		}};
+
+		permafrost = new Floor("permafrost"){{
+			variants = 4;
+		}};
+
+		permafrostSlate = new Floor("permafrost-slate"){{
+			variants = 4;
+		}};
+
+        frenchVanilla = new Floor("french-vanilla"){{
+			variants = 3;
+            attributes.set(Attribute.water, 0.15f);
+            albedo = 0.7f;
+        }};
+
+        darkIce = new Floor("dark-ice"){{
+            dragMultiplier = 0.08f;
+            speedMultiplier = 1.1f; // lol
+            attributes.set(Attribute.water, 0.35f);
+            albedo = 0.65f;
+        }};
+
+		iceShards = new OverlayFloor("ice-shards"){{
+			dragMultiplier = 0.3f;
+			variants = 6;
+		}};
+
+		darkiceShards = new OverlayFloor("dark-ice-shards"){{
+			dragMultiplier = 0.3f;
+			variants = 6;
+		}};
+
+		snowLitter = new OverlayColorFloor("snow-litter"){{
+			variants = 6;
+		}};
+	
+        slushSnow = new Floor("slush-snow"){{
+			variants = 4;
+            attributes.set(Attribute.water, 0.2f);
+            albedo = 0.75f;
+        }};
+
+        denseSnow = new Floor("dense-snow"){{
+			variants = 4;
+            attributes.set(Attribute.water, 0.2f);
+            albedo = 0.75f;
+        }};
+
+		wildGrass = new Floor("wild-grass", 3){{
+			attributes.set(DustAttributes.turf, 0.167f);
+			attributes.set(DustAttributes.salt, -0.1f);
+		}};
+
 		pattedGrass = new Floor("patted-grass", 5){{
 			mapColor = Color.valueOf("#4C864C");
 			attributes.set(DustAttributes.turf, 0.3f);
@@ -95,6 +150,9 @@ public class DustEnv {
 
 		clayFloor = new Floor("clay-floor", 3){{
 			attributes.set(DustAttributes.salt, 0.15f);
+		}};
+		clayPlates = new Floor("clay-plates", 4){{
+			attributes.set(DustAttributes.salt, 0.2f);
 		}};
 		
 		prismite = new Floor("prismite", 1){{
@@ -202,7 +260,22 @@ public class DustEnv {
 
 		// Decorations need to be set below tiles to not crash.
 
-		//region Props and Decorations
+		//region Props & Decorations
+		permafrostBoulder = new Prop("permafrost-boulder"){{
+			mapColor = Color.valueOf("#f8f3d3");
+			variants = 2;
+			buildVisibility = BuildVisibility.sandboxOnly;
+			permafrost.asFloor().decoration = this;
+			permafrostSlate.asFloor().decoration = this;
+		
+		}};
+		frenchVanillaBoulder = new BoulderProp("french-vanilla-boulder"){{
+			mapColor = Color.valueOf("#f8f3d3");
+			frenchVanilla.asFloor().decoration = this;
+			variants = 2;
+			shadowOffset = -4f;
+			shadowColor = Color.valueOf("#d2bd35");
+		}};
 
 		driftWood = new Prop("driftwood"){{
 			buildVisibility = BuildVisibility.sandboxOnly;
@@ -387,6 +460,10 @@ public class DustEnv {
 
 		//end region
 		//region Watered tiles
+		iceWater = new WaterFloor("ice-water", 3){{
+		}};
+		permafrostWater = new WaterFloor("permafrost-water", 3){{
+		}};
 		stoneWater = new WaterFloor("stone-water", 3){{
 		}};
 		stoneTropWater = new WaterFloor("trop-stone-water", 3){{
@@ -466,6 +543,9 @@ public class DustEnv {
 		//end region
 
 		//region Walls
+		permafrostWall = new StaticWall("permafrost-wall"){{
+		}};
+
 		amethystCrystals = new TallBlock("amethyst-crystals"){{
 			variants = 2;
 			clipSize = 140f;
