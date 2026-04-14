@@ -82,7 +82,9 @@ public class GeothermalGenerator extends PowerGenerator{
     public void drawPlace(int x, int y, int rotation, boolean valid) {
         super.drawPlace(x, y, rotation, valid);
         if (displayEfficiency) {
-            drawPlaceText(Core.bundle.formatFloat("bar.efficiency", (sumAttribute(attribute, x, y) * 100.0F) , 1), x, y, valid);
+            float eff = (sumAttribute(attribute, x, y) * 100.0F);
+            Color placeColor = !valid ? Pal.remove : (eff > maxEfficiency ? Color.scarlet : Pal.accent);
+            drawPlaceText(Core.bundle.formatFloat("bar.efficiency", eff , 1), x, y, placeColor, true);
         }
     }
 

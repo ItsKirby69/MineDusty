@@ -1,7 +1,10 @@
 package minedusty.world.blocks.production;
 
+import arc.Core;
+import arc.audio.Sound;
 import arc.math.Mathf;
 import mindustry.Vars;
+import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.blocks.production.GenericCrafter;
@@ -17,6 +20,8 @@ public class SolarCrafter extends GenericCrafter{
     /** Minimum solar energy needed to run */
     public float minSolar = 0.25f;
 
+    public Sound craftSound = Sounds.none;
+
     public SolarCrafter(String name) {
         super(name);
     }
@@ -28,8 +33,8 @@ public class SolarCrafter extends GenericCrafter{
         addBar("light", (SolarCrafterBuild entity) ->
             new Bar(
                 () -> {
-                    String colorTag = entity.solarLevel >= minSolar ? "[accent]" : "[scarlet]";
-                    return "Solar: " + colorTag + (int)(entity.solarLevel * 100f) + "[]%";
+                    String colorTag = entity.solarLevel >= minSolar ? "[accent]" : "[red]";
+                    return Core.bundle.format("bar.solarpercent", colorTag, (int)(entity.solarLevel * 100f));
                 },
                 () -> Pal.accent,
                 () -> (float)Mathf.clamp(entity.solarLevel / solarRequirement)
@@ -53,6 +58,9 @@ public class SolarCrafter extends GenericCrafter{
                     1f));
 
             super.updateTile();
+            if(progress >= 1f){
+                craftSound.play(ambientSoundVolume);
+            }
         }
 
         @Override
