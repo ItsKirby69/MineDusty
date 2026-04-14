@@ -18,12 +18,13 @@ public class WeatherUtil {
 
         try {
             for (WeatherEntry entry : state.rules.weather){
+                if(!entry.weather.isActive()) continue;
+                
                 for (Weather w : weathers){
-                    if (entry.weather.isActive() && entry.weather == w){
+                    if (entry.weather.equals(w)){
                         return true;
                     }
                 }
-
             }
             return false;
         } catch (Exception e){

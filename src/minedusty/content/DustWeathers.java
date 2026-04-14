@@ -6,8 +6,9 @@ import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.type.weather.ParticleWeather;
 import mindustry.world.meta.*;
-import minedusty.content.weathers.StormWeather;
 import minedusty.type.weather.CloudyWeather;
+import minedusty.type.weather.SnowStormWeather;
+import minedusty.type.weather.StormWeather;
 
 public class DustWeathers {
 	public static Weather heavyRain, snowStorm, heatWave, clouds;
@@ -26,7 +27,7 @@ public class DustWeathers {
             noiseLayerSpeedM = 1.7f;
             noiseLayerSclM = 0.6f;
             baseSpeed = 0.05f;
-            color = noiseColor = Color.valueOf("#faf3a7");
+            color = noiseColor = Color.valueOf("#faefa7");
             noiseScale = 3000f;
             noisePath = "fog";
             drawParticles = false;
@@ -38,12 +39,13 @@ public class DustWeathers {
             opacityMultiplier = 0.27f;
         }};
 		// WIP
-		snowStorm = new ParticleWeather("snow-storm"){{
-			color = noiseColor = Color.valueOf("e6feff");
+		snowStorm = new SnowStormWeather("snow-storm"){{
+			color = noiseColor = Color.valueOf("#e6feff");
+			darkColor = Color.valueOf("#b5e2e4");
 			particleRegion = "particle";
 			drawNoise = true;
 			useWindVector = true;
-			sizeMax = 90f;
+			sizeMax = 70f;
 			sizeMin = 12f;
 			minAlpha = 0.4f;
 			maxAlpha = 0.7f;
@@ -56,7 +58,7 @@ public class DustWeathers {
 			soundVolOscMag = 1.5f;
 			soundVolOscScl = 1100f;
 			duration = 7f * Time.toMinutes;
-			attrs.set(Attribute.light, -0.15f);
+			attrs.set(Attribute.light, -0.35f);
 		}};
 
 		//heavy rain and we need thunder storm aswell TODO: make heavy rain more heavier and darker

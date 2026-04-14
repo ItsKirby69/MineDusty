@@ -1,4 +1,4 @@
-package minedusty.content.weathers;
+package minedusty.type.weather;
 
 import arc.Core;
 import arc.graphics.Color;
@@ -18,6 +18,7 @@ import mindustry.graphics.Layer;
 import mindustry.type.Liquid;
 import mindustry.type.weather.*;
 
+/** Particle weather that has an overlaying colored noise */
 public class StormWeather extends ParticleWeather{
 
 public float yspeed = 5f, xspeed = 1.5f, padding = 16f, density = 1200f, stroke = 0.75f, sizeMin = 8f, sizeMax = 40f, splashTimeScale = 22f;
