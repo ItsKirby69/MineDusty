@@ -33,6 +33,28 @@ public class DustCore {
 	public static Block skyFactory, earthFactory;
 
 	public static void loadContent() {
+		((UnitFactory)groundFactory).plans.add(new UnitFactory.UnitPlan(DustUnitTypes.cleave, 60f * 20, with(silicon, 15, lead, 20)));
+		((UnitFactory)navalFactory).plans.add(new UnitFactory.UnitPlan(DustUnitTypes.minnow, 60f * 32, with(silicon, 15, metaglass, 18)));
+
+		skyFactory = new UnitFactory("sky-factory"){{
+            requirements(Category.units, with(oxidecopper, 70, lead, 50, silicon, 60));
+			researchCost = with(oxidecopper, 1200, lead, 1000, silicon, 1000);
+			plans.add(new UnitPlan(DustUnitTypes.dazzle, 60f * 17, with(silicon, 12, graphite, 5)));
+            size = 3;
+			configurable = false;
+            consumePower(1.2f);
+            researchCostMultiplier = 0.5f;
+		}};
+
+		earthFactory = new UnitFactory("earth-factory"){{
+            requirements(Category.units, with(oxidecopper, 70, lead, 50, silicon, 60));
+			researchCost = with(oxidecopper, 1200, lead, 1000, silicon, 1000);
+			plans.add(new UnitPlan(DustUnitTypes.dazzle, 60f * 17, with(silicon, 12, chlorophyte, 8)));
+            size = 3;
+			configurable = false;
+            consumePower(1.2f);
+            researchCostMultiplier = 0.5f;
+		}};
 
 		stockpile = new StorageBlock("stockpile"){{
 			requirements(Category.effect, with(chlorophyte, 50, silicon, 250));
