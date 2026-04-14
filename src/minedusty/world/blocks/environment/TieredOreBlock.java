@@ -48,4 +48,11 @@ public class TieredOreBlock extends OreBlock{
         if (drillTier >= tier && tierDrop != null) return tierDrop;
         return defaultDrop;
     }
+
+    public Item getDrop(int minerTier){
+        if(tierDrop != null && minerTier >= tier){
+            return tierDrop;
+        }
+        return defaultDrop;
+    }
 }

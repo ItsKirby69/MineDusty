@@ -20,12 +20,11 @@ public class TierDrill extends Drill {
 
         if(tile.overlay() instanceof TieredOreBlock){
             TieredOreBlock tiered = (TieredOreBlock)tile.overlay();
-            return tiered.getDropFor(this, tile);
+            return tiered.getDrop(tier);
         }
         if(tile.floor() instanceof TieredOreBlock){
             TieredOreBlock tiered = (TieredOreBlock)tile.floor();
-            return tiered.getDropFor(this, tile);
-            
+            return tiered.getDrop(tier);
         }
         return tile.drop();
     }
