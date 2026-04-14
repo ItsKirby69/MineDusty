@@ -13,11 +13,14 @@ public class DustItems {
 	public static Item galena, oxidecopper, salt, amethyst, electrum, gold, silver, silicadust;
 	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
 	public static Item aluminum;
+	public static Item sediment;
 
 	//Other stuff
 	public static Item carbonicWaste, bioplastic, silumin;
 	
 	public static void load(){
+		sediment = new Item("item-sediment", Color.valueOf("#dbbe94")){{
+		}};
 
 		silumin = new Item("item-silumin", Color.valueOf("#8ba1a1")){{
 			cost = 1.1f;
@@ -35,7 +38,7 @@ public class DustItems {
 			hardness = 1;
 		}};
 		
-		salt = new Item("item-salt", Color.valueOf("e2f0f1")){{
+		salt = new Item("item-salt", Color.valueOf("#c4e7e9")){{
 			cost = 0.5f;
 		}};
 
@@ -72,7 +75,7 @@ public class DustItems {
 		}};
 		
 		carbonicWaste = new Item("item-carbonicwaste", DustPalette.carbonicWaste){{
-			flammability = 1.1f;
+			flammability = 1.5f;
 			explosiveness = 0.4f;
 		}};
 		

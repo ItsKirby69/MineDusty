@@ -1,15 +1,11 @@
 package minedusty.ui;
 
-import static arc.Core.settings;
+import static arc.Core.*;
 
-import arc.struct.Seq;
-import mindustry.Vars;
 import mindustry.content.TechTree;
 import mindustry.content.TechTree.*;
 import mindustry.ctype.UnlockableContent;
-import mindustry.game.Saves;
 import mindustry.type.*;
-import minedusty.planets.DustPlanets;
 
 import static mindustry.Vars.*;
 

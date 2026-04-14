@@ -54,7 +54,7 @@ public class GenBundles {
             writeCategory(out, "items", DustItems.class, "item", true, true);
             writeCategory(out, "fluids", DustLiquids.class, "liquid", true);
 
-            writeCategory(out, "core", DustCore.class);
+            writeCategory(out, "core", DustCore.class, true);
             writeCategory(out, "plants", DustPlants.class);
             writeCategory(out, "env", DustEnv.class);
         

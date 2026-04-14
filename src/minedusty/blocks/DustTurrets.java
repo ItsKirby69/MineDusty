@@ -9,7 +9,6 @@ import arc.graphics.Color;
 import arc.math.Interp;
 import arc.struct.EnumSet;
 import mindustry.content.*;
-import mindustry.entities.Effect;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.pattern.*;
@@ -26,11 +25,15 @@ import minedusty.graphics.DustPalette;
 import minedusty.world.blocks.distribution.BuoyMassDriver;
 
 public class DustTurrets {
-    // 1x1 turrets
-    // TODO 3x3 sandspitter shotgun. large flat face which obliterates enemies?
-    public static Block sandSpitter, sleet, wipe;
-    // 2x2 turrets
-    public static Block pellucid, blaze, spout;
+    // Basic turrets
+    public static Block sandSpitter, sandHammer;
+    public static Block sleet, pellucid;;
+    // Special turrets
+    public static Block volt, spectre;
+    public static Block spout, pistil;
+
+    // WIP
+    public static Block blaze, wipe;
 
     // Special turrets
     public static Block buoyDriver;

@@ -66,6 +66,7 @@ public class DustCrafters {
 			outputItem = new ItemStack(carbonicWaste, 10);
 
 			craftEffect = Fx.none; // WIP
+			ambientSound = Sounds.loopHum;
 
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
@@ -218,6 +219,7 @@ public class DustCrafters {
 			liquidCapacity = 25;
 			craftEffect = DustyEffects.steam;
 			outputItem = new ItemStack(carbonicWaste, 1);
+			ambientSound = Sounds.loopCultivator;
 
 			minEfficiency = 0.5f;
 			minSolar = 0.5f;
@@ -225,15 +227,17 @@ public class DustCrafters {
 			dumpExcess = true;
 
 			consumeLiquids(LiquidStack.with(Liquids.water, 12f/60f));
-			consumeItem(chlorophyte, 2);
-			outputLiquid = new LiquidStack(DustLiquids.bioLiquid, 12/60f);
+			outputLiquid = new LiquidStack(DustLiquids.bioLiquid, 8/60f);
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
+				new DrawHeatCrafterEff(){{
+					minEfficiency = 0f;
+				}},
 				new DrawLiquidTile(DustLiquids.bioLiquid){{
 					alpha = 0.5f;
 				}},
 				new DrawLiquidTile(Liquids.water){{
-					alpha = 0.5f;
+					alpha = 0.25f;
 				}},
 				new DrawAlphaBubbles(){{
 					amount = 25;
@@ -241,10 +245,7 @@ public class DustCrafters {
 					spread = 9;
 					color = Color.valueOf("#3dcfb0");
 				}},
-				new DrawDefault(),
-				new DrawHeatCrafterEff(){{
-					minEfficiency = 0f;
-				}}
+				new DrawDefault()
 			);
 		}};
 

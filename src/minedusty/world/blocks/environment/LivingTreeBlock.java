@@ -60,6 +60,7 @@ public class LivingTreeBlock extends Block{
 		targetable = false;
 		forceTeam = Team.derelict;
 		drawTeamOverlay = false;
+		drawCracks = false;
 		allowDerelictRepair = false; // Sandbox mode weirdly has the repair available? Vanilla bug
 	}
 
