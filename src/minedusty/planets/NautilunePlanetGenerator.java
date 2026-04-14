@@ -4,10 +4,10 @@ import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.math.geom.Vec3;
 import arc.util.noise.Ridged;
+import arc.util.noise.Simplex;
 import mindustry.game.Schematics;
 import mindustry.maps.generators.PlanetGenerator;
 import mindustry.type.Sector;
-import minedusty.utils.Simplex;
 
 public class NautilunePlanetGenerator extends PlanetGenerator{
     Color out = new Color(), 

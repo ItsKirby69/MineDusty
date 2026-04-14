@@ -6,7 +6,7 @@ import arc.math.geom.Vec3;
 import arc.struct.*;
 import arc.struct.ObjectIntMap.Entry;
 import arc.util.Log;
-import arc.util.noise.Ridged;
+import arc.util.noise.*;
 import mindustry.content.*;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.Rules;
@@ -15,8 +15,9 @@ import mindustry.maps.generators.*;
 import mindustry.type.*;
 import mindustry.type.Weather.WeatherEntry;
 import mindustry.world.*;
+import minedusty.blocks.*;
 import minedusty.content.DustWeathers;
-import minedusty.utils.Simplex;
+import minedusty.utils.MSimplex;
 
 import static mindustry.Vars.*;
 
@@ -97,7 +98,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 
 		float divineMask = Simplex.noise3d(baseSeed+17, 2, 0.2, 0.2f, pos.x, pos.y, pos.z);
 		float divineBiome = Simplex.noise3d(baseSeed+14, 5, 0.4f, 0.55f, position.x, position.y, position.z);
-		float divineVoronoi = Simplex.voronoi3d(baseSeed-1, 3, 0, 1.1, pos.x, pos.y, pos.z);
+		float divineVoronoi = MSimplex.voronoi3d(baseSeed-1, 3, 0, 1.1, pos.x, pos.y, pos.z);
 		
 		// For deserts
 		if ((desertBiome * depth )> 0.32 && height < 0.56f && height > waterLevel + 0.1f && Math.abs(position.y) < 0.37){
@@ -282,6 +283,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
         boolean hasSnow = floors.length > 0 && (floors[0].name.contains("ice") || floors[0].name.contains("snow"));
         boolean hasRain = floors.length > 0 && !hasSnow && content.contains(Liquids.water) && !floors[0].name.contains("sand");
         boolean hasDesert = floors.length > 0 && !hasSnow && !hasRain && floors[0] == Blocks.sand;
+		boolean hasBliss = floors.length > 0 && (floors[0] == Blocks.grass || floors[0] == DustEnv.pattedGrass); 
         
         if(hasSnow){
             rules.weather.add(new WeatherEntry(Weathers.snow));
@@ -298,6 +300,10 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 			rules.weather.add(new WeatherEntry(DustWeathers.heatWave));
             rules.weather.add(new WeatherEntry(Weathers.sandstorm));
         }
+
+		if(hasBliss){
+			// TODO cloudy weather, windy weather etc
+		}
 
 		Log.info("Weather for sector " + sector.name() + ":");
 		for(WeatherEntry w : rules.weather){
