@@ -56,6 +56,151 @@ public class DustTurrets {
                 frontColor = DustPalette.oxidecopper;
             }});
 
+        volt = new PowerTurret("volt"){{
+            requirements(Category.turret, with(oxidecopper, 50, graphite, 20));
+            shootType = new LightningBulletType(){{
+                damage = 15;
+                lightningLength = 30;
+                collidesAir = true;
+                ammoMultiplier = 1f;
+
+                //for visual stats only.
+                buildingDamageMultiplier = 0.25f;
+
+                lightningType = new BulletType(0.0001f, 0f){{
+                    lifetime = Fx.lightning.lifetime;
+                    hitEffect = Fx.hitLancer;
+                    despawnEffect = Fx.none;
+                    status = StatusEffects.shocked;
+                    hittable = false;
+                    lightColor = Color.yellow;
+                    collidesAir = true;
+                    buildingDamageMultiplier = 0.25f;
+                    shieldDamageMultiplier = 0.4f;
+                }};
+            }};
+            reload = 30f;
+            shootCone = 50f;
+            rotateSpeed = 6f;
+            targetAir = true;
+            range = 90f;
+            shootEffect = Fx.lightningShoot;
+            heatColor = Color.red;
+            recoil = 1.2f;
+            size = 1;
+            health = 240;
+            shootSound = Sounds.shootArc;
+            consumePower(3f);
+            coolant = consumeCoolant(4.5f/60f);
+        }};
+
+        pistil = new LiquidTurret("pistil"){{
+            requirements(Category.turret, with(chlorophyte, 60, graphite, 45));
+            researchCost = with(chlorophyte, 450);
+            ammo(
+                DustLiquids.bioLiquid, new BasicBulletType(1.2f, 60f, "large-orb-back"){{
+                    lifetime = 230f;
+                    width = height = 15f;
+                    lightRadius = 30f;
+                    shrinkX = shrinkY = 0.25f;
+                    chargeEffect = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin);
+                    hitEffect = DustyEffects.hitChloroSpark;
+                    despawnEffect = Fx.none;
+                    pierceCap = 10;
+                    pierceBuilding = false;
+                    backColor = DustPalette.chlorophyteBack;
+                    lightColor = DustPalette.chlorophyte;
+                    frontColor = hitColor= DustPalette.chlorophyteWater;
+                    ammoMultiplier = 0.4f;
+
+                    homingPower = 0.024f;
+                    homingRange = 180f;
+
+                    splashDamage = 40f;
+                    splashDamageRadius = 16f;
+                }},
+                saltWater, new BasicBulletType(1.4f, 45f, "large-orb-back"){{
+                    lifetime = 180f;
+                    width = height = 18f;
+                    lightRadius = 30f;
+                    lightOpacity = 0.2f;
+                    shrinkX = shrinkY = 0.25f;
+                    chargeEffect = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin);
+                    hitEffect = DustyEffects.hitChloroSpark;
+                    status = DustStatusEffects.saltcorrosion;
+                    despawnEffect = Fx.none;
+                    pierceCap = 5;
+                    pierceBuilding = false;
+                    reloadMultiplier = 1.25f;
+                    backColor = DustPalette.saltColorBack;
+                    lightColor = frontColor = hitColor = DustPalette.saltColor;
+                    ammoMultiplier = 0.25f;
+
+                    homingPower = 0.02f;
+                    homingRange = 120f;
+
+                    splashDamage = 25f;
+                    splashDamageRadius = 16f;
+                }},
+                Liquids.water, new BasicBulletType(2.2f, 15f, "large-orb-back"){{
+                    lifetime = 160f;
+                    width = height = 15f;
+                    lightRadius = 20f;
+                    lightOpacity = 0.2f;
+                    shrinkX = shrinkY = 0.25f;
+                    chargeEffect = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin);
+                    hitEffect = DustyEffects.hitChloroSpark;
+                    status = StatusEffects.wet;
+                    despawnEffect = Fx.none;
+                    pierceCap = 10;
+                    pierceBuilding = false;
+                    reloadMultiplier = 1.5f;
+                    backColor = hitColor = Pal.water;
+                    lightColor = frontColor = DustPalette.waterFront;
+                    ammoMultiplier = 0.1f;
+
+                    homingPower = 0.02f;
+                    homingRange = 120f;
+
+                    splashDamage = 25f;
+                    splashDamageRadius = 34f;
+                }}
+            );
+
+            drawer = new DrawTurret("braced-"){{
+                parts.add(new RegionPart("-arm"){{
+                    progress = PartProgress.warmup;
+                    moveRot = -6;
+                    mirror = true;
+                    moves.add(new PartMove(PartProgress.recoil, 0f, 0f, -4f));
+                    under = true;
+                }});
+            }};
+
+            consumePower(270f / 60f);
+            
+            range = 240f;
+            recoil = 1f;
+            size = 2;
+            reload = 220f;
+            shoot.firstShotDelay = 120;
+            shootY = 5f;
+            targetAir = false;
+            ammoPerShot = 20;
+
+            rotateSpeed = 1.5f;
+            shootCone = 15f;
+
+            scaledHealth = 280;
+
+            loopSound = Sounds.none;
+            shootEffect = Fx.hitLiquid;
+            shootSound = Sounds.shootSap;
+            chargeSound = Sounds.chargeLancer;
+            outlineColor = DustPalette.turretOutline;
+            outlineRadius = 0;
+        }};
+
         spout = new LiquidTurret("spout"){{
             requirements(Category.turret, with(aquamerium, 35, oxidecopper, 25, Items.lead, 50));
             researchCost = with(aquamerium, 250, Items.lead, 500);
@@ -70,13 +215,13 @@ public class DustTurrets {
                     damage = 5f;
                     drag = 0.01f;
                 }},
-                DustLiquids.bioLiquid, new LiquidBulletType(DustLiquids.bioLiquid){{
+                bioLiquid, new LiquidBulletType(bioLiquid){{
                     damage = 2f;
                     splashDamage = 1f;
                     splashDamageRadius = 10f;
                     drag = 0.01f;
                 }},
-                DustLiquids.saltWater, new LiquidBulletType(DustLiquids.saltWater){{
+                saltWater, new LiquidBulletType(saltWater){{
                     status = DustStatusEffects.saltcorrosion;
                     drag = 0.015f;
                 }}
@@ -148,6 +293,20 @@ public class DustTurrets {
             requirements(Category.turret, with(oxidecopper, 45));
             researchCost = with(oxidecopper, 70);
             ammo(
+                salt, new BasicBulletType(7.5f, 0.5f){{
+                    shoot = new ShootSpread(8, 5.5f);
+                    sprite = "circle-shadow";
+                    knockback = 0.5f;
+                    width = 4f;
+                    height = 6f;
+                    lifetime = 6f;
+                    ammoMultiplier = 1f;
+                    reloadMultiplier = 2.5f;
+                    hitEffect = Fx.hitBulletColor;
+                    despawnEffect = Fx.hitBulletColor;
+                    hitColor = backColor = trailColor = salt.color;
+                    frontColor = Color.valueOf("#dbf1f3");
+                }},
                 Items.sand, new BasicBulletType(5.5f, 4){{
                     shoot = new ShootSpread(9, 5.5f);
                     sprite = "circle-shadow";
@@ -200,18 +359,63 @@ public class DustTurrets {
 
             recoil = 1.3f;
             shootY = 3f;
-            range = 60;
+            range = 75;
             shootCone = 30f;
             health = 300;
             inaccuracy = 12f;
             rotateSpeed = 6f;
             targetAir = false;
-            itemCapacity = 6;
+            itemCapacity = 12;
             outlineColor = DustPalette.turretOutline;
             // Needs a sandy pew sound
             // shootSound = DustSounds.chromaPew1;
 
             limitRange(1f);
+        }};
+
+        sandHammer = new ItemTurret("sandhammer"){{
+            requirements(Category.turret, with(silicon, 120, chlorophyte, 75, oxidecopper, 55));
+            researchCost = with(silicon, 250, chlorophyte, 200, oxidecopper, 1200);
+            consumeLiquid(Liquids.water, 6f/60f);
+            ammo(
+                Items.sand, new BasicBulletType(7f, 45, "circle-shadow"){{
+                    shoot = new ShootSpread(20, 3f);
+                    knockback = 4f;
+                    width = 6f;
+                    height = 10f;
+                    lifetime = 15f;
+                    splashDamage = 25f;
+                    splashDamageRadius = 12f;
+                    hitEffect = DustyEffects.sandExplosion;
+                    despawnEffect = Fx.hitBulletColor;
+                    hitColor = backColor = trailColor = DustPalette.sandColorBack;
+                    frontColor = DustPalette.sandColor;
+                }}
+            );
+
+            drawer = new DrawTurret("braced-"){{
+                parts.add(new RegionPart("-barrel"){{
+                    progress = PartProgress.recoil;
+                    under = true;
+                    moveY = -1.5f;
+                }});
+            }};
+
+            velocityRnd = 0.12f;
+            reload = 120f;
+            ammoPerShot = 5;
+
+            recoil = 3.5f;
+            shootY = 6f;
+            range = 90f;
+            shootCone = 30f;
+            health = 460;
+            inaccuracy = 12f;
+            size = 3;
+            itemCapacity = 20;
+            outlineColor = DustPalette.turretOutline;
+            shootSound = Sounds.shootFuse;
+            shootSoundVolume = 0.8f;
         }};
 
         sleet = new ItemTurret("sleet"){{
@@ -368,14 +572,13 @@ public class DustTurrets {
             researchCost = with(oxidecopper, 500, chlorophyte, 200, lead, 400);
 
             outlineRadius = 0;
-            Effect sfe = new MultiEffect(Fx.shootSmallColor, Fx.colorSpark);
 
             ammo(
                 DustItems.chlorophyte, new BasicBulletType(4.5f, 20){{
                     lifetime = 50f;
                     width = 7f;
                     height = 10f;
-                    shootEffect = sfe;
+                    shootEffect = new MultiEffect(Fx.shootSmallColor, Fx.colorSpark);
                     hitEffect = despawnEffect = Fx.hitBulletColor;
                     pierce = true;
                     pierceCap = 6;
@@ -392,7 +595,7 @@ public class DustTurrets {
                     lifetime = 50f;
                     width = 6f;
                     height = 8f;
-                    shootEffect = sfe;
+                    shootEffect = new MultiEffect(Fx.shootSmallColor, Fx.colorSpark);
                     hitEffect = despawnEffect = Fx.hitBulletColor;
                     splashDamage = 10f;
                     splashDamageRadius = 15f;
@@ -408,7 +611,7 @@ public class DustTurrets {
                     lifetime = 50f;
                     width = 7f;
                     height = 10f;
-                    shootEffect = sfe;
+                    shootEffect = new MultiEffect(Fx.shootSmallColor, Fx.colorSpark);
                     hitEffect = despawnEffect = Fx.hitBulletColor;
                     pierce = false;
                     pierceCap = 3;
@@ -433,7 +636,7 @@ public class DustTurrets {
             size = 2;
             shoot.shotDelay = 7f;
             shoot.shots = 2;
-            shootY = -0.5f;
+            shootY = 1.5f;
             targetAir = false;
             ammoPerShot = 4;
 
