@@ -14,6 +14,7 @@ public class DustSounds {
 		chromartillery = new Sound(),
 		chromalastershoot = new Sound(),
 
+		steam = new Sound(),
 		brittle = new Sound(),
 		bubblePop = new Sound(),
 		destroyTree = new Sound();
@@ -24,6 +25,7 @@ public class DustSounds {
 			chromartillery = loadSound("chromartillery");
 			chromalastershoot = loadSound("chromalastershoot");
 			
+			steam = loadSound("steam");
 			brittle = loadSound("brittle");
 			bubblePop = loadSound("bubblePop");
 			destroyTree = loadSound("destroyTree");
