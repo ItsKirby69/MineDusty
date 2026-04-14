@@ -3,10 +3,13 @@ package minedusty.world.blocks.defense;
 import arc.scene.ui.layout.Table;
 import mindustry.graphics.Drawf;
 
+import static arc.Core.*;
+
 public class ElectricDefroster extends DefrosterBlock{
 
-    public ElectricDefroster(String name, int h) {
-        super(name, h);
+    public ElectricDefroster(String name, int heat) {
+        super(name, heat);
+        itemCapacity = 0;
     }
 
     public class ElectricDefrosterBuild extends DefrosterBlockBuild{
@@ -26,13 +29,14 @@ public class ElectricDefroster extends DefrosterBlock{
         @Override
         public void display(Table table) {
             super.display(table);
-
-            table.row();
-            table.table(t -> {
-                t.label(() -> {
-                    return "Eff: " + efficiency;
-                }).left().growX();
-            }).growX();
+            if(settings.getBool("@setting.dusty-block-debug")){
+                table.row();
+                table.table(t -> {
+                    t.label(() -> {
+                        return "Eff: " + efficiency;
+                    }).left().growX();
+                }).growX();
+            }
         }
     }
 }

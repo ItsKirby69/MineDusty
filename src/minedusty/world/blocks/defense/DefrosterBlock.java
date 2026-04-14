@@ -1,5 +1,7 @@
 package minedusty.world.blocks.defense;
 
+import static mindustry.Vars.indexer;
+import static mindustry.Vars.player;
 import static mindustry.Vars.tilesize;
 
 import arc.graphics.Color;
@@ -7,6 +9,7 @@ import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.struct.EnumSet;
 import arc.util.Time;
+import arc.util.Tmp;
 import arc.util.io.*;
 import mindustry.content.Fx;
 import mindustry.gen.Sounds;
@@ -22,7 +25,7 @@ import minedusty.world.meta.DustStatUnit;
 public class DefrosterBlock extends GenericCrafter{
     public int heatOutput = 1;
 
-    public Color baseColor = Color.valueOf("f4a084");
+    public Color baseColor = Color.valueOf("#f4a084");
 
     public DefrosterBlock(String name, int h) {
         super(name);
@@ -57,12 +60,34 @@ public class DefrosterBlock extends GenericCrafter{
     }
 
     @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid){
+        super.drawPlace(x, y, rotation, valid);
+        float cx = x * tilesize + offset;
+        float cy = y * tilesize + offset;
+
+        float range = (4 * heatOutput - 2 + size) * tilesize;
+
+        for(int l = heatOutput; l > 0; l--){         
+            float level = (4 * l - 2 + size) * tilesize;   
+            float alpha = 1f - (float)(l - 1) / heatOutput;
+            Drawf.dashSquare(Tmp.c2.set(Color.orange).a(alpha), cx, cy, level);
+        }
+
+        indexer.eachBlock(
+            player.team(), 
+            Tmp.r1.setCentered(cx, cy, range), 
+            other -> true, 
+            other -> Drawf.selected(other, Tmp.c1.set(Color.orange).a(Mathf.absin(4f, 1f)))
+        );
+    }
+
+    @Override
     public void setBars(){
         super.setBars();
 
         addBar("heat", (DefrosterBlockBuild entity) -> new Bar(
                 () -> "Heat: " + Mathf.round(entity.heat) + " / " + heatOutput, 
-                () -> Pal.lightOrange, 
+                () -> Color.orange, 
                 () -> heatOutput == 0 ? 0f : entity.heat / heatOutput
             ).blink(Color.white)
         );
@@ -77,6 +102,26 @@ public class DefrosterBlock extends GenericCrafter{
         }
 
         @Override
+        public void drawSelect(){
+            drawOverlay(x, y, rotation);
+
+            float range = (4 * heatOutput - 2 + size) * tilesize;
+
+            for(int l = heatOutput; l > 0; l--){         
+                float level = (4 * l - 2 + size) * tilesize;   
+                float alpha = 1f - (float)(l - 1) / heatOutput;
+                Drawf.dashSquare(Tmp.c2.set(Color.orange).a(alpha), x, y, level);
+            }
+            
+            indexer.eachBlock(
+                player.team(), 
+                Tmp.r1.setCentered(x, y, range), 
+                other -> true, 
+                other -> Drawf.selected(other, Tmp.c1.set(Color.orange).a(Mathf.absin(4f, 1f)))
+            );
+        }
+
+        @Override
         public void draw(){
             super.draw();
 
@@ -84,7 +129,7 @@ public class DefrosterBlock extends GenericCrafter{
 
             Draw.color(baseColor);
             Draw.alpha(1f - (f < 0.93f ? 0f : 1f));
-            Lines.stroke((2f * f + 0.2f) * 1.25f * (heat > 0f ? 1f : 0f));
+            Lines.stroke((2f * f + 0.2f) * 1.25f * (heat/heatOutput));
             Lines.square(x, y, Math.min(1f + (1f - f) * size * tilesize / 2f, size * tilesize/2f));
 
             Draw.reset();

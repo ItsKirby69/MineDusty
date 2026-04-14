@@ -1,6 +1,7 @@
 package minedusty.planets;
 
 import arc.graphics.Color;
+import arc.struct.ObjectSet;
 import mindustry.content.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
@@ -10,10 +11,16 @@ import minedusty.world.meta.DustEnvs;
 
 public class DustPlanets {
 	public static Planet
-		// remake
 		theia,
 		// theia's oceanic moon
 		nautilune;
+
+	// For frosty
+	public static ObjectSet<String> frostPlanets = ObjectSet.with(
+		"minedusty-theia",
+		"minedusty-nautilune",
+		"sun"// sun when sector is set to <any> (for some reason???)
+	);
 
 	public static void load() {
 		theia = new Planet("theia", Planets.sun, 1f, 3) {{

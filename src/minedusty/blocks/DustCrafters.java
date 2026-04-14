@@ -1,8 +1,7 @@
 package minedusty.blocks;
 
-import static arc.Core.graphics;
-import static mindustry.content.Items.oxide;
 import static mindustry.type.ItemStack.with;
+import static mindustry.content.Items.*;
 import static minedusty.content.DustItems.*;
 import static minedusty.content.DustLiquids.*;
 
@@ -15,8 +14,7 @@ import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
-import mindustry.world.meta.Attribute;
-import mindustry.world.meta.Env;
+import mindustry.world.meta.*;
 import minedusty.DustAttributes;
 import minedusty.content.*;
 import minedusty.graphics.*;
@@ -30,15 +28,27 @@ public class DustCrafters {
 
 	// Extractors/Mixers
 	public static Block oilTap;
-	public static Block salinator;
-	public static Block crystalCrusher;
-	public static Block bioSludgeChamber;
+	public static Block salinator, fluidBed;
 
 	// Legacy crafters
 	public static Block nitroplastChamber, bioLiquidMixer, bioFuelCombustionChamber, miniCrusher;
 	
 	public static void loadContent() {
 		//region Crafters
+		// TODO
+		chlorophyteCultivator = new SolarCrafter("chlorophyte-cultivator"){{
+			requirements(Category.crafting, with(oxidecopper, 40, graphite, 55, chlorophyte, 75));
+			// research cost
+			craftEffect = Fx.airBubble;
+			size = 3;
+			health = 550;
+			outputItem = new ItemStack(chlorophyte, 3);
+			craftTime = 60f * 4;
+			minSolar = 0.5f;
+
+			consumeItems(with(carbonicWaste, 1, chlorophyte, 1));
+		}};
+
 		oilTap = new Fracker("oil-tap"){{
             requirements(Category.production, with(aquamerium, 30, Items.graphite, 50, Items.lead, 30, oxidecopper, 20));
             researchCost = with(Items.graphite, 300, aquamerium, 200);
@@ -52,7 +62,7 @@ public class DustCrafters {
 			baseEfficiency = 0f;
             attribute = Attribute.oil;
 			
-			consumeItem(Items.sand);
+			consumeItem(sand);
 			consumePower(45f/60f);
             // consumeLiquid(Liquids.water, 0.1f);
         }};
@@ -164,21 +174,28 @@ public class DustCrafters {
             consumePower(35f/ 60f);
         }};
 
-        crystalCrusher = new WallCrafter("crystal-crusher"){{
-            requirements(Category.production, with(Items.graphite, 15, Items.lead, 30));
-            researchCost = with(oxidecopper, 350, Items.graphite, 100);
-			consumePower(13 / 60f);
+		fluidBed = new SolarCrafter("fluid-bed"){{
+			requirements(Category.crafting, with(Items.lead, 45, Items.graphite, 40));
+			researchCost = with(Items.graphite, 400);
+			outputItem = new ItemStack(salt, 1);
+			craftEffect = DustyEffects.meltSteam;
+			craftSound = DustSounds.brittle;
+			size = 2;
+			health = 250;
+			minSolar = 0.8f;
+			craftTime = 320f;
 
-            drillTime = 160f;
-            size = 2;
-			health = 200;
-            attribute = DustAttributes.crystal;
-            output = DustItems.silicadust;
-            fogRadius = 2;
-            ambientSound = Sounds.loopDrill;
-            ambientSoundVolume = 0.04f;
-        }};
+            drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawLiquidTile(saltWater){{
+					alpha = 0.5f;
+				}},
+				new DrawDefault() //ffef99
+			);
 
+			consumeLiquid(saltWater, 6f/ 60f);
+		}};
+		
 		salinator = new AttributeCrafter("salinator"){{
 			requirements(Category.crafting, with(oxidecopper, 45, Items.lead, 25, chlorophyte, 50));
 			researchCost = with(Items.lead, 350, chlorophyte, 550, oxidecopper, 200);

@@ -220,11 +220,11 @@ project(":"){
             logger.lifecycle("Copied :jar output to $folder.")
         }
     }
-
+    
     tasks.register("runGame"){
         dependsOn("install")
         group = "modding"
-        description = "Downloads (if missing) .jar file of Mindustry with version specified in gradle.properties"
+        description = "Downloads (if missing) and runs .jar file of Mindustry with installed mod on version specified in gradle.properties"
 
         doLast {
             val applicationVersion: String by project

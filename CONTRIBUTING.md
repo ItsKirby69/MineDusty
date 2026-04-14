@@ -14,6 +14,8 @@ To Get Started:
 
 **Significant** gameplay changes must be discussed before hand in the [forums](https://discord.com/channels/391020510269669376/1395862844427210862).
 
+**Ai use**. Please don't use ai in code. I can understand some level of use of chatbots to aid in coding, but absolutely not for generating code.
+
 **Textures** must follow the exising styling (that is as vanilla looking as possible. Please avoid chimera sprites which involve merging vanilla sprites together)
 
 **Bug fixes** are always welcome, as long as it fixes **unintended** behaviour.

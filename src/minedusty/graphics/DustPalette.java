@@ -35,6 +35,11 @@ public class DustPalette {
     leadAmmoBack = Color.valueOf("#9b7dd8ff"),
     leadAmmoFront = Color.valueOf("#e4daeeff"),
 
+	saltColor = Color.valueOf("#c8d7e2"),
+	saltColorBack = Color.valueOf("#aac4d5"),
+
+	waterFront = Color.valueOf("#bad7ff"),
+
 	// Divine palette
 	divineHeal = Color.valueOf("#ff4a34"),
 	divineDarkOutline = Color.valueOf("#390000"),

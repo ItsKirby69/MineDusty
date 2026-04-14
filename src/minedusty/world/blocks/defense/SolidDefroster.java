@@ -7,6 +7,8 @@ import mindustry.gen.Sounds;
 import mindustry.graphics.Drawf;
 import mindustry.world.consumers.ConsumeItemFlammable;
 
+import static arc.Core.*;
+
 /** Block that defrosts defense blocks in surrounding area. */
 public class SolidDefroster extends DefrosterBlock{
     public float warmupSpeed = 0.005f;
@@ -61,13 +63,14 @@ public class SolidDefroster extends DefrosterBlock{
         @Override
         public void display(Table table) {
             super.display(table);
-
-            table.row();
-            table.table(t -> {
-                t.label(() -> {
-                    return "Heat: " + heat;
-                }).left().growX();
-            }).growX();
+            if(settings.getBool("@setting.dusty-block-debug")){
+                table.row();
+                table.table(t -> {
+                    t.label(() -> {
+                        return "Heat: " + heat;
+                    }).left().growX();
+                }).growX();
+            }
         }
     }
 }

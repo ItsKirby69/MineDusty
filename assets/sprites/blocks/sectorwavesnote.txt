@@ -1,0 +1,10 @@
+Given in rules and waves generation is intended to be ending on wave 9 (in the waves menu):
+Sandbox:
+Waves show up to 9, starting on wave 1 when it releases enemies on wave 2??
+Meaning the waves actually end on wave 8 in the wave menu.
+
+Campaign:
+Waves show up to 9, starting on wave 1 again.
+Seems to be exactly like sandbox
+
+capturewave needs to be one more than what is written in the map

@@ -26,12 +26,26 @@ public class DustDrills {
     public static Block crystalBore, gyratoryDrill;
 
     public static void loadContent(){
-        lobePump = new Pump("lobe-pump") {{
-            requirements(Category.liquid, with(aquamerium, 20, Items.silicon, 50, oxidecopper, 35));
-            consumePower(20f/60f);
+        solarPump = new SolarPump("solar-pump"){{
+            requirements(Category.liquid, with(graphite, 5, oxidecopper, 8));
+            pumpAmount = 8f/60f;
+            liquidCapacity = 25f;
+            squareSprite = false;
+            drawer = new DrawMulti(
+                new DrawRegion("-bottom"),
+                new DrawLiquidRegion(){{
+                    suffix = "-pool";
+                }},
+                new DrawRegion()
+            );
+        }};
+
+        lobePump = new Pump("lobe-pump"){{
+            requirements(Category.liquid, with(aquamerium, 8, Items.silicon, 20, oxidecopper, 15));
+            consumePower(18f/60f);
             researchCost = with(aquamerium, 200, Items.silicon, 150);
-            pumpAmount = 7f / 60f;
-            liquidCapacity = 60f;
+            pumpAmount = 8f / 60f;
+            liquidCapacity = 85f;
             squareSprite = false;
             size = 2;
             hasPower = true;
@@ -70,7 +84,7 @@ public class DustDrills {
         }};
 
         copperDrill = new ModifiedDrill("copper-drill"){{
-            requirements(Category.production, with(DustItems.oxidecopper, 15));
+            requirements(Category.production, with(oxidecopper, 15));
             alwaysUnlocked = true;
             tier = 2;
             drillTime = 700;
@@ -80,7 +94,7 @@ public class DustDrills {
         }};
 
         chloroDrill = new ModifiedDrill("chloro-drill"){{
-            requirements(Category.production, with(Items.lead, 12, DustItems.chlorophyte, 10));
+            requirements(Category.production, with(lead, 12, chlorophyte, 6));
             researchCost = with(oxidecopper, 400, chlorophyte, 50);
             tier = 3;
             drillTime = 500;
@@ -90,8 +104,8 @@ public class DustDrills {
         }};
 
         offshoreDrill = new OffshoreDrill("offshore-drill"){{
-            requirements(Category.production, with(DustItems.chlorophyte, 30, DustItems.oxidecopper, 25, Items.lead, 30));
-            researchCost = with(oxidecopper, 400, chlorophyte, 150);
+            requirements(Category.production, with(graphite, 30, oxidecopper, 25, lead, 30));
+            researchCost = with(oxidecopper, 400, graphite, 150);
             tier = 3;
             drillTime = 700;
 
