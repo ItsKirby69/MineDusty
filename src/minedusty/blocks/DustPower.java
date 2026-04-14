@@ -47,8 +47,8 @@ public class DustPower {
 
         // Need custom effect
         geothermalGenerator = new GeothermalGenerator("geothermal-generator"){{
-            requirements(Category.power, with(oxidecopper, 55, Items.lead, 30, Items.silicon, 35, chlorophyte, 35));
-            researchCost = with(oxidecopper, 400, Items.silicon, 600, chlorophyte, 200);
+            requirements(Category.power, with(oxidecopper, 55, Items.lead, 30, Items.silicon, 35, Items.graphite, 35));
+            researchCost = with(oxidecopper, 400, Items.silicon, 600, Items.graphite, 200);
             powerProduction = 90f / 60f;
             size = 2;
             maxEfficiency = 2f;
@@ -65,7 +65,7 @@ public class DustPower {
         }};
 
         largegeothermalGenerator = new GeothermalGenerator("large-geothermal-generator"){{
-            requirements(Category.power, with(aquamerium, 70, Items.lead, 70, Items.silicon, 50, chlorophyte, 35));
+            requirements(Category.power, with(aquamerium, 70, Items.lead, 70, Items.silicon, 50, Items.graphite, 35));
             researchCost = with(Items.lead, 800, Items.silicon, 1000, aquamerium, 500);
             powerProduction = 230f / 60f;
             maxEfficiency = 2.5f;
@@ -87,7 +87,7 @@ public class DustPower {
 
         carbonicCombustor = new ConsumeGenerator("carbonic-combustor"){{
             requirements(Category.power, with(oxidecopper, 55, Items.lead, 15));
-            researchCost = with(Items.lead, 400, oxidecopper, 150);
+            researchCost = with(Items.lead, 250, oxidecopper, 150);
             powerProduction = 75/60f;
             itemDuration = 155f;
 
@@ -101,7 +101,7 @@ public class DustPower {
         }};
 
         solarPanel = new SolarGenerator("solar-panel"){{
-            requirements(Category.power, with(Items.lead, 30, Items.silicon, 45));
+            requirements(Category.power, with(Items.lead, 25, Items.silicon, 45, salt, 10));
             researchCost = with(Items.lead, 200, Items.silicon, 100);
             size = 2;
             powerProduction = 30f/60f;
@@ -125,7 +125,7 @@ public class DustPower {
         }};
 
         largesaltBattery = new SaltBattery("salt-battery-large"){{
-            requirements(Category.power, with(aquamerium, 15, Items.lead, 65, Items.silicon, 20, salt, 45));
+            requirements(Category.power, with(aquamerium, 35, Items.lead, 40, Items.silicon, 20, Items.graphite, 35));
             researchCost = with(Items.lead, 1200, salt, 200, aquamerium, 150);
             size = 3;
             liquidConsume = 1.5f/60f;

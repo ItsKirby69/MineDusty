@@ -29,6 +29,7 @@ public class DustCrafters {
 	// Extractors/Mixers
 	public static Block oilTap;
 	public static Block salinator, fluidBed;
+	public static Block bioSludgeChamber, chlorophyteCultivator;
 
 	// Legacy crafters
 	public static Block nitroplastChamber, bioLiquidMixer, bioFuelCombustionChamber, miniCrusher;
@@ -50,8 +51,8 @@ public class DustCrafters {
 		}};
 
 		oilTap = new Fracker("oil-tap"){{
-            requirements(Category.production, with(aquamerium, 30, Items.graphite, 50, Items.lead, 30, oxidecopper, 20));
-            researchCost = with(Items.graphite, 300, aquamerium, 200);
+            requirements(Category.production, with(aquamerium, 30, graphite, 50, lead, 30, oxidecopper, 20));
+            researchCost = with(graphite, 300, aquamerium, 200);
 			result = Liquids.oil;
 			updateEffect = Fx.pulverize;
             pumpAmount = 4f/60f;
@@ -197,7 +198,7 @@ public class DustCrafters {
 		}};
 		
 		salinator = new AttributeCrafter("salinator"){{
-			requirements(Category.crafting, with(oxidecopper, 45, Items.lead, 25, chlorophyte, 50));
+			requirements(Category.crafting, with(oxidecopper, 45, Items.lead, 25, chlorophyte, 40));
 			researchCost = with(Items.lead, 350, chlorophyte, 550, oxidecopper, 200);
 			outputLiquid = new LiquidStack(saltWater, 12f/60f);
 			craftTime = 100f;

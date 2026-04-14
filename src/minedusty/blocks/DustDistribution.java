@@ -1,23 +1,21 @@
 package minedusty.blocks;
 
-import static mindustry.content.Items.lead;
+
 import static mindustry.type.ItemStack.with;
-import static minedusty.content.DustItems.aquamerium;
-import static minedusty.content.DustItems.oxidecopper;
+import static mindustry.content.Items.*;
+import static minedusty.content.DustItems.*;
 
 import arc.graphics.Color;
 import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.distribution.Conveyor;
-import mindustry.world.blocks.distribution.Junction;
-import mindustry.world.blocks.distribution.OverflowGate;
-import mindustry.world.blocks.distribution.Router;
-import mindustry.world.blocks.distribution.Sorter;
+import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.liquid.LiquidJunction;
 import mindustry.world.blocks.liquid.LiquidRouter;
+import mindustry.world.blocks.units.UnitCargoLoader;
 import minedusty.content.DustItems;
+import minedusty.content.DustUnitTypes;
 
 public class DustDistribution {
 	
@@ -31,7 +29,27 @@ public class DustDistribution {
     public static Block armoredGalenaConveyor; // a heavily armored conveyor. Perhaps instead make it chlorophyte that heals itself?
     public static Block electrumConveyor; // A power requiring stack conveyor?
 
+    public static Block shipCargoLoader;
+
 	public static void loadContent(){
+        // Special transportators
+        // shipCargoLoader = new UnitCargoLoader("ship-cargo-loader"){{
+        //     requirements(Category.distribution, with(silicon, 40));
+        //     researchCost = with(silicon, 600);
+
+        //     size = 2;
+        //     unitBuildTime = 60f * 12f;
+        //     unitType = DustUnitTypes.boat;
+        //     polySides = 0;
+
+        //     consumePower(8f / 60f);
+        //     itemCapacity = 25;
+        //     placeableLiquid = true;
+        //     floating = true;
+        //     solid = false;
+        //     hideDatabase = true;
+        // }};
+
         // region conduits
         aquaLiquidRouter = new LiquidRouter("aqua-liquid-router"){{
             requirements(Category.liquid, with(aquamerium, 2, Items.graphite, 4));

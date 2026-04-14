@@ -49,7 +49,7 @@ public class DustDefence {
         }};
 
 		chloroWall = new HealWall("chlorophyte-wall") {{
-			requirements(Category.defense, with(DustItems.chlorophyte, 6));
+			requirements(Category.defense, with(chlorophyte, 6));
 			health = 90 * wallHealthMulti;
 		}};
 
@@ -60,7 +60,7 @@ public class DustDefence {
         }};
 
 		aquaWall = new DustWall("aquamerium-wall") {{
-			requirements(Category.defense, with(DustItems.aquamerium, 6));
+			requirements(Category.defense, with(aquamerium, 6));
 			health = 130 * wallHealthMulti;
 		}};
 
@@ -71,14 +71,14 @@ public class DustDefence {
         }};
 
         aquawallHuge = new Wall("aquamerium-wall-huge"){{
-            requirements(Category.defense, with(DustItems.aquamerium, 54, silicon, 24));
+            requirements(Category.defense, with(aquamerium, 54, silicon, 24));
             health = 150 * 9 * wallHealthMulti;
             size = 3;
             buildCostMultiplier = 4f;
         }};
 		
 		oxidecopperWall = new OxideWall("oxide-copper-wall"){{
-			requirements(Category.defense, with(DustItems.oxidecopper, 5));
+			requirements(Category.defense, with(oxidecopper, 5));
 			variants = 3;
 			health = 75 * wallHealthMulti;
 		}};
