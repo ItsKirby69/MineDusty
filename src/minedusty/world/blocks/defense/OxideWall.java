@@ -68,7 +68,7 @@ public class OxideWall extends DustWall{
             timeScale = WeatherUtil.activeWeather(Weathers.rain, Weathers.fog, DustWeathers.heavyRain) ? rainAccel : 1f;
 
             if(currentStage < maxOxideStages - 1){
-                if(currentFrostStage == maxFrostStage) return; // Don't advance oxidation if fully frosted duh
+                if(frostState.currentFrostStage == frostState.maxFrostStage) return; // Don't advance oxidation if fully frosted duh
                 stageTimer += Time.delta * timeScale;
                 
                 if (stageTimer >= currStageDuration){ 
@@ -97,7 +97,7 @@ public class OxideWall extends DustWall{
             int stage = Math.min(currentStage, maxOxideStages - 1);
 
             Draw.rect(stageRegions[stage][variant], x, y, rotdeg());
-            super.drawFrost();
+            frost.drawFrost(this, frostState, frostVariants);
         }
     }
 }
