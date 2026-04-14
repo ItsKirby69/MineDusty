@@ -1,20 +1,74 @@
 package minedusty.blocks;
 
 import static mindustry.type.ItemStack.with;
-import static minedusty.content.DustItems.oxidecopper;
 
 import mindustry.type.Category;
 import mindustry.world.Block;
+import mindustry.world.blocks.power.LightBlock;
 import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.blocks.storage.StorageBlock;
+import mindustry.world.blocks.units.UnitFactory;
+import mindustry.world.draw.*;
+import mindustry.world.meta.BuildVisibility;
 import minedusty.content.DustUnitTypes;
-import mindustry.content.*;
+import minedusty.world.blocks.defense.ChloroMenderProjector;
+import minedusty.world.blocks.power.LanternBlock;
+import mindustry.content.Items;
+import mindustry.graphics.*;
+
+import static mindustry.content.Blocks.*;
+import static mindustry.content.Items.*;
+import static minedusty.content.DustItems.*;
+import static minedusty.content.DustLiquids.*;
+
+import arc.graphics.Color;
 
 public class DustCore {
 	public static Block coreNest;
+	public static Block stockpile;
+	public static Block chloroMender;
+	public static Block lantern;
+
+	// Units (maybe different class?)
+	public static Block skyFactory, earthFactory;
 
 	public static void loadContent() {
+
+		stockpile = new StorageBlock("stockpile"){{
+			requirements(Category.effect, with(chlorophyte, 50, silicon, 250));
+			researchCost = with(chlorophyte, 500, silicon, 450);
+			size = 3;
+			itemCapacity = 2500;
+			scaledHealth = 75;
+		}};
+
+        chloroMender = new ChloroMenderProjector("chloromender"){{
+            requirements(Category.effect, with(chlorophyte, 30, graphite, 15));
+			researchCost = with(chlorophyte, 200, oxidecopper, 1200, graphite, 250);
+			consumePower(20f / 60f);
+            consumeLiquid(bioLiquid, 4.5f / 60f).boost();
+            size = 1;
+            range = 6;
+            healPercent = 2.5f / 60f;
+            optionalMultiplier = 2f;
+            health = 100;
+
+			baseColor = Color.valueOf("#c5ff98");
+            Color col = Color.valueOf("#a3d72b");
+
+            drawer = new DrawMulti(new DrawDefault(), new DrawPulseShape(false){{
+                layer = Layer.effect;
+                color = col;
+            }});
+        }};
+
+        lantern = new LanternBlock("lantern"){{
+            requirements(Category.effect, BuildVisibility.lightingOnly, with(Items.graphite, 10, Items.lead, 12));
+			researchCost = with(graphite, 200, lead, 50);
+        }};
+
 		coreNest = new CoreBlock("core-nest"){{
-			requirements(Category.effect, with(oxidecopper, 1300, Items.lead, 1000));
+			requirements(Category.effect, with(oxidecopper, 1300, lead, 1000));
 			alwaysUnlocked = true;
 
 			isFirstTier = true;
