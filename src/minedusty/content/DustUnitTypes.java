@@ -8,32 +8,302 @@ import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.part.RegionPart;
+import mindustry.entities.pattern.ShootHelix;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.type.ammo.*;
+import mindustry.world.meta.BlockFlag;
+import minedusty.gen.WaterMoveUnit;
 import minedusty.graphics.DustPalette;
 import minedusty.type.unit.DivineUnitType;
 
 public class DustUnitTypes {
 
-	// core units
+	/** Sharded Faction */
 	public static UnitType cricket, lotus, mantis;
+
+	// airborne
+	public static @EntityDef({Unitc.class}) UnitType dazzle;
+
+	// transport
+	public static @EntityDef({Unitc.class, BuildingTetherc.class, Payloadc.class}) UnitType boat;
 
 	//region Enemy units
 
-	// Divine Faction
+	/** Crux Faction */
+
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType cleave;
+
+	public static @EntityDef({Unitc.class, WaterMovec.class}) UnitType minnow;
+
+	/** Divine Faction */
 	public static @EntityDef({Unitc.class, Legsc.class}) UnitType divineFlathead;
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer; // crawler and suicide type units
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineCyst, divineGlaive, divineBulwark; // normal mech
 	
 	public static @EntityDef({Unitc.class, Legsc.class}) UnitType devineNanitic;
 
-	
 	//end region
  
-	//region Enemies
+	//region Units
 	public static void load(){
+		// bad bad bad
+		/*boat = new UnitType("boat"){{
+			controller = u -> new CargoAI();
+			constructor = BuildingTetherPayloadUnit::create; //UnitWaterMove::create;
+			pathCost = ControlPathfinder.costNaval;
+			isEnemy = false;
+			allowedInPayloads = false;
+			logicControllable = false;
+			playerControllable = false;
+			envDisabled = 0;
+			payloadCapacity = 0f;
+
+			moveSoundVolume = 0.3f;
+			moveSound = Sounds.shipMove;
+            naval = true;
+            canDrown = false;
+            emitWalkSound = false;
+            omniMovement = false;
+            immunities.add(StatusEffects.wet);
+
+			lowAltitude = true;
+			flying = false;
+			naval = true;
+			drag = 0.12f;
+			speed = 1.8f;
+			rotateSpeed = 5f;
+			trailLength = 20;
+			waveTrailX = 4f;
+			trailScl = 1.2f;
+			accel = 0.4f;
+			itemCapacity = 25;
+			health = 120f;
+			hitSize = 11f;
+		}};*/
+
+		cricket = new UnitType("cricket"){{
+			drawCell = false;
+			// Fiddle around with this in the future?
+			controller = u -> u.team.isAI() ? new BuilderAI(true, 400f) : new CommandAI();
+			//aiController = BuilderAI::new;
+			isEnemy = false;
+			
+			constructor = UnitEntity::create;
+
+			targetBuildingsMobile = false;
+            lowAltitude = true;
+			flying = true;
+			mineSpeed = 7f;
+			mineTier = 1;
+			buildSpeed = 0.6f;
+			drag = 0.05f;
+			speed = 2.8f;
+			rotateSpeed = 15f;
+			accel = 0.1f;
+			fogRadius = 0f;
+			itemCapacity = 45;
+			health = 220f;
+			hitSize = 9f;
+			alwaysUnlocked = true;
+			engineOffset = 6f;
+			// outlines = false;
+			outlineColor = DustPalette.turretOutline;
+			
+			weapons.add(new Weapon("minedusty-cricket-weapon"){{
+				reload = 17.5f;
+				top = false;
+				ejectEffect = Fx.casing1;
+				x = 3.25f;
+				y = 2.5f;
+				// layerOffset = -0.01f;
+				//speed dmg
+				bullet = new BasicBulletType(2.5f, 11){{
+					width = 7f;
+					height = 10f;
+					lifetime = 75f;
+
+					trailLength = 4;
+					trailWidth = 1.4f;
+
+					hitColor = backColor = DustPalette.oxidecopperMid;
+					trailColor = DustPalette.oxidecopperBack;
+					frontColor = DustPalette.oxidecopper;
+					shootEffect = Fx.shootSmall;
+					shootEffect = Fx.shootSmallSmoke;
+					buildingDamageMultiplier = 0.5f;
+					homingPower = 0.02f;
+				}};
+			}});
+		}};
+		
+		mantis = new UnitType("mantis"){{
+			drawCell = false;
+			aiController = BuilderAI::new;
+			isEnemy = false;
+
+			constructor = UnitEntity::create;
+
+			flying = true;
+			mineSpeed = 8f;
+			mineTier = 2;
+			buildSpeed = 0.8f;
+			drag = 0.05f;
+			speed = 3.2f;
+			rotateSpeed = 19f;
+			accel = 0.11f;
+			fogRadius = 0f;
+			itemCapacity = 80;
+			health = 325f;
+			hitSize = 17f;
+			engineOffset = 8.5f;
+			engineSize = 3f;
+			trailLength = 6;
+			outlines = false;
+
+			weapons.add(new Weapon("minedusty-mantis-weapon"){{
+				reload = 140f;
+				shootSound = Sounds.shootLaser;
+				top = false;
+				ejectEffect = Fx.none;
+				//alternate = false;
+				mirror = false;
+				cooldownTime = 130f;
+				x = y = 0f;
+				recoil = 1.2f;
+				//speed dmg
+				bullet = new LaserBoltBulletType(3f, 4){{
+					lifetime = 50f;
+					healPercent = 3.5f;
+					collidesTeam = true;
+					backColor = Pal.heal;
+					frontColor = Color.white;
+				}};
+			}});
+		}};
+
+        dazzle = new UnitType("dazzle"){{
+			drawCell = false;
+			constructor = UnitEntity::create;
+            researchCostMultiplier = 0.5f;
+            speed = 2.5f;
+            accel = 0.08f;
+            drag = 0.04f;
+            flying = true;
+            health = 170;
+            engineOffset = 5.75f;
+            targetFlags = new BlockFlag[]{BlockFlag.generator, null};
+            hitSize = 10;
+            itemCapacity = 8;
+            circleTarget = true;
+            omniMovement = false;
+            rotateSpeed = 5f;
+            circleTargetRadius = 45f;
+            wreckSoundVolume = 0.7f;
+			crashDamageMultiplier = 1.5f;
+
+            moveSound = Sounds.loopThruster;
+            moveSoundPitchMin = 0.3f;
+            moveSoundPitchMax = 1.5f;
+            moveSoundVolume = 0.2f;
+
+			outlineColor = DustPalette.turretOutline;
+
+            weapons.add(new Weapon(){{
+                y = 1f;
+                x = 0f;
+                minShootVelocity = 1.7f;
+                shootCone = 10f;
+                reload = 55f;
+				shoot = new ShootHelix();
+                ejectEffect = Fx.casing1;
+                mirror = false;
+				shootSound = Sounds.shoot;
+                bullet = new BasicBulletType(2.5f, 24){{
+                    inaccuracy = 4f;
+                    width = 7f;
+                    height = 9f;
+                    lifetime = 32f;
+					hitColor = backColor = DustPalette.oxidecopperMid;
+					trailColor = DustPalette.oxidecopperBack;
+					frontColor = DustPalette.oxidecopper;
+                    shootEffect = Fx.shootSmall;
+                    smokeEffect = Fx.shootSmallSmoke;
+                    ammoMultiplier = 2;
+					trailLength = 2;
+					trailWidth = 1;
+                }};
+            }});
+        }};
+
+        cleave = new UnitType("cleave"){{
+			constructor = LegsUnit::create;
+            researchCostMultiplier = 0.5f;
+            speed = 0.48f;
+            hitSize = 9f;
+            health = 425;
+            stepSoundVolume = 0.5f;
+			outlineColor = DustPalette.turretOutline;
+
+            weapons.add(new Weapon("minedusty-larger-weapon"){{
+                reload = 60f;
+                x = 4f;
+                y = 2f;
+                top = false;
+                ejectEffect = Fx.casing1;
+				shoot.shots = 3;
+				shoot.shotDelay = 4f;
+				outlineColor = DustPalette.turretOutline;
+                bullet = new BasicBulletType(3.25f, 10){{
+                    width = 7f;
+                    height = 9f;
+                    lifetime = 70f;
+					homingPower = 0.015f;
+                }};
+            }});
+        }};
+	
+        minnow = new UnitType("minnow"){{
+			constructor = WaterMoveUnit::create;
+            speed = 1.35f;
+            drag = 0.13f;
+            hitSize = 10f;
+            health = 160;
+            armor = 1f;
+            accel = 0.45f;
+            rotateSpeed = 3.75f;
+            faceTarget = false;
+
+            trailLength = 20;
+            waveTrailX = 3f;
+            trailScl = 1.3f;
+
+            moveSoundVolume = 0.3f;
+            moveSound = Sounds.shipMove;
+
+            weapons.add(new Weapon("minedusty-water-small-weapon"){{
+                reload = 7f;
+                x = 4f;
+                shootY = 4f;
+                y = 0f;
+                rotate = true;
+				recoil = 0.75f;
+                ejectEffect = Fx.casing1;
+                bullet = new BasicBulletType(4f, 2f){{
+                    width = 5f;
+                    height = 7f;
+                    lifetime = 50f;
+                    ammoMultiplier = 2;
+					drag = -0.007f;
+                    weaveScale = 8f;
+                    weaveMag = 1.25f;
+                }};
+            }});
+        }};
+		//endregion
+
+	//region Enemies
 
 		// WIP
 		devineNanitic = new DivineUnitType("divine-nanitic"){{
@@ -330,100 +600,5 @@ public class DustUnitTypes {
             rotateSpeed = 2.1f;
         }};
 		//end region
-
-		cricket = new UnitType("cricket"){{
-			controller = u -> u.team.isAI() ? new BuilderAI(true, 400f) : new CommandAI();
-			//aiController = BuilderAI::new;
-			isEnemy = false;
-			
-			constructor = UnitEntity::create;
-
-			targetBuildingsMobile = false;
-            lowAltitude = true;
-			flying = true;
-			mineSpeed = 7f;
-			mineTier = 1;
-			buildSpeed = 0.6f;
-			drag = 0.05f;
-			speed = 2.8f;
-			rotateSpeed = 15f;
-			accel = 0.1f;
-			fogRadius = 0f;
-			itemCapacity = 45;
-			health = 220f;
-			hitSize = 9f;
-			alwaysUnlocked = true;
-			engineOffset = 6f;
-			// outlines = false;
-			outlineColor = DustPalette.turretOutline;
-			
-			weapons.add(new Weapon("minedusty-cricket-weapon"){{
-				reload = 17.5f;
-				top = false;
-				ejectEffect = Fx.casing1;
-				x = 3.25f;
-				y = 2.5f;
-				// layerOffset = -0.01f;
-				//speed dmg
-				bullet = new BasicBulletType(2.5f, 11){{
-					width = 7f;
-					height = 10f;
-					lifetime = 75f;
-
-					trailLength = 4;
-					trailWidth = 1.4f;
-
-					hitColor = backColor = DustPalette.oxidecopperMid;
-					trailColor = DustPalette.oxidecopperBack;
-					frontColor = DustPalette.oxidecopper;
-					shootEffect = Fx.shootSmall;
-					shootEffect = Fx.shootSmallSmoke;
-					buildingDamageMultiplier = 0.5f;
-				}};
-			}});
-		}};
-		mantis = new UnitType("mantis"){{
-			aiController = BuilderAI::new;
-			isEnemy = false;
-
-			constructor = UnitEntity::create;
-
-			flying = true;
-			mineSpeed = 8f;
-			mineTier = 2;
-			buildSpeed = 0.8f;
-			drag = 0.05f;
-			speed = 3.2f;
-			rotateSpeed = 19f;
-			accel = 0.11f;
-			fogRadius = 0f;
-			itemCapacity = 80;
-			health = 325f;
-			hitSize = 17f;
-			engineOffset = 8.5f;
-			engineSize = 3f;
-			trailLength = 6;
-			outlines = false;
-
-			weapons.add(new Weapon("minedusty-mantis-weapon"){{
-				reload = 140f;
-				shootSound = Sounds.shootLaser;
-				top = false;
-				ejectEffect = Fx.none;
-				//alternate = false;
-				mirror = false;
-				cooldownTime = 130f;
-				x = y = 0f;
-				recoil = 1.2f;
-				//speed dmg
-				bullet = new LaserBoltBulletType(3f, 4){{
-					lifetime = 50f;
-					healPercent = 3.5f;
-					collidesTeam = true;
-					backColor = Pal.heal;
-					frontColor = Color.white;
-				}};
-			}});
-		}};
 	}
 }
