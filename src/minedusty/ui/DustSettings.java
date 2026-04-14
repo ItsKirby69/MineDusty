@@ -28,8 +28,10 @@ public class DustSettings {
 
             t.pref(new Title("@setting.dusty-misc-title"));
 
+            t.sliderPref("@setting.dusty-splash-bounciness", 10, 1, 100, s -> s + "");
             t.sliderPref("@setting.dusty-sfx-volume", 50, 0, 100, 1, s -> s + "%");
             t.checkPref("@setting.dusty-disable-popup", false);
+            t.checkPref("@setting.dusty-block-debug", false);
 
             t.pref(new TableSetting("github-linko", new Table(c -> {
                 c.button("@setting.dusty-cleartree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
@@ -40,10 +42,8 @@ public class DustSettings {
                     Vars.ui.showConfirm("@setting.dusty-clearcampaign-confirm", () -> DustData.resetCampaign(DustPlanets.theia)
                 )).width(230f);
 
-                /*
                 c.button("@setting.dusty-unlocktree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
                     DustData.unlockTree(DustPlanets.theia.techTree)).width(230f);
-                */
 
                 c.button(Icon.github, new ImageButton.ImageButtonStyle(), () ->{
                     String url = "https://github.com/ItsKirby69/MineDusty";

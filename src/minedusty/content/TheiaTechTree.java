@@ -7,19 +7,15 @@ import static mindustry.content.Blocks.*;
 import static mindustry.content.TechTree.*;
 import static minedusty.content.DustSectors.*;
 
+import static minedusty.content.DustUnitTypes.*;
 import static minedusty.blocks.DustTurrets.*;
 import static minedusty.blocks.DustCrafters.*;
 import static minedusty.blocks.DustDefence.*;
 import static minedusty.blocks.DustDistribution.*;
-import static minedusty.blocks.DustDrills.lobePump;
-import static minedusty.blocks.DustPower.carbonicCombustor;
-import static minedusty.blocks.DustPower.geothermalGenerator;
-import static minedusty.blocks.DustPower.largegeothermalGenerator;
-import static minedusty.blocks.DustPower.largesaltBattery;
-import static minedusty.blocks.DustPower.powerHub;
-import static minedusty.blocks.DustPower.powerPylon;
-import static minedusty.blocks.DustPower.saltBattery;
-
+import static minedusty.blocks.DustPower.*;
+import static minedusty.blocks.DustCore.*;
+import static minedusty.blocks.DustThermal.*;
+import static minedusty.blocks.DustDrills.*;
 import static mindustry.content.Items.*;
 import static mindustry.content.Items.sand;
 import static mindustry.content.Liquids.*;
@@ -31,12 +27,12 @@ import static minedusty.content.DustLiquids.*;
 
 
 import arc.struct.Seq;
-import static mindustry.game.Objectives.*;
+import mindustry.game.Objectives.*;
 
 public class TheiaTechTree {
 
     public static void load() {
-        DustPlanets.theia.techTree = nodeRoot("theia", DustCore.coreNest, () -> {
+        DustPlanets.theia.techTree = nodeRoot("Theia", DustCore.coreNest, () -> {
             node(copperConveyor, () -> {
                 node(copperJunction, () -> {
                     node(copperRouter, () -> {
@@ -51,41 +47,48 @@ public class TheiaTechTree {
                         node(aquameriumConveyor, Seq.with(
                             new SectorComplete(verdantSpills)
                         ), () -> {});
+                        node(stockpile, () -> {});
                     });
                 });
             });
 
             node(DustDrills.copperDrill, () -> {
-                node(lobePump, () -> {
+                node(solarPump, Seq.with(
+                    new SectorComplete(verdantSpills)
+                ), () -> {
+                    node(lobePump, () -> {});
                     node(aquameriumConduit, () -> {
                         node(aquaLiquidJunction, () -> {
                             node(aquaLiquidRouter);
                         });
                     });
-                });
-                node(DustDrills.chloroDrill, () -> {
-                    node(DustDrills.offshoreDrill, () -> {
-                        node(oilTap, () -> {});
+                    node(salinator,() -> {
+                        node(fluidBed, () -> {});
                     });
                 });
+                node(DustDrills.chloroDrill, () -> {
+                    node(DustDrills.offshoreDrill, () -> {});
+                    node(oilTap, () -> {});
+                });
 
-                node(crystalCrusher, Seq.with(
+                node(crystalBore, Seq.with(
                     new Produce(graphite),
-                    new SectorComplete(basalticShore)
-                ), () -> {}); // TODO make it unlock the bore
-                node(carbonicConcentrator, Seq.with(
-                    new Research(coal)
-                ), () -> {
-                    node(carbonicRefinery, Seq.with(
-                        new SectorComplete(basalticShore)
-                    ), () -> {});
+                    new OnSector(basalticShore)
+                ), () -> {});
+                node(carbonicConcentrator, () -> {
+                    node(carbonicPress, () -> {
+                        node(silicaForge, Seq.with(
+                            new Research(crystalCrusher),
+                            new Produce(silicadust)
+                        ),() -> {});
+                    });
+                    node(bioSludgeChamber, () -> {});
+                    // TODO until there is a better use
+                    // node(carbonicRefinery, Seq.with(
+                    //     new SectorComplete(basalticShore)
+                    // ), () -> {});
                 });
-                node(carbonicPress,  () -> {
-                    node(silicaForge, Seq.with(
-                        new Research(crystalCrusher)
-                    ),() -> {});
-                    node(salinator, () -> {});
-                });
+
 
                 node(carbonicCombustor, Seq.with(
                     new Produce(coal)
@@ -98,6 +101,11 @@ public class TheiaTechTree {
                             ), () -> {});
                         });
                     });
+                    node(electricFurnace, Seq.with(
+                        new SectorComplete(tropicalLake)
+                    ), () -> {
+                        node(solidFurance, () -> {});
+                    });
                     node(powerPylon, () ->{
                         node(saltBattery, Seq.with(
                             new Research(salinator)
@@ -106,22 +114,28 @@ public class TheiaTechTree {
                         });
                         node(powerHub, Seq.with(
                             new SectorComplete(lushCorridors)
-                        ), () -> {}
-                        );
+                        ), () -> {});
+                        node(chloroMender, () -> {});
+                        node(lantern, () -> {});
                     });
                 });
             });
 
             node(oxidecopperWall, () -> {
-                node(oxidecopperWallLarge, () -> {
-                    node(chloroWall, () -> {
-                        node(chloroWallLarge);
+                node(chloroWall, () -> {
+                    node(siliconWallLarge, () -> {
+                        node(crystalWall, () -> {
+                            node(crystalWallLarge, () -> {});
+                        });
                     });
+                    node(chloroWallLarge);
                     node(aquaWall, () -> {
                         node(aquaWallLarge, () -> {
                             node(aquawallHuge);
                         });
                     });
+                });
+                node(oxidecopperWallLarge, () -> {
                 });
                 node(scrapWall, () -> {
                     node(scrapWallLarge, () -> {
@@ -134,67 +148,92 @@ public class TheiaTechTree {
                 // node(door, () -> {
                 //     node(doorLarge);
                 // });
-
             });
 
             // Need to add my custom turrets as well
             node(sandSpitter, () -> {
+                node(sandHammer, Seq.with(
+                    new Research(sleet),
+                    new SectorComplete(lushCorridors)
+                ), () -> {});
                 node(sleet, Seq.with(
                     new Research(graphite),
                     new Produce(carbonicWaste)
                 ), () -> {});
                 node(pellucid, Seq.with(
                     new Research(chlorophyte)
-                ), () -> {});
+                ), () -> {
+                    node(pistil, Seq.with(
+                        new Research(bioSludgeChamber)
+                    ), () -> {});
+                });
                 node(spout);
             });
 
             node(verdantSpills, () -> {
-                node(thicketValley);
+                node(sandyEminence, Seq.with(
+                    new SectorComplete(thicketValley)
+                ), () -> {});
+                node(thicketValley, Seq.with(
+                    new SectorComplete(verdantSpills),
+                    new Research(copperJunction),
+                    new Research(copperRouter)
+                ), () -> {});
                 node(basalticShore, Seq.with(
-                    new SectorComplete(thicketValley),
-                    new Research(salinator)
+                    new SectorComplete(thicketValley)
                     ), () -> {
                 });
-                node(lushCorridors, () ->{
-                    node(lushCorridors, Seq.with(
+                node(lushCorridors, Seq.with(
+                    new SectorComplete(thicketValley),
+                    new Research(skyFactory)
+                ), () -> {
+                    node(tropicalLake, Seq.with(
                         new SectorComplete(basalticShore)
-                        ), () -> {
+                    ), () -> {});
+                    node(frostedFault, () -> {
+                        // node(snowFort, () -> {});
                     });
                 });
+            });
+
+            node(skyFactory, Seq.with(
+                new SectorComplete(thicketValley)
+            ), () -> {
+                node(dazzle, () -> {});
             });
 
             nodeProduce(oxidecopper, () -> {
                 nodeProduce(water, () -> {
                     nodeProduce(saltWater, () -> {});
                     nodeProduce(bioLiquid, Seq.with(new Research(chlorophyte)), () -> {
-                        nodeProduce(bioFuel, () -> {}); //Seq.with( new Research(bioFuelCombustionChamber) TODO make bioFuel synthesis chamber
+                        // nodeProduce(bioFuel, () -> {}); //TODO make bioFuel synthesis chamber
+                        nodeProduce(oil, () -> {}); //TODO oil production with bioLiquids?
                     });
-                    nodeProduce(sap, () -> {});
+                    nodeProduce(slag, () -> {});
+                    // nodeProduce(sap, () -> {});
                 });
 
                 nodeProduce(lead, () -> {
                     nodeProduce(galena, () -> {
                         nodeProduce(silver, () -> {}); // Silver metal
                     });
-                    nodeProduce(chlorophyte, () -> {});
-                    nodeProduce(aquamerium, () -> {}); // TODO cryofluid source
+                    nodeProduce(chlorophyte, () -> {
+                        nodeProduce(aquamerium, () -> {});
+                    });
+                    nodeProduce(silicadust, () -> {
+                            nodeProduce(silicon, () -> {});
+                        });
                 });
 
                 nodeProduce(sand, () -> {
                     nodeProduce(salt, () -> {});
                     nodeProduce(scrap, () -> {
-                        nodeProduce(slag, () -> {
-                        });
                     });
                     nodeProduce(coal, () -> {
                         nodeProduce(carbonicWaste, () -> {
-                            nodeProduce(graphite, () -> {
-                                nodeProduce(silicon, () -> {});
-                            });
+                            nodeProduce(graphite, () -> {});
                         });
-                        nodeProduce(oil, () -> {
-                        });
+                        
                     });
                 });
             });
