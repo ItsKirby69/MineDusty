@@ -28,6 +28,13 @@ public class DustyEffects {
 
 	none = new Effect(0f, 0f, e -> {}),
 
+    temporshootSmall = new Effect(8, e -> {
+        color(DustPalette.chlorophyteBullet, DustPalette.chlorophyte, e.fin());
+        float w = 1f + 5 * e.fout();
+        Drawf.tri(e.x, e.y, w, 15f * e.fout(), e.rotation);
+        Drawf.tri(e.x, e.y, w, 3f * e.fout(), e.rotation + 180f);
+    }),
+
     hitChloroSpark = new Effect(40, e -> {
         color(e.color);
         stroke(e.fout() * 1.6f);

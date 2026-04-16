@@ -17,6 +17,7 @@ import mindustry.world.meta.BlockFlag;
 import minedusty.gen.WaterMoveUnit;
 import minedusty.graphics.DustPalette;
 import minedusty.type.unit.DivineUnitType;
+import minedusty.type.unit.TemporUnitType;
 
 public class DustUnitTypes {
 
@@ -32,12 +33,12 @@ public class DustUnitTypes {
 
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType cleave;
 
-	public static @EntityDef({Unitc.class, WaterMovec.class}) UnitType minnow;
+	public static @EntityDef({Unitc.class, WaterMovec.class}) UnitType minnow, sturgeon;
 
 	/** Divine Faction */
 	public static @EntityDef({Unitc.class, Legsc.class}) UnitType divineFlathead;
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer; // crawler and suicide type units
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineCyst, divineGlaive, divineBulwark; // normal mech
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType actaea, divineCyst, divineGlaive, divineBulwark; // normal mech
 	
 	public static @EntityDef({Unitc.class, Legsc.class}) UnitType devineNanitic;
 
@@ -247,14 +248,14 @@ public class DustUnitTypes {
 
             weapons.add(new Weapon("minedusty-water-small-weapon"){{
                 reload = 7f;
-                x = 4f;
                 shootY = 4f;
-                y = 0f;
+				x = 4f;
+                y = -1f;
                 rotate = true;
 				recoil = 0.75f;
                 ejectEffect = Fx.casing1;
                 bullet = new BasicBulletType(4f, 2f){{
-                    width = 5f;
+                    width = 6f;
                     height = 7f;
                     lifetime = 50f;
                     ammoMultiplier = 2;
@@ -264,13 +265,109 @@ public class DustUnitTypes {
                 }};
             }});
         }};
+
+        sturgeon = new UnitType("sturgeon"){{
+			constructor = WaterMoveUnit::create;
+            speed = 1.05f;
+            drag = 0.15f;
+            hitSize = 13f;
+            health = 470;
+            armor = 3f;
+            accel = 0.45f;
+            rotateSpeed = 2.85f;
+            faceTarget = false;
+
+            trailLength = 20;
+            waveTrailX = 6.2f;
+            trailScl = 1.8f;
+
+            moveSoundVolume = 0.55f;
+			moveSoundPitchMin = moveSoundPitchMax = 0.9f;
+            moveSound = Sounds.shipMove;
+
+            weapons.add(new Weapon("minedusty-water-mount"){{
+                reload = 12f;
+                shootY = 4f;
+				x = 4f;
+                y = 3f;
+                rotate = true;
+				rotateSpeed = 4f;
+				inaccuracy = 8f;
+				recoil = 0.75f;
+                ejectEffect = Fx.casing1;
+				shootSound = Sounds.shootDuo;
+                bullet = new FlakBulletType(4f, 4f){{
+                    width = 6f;
+                    height = 8f;
+                    lifetime = 52f;
+                    ammoMultiplier = 4f;
+					hitEffect = Fx.flakExplosion;
+					shootEffect = Fx.shootSmall;
+					splashDamage = 25f * 1.5f;
+					splashDamageRadius = 12f;
+                }};
+            }});
+
+			weapons.add(new Weapon("minedusty-water-missile"){{
+				shootSound = Sounds.shootRetusa;
+				reload = 45f;
+				x = 0f;
+				y = -8f;
+				top = true;
+				mirror = false;
+				rotate = true;
+				inaccuracy = 1.5f;
+				rotateSpeed = 2f;
+				shake = 1.2f;
+				ejectEffect = Fx.casing2;
+				shootSound = Sounds.shootRetusa;
+				bullet = new ArtilleryBulletType(2.5f, 25, "mine-bullet"){{
+					hitEffect = Fx.flakExplosion;
+					backColor = DustPalette.aquameriumBack;
+					frontColor = DustPalette.aquamerium;
+					knockback = 0.8f;
+					lifetime = 65f;
+					width = height = 9f;
+					collidesTiles = false;
+					splashDamageRadius = 22f;
+					splashDamage = 35f;
+				}};
+			}});
+        }};
 		//endregion
 
 	//region Enemies
 
+        actaea = new TemporUnitType("actaea"){{
+			constructor = MechUnit::create;
+			drawCell = false;
+            speed = 0.5f;
+            hitSize = 10f;
+            health = 250;
+			armor = 2f;
+            weapons.add(new Weapon("minedusty-tempor-weapon"){{
+                reload = 15f;
+                x = 4.4f;
+                y = 0f;
+                top = false;
+                ejectEffect = Fx.casing1;
+                bullet = new BasicBulletType(2.5f, 11){{
+					frontColor = DustPalette.chlorophyteBullet;
+					backColor = DustPalette.chlorophyte;
+					shootEffect = DustyEffects.temporshootSmall;
+					
+					// status = DustStatusEffects.rotting;
+                    width = 7f;
+                    height = 10f;
+                    lifetime = 60f;
+                }};
+            }});
+        }};
+
 		// WIP
 		devineNanitic = new DivineUnitType("divine-nanitic"){{
             constructor = LegsUnit::create;
+			drawCell = false;
             drag = 0.08f;
             speed = 0.65f;
             hitSize = 13f;
@@ -383,7 +480,7 @@ public class DustUnitTypes {
 
         divineSwarmer = new DivineUnitType("divine-swarmer"){{
 			constructor = MechUnit::create;
-			
+			drawCell = false;
             speed = 1.1f;
             hitSize = 9f;
             health = 200;
@@ -422,6 +519,7 @@ public class DustUnitTypes {
 		// Dagger Clone
         divineCyst = new DivineUnitType("divine-cyst"){{
 			constructor = MechUnit::create;
+			drawCell = false;
             speed = 0.5f;
             hitSize = 10f;
             health = 250;
@@ -446,6 +544,7 @@ public class DustUnitTypes {
 		// Mace Clone
 		divineGlaive = new DivineUnitType("divine-glaive"){{
 			constructor = MechUnit::create;
+			drawCell = false;
 			speed = 0.5f;
 			hitSize = 10f;
 			health = 600f;
@@ -485,6 +584,7 @@ public class DustUnitTypes {
 		// Fortress clone
 		divineBulwark = new DivineUnitType("divine-bulwark"){{
 			constructor = MechUnit::create;
+			drawCell = false;
 			speed = 0.45f;
 			hitSize = 10f;
 			rotateSpeed = 3f;
@@ -524,6 +624,7 @@ public class DustUnitTypes {
 
         divineFlathead = new DivineUnitType("divine-flathead"){{
             constructor = LegsUnit::create;
+			drawCell = false;
             drag = 0.12f;
             speed = 0.45f;
             hitSize = 13f;

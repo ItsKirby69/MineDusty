@@ -40,11 +40,18 @@ public class DustPalette {
 
 	waterFront = Color.valueOf("#bad7ff"),
 
+	// Tempor palette
+	temporHeal = Color.valueOf("#61b729"),
+	temporDarkOutline = Color.valueOf("#351b0d"),
+	temporOutline = Color.valueOf("#4f3324"),
+
+	chlorophyteBullet = Color.valueOf("#bdf673"),
+
 	// Divine palette
 	divineHeal = Color.valueOf("#ff4a34"),
 	divineDarkOutline = Color.valueOf("#390000"),
 	divineOutline = Color.valueOf("#6E1B20"),
 
-	divineBulletRed = Color.valueOf("#f3d0d2"),
+	divineBulletRed = Color.valueOf("#ebacaf"),
 	divineBulletRedBack = Color.valueOf("#C32121");
 }
