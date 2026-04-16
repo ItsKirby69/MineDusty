@@ -283,7 +283,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
         boolean hasSnow = floors.length > 0 && (floors[0].name.contains("ice") || floors[0].name.contains("snow"));
         boolean hasRain = floors.length > 0 && !hasSnow && content.contains(Liquids.water) && !floors[0].name.contains("sand");
         boolean hasDesert = floors.length > 0 && !hasSnow && !hasRain && floors[0] == Blocks.sand;
-		boolean hasBliss = floors.length > 0 && (floors[0] == Blocks.grass || floors[0] == DustEnv.pattedGrass); 
+		boolean hasBliss = floors.length > 0 && (floors[0].name.contains("grass") || content.contains(Blocks.grass) || floors[0] == Blocks.grass); 
         
         if(hasSnow){
             rules.weather.add(new WeatherEntry(Weathers.snow));
@@ -302,7 +302,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
         }
 
 		if(hasBliss){
-			// TODO cloudy weather, windy weather etc
+			rules.weather.add(new WeatherEntry(DustWeathers.clouds));
 		}
 
 		Log.info("Weather for sector " + sector.name() + ":");

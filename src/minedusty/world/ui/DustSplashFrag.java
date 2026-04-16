@@ -5,22 +5,15 @@ import java.lang.reflect.Field;
 import arc.Core;
 import arc.Events;
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Font;
-import arc.graphics.g2d.FontCache;
-import arc.graphics.g2d.GlyphLayout;
-import arc.graphics.g2d.TextureRegion;
+import arc.graphics.g2d.*;
 import arc.input.KeyCode;
 import arc.math.Mathf;
-import arc.scene.Element;
-import arc.scene.Group;
+import arc.scene.*;
 import arc.scene.event.InputEvent;
 import arc.scene.event.InputListener;
 import arc.scene.ui.layout.Scl;
 import arc.struct.Seq;
-import arc.util.Align;
-import arc.util.Log;
-import arc.util.Time;
+import arc.util.*;
 import mindustry.core.GameState;
 import mindustry.game.EventType.StateChangeEvent;
 import mindustry.ui.Fonts;
@@ -69,7 +62,7 @@ public class DustSplashFrag {
             splashY = (screenH - logoh) + logoh / 3.5f;
             float bouncy = Core.settings.getInt("@setting.dusty-splash-bounciness");
 
-            float rot = 17f + Mathf.sin(Time.time / 15f) * 2.5f * (bouncy / 10f);
+            float rot = 17f + Mathf.sin(Time.time / 15f) * 2f * (bouncy / 10f);
             float scale = Scl.scl() * 5.5f + Mathf.sin(Time.time / 12f) * 0.2f * (bouncy / 10f) + Mathf.sin(jiggle * 2.5f) * (jiggle / 3f);
 
             text(text, splashX, splashY, rot, Color.yellow, scale, Align.center);
