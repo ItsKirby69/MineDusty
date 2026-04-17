@@ -177,7 +177,7 @@ public class DustUnitTypes {
             weapons.add(new Weapon(){{
                 y = 1f;
                 x = 0f;
-                minShootVelocity = 1.7f;
+                minShootVelocity = 1.1f;
                 shootCone = 10f;
                 reload = 55f;
 				shoot = new ShootHelix();
