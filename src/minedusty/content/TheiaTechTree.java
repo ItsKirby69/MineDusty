@@ -101,10 +101,10 @@ public class TheiaTechTree {
                             ), () -> {});
                         });
                     });
-                    node(electricFurnace, Seq.with(
-                        new SectorComplete(tropicalLake)
-                    ), () -> {
-                        node(solidFurance, () -> {});
+                    node(electricFurnace, () -> {
+                        node(solidFurance, Seq.with(
+                            new SectorComplete(frostedFault)
+                        ), () -> {});
                     });
                     node(powerPylon, () ->{
                         node(saltBattery, Seq.with(
@@ -190,7 +190,9 @@ public class TheiaTechTree {
                     node(tropicalLake, Seq.with(
                         new SectorComplete(basalticShore)
                     ), () -> {});
-                    node(frostedFault, () -> {
+                    node(frostedFault, Seq.with(
+                        new Research(electricFurnace)
+                    ), () -> {
                         // node(snowFort, () -> {});
                     });
                 });
