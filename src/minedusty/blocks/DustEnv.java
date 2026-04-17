@@ -16,7 +16,7 @@ import minedusty.world.blocks.environment.*;
 public class DustEnv {
 	// TODO Chalcedony rock and Agate stone maybe
 	// Boulders / Props
-	public static Block clayBall, frenchVanillaBoulder, permafrostBoulder;
+	public static Block clayBall, frenchVanillaBoulder, permafrostBoulder, largepermafrostBoulder;
 	public static Block largelimestoneBoulder, limestoneBoulder, pearlBoulder, largesandBoulder, largeBoulder, largeshorestoneBoulder, shorestoneBoulder, largebasaltPillar, basaltPillar, largedaciteBoulder, largesoapstoneBoulder, largecalciteBoulder, calciteBoulder;
 	public static Block divineSapling, driftWood;
 	
@@ -53,10 +53,12 @@ public class DustEnv {
 		}};
 
 		permafrost = new Floor("permafrost"){{
+			mapColor = Color.valueOf("#5d4f4f");
 			variants = 4;
 		}};
 
 		permafrostSlate = new Floor("permafrost-slate"){{
+			mapColor = Color.valueOf("#5d4f4f");
 			variants = 4;
 		}};
 
@@ -262,13 +264,19 @@ public class DustEnv {
 
 		//region Props & Decorations
 		permafrostBoulder = new Prop("permafrost-boulder"){{
-			mapColor = Color.valueOf("#f8f3d3");
+			mapColor = Color.valueOf("#5d4f4f");
 			variants = 2;
 			buildVisibility = BuildVisibility.sandboxOnly;
 			permafrost.asFloor().decoration = this;
 			permafrostSlate.asFloor().decoration = this;
 		
 		}};
+
+		largepermafrostBoulder = new BoulderProp("large-permafrost-boulder"){{
+			mapColor = Color.valueOf("#5d4f4f");
+			shadowOffset = -3f;
+		}};
+
 		frenchVanillaBoulder = new BoulderProp("french-vanilla-boulder"){{
 			mapColor = Color.valueOf("#f8f3d3");
 			frenchVanilla.asFloor().decoration = this;
