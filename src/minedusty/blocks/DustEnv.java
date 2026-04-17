@@ -269,7 +269,6 @@ public class DustEnv {
 			buildVisibility = BuildVisibility.sandboxOnly;
 			permafrost.asFloor().decoration = this;
 			permafrostSlate.asFloor().decoration = this;
-		
 		}};
 
 		largepermafrostBoulder = new BoulderProp("large-permafrost-boulder"){{
