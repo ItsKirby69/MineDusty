@@ -202,7 +202,7 @@ public class DustUnitTypes {
         }};
 
         cleave = new UnitType("cleave"){{
-			constructor = LegsUnit::create;
+			constructor = MechUnit::create;
             researchCostMultiplier = 0.5f;
             speed = 0.48f;
             hitSize = 9f;
