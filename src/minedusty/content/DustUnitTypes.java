@@ -340,7 +340,7 @@ public class DustUnitTypes {
 
         actaea = new TemporUnitType("actaea"){{
 			constructor = MechUnit::create;
-			drawCell = false;
+			// drawCell = false;
             speed = 0.5f;
             hitSize = 10f;
             health = 250;
