@@ -184,8 +184,6 @@ public class FrostModule {
                 Tile other = world.tile(x, y);
                 if(other == null) continue;
 
-                int baseHeat = 0;
-
                 // Buildings
                 if(other.build != null){
                     Building b = other.build;
@@ -200,33 +198,31 @@ public class FrostModule {
                     float dy = Math.abs(by - cy);
 
                     int dst = Mathf.floor(Math.max(dx, dy));
-                    if(dst > heatRange) continue;
-
-                    if(!state.counted.add(b)) continue;
-                    // Check for running machines
-                    if(!isDefroster && b instanceof GenericCrafterBuild g && g.efficiency > 0f){
-                        baseHeat += 1;
-                    }
-                    // Check for defrosters
-                    if(isDefroster){
-                        baseHeat += Math.round(((DefrosterBlockBuild)b).heat);
-                    }
-                    // Check for slag filled pipes
-                    if(b.block instanceof LiquidBlock){
-                        if(b.liquids != null && b.liquids.get(Liquids.slag) > 1f){
+                    if(dst <= heatRange && state.counted.add(b)){
+                        int baseHeat = 0;
+                        // Check for running machines
+                        if(!isDefroster && b instanceof GenericCrafterBuild g && g.efficiency > 0f){
                             baseHeat += 1;
                         }
-                    }
-                    // Check for env tiles
-                    baseHeat += Math.round(b.block.attributes.get(DustAttributes.thermalPower));
+                        // Check for defrosters
+                        if(isDefroster){
+                            baseHeat += Math.round(((DefrosterBlockBuild)b).heat);
+                        }
+                        // Check for slag filled pipes
+                        if(b.block instanceof LiquidBlock){
+                            if(b.liquids != null && b.liquids.get(Liquids.slag) > 1f){
+                                baseHeat += 1;
+                            }
+                        }
+                        // Check for env tiles
+                        baseHeat += Math.round(b.block.attributes.get(DustAttributes.thermalPower));
 
-                    if(baseHeat <= 0) continue;
-
-                    // every 2 tiles reduce 1 power
-                    int effective = Math.max(0, baseHeat - Mathf.ceil(dst / 2));
-
-                    state.thermalPower += effective;
-                    continue;
+                        if(baseHeat > 0){
+                            // every 2 tiles reduce 1 power
+                            int effective = Math.max(0, baseHeat - Mathf.ceil(dst / 2));
+                            state.thermalPower += effective;
+                        };
+                    };
                 }
 
                 float floorHeat = other.floor().attributes.get(DustAttributes.thermalPower);
