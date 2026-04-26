@@ -15,6 +15,7 @@ import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.entities.part.DrawPart.PartProgress;
 import mindustry.entities.part.RegionPart;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
@@ -23,13 +24,14 @@ import mindustry.world.meta.BlockFlag;
 import minedusty.content.*;
 import minedusty.graphics.DustPalette;
 import minedusty.world.blocks.distribution.BuoyMassDriver;
+import minedusty.world.entities.bullets.BetterShootAlternate;
 
 public class DustTurrets {
     // Basic turrets
     public static Block sandSpitter, sandHammer;
-    public static Block sleet, pellucid;;
+    public static Block sleet, pellucid, cascade;
     // Special turrets
-    public static Block volt, spectre;
+    public static Block volt;
     public static Block spout, pistil;
 
     // WIP
@@ -56,6 +58,112 @@ public class DustTurrets {
                 frontColor = DustPalette.oxidecopper;
             }});
 
+        cascade = new ItemTurret("cascade"){{
+            requirements(Category.turret, with(chlorophyte, 45, oxidecopper, 60));
+            ammo(
+                Items.lead, new FlakBulletType(4f, 3){{
+                    lifetime = 60f;
+                    ammoMultiplier = 3f;
+                    shootEffect = Fx.shootSmall;
+                    width = 5.5f;
+                    height = 7f;
+                    hitEffect = Fx.flakExplosion;
+                    splashDamage = 20f * 1.5f;
+                    splashDamageRadius = 12f;
+                    reloadMultiplier = 0.8f;
+                    shoot.shotDelay = 6f;
+                }},
+                aquamerium, new FlakBulletType(4.5f, 4){{
+                    backColor = trailColor = DustPalette.aquameriumBack;
+                    hitColor = frontColor = DustPalette.aquamerium;
+                    despawnEffect = Fx.hitBulletColor;
+
+                    lifetime = 60f;
+                    ammoMultiplier = 4f;
+                    shootEffect = Fx.shootSmall;
+                    width = 6f;
+                    height = 8f;
+                    hitEffect = Fx.flakExplosion;
+                    splashDamage = 27f * 1.5f;
+                    splashDamageRadius = 20f;
+                    fragBullets = 6;
+                    fragBullet = new BasicBulletType(3f, 5){{
+                        width = 5f;
+                        height = 10f;
+                        shrinkY = 1f;
+                        lifetime = 15f;
+                        backColor = trailColor = DustPalette.aquamerium;
+                        hitColor = frontColor = DustPalette.aquameriumBack;
+                        despawnEffect = Fx.none;
+                        collidesGround = false;
+                    }};
+                }},
+                amethyst, new FlakBulletType(5.1f, 2){{
+                    hitColor = backColor = trailColor = DustPalette.amethystBack;
+                    frontColor = DustPalette.amethyst;
+                    despawnEffect = Fx.hitBulletColor;
+
+                    lifetime = 60f;
+                    ammoMultiplier = 4f;
+                    shootEffect = Fx.shootSmall;
+                    width = 6f;
+                    height = 8f;
+                    hitEffect = Fx.flakExplosion;
+                    splashDamage = 32f * 1.5f;
+                    splashDamageRadius = 25f;
+                    fragBullets = 8;
+                    reloadMultiplier = 1.15f;
+                    trailLength = 5;
+                    trailWidth = 3f;
+                    fragBullet = new BasicBulletType(4f, 5){{
+                        width = 6.5f;
+                        height = 9f;
+                        shrinkY = 1.2f;
+                        lifetime = 12f;
+                        hitColor = backColor = trailColor = DustPalette.amethystBack;
+                        frontColor = DustPalette.amethyst;
+                        despawnEffect = Fx.none;
+                        collidesGround = true;
+                    }};
+                }}
+            );
+
+            reload = 45f;
+            range = 240f;
+            size = 2;
+            targetGround = false;
+            outlineRadius = 0;
+
+            shoot = new BetterShootAlternate();
+            shoot.shotDelay = 4f;
+            shoot.shots = 3;
+
+            drawer = new DrawTurret(){{
+                for(int i = 0; i < 2; i++){
+                    int f = i;
+                    parts.add(new RegionPart("-barrel-" + (i == 0 ? "l" : "r")){{
+                        progress = PartProgress.recoil;
+                        recoilIndex = f;
+                        under = true;
+                        moveY = -1.25f;
+                    }});
+                }
+            }};
+
+            recoil = 1f;
+            recoils = 2;
+            rotateSpeed = 12f;
+            inaccuracy = 15f;
+            shootCone = 45f;
+
+            scaledHealth = 180;
+            shootSound = Sounds.shootScatter;
+            coolant = consumeCoolant(0.2f);
+            depositCooldown = 0.5f;
+
+            limitRange(2);
+        }};
+        
         volt = new PowerTurret("volt"){{
             requirements(Category.turret, with(oxidecopper, 50, graphite, 20));
             shootType = new LightningBulletType(){{
