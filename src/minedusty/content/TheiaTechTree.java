@@ -82,7 +82,9 @@ public class TheiaTechTree {
                             new Produce(silicadust)
                         ),() -> {});
                     });
-                    node(bioSludgeChamber, () -> {});
+                    node(bioSludgeChamber, () -> {
+                        node(chlorophyteCultivator, () -> {});
+                    });
                     // TODO until there is a better use
                     // node(carbonicRefinery, Seq.with(
                     //     new SectorComplete(basalticShore)
@@ -152,20 +154,24 @@ public class TheiaTechTree {
 
             // Need to add my custom turrets as well
             node(sandSpitter, () -> {
-                node(sandHammer, Seq.with(
-                    new Research(sleet),
-                    new SectorComplete(lushCorridors)
+                node(volt, Seq.with(
+                    new Research(powerNode)
                 ), () -> {});
                 node(sleet, Seq.with(
                     new Research(graphite),
                     new Produce(carbonicWaste)
-                ), () -> {});
+                ), () -> {
+                    node(sandHammer, Seq.with(
+                        new SectorComplete(lushCorridors)
+                    ), () -> {});
+                });
                 node(pellucid, Seq.with(
                     new Research(chlorophyte)
                 ), () -> {
                     node(pistil, Seq.with(
                         new Research(bioSludgeChamber)
                     ), () -> {});
+                    node(cascade, () -> {});
                 });
                 node(spout);
             });
