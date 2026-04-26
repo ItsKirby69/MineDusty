@@ -7,12 +7,11 @@ import mindustry.Vars;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
-import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.meta.*;
 import minedusty.world.meta.DustStat;
 
 /** A crafter that requires Solar energy (sector environment light levels) to function */
-public class SolarCrafter extends GenericCrafter{
+public class SolarCrafter extends BetterGenericCrafter{
     /** Needed solar Power for 100% efficiency. Max solar power is 1f (to my observations) */
     public float solarRequirement = 1f;
     /** Similar to overheatScale in the HeatCrafter, excess solar with this value multiplied */
@@ -47,7 +46,7 @@ public class SolarCrafter extends GenericCrafter{
         stats.add(DustStat.solarRequired, (int)(minSolar * 100f), StatUnit.percent);
     }
 
-    public class SolarCrafterBuild extends GenericCrafterBuild{
+    public class SolarCrafterBuild extends BetterGenericCrafterBuild{
         public float solarLevel;
 
         @Override

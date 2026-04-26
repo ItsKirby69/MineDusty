@@ -30,24 +30,47 @@ public class DustCrafters {
 	public static Block oilTap;
 	public static Block salinator, fluidBed;
 	public static Block bioSludgeChamber, chlorophyteCultivator;
+	public static Block sifter; // TODO for gold
 
 	// Legacy crafters
 	public static Block nitroplastChamber, bioLiquidMixer, bioFuelCombustionChamber, miniCrusher;
 	
 	public static void loadContent() {
 		//region Crafters
-		// TODO
-		chlorophyteCultivator = new SolarCrafter("chlorophyte-cultivator"){{
-			requirements(Category.crafting, with(oxidecopper, 40, graphite, 55, chlorophyte, 75));
-			// research cost
-			craftEffect = Fx.airBubble;
+		chlorophyteCultivator = new SolarAttributeCrafter("chlorophyte-cultivator"){{
+			requirements(Category.crafting, with(Items.silicon, 40, graphite, 55, chlorophyte, 75, amethyst, 40));
+			researchCost = with(graphite, 500, amethyst, 500);
+			craftEffect = DustyEffects.meltSteam;
 			size = 3;
 			health = 550;
 			outputItem = new ItemStack(chlorophyte, 3);
-			craftTime = 60f * 4;
-			minSolar = 0.5f;
+			craftTime = 60f * 8;
 
-			consumeItems(with(carbonicWaste, 1, chlorophyte, 1));
+			minSolar = 0.5f;
+			baseEfficiency = 0.5f;
+			minEfficiency = 0f;
+			scaleLiquidConsumption = false;
+			attribute = DustAttributes.turf;
+
+			consumeItems(with(carbonicWaste, 3, amethyst, 3));
+			consumeLiquid(bioLiquid, 16f/60);
+
+			drawer = new DrawMulti(
+				new DrawRegion("-bottom"),
+				new DrawHeatCrafterEff(){{
+					minEfficiency = 0f;
+				}},
+				new DrawLiquidTile(DustLiquids.bioLiquid, 2f){{
+					alpha = 0.5f;
+				}},
+				new DrawAlphaBubbles(){{
+					amount = 25;
+					sides = 8;
+					spread = 9;
+					color = Color.valueOf("#3dcfb0");
+				}},
+				new DrawRegion()
+			);
 		}};
 
 		oilTap = new Fracker("oil-tap"){{
@@ -244,8 +267,8 @@ public class DustCrafters {
 			maxBoost = 2f;
 			dumpExcess = true;
 
-			consumeLiquids(LiquidStack.with(Liquids.water, 12f/60f));
-			outputLiquid = new LiquidStack(DustLiquids.bioLiquid, 8/60f);
+			consumeLiquids(LiquidStack.with(Liquids.water, 14f/60f));
+			outputLiquid = new LiquidStack(DustLiquids.bioLiquid, 12/60f);
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawHeatCrafterEff(){{

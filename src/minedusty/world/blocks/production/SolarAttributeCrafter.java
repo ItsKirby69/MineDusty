@@ -119,10 +119,10 @@ public class SolarAttributeCrafter extends SolarCrafter {
                     for(int i = 0; i < output.amount; i++){
                         if(dumpExcess){
                             if(stored < itemCapacity){
-                                offload(output.item);
+                                ioffload(output.item);
                             }
                         } else {
-                            offload(output.item);
+                            ioffload(output.item);
                         }
                     }
                 }
