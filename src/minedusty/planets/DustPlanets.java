@@ -1,6 +1,7 @@
 package minedusty.planets;
 
 import arc.graphics.Color;
+import arc.scene.style.TextureRegionDrawable;
 import arc.struct.ObjectSet;
 import mindustry.content.*;
 import mindustry.graphics.g3d.*;
@@ -24,7 +25,7 @@ public class DustPlanets {
 
 	public static void load() {
 		theia = new Planet("theia", Planets.sun, 1f, 3) {{
-			// icon = "theia";
+			icon = "theia";
 			generator = new TheiaPlanetGenerator();
 			meshLoader = () -> new MultiMesh(
 					// new AtmosphereHexMesh(this, 6),
@@ -75,8 +76,7 @@ public class DustPlanets {
 			meshLoader = () -> new HexMesh(this, 4);
 			accessible = false;
 			visible = true;
-			alwaysUnlocked = false; // maybe make it unlock after certain sectors (maybe closest to the planet from
-									// terra) is unlocked
+			alwaysUnlocked = false;
 			atmosphereColor = Color.valueOf("3db899");
 			iconColor = Color.valueOf("597be3");
 			startSector = 10;

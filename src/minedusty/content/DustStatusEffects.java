@@ -54,6 +54,12 @@ public class DustStatusEffects {
                         Events.fire(Trigger.shock);
                     }
                 });
+                affinity(StatusEffects.wet, (unit, result, time) -> {
+                    result.time = Math.max(0f, result.time - time * 2f);
+                });
+                affinity(drenched, (unit, result, time) -> {
+                    result.time = Math.max(0f, result.time - time * 4f);
+                });
             });
         }};
 

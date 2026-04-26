@@ -30,6 +30,10 @@ public class GenBundles {
 
     private static Seq<String> headerList = new Seq<>();
 
+    public static void main(String[] args){
+        generate();
+    }
+
     // Generates the bundle
     public static void generate(){
         // Output directory (filename included)
@@ -40,12 +44,10 @@ public class GenBundles {
         loadBundle(existingFile);
         loadBundlePreserving(existingFile);
         headerList.clear();
-        
+
         // Which classes to make bundles for
         try(PrintWriter out = new PrintWriter(outFile.write(false))) {
-            if(outFile.exists()){
-                outFile.delete();
-            }
+            if(outFile.exists()) outFile.delete();
             writeCategory(out, "planets", DustPlanets.class, "planet", true);
             writeCategory(out, "weathers", DustWeathers.class, "weather");
             writeCategory(out, "sectors", DustSectors.class, "sector", true);
@@ -179,7 +181,7 @@ public class GenBundles {
 
     private static void writeCategory(PrintWriter out, String header, Class<?> clazz, String suffix, boolean description){
         writeCategory(out, header, clazz, suffix, description, false);
-    }
+    } 
 
 
     /**  Actual writing of the bundle keys.

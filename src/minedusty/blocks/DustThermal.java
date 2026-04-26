@@ -24,8 +24,12 @@ public class DustThermal {
         // Hot Tiles
         Blocks.heatSource.attributes.set(DustAttributes.thermalPower, 3); //debug purposes
         Blocks.hotrock.attributes.set(DustAttributes.thermalPower, 1);
-        Blocks.magmarock.attributes.set(DustAttributes.thermalPower, 1.5f);
+        Blocks.magmarock.attributes.set(DustAttributes.thermalPower, 2f);
         Blocks.slag.attributes.set(DustAttributes.thermalPower, 2);
+
+        // Hot blocks
+        DustPower.geothermalGenerator.attributes.set(DustAttributes.thermalPower, 2);
+        DustPower.largegeothermalGenerator.attributes.set(DustAttributes.thermalPower, 3f);
 
         electricFurnace = new ElectricDefroster("electric-furnace", 2){{
             requirements(Category.crafting, with(oxidecopper, 16, Items.lead, 20));
