@@ -1,6 +1,7 @@
 package minedusty.blocks;
 
 import arc.graphics.Color;
+import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
@@ -27,6 +28,7 @@ public class DustEnv {
 	public static Block prismate, prismite, silkSand, saltLumps, clayFloor, clayPlates;
 
 	public static Block darkIce, denseSnow, slushSnow, snowLitter, iceShards, darkiceShards, permafrost, permafrostSlate;
+	public static Block dirtClumps;
 	public static Block frenchVanilla;
 
 	public static Block iceWater, permafrostWater, silkSandTropWater, silkSandWater, pattedGrassWater, calciteWater, calciteTropWater, shorestoneWater, basaltSandsWater, basaltWater, basaltTropWater, sandyTropWater, daciteTropWater, oilWater, oilSandWater, daciteWater, sanddeepWater;
@@ -84,10 +86,6 @@ public class DustEnv {
 			dragMultiplier = 0.3f;
 			variants = 6;
 		}};
-
-		snowLitter = new OverlayColorFloor("snow-litter"){{
-			variants = 6;
-		}};
 	
         slushSnow = new Floor("slush-snow"){{
 			variants = 4;
@@ -101,9 +99,25 @@ public class DustEnv {
             albedo = 0.75f;
         }};
 
-		wildGrass = new Floor("wild-grass", 3){{
+		dirtClumps = new OverlayColorFloor("dirt-clumps"){{
+			variants = 5;
+			maskBlock.set(Seq.with(Blocks.dacite, Blocks.mud));
+			maskColor = Color.valueOf("#623c35");
+			baseColor = Color.valueOf("#895841");
+		}};
+
+		snowLitter = new OverlayColorFloor("snow-litter"){{
+			variants = 6;
+			maskBlock.set(Seq.with(DustEnv.slushSnow, Blocks.ice));
+			maskColor = Color.white;
+			baseColor = Color.valueOf("#e1e9f0");
+		}};
+	
+		wildGrass = new TileEffect("wild-grass", 5){{
+			mapColor = Color.valueOf("#80b963");
 			attributes.set(DustAttributes.turf, 0.167f);
 			attributes.set(DustAttributes.salt, -0.1f);
+			addEffect(DustyEffects.flyingGrass, 0.06f, 320f, Color.valueOf("#6aa95e"));
 		}};
 
 		pattedGrass = new Floor("patted-grass", 5){{
@@ -114,7 +128,7 @@ public class DustEnv {
 		
 		taigaGrass = new Floor("taiga-grass", 5){{
 			mapColor = Color.valueOf("#418A5D");
-			attributes.set(DustAttributes.turf, 0.15f);
+			attributes.set(DustAttributes.turf, 0.167f);
 		}};
 		
 		blossomGrass = new Floor("blossom-grass", 5){{
