@@ -44,7 +44,7 @@ public class DustDrills {
             requirements(Category.liquid, with(aquamerium, 8, Items.silicon, 20, oxidecopper, 15));
             consumePower(18f/60f);
             researchCost = with(aquamerium, 200, Items.silicon, 150);
-            pumpAmount = 8f / 60f;
+            pumpAmount = 10f / 60f;
             liquidCapacity = 85f;
             squareSprite = false;
             size = 2;
