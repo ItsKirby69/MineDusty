@@ -33,7 +33,7 @@ public class GeothermalGenerator extends PowerGenerator{
     @Nullable
     public LiquidStack outputLiquid;
     public Attribute attribute = Attribute.heat;
-    /** Maximum heat capacity in efficiency. Block will explode if past this efficiency. */
+    /** Maximum heat capacity in efficiency. Block will explode if past this efficiency and output liquid meets capacity. */
     public float maxEfficiency = 2.0F;
 
     public float heating = 0.2f/60f;
@@ -82,9 +82,9 @@ public class GeothermalGenerator extends PowerGenerator{
     public void drawPlace(int x, int y, int rotation, boolean valid) {
         super.drawPlace(x, y, rotation, valid);
         if (displayEfficiency) {
-            float eff = (sumAttribute(attribute, x, y) * 100.0F);
+            float eff = (sumAttribute(attribute, x, y));
             Color placeColor = !valid ? Pal.remove : (eff > maxEfficiency ? Color.scarlet : Pal.accent);
-            drawPlaceText(Core.bundle.formatFloat("bar.efficiency", eff , 1), x, y, placeColor, true);
+            drawPlaceText(Core.bundle.formatFloat("bar.efficiency", eff * 100.0F, 1), x, y, placeColor, true);
         }
     }
 
@@ -106,18 +106,24 @@ public class GeothermalGenerator extends PowerGenerator{
                 generateEffect.at(x + Mathf.range(3f), y + Mathf.range(3f));
             }
 
-            // Logic for heating machine based on excess efficiency
-            if(productionEfficiency > maxEfficiency){
-                float excess = productionEfficiency - maxEfficiency;
-                heat += heating * excess * delta();
-            }else{
-                heat = Math.max(0f, heat - heating * delta());
-            }
-
-            if(outputLiquid != null){
-                float added = Math.min(productionEfficiency * delta() * outputLiquid.amount, liquidCapacity - liquids.get(outputLiquid.liquid));
+            // Only produce slag at max efficiency and beyond
+            if(outputLiquid != null && productionEfficiency >= maxEfficiency){
+                float added = Math.min(delta() * outputLiquid.amount, liquidCapacity - liquids.get(outputLiquid.liquid));
                 liquids.add(outputLiquid.liquid, added);
                 dumpLiquid(outputLiquid.liquid);
+            }
+
+            // Logic for heating machine based on excess efficiency and liquid capacity
+            if(productionEfficiency > maxEfficiency){
+                float excess = productionEfficiency - maxEfficiency;
+                boolean fullCap = outputLiquid == null || liquids.get(outputLiquid.liquid) >= liquidCapacity - 0.001f;
+                if(fullCap){
+                    heat += heating * excess * delta();
+                }else{
+                    heat = Math.max(0f, heat - heating * delta());
+                }
+            }else{
+                heat = Math.max(0f, heat - heating * delta());
             }
 
             heat = Mathf.clamp(heat);
