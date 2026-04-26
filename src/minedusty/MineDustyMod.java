@@ -16,7 +16,6 @@ import arc.util.*;
 import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.core.GameState;
-import mindustry.game.EventType;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
 import mindustry.world.blocks.environment.Floor;
@@ -47,7 +46,7 @@ public class MineDustyMod extends Mod {
 	public void init() {
 		// Events.run(EventType.Trigger.draw, Renderer::draw);
 		addModdedSubtitles();
-		Log.info(subtitles);
+		// Log.info(subtitles);
 		DustSettings.load();
 		Events.on(ClientLoadEvent.class, e -> {
 			// show dialog upon startup

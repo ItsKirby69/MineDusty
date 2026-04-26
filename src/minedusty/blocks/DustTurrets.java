@@ -166,31 +166,26 @@ public class DustTurrets {
         
         volt = new PowerTurret("volt"){{
             requirements(Category.turret, with(oxidecopper, 50, graphite, 20));
-            shootType = new LightningBulletType(){{
-                damage = 15;
-                lightningLength = 30;
-                collidesAir = true;
-                ammoMultiplier = 1f;
+            researchCost = with(oxidecopper, 450, graphite, 300);
+            shootType = new LaserBulletType(){{
+                damage = 18;
+                recoil = 0f;
+                sideAngle = 35f;
+                width = 12f;
+                length = 120f;
+                sideWidth = 1f;
+                sideLength = 45f;
+                collidesTeam = true;
+                colors = new Color[]{DustPalette.aquamerium.cpy().mul(1f, 1f, 1f, 0.4f), DustPalette.aquamerium, Color.white};
 
                 //for visual stats only.
                 buildingDamageMultiplier = 0.25f;
-
-                lightningType = new BulletType(0.0001f, 0f){{
-                    lifetime = Fx.lightning.lifetime;
-                    hitEffect = Fx.hitLancer;
-                    despawnEffect = Fx.none;
-                    status = StatusEffects.shocked;
-                    hittable = false;
-                    lightColor = Color.yellow;
-                    collidesAir = true;
-                    buildingDamageMultiplier = 0.25f;
-                    shieldDamageMultiplier = 0.4f;
-                }};
+                status = StatusEffects.shocked;
+                statusDuration = 60f * 5f;
             }};
-            reload = 30f;
+            reload = 45f;
             shootCone = 50f;
             rotateSpeed = 6f;
-            targetAir = true;
             range = 90f;
             shootEffect = Fx.lightningShoot;
             heatColor = Color.red;
@@ -440,7 +435,7 @@ public class DustTurrets {
 
                     homingPower = 0.075f;
                     homingRange = 25f;
-                    reloadMultiplier = 0.8f;
+                    reloadMultiplier = 0.88f;
                     rangeChange = 12;
                     trailLength = 5;
                     trailWidth = 3f;
@@ -449,6 +444,24 @@ public class DustTurrets {
                     despawnEffect = Fx.hitBulletColor;
                     hitColor = backColor = trailColor = Pal.siliconAmmoBack;
                     frontColor = Pal.siliconAmmoFront;
+                }},
+                amethyst, new BasicBulletType(5.1f, 12f){{
+                    shoot = new ShootSpread(7, 6f);
+                    sprite = "minedusty-shard-bullet";
+                    width = 7f;
+                    height = 9f;
+                    lifetime = 13f;
+                    ammoMultiplier = 2;
+
+                    reloadMultiplier = 0.8f;
+                    rangeChange = 12;
+                    trailLength = 5;
+                    trailWidth = 3f;
+
+                    hitEffect = Fx.hitBulletColor; // TODO make it more exciting
+                    despawnEffect = Fx.hitBulletColor;
+                    hitColor = backColor = trailColor = DustPalette.amethystBack;
+                    frontColor = DustPalette.amethyst;
                 }}
             );
 
@@ -498,6 +511,22 @@ public class DustTurrets {
                     despawnEffect = Fx.hitBulletColor;
                     hitColor = backColor = trailColor = DustPalette.sandColorBack;
                     frontColor = DustPalette.sandColor;
+                }},
+                amethyst, new BasicBulletType(8.1f, 58f, "minedusty-shard-bullet"){{
+                    shoot = new ShootSpread(18, 3f);
+                    width = 7f;
+                    height = 9f;
+                    lifetime = 17f;
+                    knockback = 2f;
+                    
+                    reloadMultiplier = 0.85f;
+                    trailLength = 5;
+                    trailWidth = 3f;
+
+                    hitEffect = Fx.hitBulletColor;
+                    despawnEffect = Fx.hitBulletColor;
+                    hitColor = backColor = trailColor = DustPalette.amethystBack;
+                    frontColor = DustPalette.amethyst;
                 }}
             );
 

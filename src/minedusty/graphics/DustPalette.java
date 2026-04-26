@@ -38,6 +38,9 @@ public class DustPalette {
 	saltColor = Color.valueOf("#c8d7e2"),
 	saltColorBack = Color.valueOf("#aac4d5"),
 
+	amethyst = Color.valueOf("#f5eeff"),
+	amethystBack = Color.valueOf("#b387f0"),
+
 	waterFront = Color.valueOf("#bad7ff"),
 
 	// Tempor palette
@@ -46,6 +49,7 @@ public class DustPalette {
 	temporOutline = Color.valueOf("#4f3324"),
 
 	chlorophyteBullet = Color.valueOf("#bdf673"),
+	aquameriumBullet = Color.valueOf("#caf5ff"),
 
 	// Divine palette
 	divineHeal = Color.valueOf("#ff4a34"),
