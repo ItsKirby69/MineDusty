@@ -67,7 +67,7 @@ public class DustPower {
         largegeothermalGenerator = new GeothermalGenerator("large-geothermal-generator"){{
             requirements(Category.power, with(aquamerium, 70, Items.lead, 70, Items.silicon, 50, Items.graphite, 35));
             researchCost = with(Items.lead, 800, Items.silicon, 1000, aquamerium, 500);
-            powerProduction = 230f / 60f;
+            powerProduction = 200f / 60f;
             maxEfficiency = 2.5f;
             size = 3;
 
