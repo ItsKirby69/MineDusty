@@ -262,4 +262,12 @@ project(":"){
             }
         }
     }
+    
+    // task.register("genBundles"){
+    //     group = "modding"
+    //     description = "Generates a bundle file with the latest content"
+    //     classpath = sourceSets["main"].runtimeClasspath
+    //     mainClass.set("minedusty.utils.GenBundles")
+    //     workingDir = projectDirectory
+    // }
 }
