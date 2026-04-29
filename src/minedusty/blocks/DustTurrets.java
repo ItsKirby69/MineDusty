@@ -23,6 +23,7 @@ import mindustry.world.draw.DrawTurret;
 import mindustry.world.meta.BlockFlag;
 import minedusty.content.*;
 import minedusty.graphics.DustPalette;
+import minedusty.world.blocks.defense.ChargeTurret;
 import minedusty.world.blocks.distribution.BuoyMassDriver;
 import minedusty.world.entities.bullets.BetterShootAlternate;
 
@@ -114,7 +115,7 @@ public class DustTurrets {
                     fragBullets = 8;
                     reloadMultiplier = 1.15f;
                     trailLength = 5;
-                    trailWidth = 3f;
+                    trailWidth = 2.5f;
                     fragBullet = new BasicBulletType(4f, 5){{
                         width = 6.5f;
                         height = 9f;
@@ -197,12 +198,12 @@ public class DustTurrets {
             coolant = consumeCoolant(4.5f/60f);
         }};
 
-        pistil = new LiquidTurret("pistil"){{
+        pistil = new ChargeTurret("pistil"){{
             requirements(Category.turret, with(chlorophyte, 60, graphite, 45));
             researchCost = with(chlorophyte, 450);
             MultiEffect multEff = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin(120f));
             ammo(
-                DustLiquids.bioLiquid, new BasicBulletType(1.2f, 60f, "large-orb-back"){{
+                DustLiquids.bioLiquid, new BasicBulletType(1.2f, 60f, "minedusty-energy-orb"){{
                     lifetime = 230f;
                     width = height = 15f;
                     lightRadius = 30f;
@@ -223,7 +224,7 @@ public class DustTurrets {
                     splashDamage = 40f;
                     splashDamageRadius = 16f;
                 }},
-                saltWater, new BasicBulletType(1.4f, 45f, "large-orb-back"){{
+                saltWater, new BasicBulletType(1.4f, 45f, "minedusty-energy-orb"){{
                     lifetime = 180f;
                     width = height = 18f;
                     lightRadius = 30f;
@@ -246,7 +247,7 @@ public class DustTurrets {
                     splashDamage = 25f;
                     splashDamageRadius = 16f;
                 }},
-                Liquids.water, new BasicBulletType(2.2f, 15f, "large-orb-back"){{
+                Liquids.water, new BasicBulletType(2.2f, 15f, "minedusty-energy-orb"){{
                     lifetime = 160f;
                     width = height = 15f;
                     lightRadius = 20f;
@@ -274,10 +275,11 @@ public class DustTurrets {
             drawer = new DrawTurret("braced-"){{
                 parts.add(new RegionPart("-arm"){{
                     progress = PartProgress.warmup;
-                    moveRot = -6;
+                    moveRot = -12;
                     mirror = true;
                     moves.add(new PartMove(PartProgress.recoil, 0f, 0f, -4f));
                     under = true;
+                    cooldownTime = 160f;
                 }});
             }};
 
@@ -457,7 +459,7 @@ public class DustTurrets {
                     reloadMultiplier = 0.8f;
                     rangeChange = 12;
                     trailLength = 5;
-                    trailWidth = 3f;
+                    trailWidth = 2.5f;
 
                     hitEffect = Fx.hitBulletColor; // TODO make it more exciting
                     despawnEffect = Fx.hitBulletColor;
@@ -522,7 +524,7 @@ public class DustTurrets {
                     
                     reloadMultiplier = 0.85f;
                     trailLength = 5;
-                    trailWidth = 3f;
+                    trailWidth = 2.5f;
 
                     hitEffect = Fx.hitBulletColor;
                     despawnEffect = Fx.hitBulletColor;
@@ -539,11 +541,13 @@ public class DustTurrets {
                 }});
             }};
 
+            cooldownTime = 75f;
+
             velocityRnd = 0.12f;
             reload = 120f;
             ammoPerShot = 5;
 
-            recoil = 3.5f;
+            recoil = 3f;
             shootY = 6f;
             range = 90f;
             shootCone = 30f;

@@ -148,8 +148,7 @@ public class DustUnitTypes extends UnitTypes{
 			}});
 		}};
 
-        dazzle = new UnitType("dazzle"){{
-			drawCell = false;
+        dazzle = new DustUnitType("dazzle"){{
 			constructor = UnitEntity::create;
             researchCostMultiplier = 0.5f;
             speed = 2.5f;
@@ -224,7 +223,7 @@ public class DustUnitTypes extends UnitTypes{
 				chargeSound = Sounds.chargeLancer;
 				
 				shootStatus = StatusEffects.slow;
-				shootStatusDuration = reload / 2f;
+				shootStatusDuration = reload + 10f;
 
 				cooldownTime = 100f;
 				ejectEffect = Fx.none;
@@ -232,10 +231,10 @@ public class DustUnitTypes extends UnitTypes{
 				shoot.firstShotDelay = multEff.lifetime;
 				parentizeEffects = true;
 
-                bullet = new BasicBulletType(2f, 35, "large-orb-back"){{
+                bullet = new BasicBulletType(2f, 35, "minedusty-energy-orb"){{
 					lifetime = 60f;
-                    width = height = 10f;
-					shrinkX = shrinkY = 0.25f;
+                    width = height = 13.5f;
+					shrinkX = shrinkY = 0.1f;
 					pierceCap = 3;
 					pierceBuilding = false;
 					homingPower = 0.015f;
@@ -258,7 +257,7 @@ public class DustUnitTypes extends UnitTypes{
 				public void update(Unit unit, WeaponMount mount){
 					super.update(unit, mount);
 					if(mount.charge > mount.heat){
-						mount.heat = mount.charge;
+						mount.heat = mount.charge / 2f;
 					}
 				}
 			});

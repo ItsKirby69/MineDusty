@@ -38,8 +38,8 @@ public class DustPalette {
 	saltColor = Color.valueOf("#c8d7e2"),
 	saltColorBack = Color.valueOf("#aac4d5"),
 
-	amethyst = Color.valueOf("#f5eeff"),
-	amethystBack = Color.valueOf("#b387f0"),
+	amethyst = Color.valueOf("#e9e0f5"),
+	amethystBack = Color.valueOf("#ad8bdc"),
 
 	waterFront = Color.valueOf("#bad7ff"),
 
