@@ -9,6 +9,7 @@ import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
+import mindustry.entities.units.WeaponMount;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -17,38 +18,36 @@ import mindustry.world.meta.BlockFlag;
 import minedusty.gen.WaterMoveUnit;
 import minedusty.graphics.DustPalette;
 import minedusty.type.unit.DivineUnitType;
+import minedusty.type.unit.DustUnitType;
 import minedusty.type.unit.TemporUnitType;
 
-public class DustUnitTypes {
+public class DustUnitTypes extends UnitTypes{
 
 	/** Sharded Faction */
 	public static UnitType cricket, lotus, mantis;
 
-	// airborne
+	// Airborne
 	public static @EntityDef({Unitc.class}) UnitType dazzle;
 
 	//region Enemy units
 
 	/** Crux Faction */
-
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType cleave;
-
 	public static @EntityDef({Unitc.class, WaterMovec.class}) UnitType minnow, sturgeon;
 
 	/** Divine Faction */
-	public static @EntityDef({Unitc.class, Legsc.class}) UnitType divineFlathead;
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer; // crawler and suicide type units
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType actaea, divineCyst, divineGlaive, divineBulwark; // normal mech
-	
-	public static @EntityDef({Unitc.class, Legsc.class}) UnitType devineNanitic;
+	public static @EntityDef({Unitc.class, Legsc.class}) UnitType divineFlathead, devineNanitic; // WIP
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer, divineCyst, divineGlaive, divineBulwark;
+
+	/** Tempor Faction */
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType actaea;
 
 	//end region
  
 	//region Units
 	public static void load(){
 		// bad bad bad
-		cricket = new UnitType("cricket"){{
-			drawCell = false;
+		cricket = new DustUnitType("cricket"){{
 			// Fiddle around with this in the future?
 			controller = u -> u.team.isAI() ? new BuilderAI(true, 400f) : new CommandAI();
 			//aiController = BuilderAI::new;
@@ -102,7 +101,7 @@ public class DustUnitTypes {
 			}});
 		}};
 		
-		mantis = new UnitType("mantis"){{
+		mantis = new DustUnitType("mantis"){{
 			drawCell = false;
 			aiController = BuilderAI::new;
 			isEnemy = false;

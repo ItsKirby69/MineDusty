@@ -24,6 +24,18 @@ public class DustyEffects {
 	public static final Rand rand = new Rand();
 	public static final Vec2 v = new Vec2();
 
+	public static Effect orbChargeBegin(float lifetime){
+		return new Effect(lifetime, e -> {
+			float margin = 1f - Mathf.curve(e.fin(), 0.9f);
+			float fin = Math.min(margin, e.fin());
+
+			color(DustPalette.chlorophyteWater);
+			Fill.circle(e.x, e.y, fin * 6f);
+
+			color();
+			Fill.circle(e.x, e.y, fin * 4f);
+		}).followParent(true).rotWithParent(true);
+	}
 	public static final Effect
 
 	none = new Effect(0f, 0f, e -> {}),
@@ -51,18 +63,7 @@ public class DustyEffects {
         randLenVectors(e.id, 14, 1f + 20f * e.fout(), e.rotation, 200f, (x, y) -> {
             lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fslope() * 3f + 1f);
         });
-    }),
-
-    orbChargeBegin = new Effect(120f, e -> {
-        float margin = 1f - Mathf.curve(e.fin(), 0.9f);
-        float fin = Math.min(margin, e.fin());
-
-        color(DustPalette.chlorophyteWater);
-        Fill.circle(e.x, e.y, fin * 6f);
-
-        color();
-        Fill.circle(e.x, e.y, fin * 4f);
-    }),
+    }).followParent(true).rotWithParent(true),
 
     cregenParticle = new Effect(70f, e -> {
         color(Pal.heal);

@@ -6,7 +6,7 @@ public class DustPalette {
 	public static Color
 	// Random stuff
 	laserColor2 = Color.valueOf("#ffe18f"),
-	turretOutline = Color.valueOf("#394046"),
+	turretOutline = Color.valueOf("#394147"),
 	chlorophyteWater = Color.valueOf("#7effdc"),
 
 	carbon = Color.valueOf("#777c71"),
@@ -45,7 +45,7 @@ public class DustPalette {
 
 	// Tempor palette
 	temporHeal = Color.valueOf("#61b729"),
-	temporDarkOutline = Color.valueOf("#351b0d"),
+	temporDarkOutline = Color.valueOf("#362014"),
 	temporOutline = Color.valueOf("#4f3324"),
 
 	chlorophyteBullet = Color.valueOf("#bdf673"),
