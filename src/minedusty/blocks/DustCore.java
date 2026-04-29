@@ -4,9 +4,9 @@ import static mindustry.type.ItemStack.with;
 
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.power.LightBlock;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.blocks.storage.StorageBlock;
+import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.draw.*;
 import mindustry.world.meta.BuildVisibility;
@@ -35,9 +35,10 @@ public class DustCore {
 	public static void loadContent() {
 		((UnitFactory)groundFactory).plans.add(new UnitFactory.UnitPlan(DustUnitTypes.cleave, 60f * 20, with(silicon, 15, lead, 20)));
 		((UnitFactory)navalFactory).plans.add(new UnitFactory.UnitPlan(DustUnitTypes.minnow, 60f * 32, with(silicon, 15, metaglass, 18)));
+		((Reconstructor)additiveReconstructor).addUpgrade(DustUnitTypes.minnow, DustUnitTypes.sturgeon);
 
 		skyFactory = new UnitFactory("sky-factory"){{
-            requirements(Category.units, with(oxidecopper, 70, lead, 50, silicon, 60));
+            requirements(Category.units, with(oxidecopper, 70, lead, 150, silicon, 80));
 			researchCost = with(oxidecopper, 1200, lead, 1000, silicon, 1000);
 			plans.add(new UnitPlan(DustUnitTypes.dazzle, 60f * 17, with(silicon, 12, graphite, 5)));
             size = 3;
@@ -47,9 +48,9 @@ public class DustCore {
 		}};
 
 		earthFactory = new UnitFactory("earth-factory"){{
-            requirements(Category.units, with(oxidecopper, 70, lead, 50, silicon, 60));
+            requirements(Category.units, with(oxidecopper, 60, lead, 50, silicon, 60));
 			researchCost = with(oxidecopper, 1200, lead, 1000, silicon, 1000);
-			plans.add(new UnitPlan(DustUnitTypes.dazzle, 60f * 17, with(silicon, 12, chlorophyte, 8)));
+			plans.add(new UnitPlan(DustUnitTypes.dazzle, 60f * 30, with(silicon, 25, chlorophyte, 30, lead, 15)));
             size = 3;
 			configurable = false;
             consumePower(1.2f);

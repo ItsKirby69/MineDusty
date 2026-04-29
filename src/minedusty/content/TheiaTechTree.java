@@ -204,10 +204,13 @@ public class TheiaTechTree {
                 });
             });
 
-            node(skyFactory, Seq.with(
+            node(earthFactory, Seq.with(
                 new SectorComplete(thicketValley)
             ), () -> {
-                node(dazzle, () -> {});
+                node(bulbus, () -> {});
+                node(airFactory, () -> {
+                    node(dazzle);
+                });
             });
 
             nodeProduce(oxidecopper, () -> {

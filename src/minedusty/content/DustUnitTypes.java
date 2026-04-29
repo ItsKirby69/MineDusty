@@ -28,6 +28,8 @@ public class DustUnitTypes extends UnitTypes{
 
 	// Airborne
 	public static @EntityDef({Unitc.class}) UnitType dazzle;
+	// Earthborne
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType bulbus;
 
 	//region Enemy units
 
@@ -198,6 +200,68 @@ public class DustUnitTypes extends UnitTypes{
 					trailWidth = 1;
                 }};
             }});
+        }};
+
+        bulbus = new DustUnitType("bulbus"){{
+			constructor = MechUnit::create;
+            researchCostMultiplier = 0.5f;
+            speed = 0.46f;
+            hitSize = 9f;
+            health = 175f;
+            stepSoundVolume = 0.4f;
+			
+			loopSound = Sounds.none;
+
+            weapons.add(new Weapon("minedusty-bulbus-weapon"){{
+                reload = 140f;
+                top = false;
+				mirror = false;
+                ejectEffect = Fx.casing1;
+				shootY = 5f;
+				x = y = 0;
+				recoil = 0;
+				shootSound = Sounds.shootSap;
+				chargeSound = Sounds.chargeLancer;
+				
+				shootStatus = StatusEffects.slow;
+				shootStatusDuration = reload / 2f;
+
+				cooldownTime = 100f;
+				ejectEffect = Fx.none;
+				MultiEffect multEff = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin(45f));
+				shoot.firstShotDelay = multEff.lifetime;
+				parentizeEffects = true;
+
+                bullet = new BasicBulletType(2f, 35, "large-orb-back"){{
+					lifetime = 60f;
+                    width = height = 10f;
+					shrinkX = shrinkY = 0.25f;
+					pierceCap = 3;
+					pierceBuilding = false;
+					homingPower = 0.015f;
+					homingRange = 80f;
+					splashDamage = 15;
+					splashDamageRadius = 12f;
+                    chargeEffect = multEff;
+                    hitEffect = DustyEffects.hitChloroSpark;
+
+                    backColor = DustPalette.chlorophyteBack;
+                    lightColor = DustPalette.chlorophyte;
+                    frontColor = hitColor= DustPalette.chlorophyteWater;
+
+					healPercent = 8;
+					collidesTeam = true;
+                }};
+            }
+
+				@Override
+				public void update(Unit unit, WeaponMount mount){
+					super.update(unit, mount);
+					if(mount.charge > mount.heat){
+						mount.heat = mount.charge;
+					}
+				}
+			});
         }};
 
         cleave = new UnitType("cleave"){{
