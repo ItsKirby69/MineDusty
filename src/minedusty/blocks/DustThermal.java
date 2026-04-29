@@ -2,8 +2,7 @@ package minedusty.blocks;
 
 import mindustry.content.*;
 import mindustry.type.*;
-import mindustry.world.Block;
-import mindustry.world.Build;
+import mindustry.world.*;
 import mindustry.world.consumers.ConsumeItemFlammable;
 import mindustry.world.meta.BuildVisibility;
 import minedusty.DustAttributes;

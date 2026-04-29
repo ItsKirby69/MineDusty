@@ -13,9 +13,6 @@ import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.liquid.LiquidJunction;
 import mindustry.world.blocks.liquid.LiquidRouter;
-import mindustry.world.blocks.units.UnitCargoLoader;
-import minedusty.content.DustItems;
-import minedusty.content.DustUnitTypes;
 
 public class DustDistribution {
 	
@@ -77,12 +74,11 @@ public class DustDistribution {
 
         // region conveyor
         copperConveyor = new Conveyor("oxide-copper-conveyor"){{
-            requirements(Category.distribution, with(DustItems.oxidecopper, 1));
+            requirements(Category.distribution, with(oxidecopper, 1));
             health = 35;
             speed = 0.04f;
             displayedSpeed = 5.5f;
             buildCostMultiplier = 2f;
-            // researchCost = with(DustItems.oxidecopper, 5);
             alwaysUnlocked = true;
         }};
 

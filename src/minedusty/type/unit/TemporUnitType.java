@@ -1,10 +1,6 @@
 package minedusty.type.unit;
 
-import arc.graphics.Blending;
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
 import arc.util.Time;
 import arc.util.Tmp;
@@ -22,7 +18,7 @@ public class TemporUnitType extends UnitType{
         super(name);
 
         outlineColor = DustPalette.temporDarkOutline;
-        mechLegColor = DustPalette.temporOutline;
+        mechLegColor = DustPalette.temporDarkOutline;
         envDisabled = Env.space;
         ammoType = new ItemAmmoType(DustItems.chlorophyte);
     

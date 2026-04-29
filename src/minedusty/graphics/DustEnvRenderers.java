@@ -5,8 +5,6 @@ import static mindustry.Vars.*;
 import arc.Core;
 import arc.graphics.Blending;
 import arc.graphics.Color;
-import arc.graphics.Texture;
-import arc.graphics.Texture.TextureFilter;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.math.Rand;

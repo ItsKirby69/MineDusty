@@ -1,12 +1,7 @@
 package minedusty.world.blocks.environment;
 
-import arc.Core;
-import arc.graphics.Blending;
 import arc.graphics.Color;
-import arc.graphics.Pixmap;
-import arc.graphics.Texture;
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.struct.Seq;
 import mindustry.world.*;

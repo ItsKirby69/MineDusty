@@ -16,7 +16,6 @@ import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.blocks.power.PowerNode;
 import mindustry.world.meta.*;
-import minedusty.graphics.DustPalette;
 import minedusty.world.meta.DustStat;
 
 /** Custom pylon that has special properties when on water. */

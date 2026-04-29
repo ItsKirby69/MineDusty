@@ -200,13 +200,14 @@ public class DustTurrets {
         pistil = new LiquidTurret("pistil"){{
             requirements(Category.turret, with(chlorophyte, 60, graphite, 45));
             researchCost = with(chlorophyte, 450);
+            MultiEffect multEff = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin(120f));
             ammo(
                 DustLiquids.bioLiquid, new BasicBulletType(1.2f, 60f, "large-orb-back"){{
                     lifetime = 230f;
                     width = height = 15f;
                     lightRadius = 30f;
                     shrinkX = shrinkY = 0.25f;
-                    chargeEffect = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin);
+                    chargeEffect = multEff;
                     hitEffect = DustyEffects.hitChloroSpark;
                     despawnEffect = Fx.none;
                     pierceCap = 10;
@@ -228,7 +229,7 @@ public class DustTurrets {
                     lightRadius = 30f;
                     lightOpacity = 0.2f;
                     shrinkX = shrinkY = 0.25f;
-                    chargeEffect = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin);
+                    chargeEffect = multEff;
                     hitEffect = DustyEffects.hitChloroSpark;
                     status = DustStatusEffects.saltcorrosion;
                     despawnEffect = Fx.none;
@@ -251,7 +252,7 @@ public class DustTurrets {
                     lightRadius = 20f;
                     lightOpacity = 0.2f;
                     shrinkX = shrinkY = 0.25f;
-                    chargeEffect = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin);
+                    chargeEffect = multEff;
                     hitEffect = DustyEffects.hitChloroSpark;
                     status = StatusEffects.wet;
                     despawnEffect = Fx.none;
