@@ -71,6 +71,11 @@ public class LivingTreeBlock extends Block{
 	}
 
 	@Override
+    public int minimapColor(Tile tile){
+        return mapColor.rgba();
+    }
+
+	@Override
 	public void load(){
 		super.load();
 		if(variants > 0){

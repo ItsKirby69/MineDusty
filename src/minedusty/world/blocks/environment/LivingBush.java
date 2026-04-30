@@ -55,6 +55,11 @@ public class LivingBush extends Prop{
     }
 
 	@Override
+    public int minimapColor(Tile tile){
+        return mapColor.rgba();
+    }
+
+	@Override
 	public void load(){
 		super.load();
 		if(variants > 0){
