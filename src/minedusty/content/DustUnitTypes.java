@@ -13,7 +13,6 @@ import mindustry.entities.units.WeaponMount;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
-import mindustry.type.ammo.*;
 import mindustry.world.meta.BlockFlag;
 import minedusty.gen.WaterMoveUnit;
 import minedusty.graphics.DustPalette;
@@ -548,7 +547,6 @@ public class DustUnitTypes extends UnitTypes{
             health = 200;
             mechSideSway = 0.28f;
             range = 35f;
-            ammoType = new ItemAmmoType(Items.coal);
 
             weapons.add(new Weapon(){{
                 shootOnDeath = true;
@@ -656,7 +654,6 @@ public class DustUnitTypes extends UnitTypes{
 			mechSideSway = 0.5f;
 			mechFrontSway = 0.38f; //gotta test these values
 
-			ammoType = new ItemAmmoType(DustItems.divinityMatter);
 			weapons.add(new Weapon("minedusty-divine-mech-arm"){{
 				layerOffset = -0.0001f;
 				top = false;
