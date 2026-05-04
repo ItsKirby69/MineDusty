@@ -23,7 +23,7 @@ import minedusty.type.unit.TemporUnitType;
 public class DustUnitTypes extends UnitTypes{
 
 	/** Sharded Faction */
-	public static UnitType cricket, lotus, mantis;
+	public static UnitType cricket, locust, mantis;
 
 	// Airborne
 	public static @EntityDef({Unitc.class}) UnitType dazzle;
@@ -44,10 +44,10 @@ public class DustUnitTypes extends UnitTypes{
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType actaea;
 
 	//end region
- 
-	//region Units
+
 	public static void load(){
-		// bad bad bad
+		//region Sharded
+		// Core unit | Insects
 		cricket = new DustUnitType("cricket"){{
 			// Fiddle around with this in the future?
 			controller = u -> u.team.isAI() ? new BuilderAI(true, 400f) : new CommandAI();
@@ -147,6 +147,7 @@ public class DustUnitTypes extends UnitTypes{
 			}});
 		}};
 
+		// Airborne | Effects
         dazzle = new DustUnitType("dazzle"){{
 			constructor = UnitEntity::create;
             researchCostMultiplier = 0.5f;
@@ -200,6 +201,7 @@ public class DustUnitTypes extends UnitTypes{
             }});
         }};
 
+		// Earthborne | Plant-spinoffs
         bulbus = new DustUnitType("bulbus"){{
 			constructor = MechUnit::create;
             researchCostMultiplier = 0.5f;
@@ -262,6 +264,10 @@ public class DustUnitTypes extends UnitTypes{
 			});
         }};
 
+		//endregion
+		//region Crux
+
+		// Ground unit | Knives
         cleave = new UnitType("cleave"){{
 			constructor = MechUnit::create;
             researchCostMultiplier = 0.5f;
@@ -288,7 +294,8 @@ public class DustUnitTypes extends UnitTypes{
                 }};
             }});
         }};
-	
+		
+		// Water units | Fishes
         minnow = new UnitType("minnow"){{
 			constructor = WaterMoveUnit::create;
             speed = 1.35f;
@@ -395,9 +402,9 @@ public class DustUnitTypes extends UnitTypes{
 				}};
 			}});
         }};
+		
 		//endregion
-
-		//region Enemies
+		//region Tempor
 
         actaea = new TemporUnitType("actaea"){{
 			constructor = MechUnit::create;
@@ -425,6 +432,9 @@ public class DustUnitTypes extends UnitTypes{
             }});
         }};
 
+		//endregion
+		//region Divine
+		
 		// WIP
 		devineNanitic = new DivineUnitType("divine-nanitic"){{
             constructor = LegsUnit::create;
@@ -576,7 +586,6 @@ public class DustUnitTypes extends UnitTypes{
             }});
         }};
 		
-		// Dagger Clone
         divineCyst = new DivineUnitType("divine-cyst"){{
 			constructor = MechUnit::create;
 			drawCell = false;
@@ -601,7 +610,6 @@ public class DustUnitTypes extends UnitTypes{
             }});
         }};
 
-		// Mace Clone
 		divineGlaive = new DivineUnitType("divine-glaive"){{
 			constructor = MechUnit::create;
 			drawCell = false;
@@ -641,7 +649,6 @@ public class DustUnitTypes extends UnitTypes{
 			}});
 		}};
 
-		// Fortress clone
 		divineBulwark = new DivineUnitType("divine-bulwark"){{
 			constructor = MechUnit::create;
 			drawCell = false;

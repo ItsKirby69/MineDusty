@@ -71,6 +71,7 @@ public class DustEnv {
         }};
 
         darkIce = new Floor("dark-ice"){{
+			mapColor = Blocks.iceSnow.mapColor;
             dragMultiplier = 0.08f;
             speedMultiplier = 1.1f; // lol
             attributes.set(Attribute.water, 0.35f);
@@ -78,28 +79,33 @@ public class DustEnv {
         }};
 
 		iceShards = new OverlayFloor("ice-shards"){{
+			mapColor = Color.valueOf("#c2bffb");
 			dragMultiplier = 0.3f;
 			variants = 6;
 		}};
 
 		darkiceShards = new OverlayFloor("dark-ice-shards"){{
+			mapColor = Color.valueOf("#c2bffb");
 			dragMultiplier = 0.3f;
 			variants = 6;
 		}};
 	
         slushSnow = new Floor("slush-snow"){{
+			mapColor = Blocks.snow.mapColor;
 			variants = 4;
             attributes.set(Attribute.water, 0.2f);
             albedo = 0.75f;
         }};
 
         denseSnow = new Floor("dense-snow"){{
+			mapColor = Color.white;
 			variants = 4;
             attributes.set(Attribute.water, 0.2f);
             albedo = 0.75f;
         }};
 
 		dirtClumps = new OverlayColorFloor("dirt-clumps"){{
+			mapColor = Color.valueOf("#895841");
 			variants = 5;
 			maskBlock.set(Seq.with(Blocks.dacite, Blocks.mud));
 			maskColor = Color.valueOf("#623c35");
@@ -180,10 +186,7 @@ public class DustEnv {
 		// Supposed to be a pristine version of sand
 		silkSand = new TileEffect("silksand"){{
 			attributes.set(Attribute.oil, -0.4f);
-			//cacheLayer = DustCacheLayers.silksand;
-			//itemDrop = Items.sand;
-			//playerUnmineable = true;
-			addEffect(DustyEffects.sparkles, 0.05f, 300f, Color.valueOf("#fff2d9"));
+			addEffect(DustyEffects.sparkles, (1f / 40f), 300f, Color.valueOf("#fff2d9"));
 		}};
 
 		shoreRock = new Floor("shorestone", 3){{
