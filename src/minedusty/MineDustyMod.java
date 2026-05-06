@@ -20,11 +20,14 @@ import mindustry.game.EventType.*;
 import mindustry.mod.*;
 import mindustry.world.blocks.environment.Floor;
 
-import static arc.Core.bundle;
+import static arc.Core.*;
 import static mindustry.Vars.*;
 
 public class MineDustyMod extends Mod {
 	public static Seq<String> subtitles;
+	
+	/** Version number to bump when a full campaign reset is needed */
+	public static final int CAMPAIGN_SAVE_VERSION = 1;
 
 	public MineDustyMod() {
 		Log.info("[lightgray]*cough* *cough* [][acid]MineDusty[] [white]is [][lightgray]*cough*[] [white]loaded");
@@ -46,16 +49,12 @@ public class MineDustyMod extends Mod {
 	public void init() {
 		// Events.run(EventType.Trigger.draw, Renderer::draw);
 		addModdedSubtitles();
-		// Log.info(subtitles);
+		
 		DustSettings.load();
 		Events.on(ClientLoadEvent.class, e -> {
-			// show dialog upon startup
-			boolean hasSectorSave = Vars.control.saves.getSaveSlots().contains(s -> 
-				s.isSector() && s.getSector().planet == DustPlanets.theia);
-			if(hasSectorSave){
-				Log.info("BALLS!!");
-			}
-			DustyPopup.check();
+			// show dialog(s) upon startup
+			DustyResetPopup.check(CAMPAIGN_SAVE_VERSION, DustyPopup::check);
+			
 			IconLoader.loadIcons();
 
 			// Make vanilla ice render below snow (for edge tiles)
@@ -69,7 +68,7 @@ public class MineDustyMod extends Mod {
 
 	@Override
 	public void loadContent() {
-		/** Gets random line from a text file. */
+		/** Ranomized mod subtitles in the loaded mod page */
 		subtitles = new Seq<>(bundle.get("minedusty-subtitle.lines").split("/"));
 		Vars.mods.list().each(mod -> {
 			if(mod.main == this){

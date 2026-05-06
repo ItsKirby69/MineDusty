@@ -3,6 +3,7 @@ package minedusty.ui;
 import static arc.Core.settings;
 
 import arc.Core;
+import arc.input.KeyCode;
 import arc.scene.actions.Actions;
 import arc.scene.ui.ScrollPane;
 import arc.scene.ui.TextButton;
@@ -42,8 +43,9 @@ public class DustyPopup extends BaseDialog{
         buttons.defaults().size(150f, 50f);
         setFillParent(false);
         
-        TextButton button_ok = buttons.button("@setting.dusty-popup-ok-button", this::hide).get();
-        TextButton button_off = buttons.button("@setting.dusty-popup-disable-button", () -> {
+        keyDown(KeyCode.escape, this::hide);
+        TextButton button_ok = buttons.button("@popup.popup-ok-button", this::hide).get();
+        TextButton button_off = buttons.button("@popup.popup-disable-button", () -> {
             Core.settings.put("@setting.dusty-disable-popup", true);
             hide();
         }).get();
@@ -56,7 +58,7 @@ public class DustyPopup extends BaseDialog{
         button_ok.getStyle().disabled = button_ok.getStyle().up;
         button_off.getStyle().disabledFontColor = button_off.getStyle().fontColor;
         button_off.getStyle().disabled = button_off.getStyle().up;
-
+        
         // Timer to close popup
         int popDuration = 25;
         final int[] remaining = {popDuration};
