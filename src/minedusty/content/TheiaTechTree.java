@@ -43,7 +43,9 @@ public class TheiaTechTree {
                             });
                         });
 
-                        node(buoyDriver); // require something?
+                        node(buoyDriver, Seq.with(
+                            new SectorComplete(verdantSpills)
+                        ), () -> {}); // require something?
                         node(aquameriumConveyor, Seq.with(
                             new SectorComplete(verdantSpills)
                         ), () -> {});
@@ -54,7 +56,8 @@ public class TheiaTechTree {
 
             node(DustDrills.copperDrill, () -> {
                 node(solarPump, Seq.with(
-                    new SectorComplete(verdantSpills)
+                    new SectorComplete(verdantSpills),
+                    new OnSector(basalticShore)
                 ), () -> {
                     node(lobePump, () -> {});
                     node(aquameriumConduit, () -> {
@@ -62,7 +65,9 @@ public class TheiaTechTree {
                             node(aquaLiquidRouter);
                         });
                     });
-                    node(salinator,() -> {
+                    node(salinator, Seq.with(
+                        new SectorComplete(sandyEminence)
+                    ), () -> {
                         node(fluidBed, () -> {});
                     });
                 });
@@ -103,7 +108,9 @@ public class TheiaTechTree {
                             ), () -> {});
                         });
                     });
-                    node(electricFurnace, () -> {
+                    node(electricFurnace, Seq.with(
+                        new SectorComplete(lushCorridors)
+                    ), () -> {
                         node(solidFurance, Seq.with(
                             new SectorComplete(frostedFault)
                         ), () -> {});
@@ -184,7 +191,9 @@ public class TheiaTechTree {
                     new SectorComplete(verdantSpills),
                     new Research(copperJunction),
                     new Research(copperRouter)
-                ), () -> {});
+                ), () -> {
+                    node(grassyPlains, () -> {});
+                });
                 node(basalticShore, Seq.with(
                     new SectorComplete(thicketValley)
                     ), () -> {
@@ -208,7 +217,7 @@ public class TheiaTechTree {
                 new SectorComplete(thicketValley)
             ), () -> {
                 node(bulbus, () -> {});
-                node(airFactory, () -> {
+                node(skyFactory, () -> {
                     node(dazzle);
                 });
             });

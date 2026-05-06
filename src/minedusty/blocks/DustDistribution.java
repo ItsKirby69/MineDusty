@@ -29,24 +29,6 @@ public class DustDistribution {
     public static Block shipCargoLoader;
 
 	public static void loadContent(){
-        // Special transportators
-        // shipCargoLoader = new UnitCargoLoader("ship-cargo-loader"){{
-        //     requirements(Category.distribution, with(silicon, 40));
-        //     researchCost = with(silicon, 600);
-
-        //     size = 2;
-        //     unitBuildTime = 60f * 12f;
-        //     unitType = DustUnitTypes.boat;
-        //     polySides = 0;
-
-        //     consumePower(8f / 60f);
-        //     itemCapacity = 25;
-        //     placeableLiquid = true;
-        //     floating = true;
-        //     solid = false;
-        //     hideDatabase = true;
-        // }};
-
         // region conduits
         aquaLiquidRouter = new LiquidRouter("aqua-liquid-router"){{
             requirements(Category.liquid, with(aquamerium, 2, Items.graphite, 4));

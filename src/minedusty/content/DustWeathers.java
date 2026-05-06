@@ -1,17 +1,23 @@
 package minedusty.content;
 
+import static mindustry.Vars.bases;
+
 import arc.graphics.Color;
 import arc.util.Time;
 import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.type.weather.ParticleWeather;
 import mindustry.world.meta.*;
+import minedusty.type.weather.BetterParticleWeather;
 import minedusty.type.weather.CloudyWeather;
 import minedusty.type.weather.SnowStormWeather;
 import minedusty.type.weather.StormWeather;
 
 public class DustWeathers {
-	public static Weather heavyRain, snowStorm, heatWave, clouds;
+	public static Weather heavyRain, snowStorm, heatWave;
+
+	// Fun weathers
+	public static Weather pollenStorm, clouds;
 
 	public static void load() {
 		// WIP
@@ -40,25 +46,45 @@ public class DustWeathers {
         }};
 		// WIP
 		snowStorm = new SnowStormWeather("snow-storm"){{
+			particleRegion = "minedusty-snow";
+			faceMoveDirection = true;
 			color = noiseColor = Color.valueOf("#e6feff");
 			darkColor = Color.valueOf("#b5e2e4");
-			particleRegion = "particle";
+			// particleRegion = "particle";
 			drawNoise = true;
 			useWindVector = true;
-			sizeMax = 70f;
-			sizeMin = 12f;
+			sizeMax = 90f;
+			sizeMin = 22f;
 			minAlpha = 0.4f;
 			maxAlpha = 0.7f;
-			density = 2200;
+			density = 700;
 			baseSpeed = 7.0f;
 			opacityMultiplier = 0.7f;
 			force = 0.5f;
-			sound = Sounds.windHowl;
+			sound = DustSounds.snowStorm;
 			soundVol = 0.7f;
 			soundVolOscMag = 1.5f;
 			soundVolOscScl = 1100f;
 			duration = 7f * Time.toMinutes;
 			attrs.set(Attribute.light, -0.35f);
+		}};
+
+		pollenStorm = new BetterParticleWeather("pollen-storm"){{
+			noiseColor = color = Color.valueOf("#fffed5");
+			particleRegion = "minedusty-dandelion";
+			drawNoise = false;
+			useWindVector = false;
+			swayParticles = true;
+			density = 2000;
+			sizeMin = 12f;
+			sizeMax = 18f;
+			baseSpeed = 3.0f;
+			opacityMultiplier = 0.7f;
+			force = 0;
+			sound = Sounds.none;
+			duration = 1.5f * Time.toMinutes;
+			yspeed = 0.25f;
+			xspeed = -0.75f;
 		}};
 
 		//heavy rain and we need thunder storm aswell TODO: make heavy rain more heavier and darker

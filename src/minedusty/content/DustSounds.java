@@ -9,15 +9,22 @@ import mindustry.Vars;
 public class DustSounds {
 
 	public static Sound
+		// Pew
 		chromaPew1 = new Sound(),
 		chromaPew2 = new Sound(),
 		chromartillery = new Sound(),
 		chromalastershoot = new Sound(),
 
+		// SFX
 		steam = new Sound(),
 		brittle = new Sound(),
 		bubblePop = new Sound(),
-		destroyTree = new Sound();
+		destroyTree = new Sound(),
+
+		// Weather SFX
+		rainStorm = new Sound(),
+		snowStorm = new Sound();
+
 
 		public static void load(){
 			chromaPew1 = loadSound("chromaPew1");
@@ -29,6 +36,9 @@ public class DustSounds {
 			brittle = loadSound("brittle");
 			bubblePop = loadSound("bubblePop");
 			destroyTree = loadSound("destroyTree");
+
+			rainStorm = loadSound("rainStorm");
+			snowStorm = loadSound("snowStorm");
 		}
 
 		public static Sound loadSound(String soundName){

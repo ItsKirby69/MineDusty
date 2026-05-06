@@ -8,18 +8,19 @@ import arc.util.*;
 import mindustry.gen.*;
 import mindustry.type.*;
 
+import static arc.Core.settings;
 import static mindustry.Vars.*;
 
 public class CloudyWeather extends Weather {
     public int variants = 7;
     public TextureRegion[] regions;
-    public Color baseColor = Color.white.cpy(), blendColor = Color.white.cpy();
+    public Color baseColor = Color.valueOf("#ffffff");
     public Color shadowColor = Color.black.cpy();
-    public float yspeed = -0.8f / 15f, xspeed = 1.2f / 15f;
+    public float yspeed = -0.8f / 10f, xspeed = 1.2f / 10f;
     public float sizeMin = 240f, sizeMax = 260f, density = 240f * 800f;
-    public float minAlpha = 0.6f, maxAlpha = 0.65f, shadowAlpha = 0.6f;
-    public float degrees = 10;
-    public float shadowOffset = 90f, baseSpeed = 6f;
+    public float minAlpha = 0.8f, maxAlpha = 0.85f, shadowAlpha = 0.6f;
+    public float degrees = 25;
+    public float shadowOffset = 90f, shadowHeight = 50f, baseSpeed = 6f;
     public boolean useWindVector = false;
 
     public static final float boundMax = 80000;
@@ -38,16 +39,7 @@ public class CloudyWeather extends Weather {
     }
 
     @Override
-    public void update(WeatherState state){
-        // float speed = state.intensity * Time.delta;
-        // if(speed > 0.001f){
-        //     float windx = state.windVector.x * speed, windy = state.windVector.y * speed;
-
-        //     for(Unit unit : Groups.unit){
-        //         unit.impulse(windx, windy);
-        //     }
-        // }
-    }
+    public void update(WeatherState state){}
 
     @Override
     public void drawOver(WeatherState state){
@@ -68,6 +60,13 @@ public class CloudyWeather extends Weather {
         Core.camera.bounds(Tmp.r2);
         int total = (int)(Tmp.r1.area() / density * state.intensity);
         Draw.color(baseColor, state.opacity);
+        
+        float xplayer = 0f, yplayer = 0f;
+        boolean doPlayerFade = settings.getBool("@setting.dusty-fade-enabled") && player.unit() != null && !player.unit().dead();
+        if(doPlayerFade){
+            xplayer = player.unit().x;
+            yplayer = player.unit().y;
+        }
 
         for(int i = 0; i < total; i++){
             float scl = rand.random(0.5f, 1f);
@@ -87,16 +86,26 @@ public class CloudyWeather extends Weather {
             x += Tmp.r1.x;
             y += Tmp.r1.y;
 
+            // Fading near player
+            float playerFade = 1f, fadeEnd = 80f, fadeStart = 120f;
+            if(doPlayerFade){
+                float fadeOpacity = settings.getInt("@setting.dusty-fade-opacity") / 100f;
+
+                float dstMulti = settings.getInt("@setting.dusty-fade-dist-multi");
+                float dst = Mathf.dst(xplayer, yplayer, x, y);
+                playerFade = Mathf.clamp((dst - (fadeEnd * dstMulti)) / ((fadeStart * dstMulti) - (fadeEnd * dstMulti)), fadeOpacity, 1f);
+            }
+
+            float shadHeight = rand.random(0f, shadowHeight);
+            float shadFrac = 1f - (shadHeight / shadowHeight) * 0.3f;
+
             if(Tmp.r3.setCentered(x, y, size).overlaps(Tmp.r2)){
-                Draw.alpha(alpha * state.opacity);
+                Draw.color(baseColor, alpha * state.opacity * playerFade);
                 Draw.rect(region, x, y, size, size, rot);
             }
 
-            Draw.color(shadowColor, shadowAlpha * (alpha * state.opacity / maxAlpha));
-            Draw.rect(region, x - shadowOffset, y - shadowOffset, size, size, rot);
-
-            Draw.color(blendColor, alpha * state.opacity);
-            Draw.rect(region, x, y, size, size, rot);
+            Draw.color(shadowColor, shadowAlpha * shadFrac * (alpha * state.opacity / maxAlpha));
+            Draw.rect(region, x - shadowOffset - shadHeight, y - shadowOffset - shadHeight, size, size, rot);
 
         }
 

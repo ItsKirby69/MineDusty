@@ -50,7 +50,7 @@ public class DustCore {
 		earthFactory = new UnitFactory("earth-factory"){{
             requirements(Category.units, with(oxidecopper, 60, lead, 50, silicon, 60));
 			researchCost = with(oxidecopper, 1200, lead, 1000, silicon, 1000);
-			plans.add(new UnitPlan(DustUnitTypes.dazzle, 60f * 30, with(silicon, 25, chlorophyte, 30, lead, 15)));
+			plans.add(new UnitPlan(DustUnitTypes.bulbus, 60f * 30, with(silicon, 25, chlorophyte, 30, lead, 15)));
             size = 3;
 			configurable = false;
             consumePower(1.2f);

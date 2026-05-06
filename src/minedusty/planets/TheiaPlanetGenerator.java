@@ -302,6 +302,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 
 		if(hasBliss){
 			rules.weather.add(new WeatherEntry(DustWeathers.clouds));
+			rules.weather.add(new WeatherEntry(DustWeathers.pollenStorm));
 		}
 
 		Log.info("Weather for sector " + sector.name() + ":");

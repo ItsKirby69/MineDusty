@@ -66,7 +66,7 @@ public class DustEnvRenderers {
                 if(!rayTex.found()) continue;
 
                 float topDst = (Core.camera.position.y + Core.camera.height/2f) - (y + rayTex.height/2f + rayTex.height*1.9f*sizeScale/2f);
-                float invDst = topDst/800f;
+                float invDst = topDst/1000f;
                 opacity = Math.min(opacity, -invDst);
 
                 if(opacity > 0.01){
