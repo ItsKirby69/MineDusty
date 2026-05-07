@@ -15,7 +15,6 @@ import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
-import mindustry.entities.part.DrawPart.PartProgress;
 import mindustry.entities.part.RegionPart;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
@@ -467,6 +466,8 @@ public class DustTurrets {
                     frontColor = DustPalette.amethyst;
                 }}
             );
+            coolant = consumeLiquid(Liquids.water, 6f/60f);
+            coolantMultiplier = 10f;
 
             drawer = new DrawTurret("braced-"){{
                 // TODO have heat region be on base instead
