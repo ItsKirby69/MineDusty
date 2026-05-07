@@ -89,7 +89,7 @@ public class FlowWaterTile extends Block {
                 effect.at(tile.worldx(), tile.worldy(), getAngle());
                 soundEffect.at(tile.worldx(), tile.worldy(),
                     Mathf.random(0.8f, 1.2f), 
-                    settings.getInt("@setting.dusty-sfx-volume") / 100f);
+                    settings.getInt("dusty-sfx-volume") / 100f);
                 effectTimer = 0f;
             }
         }

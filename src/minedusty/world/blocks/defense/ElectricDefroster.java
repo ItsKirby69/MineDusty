@@ -29,7 +29,7 @@ public class ElectricDefroster extends DefrosterBlock{
         @Override
         public void display(Table table) {
             super.display(table);
-            if(settings.getBool("@setting.dusty-block-debug")){
+            if(settings.getBool("dusty-block-debug")){
                 table.row();
                 table.table(t -> {
                     t.label(() -> {

@@ -46,7 +46,7 @@ public class DustyPopup extends BaseDialog{
         keyDown(KeyCode.escape, this::hide);
         TextButton button_ok = buttons.button("@popup.popup-ok-button", this::hide).get();
         TextButton button_off = buttons.button("@popup.popup-disable-button", () -> {
-            Core.settings.put("@setting.dusty-disable-popup", true);
+            Core.settings.put("dusty-disable-popup", true);
             hide();
         }).get();
         
@@ -78,7 +78,7 @@ public class DustyPopup extends BaseDialog{
     }
     
     public static void check(){
-        if(!(settings.getBool("@setting.dusty-disable-popup"))){
+        if(!(settings.getBool("dusty-disable-popup"))){
             new DustyPopup().show();
         }
     }

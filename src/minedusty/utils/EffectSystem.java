@@ -81,7 +81,7 @@ public class EffectSystem {
 						entry.effect.at(tile.worldx(), tile.worldy(), entry.rotation, entry.effectColor);
 						entry.soundEffect.at(tile.worldx(), tile.worldy(),
 							Mathf.random(0.8f, 1.2f), 
-							settings.getInt("@setting.dusty-sfx-volume") / 100f); //settings.getInt("@setting.dusty-sfx-volume")
+							settings.getInt("dusty-sfx-volume") / 100f);
 					}
 					entry.timer = 0f;
 				}

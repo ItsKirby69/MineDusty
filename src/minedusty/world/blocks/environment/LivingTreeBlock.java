@@ -130,12 +130,12 @@ public class LivingTreeBlock extends Block{
 		int variation = Mathf.randomSeed(Point2.pack(tile.x, tile.y), 0, Math.max(0, variantRegions.length - 1));
 
 		float timeFactor = tallTree ? 0.3f : 1f;
-		if (settings.getBool("@setting.dusty-fade-enabled") && (Vars.player.unit() != null && !Vars.player.unit().dead())){
-			float fadeOpacity = settings.getInt("@setting.dusty-fade-opacity") / 100f;
+		if (settings.getBool("dusty-fade-enabled") && (Vars.player.unit() != null && !Vars.player.unit().dead())){
+			float fadeOpacity = settings.getInt("dusty-fade-opacity") / 100f;
 			float dst;
-			float dstMulti = settings.getInt("@setting.dusty-fade-dist-multi");
+			float dstMulti = settings.getInt("dusty-fade-dist-multi");
 
-			if(settings.getBool("@setting.dusty-toggle-mouse-fade")){
+			if(settings.getBool("dusty-toggle-mouse-fade")){
 				Vec2 mouse = Core.input.mouseWorld(Core.input.mouseX(), Core.input.mouseY());
 				dst = Mathf.dst(mouse.x, mouse.y, tile.worldx(), tile.worldy());
 			} else {
@@ -240,8 +240,8 @@ public class LivingTreeBlock extends Block{
 		
 		// effects
 		if(Vars.state.isPaused()) return; // Particles stack when paused for some reason
-		int effectChance = settings.getInt("@setting.dusty-falling-density");
-		if(settings.getBool("@setting.dusty-falling-leaves-enabled") && Mathf.chanceDelta((effectChance * 0.001f) * size)){
+		int effectChance = settings.getInt("dusty-falling-density");
+		if(settings.getBool("dusty-falling-leaves-enabled") && Mathf.chanceDelta((effectChance * 0.001f) * size)){
 			effect.at(
 				tile.worldx() + Mathf.range(effectRange) * size,
 				tile.worldy() + Mathf.range(effectRange) * size,

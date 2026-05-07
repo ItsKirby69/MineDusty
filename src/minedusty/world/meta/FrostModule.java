@@ -247,7 +247,7 @@ public class FrostModule {
             }).growX();
             return;
         };
-        if(settings.getBool("@setting.dusty-block-debug")){
+        if(settings.getBool("dusty-block-debug")){
             table.row();
             table.table(t -> {
                 t.label(() -> {

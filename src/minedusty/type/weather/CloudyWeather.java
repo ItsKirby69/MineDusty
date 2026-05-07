@@ -62,7 +62,7 @@ public class CloudyWeather extends Weather {
         Draw.color(baseColor, state.opacity);
         
         float xplayer = 0f, yplayer = 0f;
-        boolean doPlayerFade = settings.getBool("@setting.dusty-fade-enabled") && player.unit() != null && !player.unit().dead();
+        boolean doPlayerFade = settings.getBool("dusty-fade-enabled") && player.unit() != null && !player.unit().dead();
         if(doPlayerFade){
             xplayer = player.unit().x;
             yplayer = player.unit().y;
@@ -89,9 +89,9 @@ public class CloudyWeather extends Weather {
             // Fading near player
             float playerFade = 1f, fadeEnd = 80f, fadeStart = 120f;
             if(doPlayerFade){
-                float fadeOpacity = settings.getInt("@setting.dusty-fade-opacity") / 100f;
+                float fadeOpacity = settings.getInt("dusty-fade-opacity") / 100f;
 
-                float dstMulti = settings.getInt("@setting.dusty-fade-dist-multi");
+                float dstMulti = settings.getInt("dusty-fade-dist-multi");
                 float dst = Mathf.dst(xplayer, yplayer, x, y);
                 playerFade = Mathf.clamp((dst - (fadeEnd * dstMulti)) / ((fadeStart * dstMulti) - (fadeEnd * dstMulti)), fadeOpacity, 1f);
             }

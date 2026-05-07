@@ -16,33 +16,37 @@ import static mindustry.Vars.ui;
 public class DustSettings {
 
     public static void load() {
-        ui.settings.addCategory("@setting.dusty-settings-title.title", "minedusty-settings-icon", t -> {
-            t.pref(new Title("@setting.dusty-visual-title"));
+        ui.settings.addCategory("@settings.dusty-settings-title", "minedusty-settings-icon", t -> {
+            t.pref(new Title("@settings.dusty-visual-title"));
             
-            t.checkPref("@setting.dusty-falling-leaves-enabled", true);
-            t.checkPref("@setting.dusty-fade-enabled", true);
-            t.checkPref("@setting.dusty-toggle-mouse-fade", false);
-            t.sliderPref("@setting.dusty-fade-opacity", 0, 0, 100, 5, s -> s + "%");
-            t.sliderPref("@setting.dusty-falling-density", 6, 1, 15, 1, s -> s + "");
-            t.sliderPref("@setting.dusty-fade-dist-multi", 1, 1, 4, 1, s -> s + "");
+            t.checkPref("dusty-falling-leaves-enabled", true);
+            t.checkPref("dusty-fade-enabled", true);
+            t.checkPref("dusty-toggle-mouse-fade", false);
+            t.sliderPref("dusty-fade-opacity", 0, 0, 100, 5, s -> s + "%");
+            t.sliderPref("dusty-godray-opacity", 70, 0, 100, 5, s -> s + "%");
+            t.sliderPref("dusty-falling-density", 6, 1, 15, 1, s -> s + "");
+            t.sliderPref("dusty-fade-dist-multi", 1, 1, 4, 1, s -> s + "");
 
-            t.pref(new Title("@setting.dusty-misc-title"));
+            t.pref(new Title("@settings.dusty-misc-title"));
 
-            t.sliderPref("@setting.dusty-splash-bounciness", 10, 1, 100, s -> s + "");
-            t.sliderPref("@setting.dusty-sfx-volume", 50, 0, 100, 1, s -> s + "%");
-            t.checkPref("@setting.dusty-disable-popup", false);
-            t.checkPref("@setting.dusty-block-debug", false);
+            t.sliderPref("dusty-splash-bounciness", 10, 1, 100, s -> s + "");
+            t.sliderPref("dusty-sfx-volume", 50, 0, 100, 1, s -> s + "%");
+            t.checkPref("dusty-disable-popup", false);
+
+            t.pref(new Title("@settings.dusty-debug-title"));
+
+            t.checkPref("dusty-block-debug", false);
 
             t.pref(new TableSetting("github-linko", new Table(c -> {
-                c.button("@setting.dusty-cleartree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
-                    Vars.ui.showConfirm("@setting.dusty-cleartree-confirm", () -> DustData.resetTree()
+                c.button("@settings.dusty-cleartree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
+                    Vars.ui.showConfirm("@settings.dusty-cleartree-confirm", () -> DustData.resetTree()
                 )).width(230f);
 
-                c.button("@setting.dusty-clearcampaign", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
-                    Vars.ui.showConfirm("@setting.dusty-clearcampaign-confirm", () -> DustData.resetCampaign(DustPlanets.theia)
+                c.button("@settings.dusty-clearcampaign", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
+                    Vars.ui.showConfirm("@settings.dusty-clearcampaign-confirm", () -> DustData.resetCampaign(DustPlanets.theia)
                 )).width(230f);
 
-                c.button("@setting.dusty-unlocktree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
+                c.button("@settings.dusty-unlocktree", Icon.trash, Styles.flatt, Vars.iconMed,() -> 
                     DustData.unlockTree(DustPlanets.theia.techTree)).width(230f);
 
                 c.button(Icon.github, new ImageButton.ImageButtonStyle(), () ->{
@@ -51,12 +55,8 @@ public class DustSettings {
                         ui.showInfoFade("@linkfail");  
                         Core.app.setClipboardText(url);
                     }
-                }).size(50f).tooltip("@setting.dusty-github").right().bottom();    
+                }).size(50f).tooltip("@settings.dusty-github").right().bottom();    
             })));
-
-            // t.pref(new Title("@setting.dusty-debug-title"));
-            // t.sliderPref("@setting.dusty-debug-planet1", 0, -50, 50, 1, s -> s + " id");
-            
         });
     }
 

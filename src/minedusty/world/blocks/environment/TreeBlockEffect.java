@@ -27,8 +27,8 @@ public class TreeBlockEffect extends TreeBlock{
     public void drawBase(Tile tile){
         super.drawBase(tile);
         if(Vars.state.isPaused()) return;
-        int effectChance = settings.getInt("@setting.dusty-falling-density");
-        if(settings.getBool("@setting.dusty-falling-leaves-enabled") && Mathf.chanceDelta((effectChance * 0.002f) * size)){
+        int effectChance = settings.getInt("dusty-falling-density");
+        if(settings.getBool("dusty-falling-leaves-enabled") && Mathf.chanceDelta((effectChance * 0.002f) * size)){
             effect.at(
                 tile.worldx() + Mathf.range(6f) * radius,
                 tile.worldy() + Mathf.range(6f) * radius,

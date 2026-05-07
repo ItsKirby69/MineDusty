@@ -1,5 +1,6 @@
 package minedusty.graphics;
 
+import static arc.Core.settings;
 import static mindustry.Vars.*;
 
 import arc.Core;
@@ -80,7 +81,7 @@ public class DustEnvRenderers {
 
                     Color rayColor = moonColor.cpy().lerp(sunColor, light);
     
-                    Draw.color(rayColor, opacity);
+                    Draw.color(rayColor, opacity * (settings.getInt("dusty-godray-opacity") / 100f));
                     Draw.rect(rayTex, x, y + rayTex.height/2f, rayTex.width*2*sizeScale, rayTex.height*2*sizeScale, rot);
                     Draw.color();
                 }
