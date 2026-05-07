@@ -52,7 +52,7 @@ public class DustPlanets {
 			accessible = true;
 			allowLaunchSchematics = false;
 			allowLaunchToNumbered = false;
-			allowLaunchLoadout = false;
+			allowLaunchLoadout = true;
 			clearSectorOnLose = true;
 			
 			defaultCore = DustCore.coreNest;

@@ -55,7 +55,8 @@ public class DustPlants {
 			mapColor = Color.valueOf("#74d660");
 			breakEffect = DustyEffects.treeBreakLarge;
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
-			fadeEnd = 30f;
+			fadeStart *= 2;
+			fadeEnd *= 2;
 			baseLayer = Layer.legUnit + 3.5f;
 			size = 5;
 		}};
@@ -82,7 +83,8 @@ public class DustPlants {
 			mapColor = Color.valueOf("#6d922b");
 			breakEffect = DustyEffects.treeBreakLarge;
 			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
-			fadeEnd = 30f;
+			fadeStart *= 2;
+			fadeEnd *= 2;
 			baseLayer = Layer.legUnit + 3.5f;
 			size = 5;
 		}};

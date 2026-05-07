@@ -123,7 +123,7 @@ public class DustEnv {
 			mapColor = Color.valueOf("#80b963");
 			attributes.set(DustAttributes.turf, 0.167f);
 			attributes.set(DustAttributes.salt, -0.1f);
-			addEffect(DustyEffects.flyingGrass, 0.06f, 320f, Color.valueOf("#6aa95e"));
+			addEffect(DustyEffects.flyingGrass, 0.06f, 320f, Color.valueOf("#80b963"));
 		}};
 
 		pattedGrass = new Floor("patted-grass", 5){{

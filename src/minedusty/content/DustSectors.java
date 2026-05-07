@@ -6,7 +6,7 @@ import static minedusty.planets.DustPlanets.theia;
 
 public class DustSectors {
     // Lush
-	public static DustSectorPreset verdantSpills, thicketValley, basalticShore, lushCorridors, tropicalLake;
+	public static DustSectorPreset verdantSpills, thicketValley, basalticShore, lushCorridors, tropicalLake, grassyPlains;
 
     // Desert
     public static DustSectorPreset sandyEminence;
@@ -57,6 +57,14 @@ public class DustSectors {
             captureWave = 13;
             difficulty = 2;
             overrideLaunchDefaults = true;
+            startWaveTimeMultiplier = 1.5f;
+        }};
+
+        grassyPlains = new DustSectorPreset("grassyPlains", theia, 109){{
+            addStartingItems = true;
+            allowLaunchLoadout = true;
+            captureWave = 13;
+            difficulty = 4;
             startWaveTimeMultiplier = 1.5f;
         }};
 
