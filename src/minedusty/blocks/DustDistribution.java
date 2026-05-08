@@ -35,6 +35,7 @@ public class DustDistribution {
             liquidCapacity = 150f;
             underBullets = true;
             solid = false;
+            squareSprite = false;
             explosivenessScale = flammabilityScale = 4f/20f;
         }};
 
@@ -49,6 +50,7 @@ public class DustDistribution {
         aquaLiquidJunction = new LiquidJunction("aqua-liquid-junction"){{
             requirements(Category.liquid, with(aquamerium, 10, Items.graphite, 6));
             solid = false;
+            squareSprite = true;
 
             ((Conduit) aquameriumConduit).junctionReplacement = this;
         }};
