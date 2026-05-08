@@ -36,6 +36,7 @@ public class DustDistribution {
             underBullets = true;
             solid = false;
             squareSprite = false;
+            liquidPadding = 1f;
             explosivenessScale = flammabilityScale = 4f/20f;
         }};
 
