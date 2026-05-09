@@ -45,6 +45,7 @@ public class DustEnv {
 	public static Block largeAmethystCrystals, largeQuartzCrystals, quartzCrystals, amethystCrystals, hardenedClayWall, amethystClusteredClayWall;
 
 	// Misc
+	public static Block snowVent;
 	public static Block smallbasaltChimney, basaltChimney;
 	public static Block waterSmokeEffect, fallingLeavesEffect, flowingWaterEffect, logoBlock, titleBlock;
 
@@ -696,6 +697,11 @@ public class DustEnv {
 		//end region
 
 		//region Misc
+        snowVent = new SteamVent("snow-vent"){{
+            parent = blendGroup = denseSnow;
+            attributes.set(Attribute.steam, 1f);
+        }};
+
 		// These two aren't working out
 		basaltChimney = new ChimneyVent("basalt-chimney"){{
 			parent = Blocks.basalt;
