@@ -138,7 +138,7 @@ public class DustTurrets {
             shoot.shotDelay = 4f;
             shoot.shots = 3;
 
-            drawer = new DrawTurret(){{
+            drawer = new DrawTurret("braced-"){{
                 for(int i = 0; i < 2; i++){
                     int f = i;
                     parts.add(new RegionPart("-barrel-" + (i == 0 ? "l" : "r")){{
@@ -193,6 +193,9 @@ public class DustTurrets {
             size = 1;
             health = 240;
             shootSound = Sounds.shootArc;
+
+            drawer = new DrawTurret("braced-");
+
             consumePower(3f);
             coolant = consumeCoolant(4.5f/60f);
         }};
