@@ -15,7 +15,7 @@ import mindustry.world.draw.DrawBlock;
 /** A DrawHeatRegion which shows the heat region based on productionEfficiency. */
 public class DrawHeatEfficiency extends DrawBlock{
     public Color color = new Color(1f, 0.22f, 0.22f, 0.8f);
-    public float pulse = 0.3f, pulseScl = 10f;
+    public float pulse = 0.35f, pulseScl = 8f;
     public float layer = Layer.blockAdditive;
 
     public TextureRegion heat;

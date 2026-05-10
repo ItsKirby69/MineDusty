@@ -8,6 +8,7 @@ import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Env;
 import minedusty.content.*;
+import minedusty.graphics.*;
 import minedusty.world.blocks.liquid.SolarPump;
 import minedusty.world.blocks.production.*;
 
@@ -33,8 +34,10 @@ public class DustDrills {
             squareSprite = false;
             drawer = new DrawMulti(
                 new DrawRegion("-bottom"),
+                new DrawSolarHeat(0f),
                 new DrawLiquidRegion(){{
                     suffix = "-pool";
+                    alpha = 0.3f;
                 }},
                 new DrawRegion()
             );

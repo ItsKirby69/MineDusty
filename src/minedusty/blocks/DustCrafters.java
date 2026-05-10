@@ -57,9 +57,7 @@ public class DustCrafters {
 
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
-				new DrawHeatCrafterEff(){{
-					minEfficiency = 0f;
-				}},
+				new DrawHeatCrafterEff(0f),
 				new DrawLiquidTile(DustLiquids.bioLiquid, 2f){{
 					alpha = 0.5f;
 				}},
@@ -138,7 +136,6 @@ public class DustCrafters {
 			consumeItem(Items.coal, 4);
 			consumePower(60f/60f);
 
-			// TODO fix the missing texture issue here
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawPistons(){{
@@ -214,7 +211,8 @@ public class DustCrafters {
 				new DrawLiquidTile(saltWater){{
 					alpha = 0.5f;
 				}},
-				new DrawDefault() //ffef99
+				new DrawDefault(), //ffef99
+				new DrawSolarHeat(0f)
 			);
 
 			consumeLiquid(saltWater, 6f/ 60f);
@@ -271,9 +269,7 @@ public class DustCrafters {
 			outputLiquid = new LiquidStack(DustLiquids.bioLiquid, 12/60f);
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
-				new DrawHeatCrafterEff(){{
-					minEfficiency = 0f;
-				}},
+				new DrawHeatCrafterEff(0f),
 				new DrawLiquidTile(DustLiquids.bioLiquid){{
 					alpha = 0.5f;
 				}},

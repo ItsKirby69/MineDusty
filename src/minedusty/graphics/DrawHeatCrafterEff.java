@@ -15,7 +15,7 @@ import mindustry.world.draw.DrawBlock;
 /** A DrawHeatRegion which shows the heat region based on the crafter's efficiencyScale() method.. */
 public class DrawHeatCrafterEff extends DrawBlock{
     public Color color = new Color(1f, 0.22f, 0.22f, 0.8f);
-    public float pulse = 0.3f, pulseScl = 10f;
+    public float pulse = 0.35f, pulseScl = 8f;
     public float layer = Layer.blockAdditive;
     /** Minimum efficiency to show effect */
     public float minEfficiency = 0.5f;
@@ -23,8 +23,8 @@ public class DrawHeatCrafterEff extends DrawBlock{
     public TextureRegion heat;
     public String suffix = "-heat";
     
-    public DrawHeatCrafterEff(float layer){
-        this.layer = layer;
+    public DrawHeatCrafterEff(float minEff){
+        this.minEfficiency = minEff;
     }
 
     public DrawHeatCrafterEff(String suffix){

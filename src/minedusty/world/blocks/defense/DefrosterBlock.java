@@ -34,9 +34,7 @@ public class DefrosterBlock extends GenericCrafter{
 
         drawer = new DrawMulti(
             new DrawDefault(),
-            new DrawHeatCrafterEff(){{
-                minEfficiency = 0f;
-            }}
+            new DrawHeatCrafterEff(0f)
         );
 
         size = 1;
