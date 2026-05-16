@@ -113,8 +113,9 @@ public class FrostModule {
         boolean coldWeather = WeatherUtil.activeWeather(DustWeathers.snowStorm, Weathers.snow);
 
         state.heatTimer += Time.delta;
-        if(state.heatTimer >= 0.5f){
-            state.heatTimer = 0f;
+        // Update every half second (60fps)
+        if(state.heatTimer >= 30f){
+            state.heatTimer -= 30f;
             updateHeat(build, state);
         }
         
@@ -166,6 +167,7 @@ public class FrostModule {
     }
     
     void updateHeat(Building build, FrostState state){
+        // Log.info("check heating");
         state.thermalPower = 0f;
 
         float cx = build.tile.x + (build.block.size - 1) / 2f;
@@ -214,7 +216,6 @@ public class FrostModule {
                                 baseHeat += 1;
                             }
                         }
-                        // Check for env tiles
                         baseHeat += Math.round(b.block.attributes.get(DustAttributes.thermalPower));
 
                         if(baseHeat > 0){
@@ -225,14 +226,22 @@ public class FrostModule {
                     };
                 }
 
+                // Floor tiles
                 float floorHeat = other.floor().attributes.get(DustAttributes.thermalPower);
-                if(floorHeat > 0f){
-                    int dst = (int)Math.max(Math.abs(x - cx), Math.abs(y - cy));
-                    if(dst <= heatRange){
-                        int effective = Math.max(0, Math.round(floorHeat) - dst / 2);
-                        state.thermalPower += effective;
-                    }
+                // Overlay tiles
+                float overlayHeat = other.overlay().attributes.get(DustAttributes.thermalPower);
+                // Props (blocks with no build)
+                float propHeat = 0;
+                if(other.build == null && !other.block().isAir()){
+                    propHeat = other.block().attributes.get(DustAttributes.thermalPower);
                 }
+                if(floorHeat > 0f || overlayHeat > 0f || propHeat > 0f){
+                    int dst = (int)Math.max(Math.abs(x - cx), Math.abs(y - cy));
+                    state.thermalPower += Math.max(0, Math.round(floorHeat) - dst / 2);
+                    state.thermalPower += Math.max(0, Math.round(overlayHeat) - dst / 2);
+                    state.thermalPower += Math.max(0, Math.round(propHeat) - dst / 2);
+                }
+                
             }
         }
     }

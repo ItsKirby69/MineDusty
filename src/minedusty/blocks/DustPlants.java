@@ -9,6 +9,7 @@ import mindustry.world.Block;
 import mindustry.world.blocks.environment.*;
 
 import minedusty.world.blocks.environment.*;
+import minedusty.DustAttributes;
 import minedusty.content.DustItems;
 import minedusty.content.DustyEffects;
 import minedusty.utils.EffectHelper;
@@ -22,7 +23,7 @@ public class DustPlants {
 	// Shrubs and small Plants (props)
 	public static Block nightBush;
 	public static Block aloeVera, deadShrub, clayshrub, grassBunch, shrub, sandyshrub, dustyshrub, tallGrass, fernBush, bogRoots;
-	public static Block monstera;
+	public static Block monstera, fireLily;
 	public static Block cactus, cattail, lilypad, largelilypad, marshlilypad, largemarshlilypad;
 
 	public static void loadContent() {
@@ -221,6 +222,21 @@ public class DustPlants {
 			lobesMax = 7;
 			magMin = 2;
 			magMax = 4;
+		}};
+	
+		fireLily = new LivingBush("fire-lily", 1){{
+			dualCircleMode = true;
+			shadowAlpha = 0.7f;
+			mapColor = Color.valueOf("#d44e31");
+			rot = 0;
+			lobesMin = 2;
+			lobesMax = 3;
+			magMin = 2;
+			magMax = 4;
+			attributes.set(DustAttributes.thermalPower, 2);
+			emitLight = true;
+			lightRadius = 25f;
+			lightColor = Color.valueOf("#ffd7547c");
 		}};
 		
 		bogRoots = new Block("bog-roots"){{
