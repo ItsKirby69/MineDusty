@@ -83,7 +83,7 @@ public class TheiaTechTree {
                 node(carbonicConcentrator, () -> {
                     node(carbonicPress, () -> {
                         node(silicaForge, Seq.with(
-                            new Research(crystalCrusher),
+                            new Research(crystalBore),
                             new Produce(silicadust)
                         ),() -> {});
                     });

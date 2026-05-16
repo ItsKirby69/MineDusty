@@ -699,6 +699,8 @@ public class DustEnv {
 		//region Misc
         snowVent = new SteamVent("snow-vent"){{
             parent = blendGroup = denseSnow;
+			effectColor = Color.valueOf("#4e5e6b");
+			effect = DustyEffects.ventSteam;
             attributes.set(Attribute.steam, 1f);
         }};
 

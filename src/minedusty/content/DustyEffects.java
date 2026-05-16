@@ -6,7 +6,9 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Vec2;
+import arc.util.Tmp;
 import mindustry.entities.*;
+import mindustry.entities.effect.*;
 import mindustry.graphics.*;
 import mindustry.world.Block;
 import minedusty.graphics.DustPalette;
@@ -24,6 +26,19 @@ public class DustyEffects {
 	public static final Rand rand = new Rand();
 	public static final Vec2 v = new Vec2();
 
+	// Colors given effects (for turrets using same effect but diff ammo colors)
+	public static Effect colorEffect(Effect effect, Color color){
+		return new Effect(effect.lifetime, e -> {
+			e.color.set(color);
+			effect.renderer.get(e);
+		}){{
+			clip = effect.clip;
+			followParent = effect.followParent;
+			rotWithParent = effect.rotWithParent;
+			layer = effect.layer;
+		}};
+	}
+
 	public static Effect orbChargeBegin(float lifetime){
 		return new Effect(lifetime, e -> {
 			float margin = 1f - Mathf.curve(e.fin(), 0.9f);
@@ -36,9 +51,56 @@ public class DustyEffects {
 			Fill.circle(e.x, e.y, fin * 4f);
 		}).followParent(true).rotWithParent(true);
 	}
+
+	public static ParticleEffect flashEffect(Color fromColor, Color toColor, float width, float life){
+		return new ParticleEffect(){{
+			followParent = rotWithParent = true;
+			length = 0f;
+			particles = 1;
+			region = "minedusty-flash1";
+			lifetime = life;
+			cone = 0f;
+			sizeFrom = width;
+			sizeTo = 0f;
+			colorFrom = fromColor;
+			colorTo = toColor;
+			baseRotation = 90f;
+		}};
+	}
+
+	public static ParticleEffect waveEffect(Color fromColor, Color toColor, float width, float life){
+		return new ParticleEffect(){{
+			followParent = false;
+			length = 0f;
+			particles = 1;
+			region = "minedusty-wave1";
+			lifetime = life;
+			cone = 0f;
+			sizeFrom = 0f;
+			sizeTo = width;
+			colorFrom = fromColor;
+			colorTo = toColor;
+			baseRotation = 180f;
+			interp = Interp.pow2Out;
+		}};
+	}
+
 	public static final Effect
 
 	none = new Effect(0f, 0f, e -> {}),
+
+    ventSteam = new Effect(140f, e -> {
+        color(e.color, Tmp.c1.set(e.color).mul(0.5f, 0.5f, 0.5f, 1f), e.fin());
+
+        alpha(e.fslope() * 0.78f);
+
+        float length = 3f + e.finpow() * 10f;
+        rand.setSeed(e.id);
+        for(int i = 0; i < rand.random(3, 5); i++){
+            v.trns(rand.random(360f), rand.random(length));
+            Fill.circle(e.x + v.x, e.y + v.y, rand.random(1.2f, 3.5f) + e.fslope() * 1.1f);
+        }
+    }).layer(Layer.darkness - 1),
 
     temporshootSmall = new Effect(8, e -> {
         color(DustPalette.chlorophyteBullet, DustPalette.chlorophyte, e.fin());
@@ -139,21 +201,17 @@ public class DustyEffects {
 		reset();
     }),
 
-	sandExplosion = new Effect(20, e -> {
-        color(DustPalette.sandColor);
-
+	dustExplosion = new Effect(20, e -> {
+		color(e.color);
         e.scaled(5, i -> {
             stroke(3f * i.fout());
             Lines.circle(e.x, e.y, 3f + i.fin() * 10f);
         });
 
-        color(DustPalette.sandColorBack);
-
         randLenVectors(e.id, 5, 2f + 23f * e.finpow(), (x, y) -> {
             Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.5f);
         });
 
-        color(DustPalette.sandColor);
         stroke(e.fout());
 
         randLenVectors(e.id + 1, 4, 1f + 23f * e.finpow(), (x, y) -> {
@@ -161,30 +219,6 @@ public class DustyEffects {
         });
 
         Drawf.light(e.x, e.y, 50f, DustPalette.sandColor, 0.8f * e.fout());
-    }),
-
-	dustExplosion = new Effect(20, e -> {
-        color(Pal.siliconAmmoFront);
-
-        e.scaled(8, i -> {
-            stroke(3f * i.fout());
-            Lines.circle(e.x, e.y, 3f + i.fin() * 10f);
-        });
-
-        color(Pal.siliconAmmoBack);
-
-        randLenVectors(e.id, 5, 2f + 23f * e.finpow(), (x, y) -> {
-            Fill.circle(e.x + x, e.y + y, e.fout() * 3f + 0.5f);
-        });
-
-        color(Pal.siliconAmmoFront);
-        stroke(e.fout());
-
-        randLenVectors(e.id + 1, 4, 1f + 23f * e.finpow(), (x, y) -> {
-            lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1f + e.fout() * 3f);
-        });
-
-        Drawf.light(e.x, e.y, 20f, Pal.siliconAmmoFront, 0.8f * e.fout());
     }),
 
 	sparkles = new Effect(40, e -> {

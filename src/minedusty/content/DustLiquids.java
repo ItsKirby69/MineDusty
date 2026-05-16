@@ -15,7 +15,7 @@ public class DustLiquids {
 	public static void load(){
 		saltWater = new Liquid("liquid-salt-water", Color.valueOf("#a2c9e4ff")){{}};
 		bioLiquid = new Liquid("bio-liquid", Color.valueOf("#05dd83ff")){{
-			effect = StatusEffects.wet;
+			effect = DustStatusEffects.healingWash;
 			boilPoint = 0.5f;
 			lightColor = Color.valueOf("#0bceceff").a(0.45f);
             gasColor = Color.valueOf("#a9f2e4");

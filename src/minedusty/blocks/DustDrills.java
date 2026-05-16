@@ -23,8 +23,8 @@ import static mindustry.content.Items.*;
 public class DustDrills {
     public static Block offshoreDrill, copperDrill, chloroDrill, solarPump, lobePump;
 
-	public static Block crystalCrusher;
-    public static Block crystalBore, gyratoryDrill;
+	public static Block crystalBore;
+    public static Block gyratoryDrill; // DrawMultiRotationRegion?
 
     public static void loadContent(){
         solarPump = new SolarPump("solar-pump"){{
