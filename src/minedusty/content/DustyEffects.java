@@ -270,10 +270,18 @@ public class DustyEffects {
 
 	airBubble = new Effect(100f, e -> {
 		alpha(e.fin() * 0.8f);
+		int frame = Math.min((int)(renderer.bubbles.length * Mathf.curveMargin(e.fin(), 0.06f, 0.06f)), renderer.bubbles.length - 1);
+		float prevFin = (e.time - 1f) / e.lifetime;
+		int prevFrame = Math.min((int)(renderer.bubbles.length * Mathf.curveMargin(prevFin, 0.06f, 0.06f)), renderer.bubbles.length - 1);
+		
+		if(frame >= 9 && prevFrame < 9){
+			DustSounds.envBubble.at(e.x, e.y, Mathf.random(0.96f, 1.1f));
+		}
+
 		randLenVectors(e.id, 1, e.fin() * 10f, (x, y) -> {
-			rect(renderer.bubbles[Math.min((int)(renderer.bubbles.length * Mathf.curveMargin(e.fin(), 0.06f, 0.06f)), renderer.bubbles.length - 1)], e.x + x, e.y + y);
+			rect(renderer.bubbles[frame], e.x + x, e.y + y);
 		});
-	}).layer(Layer.darkness - 1f), 
+	}).layer(Layer.darkness - 1f),
 	
 	marshGas = new Effect(1200f, e -> {
 		color(Color.valueOf("#72a027ff"), Color.valueOf("#9fb12dff"), e.fin());

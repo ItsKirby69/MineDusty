@@ -407,7 +407,7 @@ public class DustEnv {
 			lightRadius = 50f;
 			lightColor = Color.orange.cpy().a(0.3f);
 
-			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
+			addEffect(DustyEffects.airBubble);
 		}};
 		magmaWater = new WaterTileEffect("magma-water", 3){{
 			speedMultiplier = 0.5f;
@@ -419,7 +419,7 @@ public class DustEnv {
 			lightRadius = 70f;
 			lightColor = Color.orange.cpy().a(0.3f);
 
-			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
+			addEffect(DustyEffects.airBubble);
 		}};
 		trophotWater = new WaterTileEffect("trop-hotrock-water", 3){{
 			speedMultiplier = 0.6f;
@@ -430,7 +430,7 @@ public class DustEnv {
             lightRadius = 50f;
             lightColor = Color.orange.cpy().a(0.3f);
 
-			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
+			addEffect(DustyEffects.airBubble);
 		}};
 		
 		tropmagmaWater = new WaterTileEffect("trop-magma-water", 3){{
@@ -443,7 +443,7 @@ public class DustEnv {
 			lightRadius = 70f;
 			lightColor = Color.orange.cpy().a(0.3f);
 
-			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
+			addEffect(DustyEffects.airBubble);
 		}};
 		
 		deeptrophotWater = new WaterTileEffect("trop-hotrock-deep-water", 3){{
@@ -455,7 +455,7 @@ public class DustEnv {
 			lightRadius = 30f;
 			lightColor = Color.orange.cpy().a(0.3f);
 
-			addEffect(DustyEffects.airBubble, DustSounds.bubblePop);
+			addEffect(DustyEffects.airBubble);
 		}};
 
 		algaeWater = new WaterTileEffect("algae-water", 3){{
