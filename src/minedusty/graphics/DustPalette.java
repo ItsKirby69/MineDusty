@@ -32,14 +32,14 @@ public class DustPalette {
 	sandColor = Color.valueOf("#f3e2b3"),
 	sandColorBack = Color.valueOf("#c2b280"),
 
-    leadAmmoBack = Color.valueOf("#9b7dd8ff"),
-    leadAmmoFront = Color.valueOf("#e4daeeff"),
+    leadAmmoBack = Color.valueOf("#887dd8"),
+    leadAmmoFront = Color.valueOf("#cdb8e2"),
 
 	saltColor = Color.valueOf("#c8d7e2"),
 	saltColorBack = Color.valueOf("#aac4d5"),
 
 	amethyst = Color.valueOf("#e9e0f5"),
-	amethystBack = Color.valueOf("#ad8bdc"),
+	amethystBack = Color.valueOf("#c68bdc"),
 
 	waterFront = Color.valueOf("#bad7ff"),
 
@@ -48,7 +48,7 @@ public class DustPalette {
 	temporDarkOutline = Color.valueOf("#362014"),
 	temporOutline = Color.valueOf("#4f3324"),
 
-	chlorophyteBullet = Color.valueOf("#bdf673"),
+	chlorophyteBullet = Color.valueOf("#d6fda4"),
 	aquameriumBullet = Color.valueOf("#caf5ff"),
 
 	// Divine palette

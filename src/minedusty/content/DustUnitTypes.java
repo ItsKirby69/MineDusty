@@ -1,12 +1,15 @@
 package minedusty.content;
 
 import arc.graphics.Color;
+import arc.math.Interp;
 import ent.anno.Annotations.*;
 import mindustry.ai.types.*;
 import mindustry.content.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.ParticleEffect;
+import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.entities.units.WeaponMount;
@@ -228,7 +231,7 @@ public class DustUnitTypes extends UnitTypes{
 
 				cooldownTime = 100f;
 				ejectEffect = Fx.none;
-				MultiEffect multEff = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin(45f));
+				MultiEffect multEff = new MultiEffect(DustyEffects.colorEffect(DustyEffects.orbCharge, DustPalette.chlorophyteWater), DustyEffects.orbChargeBegin(45f, DustPalette.chlorophyteWater));
 				shoot.firstShotDelay = multEff.lifetime;
 				parentizeEffects = true;
 
@@ -406,6 +409,7 @@ public class DustUnitTypes extends UnitTypes{
 		//endregion
 		//region Tempor
 
+		// Poisonous plants
         actaea = new TemporUnitType("actaea"){{
 			constructor = MechUnit::create;
 			// drawCell = false;

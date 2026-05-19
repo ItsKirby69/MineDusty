@@ -13,7 +13,9 @@ public class DustLiquids {
 	
 	//temp
 	public static void load(){
-		saltWater = new Liquid("liquid-salt-water", Color.valueOf("#a2c9e4ff")){{}};
+		saltWater = new Liquid("liquid-salt-water", Color.valueOf("#a2c9e4ff")){{
+			// effect = DustStatusEffects.saltcorrosion;
+		}};
 		bioLiquid = new Liquid("bio-liquid", Color.valueOf("#05dd83ff")){{
 			effect = DustStatusEffects.healingWash;
 			boilPoint = 0.5f;

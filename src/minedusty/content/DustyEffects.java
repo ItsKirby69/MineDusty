@@ -39,31 +39,44 @@ public class DustyEffects {
 		}};
 	}
 
-	public static Effect orbChargeBegin(float lifetime){
-		return new Effect(lifetime, e -> {
+	public static Effect orbChargeBegin(float lifetime, Color color){
+		return colorEffect( new Effect(lifetime, e -> {
 			float margin = 1f - Mathf.curve(e.fin(), 0.9f);
 			float fin = Math.min(margin, e.fin());
 
-			color(DustPalette.chlorophyteWater);
+			color(e.color);
 			Fill.circle(e.x, e.y, fin * 6f);
 
 			color();
 			Fill.circle(e.x, e.y, fin * 4f);
-		}).followParent(true).rotWithParent(true);
+		}).followParent(true).rotWithParent(true), color);
 	}
 
 	public static ParticleEffect flashEffect(Color fromColor, Color toColor, float width, float life){
+		return flashEffect(fromColor, toColor, width, life, 0f, 0f,"minedusty-flash-hori");
+	}
+
+	public static ParticleEffect flashEffect(Color fromColor, Color toColor, float width, float life, float cone, float spin){
+		return flashEffect(fromColor, toColor, width, life, cone, spin, "minedusty-flash-hori");
+	}
+
+	public static ParticleEffect flashEffect(Color fromColor, Color toColor, float width, float life, float conen, float spinn, String flash){
+		return partEffect(fromColor, toColor, width, 0f, life, conen, spinn, 1, 0f, flash);
+	}
+
+	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float lengthh, String flash){
 		return new ParticleEffect(){{
 			followParent = rotWithParent = true;
-			length = 0f;
-			particles = 1;
-			region = "minedusty-flash1";
+			length = lengthh;
+			particles = parts;
+			region = flash;
 			lifetime = life;
-			cone = 0f;
-			sizeFrom = width;
-			sizeTo = 0f;
+			cone = conen;
+			spin = spinn;
+			sizeFrom = fromWidth;
+			sizeTo = toWidth;
 			colorFrom = fromColor;
-			colorTo = toColor;
+			colorTo = toColor.cpy().a(0f);
 			baseRotation = 90f;
 		}};
 	}
@@ -73,13 +86,13 @@ public class DustyEffects {
 			followParent = false;
 			length = 0f;
 			particles = 1;
-			region = "minedusty-wave1";
+			region = "minedusty-shockwave";
 			lifetime = life;
 			cone = 0f;
 			sizeFrom = 0f;
 			sizeTo = width;
 			colorFrom = fromColor;
-			colorTo = toColor;
+			colorTo = toColor.cpy().a(0f);
 			baseRotation = 180f;
 			interp = Interp.pow2Out;
 		}};
@@ -102,6 +115,24 @@ public class DustyEffects {
         }
     }).layer(Layer.darkness - 1),
 
+    hitBulletSpread = new Effect(13, e -> {
+        color(Color.white, e.color, e.fin());
+        stroke(0.5f + e.fout() * 1.5f);
+
+        randLenVectors(e.id, 5, e.finpow() * 30f, e.rotation, 24f, (x, y) -> {
+            float ang = Mathf.angle(x, y);
+            lineAngle(e.x + x, e.y + y, ang, e.fout() * 4 + 1.5f);
+        });
+    }),
+
+    shootSpikeColor = new Effect(8, e -> {
+        color(e.color, Pal.lightOrange, e.fin());
+		float interp = Interp.pow2Out.apply(e.fout());
+        float w = 1f + 5 * interp;
+        Drawf.tri(e.x, e.y, w, 25f * interp, e.rotation);
+        Drawf.tri(e.x, e.y, w, 3f * interp, e.rotation + 180f);
+    }),
+
     temporshootSmall = new Effect(8, e -> {
         color(DustPalette.chlorophyteBullet, DustPalette.chlorophyte, e.fin());
         float w = 1f + 5 * e.fout();
@@ -120,7 +151,7 @@ public class DustyEffects {
     }),
 
     orbCharge = new Effect(60f, e -> {
-        color(DustPalette.chlorophyteWater);
+        color(e.color);
 		alpha(1 - e.fin());
         randLenVectors(e.id, 14, 1f + 20f * e.fout(), e.rotation, 200f, (x, y) -> {
             lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fslope() * 3f + 1f);

@@ -4,13 +4,14 @@ import static mindustry.content.Items.*;
 import static mindustry.type.ItemStack.with;
 import static minedusty.content.DustItems.*;
 import static minedusty.content.DustLiquids.*;
+import static minedusty.content.DustyEffects.*;
 
 import arc.graphics.Color;
 import arc.math.Interp;
 import arc.struct.EnumSet;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.*;
 import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -21,6 +22,7 @@ import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.DrawTurret;
 import mindustry.world.meta.BlockFlag;
 import minedusty.content.*;
+import minedusty.entities.effect.SEffect;
 import minedusty.graphics.DustPalette;
 import minedusty.world.blocks.defense.ChargeTurret;
 import minedusty.world.blocks.distribution.BuoyMassDriver;
@@ -87,6 +89,7 @@ public class DustTurrets {
                     splashDamage = 27f * 1.5f;
                     splashDamageRadius = 20f;
                     fragBullets = 6;
+                    fragRandomSpread = 90f;
                     fragBullet = new BasicBulletType(3f, 5){{
                         width = 5f;
                         height = 10f;
@@ -112,13 +115,14 @@ public class DustTurrets {
                     splashDamage = 32f * 1.5f;
                     splashDamageRadius = 25f;
                     fragBullets = 8;
+                    fragRandomSpread = 90f;
                     reloadMultiplier = 1.15f;
                     trailLength = 5;
                     trailWidth = 2.5f;
-                    fragBullet = new BasicBulletType(4f, 5){{
+                    fragBullet = new BasicBulletType(2.5f, 5){{
                         width = 6.5f;
                         height = 9f;
-                        shrinkY = 1.2f;
+                        shrinkY = 0.8f;
                         lifetime = 12f;
                         hitColor = backColor = trailColor = DustPalette.amethystBack;
                         frontColor = DustPalette.amethyst;
@@ -203,21 +207,18 @@ public class DustTurrets {
         pistil = new ChargeTurret("pistil"){{
             requirements(Category.turret, with(chlorophyte, 60, graphite, 45));
             researchCost = with(chlorophyte, 450);
-            MultiEffect multEff = new MultiEffect(DustyEffects.orbCharge, DustyEffects.orbChargeBegin(120f));
             ammo(
                 DustLiquids.bioLiquid, new BasicBulletType(1.2f, 60f, "minedusty-energy-orb"){{
                     lifetime = 230f;
                     width = height = 15f;
                     lightRadius = 30f;
                     shrinkX = shrinkY = 0.25f;
-                    chargeEffect = multEff;
-                    hitEffect = DustyEffects.hitChloroSpark;
-                    despawnEffect = Fx.none;
+                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.chlorophyteWater), DustyEffects.orbChargeBegin(120f, DustPalette.chlorophyteWater));
                     pierceCap = 10;
                     pierceBuilding = false;
                     backColor = DustPalette.chlorophyteBack;
                     lightColor = DustPalette.chlorophyte;
-                    frontColor = hitColor= DustPalette.chlorophyteWater;
+                    frontColor = hitColor = DustPalette.chlorophyteWater;
                     ammoMultiplier = 0.4f;
 
                     homingPower = 0.024f;
@@ -225,6 +226,12 @@ public class DustTurrets {
 
                     splashDamage = 40f;
                     splashDamageRadius = 16f;
+                    //WIP
+                    despawnEffect = hitEffect = new MultiEffect(
+                        hitChloroSpark, Fx.hitLiquid, 
+                        DustyEffects.waveEffect(Color.white.cpy(), DustPalette.chlorophyteWater, 20f, 50f),
+                        new SoundEffect(DustSounds.hitOrb, Fx.none)
+                    );
                 }},
                 saltWater, new BasicBulletType(1.4f, 45f, "minedusty-energy-orb"){{
                     lifetime = 180f;
@@ -232,10 +239,8 @@ public class DustTurrets {
                     lightRadius = 30f;
                     lightOpacity = 0.2f;
                     shrinkX = shrinkY = 0.25f;
-                    chargeEffect = multEff;
-                    hitEffect = DustyEffects.hitChloroSpark;
+                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.saltColor), DustyEffects.orbChargeBegin(120f, DustPalette.saltColor));
                     status = DustStatusEffects.saltcorrosion;
-                    despawnEffect = Fx.none;
                     pierceCap = 5;
                     pierceBuilding = false;
                     reloadMultiplier = 1.25f;
@@ -248,6 +253,12 @@ public class DustTurrets {
 
                     splashDamage = 25f;
                     splashDamageRadius = 16f;
+                    // WIP
+                    despawnEffect = hitEffect = new MultiEffect(
+                        hitChloroSpark, Fx.hitLiquid, 
+                        DustyEffects.waveEffect(Color.white.cpy(), DustPalette.saltColor, 20f, 40f),
+                        new SoundEffect(DustSounds.hitOrb, Fx.none)
+                    );
                 }},
                 Liquids.water, new BasicBulletType(2.2f, 15f, "minedusty-energy-orb"){{
                     lifetime = 160f;
@@ -255,15 +266,14 @@ public class DustTurrets {
                     lightRadius = 20f;
                     lightOpacity = 0.2f;
                     shrinkX = shrinkY = 0.25f;
-                    chargeEffect = multEff;
+                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.waterFront), DustyEffects.orbChargeBegin(120f, DustPalette.waterFront));
                     hitEffect = DustyEffects.hitChloroSpark;
                     status = StatusEffects.wet;
-                    despawnEffect = Fx.none;
                     pierceCap = 10;
                     pierceBuilding = false;
                     reloadMultiplier = 1.5f;
-                    backColor = hitColor = Pal.water;
-                    lightColor = frontColor = DustPalette.waterFront;
+                    backColor = Pal.water;
+                    lightColor = hitColor = frontColor = DustPalette.waterFront;
                     ammoMultiplier = 0.1f;
 
                     homingPower = 0.02f;
@@ -271,6 +281,12 @@ public class DustTurrets {
 
                     splashDamage = 25f;
                     splashDamageRadius = 34f;
+                    
+                    despawnEffect = hitEffect = new MultiEffect(
+                        hitChloroSpark, colorEffect(Fx.hitLiquid, Pal.water), 
+                        DustyEffects.waveEffect(Color.white.cpy(), DustPalette.waterFront, 12f, 25f),
+                        new SoundEffect(DustSounds.hitOrb, Fx.none)
+                    );
                 }}
             );
 
@@ -294,6 +310,7 @@ public class DustTurrets {
             shoot.firstShotDelay = 120;
             shootY = 5f;
             targetAir = false;
+            extinguish = false;
             ammoPerShot = 20;
 
             rotateSpeed = 1.5f;
@@ -303,8 +320,8 @@ public class DustTurrets {
 
             loopSound = Sounds.none;
             shootEffect = Fx.hitLiquid;
-            shootSound = Sounds.shootSap;
-            chargeSound = Sounds.chargeLancer;
+            shootSound = DustSounds.shootOrb;
+            chargeSound = DustSounds.chargeOrb;
             outlineColor = DustPalette.turretOutline;
             outlineRadius = 0;
         }};
@@ -318,20 +335,55 @@ public class DustTurrets {
                     knockback = 0.9f;
                     drag = 0.01f;
                     layer = Layer.bullet - 2f;
+                    puddleLiquid = Liquids.water;
+                    puddles = 4;
+                    puddleSize = 12;
+                    puddleAmount = 18;
+                    despawnHit = true;
                 }},
                 Liquids.slag, new LiquidBulletType(Liquids.slag){{
                     damage = 5f;
-                    drag = 0.01f;
+                    drag = 0.016f;
+                    puddleLiquid = Liquids.slag;
+                    puddles = 3;
+                    puddleSize = 10;
+                    puddleAmount = 15;
+                    despawnHit = true;
+                }},
+                // Make it more visually viscous
+                Liquids.oil, new LiquidBulletType(Liquids.oil){{
+                    damage = 5f;
+                    drag = 0.016f;
+                    puddleLiquid = Liquids.oil;
+                    trailColor = Liquids.oil.color;
+                    trailEffect = partEffect(Color.valueOf("#000000"), Color.valueOf("#313131"), 8f, 0f, 8f, 0f,0f,1, 0f, "circle");
+                    puddles = 3;
+                    puddleSize = 10;
+                    puddleAmount = 15;
+                    despawnHit = true;
+                    soundPitchMax = 0.6f;
+                    soundPitchMin = 0.55f;
+                    layer = Layer.bullet - 2f;
                 }},
                 bioLiquid, new LiquidBulletType(bioLiquid){{
                     damage = 2f;
                     splashDamage = 1f;
                     splashDamageRadius = 10f;
                     drag = 0.01f;
+                    puddleLiquid = bioLiquid;
+                    puddles = 4;
+                    puddleSize = 12;
+                    puddleAmount = 15;
+                    despawnHit = true;
                 }},
                 saltWater, new LiquidBulletType(saltWater){{
                     status = DustStatusEffects.saltcorrosion;
                     drag = 0.015f;
+                    puddleLiquid = saltWater;
+                    puddles = 4;
+                    puddleSize = 12;
+                    puddleAmount = 18;
+                    despawnHit = true;
                 }}
             );
             drawer = new DrawTurret("braced-");
@@ -342,6 +394,18 @@ public class DustTurrets {
             shootCone = 60f;
             liquidCapacity = 12f;
             shootEffect = Fx.shootLiquid;
+            smokeEffect = new ParticleEffect(){{
+                colorFrom = Color.valueOf("#cccccc80");
+                colorTo = Color.valueOf("#ffffff00");
+                interp = Interp.pow4Out;
+                sizeInterp = Interp.pow2In;
+                particles = 3;
+                lifetime = 55f;
+                cone = 21f;
+                length = 26f;
+                sizeFrom = 2.5f;
+                sizeTo = 8f;
+            }};
             outlineColor = DustPalette.turretOutline;
             range = 95f;
             scaledHealth = 220f;
@@ -425,9 +489,10 @@ public class DustTurrets {
                     ammoMultiplier = 2f;
                     splashDamage = 3.5f;
                     splashDamageRadius = 12f;
-                    hitEffect = DustyEffects.sandExplosion;
+                    hitEffect = dustExplosion;
                     despawnEffect = Fx.hitBulletColor;
-                    hitColor = backColor = trailColor = DustPalette.sandColorBack;
+                    hitColor = DustPalette.sandColor;
+                    backColor = trailColor = DustPalette.sandColorBack;
                     frontColor = DustPalette.sandColor;
                 }},
                 silicadust, new BasicBulletType(4f, 7.5f){{
@@ -445,9 +510,10 @@ public class DustTurrets {
                     trailLength = 5;
                     trailWidth = 3f;
 
-                    hitEffect = DustyEffects.dustExplosion;
+                    hitEffect = dustExplosion;
                     despawnEffect = Fx.hitBulletColor;
-                    hitColor = backColor = trailColor = Pal.siliconAmmoBack;
+                    hitColor = DustPalette.sandColor;
+                    backColor = trailColor = DustPalette.sandColorBack;
                     frontColor = Pal.siliconAmmoFront;
                 }},
                 amethyst, new BasicBulletType(5.1f, 12f){{
@@ -514,9 +580,10 @@ public class DustTurrets {
                     lifetime = 15f;
                     splashDamage = 25f;
                     splashDamageRadius = 12f;
-                    hitEffect = DustyEffects.sandExplosion;
+                    hitEffect = dustExplosion;
                     despawnEffect = Fx.hitBulletColor;
-                    hitColor = backColor = trailColor = DustPalette.sandColorBack;
+                    hitColor = DustPalette.sandColor;
+                    backColor = trailColor = DustPalette.sandColorBack;
                     frontColor = DustPalette.sandColor;
                 }},
                 amethyst, new BasicBulletType(8.1f, 58f, "minedusty-shard-bullet"){{
@@ -593,6 +660,7 @@ public class DustTurrets {
                     shrinkInterp = Interp.slope;
 
                     fragBullets = 3;
+                    fragRandomSpread = 90f;
                     fragBullet = new BasicBulletType(3f, 12){{
                         keepVelocity = true;
                         inaccuracy = 4;
@@ -631,6 +699,7 @@ public class DustTurrets {
                     shrinkInterp = Interp.slope;
 
                     fragBullets = 6;
+                    fragRandomSpread = 120f;
                     fragBullet = new BasicBulletType(3f, 10){{
                         keepVelocity = true;
                         inaccuracy = 1;
@@ -668,6 +737,7 @@ public class DustTurrets {
                     shrinkInterp = Interp.slope;
 
                     fragBullets = 3;
+                    fragRandomSpread = 120f;
                     fragBullet = new BasicBulletType(3f, 12){{
                         keepVelocity = true;
                         inaccuracy = 1;
@@ -724,25 +794,35 @@ public class DustTurrets {
                     lifetime = 50f;
                     width = 7f;
                     height = 10f;
-                    shootEffect = new MultiEffect(Fx.shootSmallColor, Fx.colorSpark);
-                    hitEffect = despawnEffect = Fx.hitBulletColor;
+                    hitEffect = despawnEffect = new MultiEffect(
+                        waveEffect(Color.white.cpy(), DustPalette.chlorophyte, 8f, 25f),
+                        hitBulletSpread, new SoundEffect(DustSounds.hitMetal, Fx.none)
+                    );
                     pierce = true;
                     pierceCap = 6;
                     pierceBuilding = false;
-                    hitColor = backColor = trailColor = DustPalette.chlorophyteBack;
-                    frontColor = Color.white;
-                    trailWidth = 1.8f;
+                    hitColor = backColor = DustPalette.chlorophyteBack;
+                    trailColor = DustPalette.chlorophyte.cpy().a(0.7f);
+                    frontColor = DustPalette.chlorophyteBullet;
+                    shootSound = Sounds.shootBreachCarbide;
+                    trailWidth = 2f;
                     trailLength = 5;
                     ammoMultiplier = 3f;
-                    // splashDamage = 20f;
-                    // splashDamageRadius = 16f;
+
+                    shootEffect = new MultiEffect(
+                        DustyEffects.flashEffect(Color.white.cpy(), DustPalette.chlorophyte, 14f, 10f, 0f, 4f, "minedusty-flash-cross"),
+                        colorEffect(DustyEffects.shootSpikeColor, DustPalette.chlorophyteBullet),
+                        Fx.colorSpark
+                    );
                 }},
                 lead, new BasicBulletType(4.5f, 12){{
                     lifetime = 50f;
                     width = 6f;
                     height = 8f;
-                    shootEffect = new MultiEffect(Fx.shootSmallColor, Fx.colorSpark);
-                    hitEffect = despawnEffect = Fx.hitBulletColor;
+                    hitEffect = despawnEffect = new MultiEffect(
+                        waveEffect(Color.white.cpy(), DustPalette.leadAmmoBack, 8f, 25f),
+                        hitBulletSpread, new SoundEffect(DustSounds.hitMetal, Fx.none)
+                    );
                     splashDamage = 10f;
                     splashDamageRadius = 15f;
                     hitColor = backColor = trailColor = lead.color;
@@ -752,30 +832,41 @@ public class DustTurrets {
                     ammoMultiplier = 2f;
                     inaccuracy = 2f;
                     reloadMultiplier = 1.15f;
+                    shootEffect = new MultiEffect(
+                        DustyEffects.flashEffect(Color.white.cpy(), DustPalette.leadAmmoBack, 14f, 10f),
+                        DustyEffects.shootSpikeColor,
+                        Fx.colorSpark
+                    );
                 }},
                 silicon, new BasicBulletType(5f, 18){{
                     lifetime = 50f;
                     width = 7f;
                     height = 10f;
-                    shootEffect = new MultiEffect(Fx.shootSmallColor, Fx.colorSpark);
-                    hitEffect = despawnEffect = Fx.hitBulletColor;
+                    hitEffect = despawnEffect = new MultiEffect(
+                        waveEffect(Color.white.cpy(), Pal.siliconAmmoBack, 8f, 25f),
+                        hitBulletSpread, new SEffect(DustSounds.hitMetal, Fx.none, 1.0f)
+                    );
                     pierce = false;
                     pierceCap = 3;
                     pierceBuilding = false;
                     hitColor = backColor = trailColor = Pal.siliconAmmoBack;
                     frontColor = Color.white;
                     trailLength = 7;
-                    trailWidth = 3f;
+                    trailWidth = 2.8f;
                     homingPower = 0.1f;
                     homingRange = 50f;
                     
                     ammoMultiplier = 3f;
                     reloadMultiplier = 1.1f;
+                    
+                    shootEffect = new MultiEffect(
+                        DustyEffects.flashEffect(Color.white.cpy(), Pal.siliconAmmoFront, 14f, 10f),
+                        DustyEffects.shootSpikeColor,
+                        Fx.colorSpark
+                    );
                 }}
-
             );
-            drawer = new DrawTurret("braced-");
-
+            drawer = new DrawTurret("braced-");           
             reload = 75f;
             range = 140f;
             recoil = 1f;
@@ -792,8 +883,10 @@ public class DustTurrets {
 
             scaledHealth = 170;
             // TODO more lasery shoot sfx
-            shootSound = Sounds.shootScatter;
+            shootSound = Sounds.shootBreach;
             outlineColor = DustPalette.turretOutline;
+
+            // TODO replace particle effect with custom effect class
 
             // consumeLiquid(Liquids.water, 12f/60f).boost();
 

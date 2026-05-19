@@ -15,6 +15,11 @@ public class DustSounds {
 		chromartillery = new Sound(),
 		chromalastershoot = new Sound(),
 
+		chargeOrb = new Sound(),
+		shootOrb = new Sound(),
+		hitOrb = new Sound(),
+		hitMetal = new Sound(),
+
 		// SFX
 		steam = new Sound(),
 		brittle = new Sound(),
@@ -31,6 +36,11 @@ public class DustSounds {
 			chromaPew2 = loadSound("chromaPew2");
 			chromartillery = loadSound("chromartillery");
 			chromalastershoot = loadSound("chromalastershoot");
+
+			chargeOrb = loadSound("chargeOrb");
+			shootOrb = loadSound("shootOrb");
+			hitOrb = loadSound("hitOrb");
+			hitMetal = loadSound("hitMetal");
 			
 			steam = loadSound("steam");
 			brittle = loadSound("brittle");

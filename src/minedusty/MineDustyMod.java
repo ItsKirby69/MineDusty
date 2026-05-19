@@ -81,13 +81,13 @@ public class MineDustyMod extends Mod {
 			DustShaders.load();
 			DustCacheLayers.load();
 		}
-		// teams, items, fluids, effects. Thanks @sl0tterleet
+		// ordering of content Thanks @sl0tterleet
 		DustTeams.load();
 		DustSounds.load();
 		DustItems.load();
+		DustStatusEffects.load();
 		DustLiquids.load();
 		DustAttributes.load();
-		DustStatusEffects.load();
 		DustWeathers.load();
 		DustUnitTypes.load();
 
