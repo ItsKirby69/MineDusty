@@ -68,7 +68,8 @@ public class FrostModule {
         float heatTimer = 0f;
         float brittleTimer = 0f;
         
-        ObjectSet<Building> counted = new ObjectSet<>(); //Copy of checked buildings
+        /** List of already checked buildings. So blocks larger than size 1 doesn't check a source more than once. */
+        ObjectSet<Building> counted = new ObjectSet<>(); 
     
         public void init(Building build, FrostModule module){
             sizeResist = 1f + (build.block.size - 1) * module.resistanceFactor;
