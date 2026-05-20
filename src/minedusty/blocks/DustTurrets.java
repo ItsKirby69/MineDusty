@@ -218,8 +218,10 @@ public class DustTurrets {
                     pierceBuilding = false;
                     backColor = DustPalette.chlorophyteBack;
                     lightColor = DustPalette.chlorophyte;
-                    frontColor = hitColor = DustPalette.chlorophyteWater;
+                    frontColor = hitColor = trailColor = DustPalette.chlorophyteWater;
                     ammoMultiplier = 0.4f;
+                    trailInterval = 5.5f;
+                    trailEffect = Fx.missileTrail;
 
                     homingPower = 0.024f;
                     homingRange = 180f;
@@ -245,8 +247,10 @@ public class DustTurrets {
                     pierceBuilding = false;
                     reloadMultiplier = 1.25f;
                     backColor = DustPalette.saltColorBack;
-                    lightColor = frontColor = hitColor = DustPalette.saltColor;
+                    lightColor = frontColor = hitColor = trailColor = DustPalette.saltColor;
                     ammoMultiplier = 0.25f;
+                    trailInterval = 5f;
+                    trailEffect = Fx.missileTrail;
 
                     homingPower = 0.02f;
                     homingRange = 120f;
@@ -273,8 +277,10 @@ public class DustTurrets {
                     pierceBuilding = false;
                     reloadMultiplier = 1.5f;
                     backColor = Pal.water;
-                    lightColor = hitColor = frontColor = DustPalette.waterFront;
+                    lightColor = hitColor = frontColor = trailColor = DustPalette.waterFront;
                     ammoMultiplier = 0.1f;
+                    trailInterval = 3.5f;
+                    trailEffect = Fx.missileTrail;
 
                     homingPower = 0.02f;
                     homingRange = 120f;
@@ -284,7 +290,7 @@ public class DustTurrets {
                     
                     despawnEffect = hitEffect = new MultiEffect(
                         hitChloroSpark, colorEffect(Fx.hitLiquid, Pal.water), 
-                        DustyEffects.waveEffect(Color.white.cpy(), DustPalette.waterFront, 12f, 25f),
+                        DustyEffects.waveEffect(Color.white.cpy(), DustPalette.waterFront, 16f, 25f),
                         new SoundEffect(DustSounds.hitOrb, Fx.none)
                     );
                 }}
@@ -356,7 +362,8 @@ public class DustTurrets {
                     drag = 0.016f;
                     puddleLiquid = Liquids.oil;
                     trailColor = Liquids.oil.color;
-                    trailEffect = partEffect(Color.valueOf("#000000"), Color.valueOf("#313131"), 8f, 0f, 8f, 0f,0f,1, 0f, "circle");
+                    trailChance = 0.05f;
+                    trailEffect = partEffect(Color.valueOf("#000000"), Color.valueOf("#313131"), 8f, 0f, 8f, 60f,0f,1, 0f, "circle");
                     puddles = 3;
                     puddleSize = 10;
                     puddleAmount = 15;
@@ -635,29 +642,17 @@ public class DustTurrets {
             requirements(Category.turret, with(oxidecopper, 55, graphite, 12));
             researchCost = with(oxidecopper, 450, graphite, 300);
             ammo(
-                aquamerium, new FlakBulletType(3f, 17){{
+                aquamerium, new ArtilleryBulletType(3f, 17){{
                     knockback = 0.4f;
                     lifetime = 40;
                     width = height = 11;
                     splashDamage = 15f;
                     splashDamageRadius = 24f;
-                    collidesTiles = false;
-                    collides = false;
-                    collidesAir = false;
-                    scaleLife = true;
 
                     hitColor = backColor = trailColor = DustPalette.aquameriumBack;
                     frontColor = DustPalette.aquamerium;
                     despawnEffect = Fx.hitBulletColor;
-                    hitShake = 1f;
                     hitSound = Sounds.explosion;
-                    hitEffect = Fx.flakExplosion;
-                    shootEffect = Fx.shootBig;
-                    trailEffect = Fx.artilleryTrail;
-
-                    shrinkX = 0.15f;
-                    shrinkY = 0.63f;
-                    shrinkInterp = Interp.slope;
 
                     fragBullets = 3;
                     fragRandomSpread = 90f;
@@ -674,29 +669,18 @@ public class DustTurrets {
                         collidesGround = true;
                     }};
                 }},
-                lead, new FlakBulletType(2.5f, 10f){{
+                lead, new ArtilleryBulletType(2.5f, 10f){{
                     lifetime = 40;
                     width = height = 9;
                     splashDamage = 8f;
                     splashDamageRadius = 20f;
                     reloadMultiplier = 0.75f;
-                    collidesTiles = false;
-                    collides = false;
-                    collidesAir = false;
-                    scaleLife = true;
 
                     hitColor = backColor = trailColor = DustPalette.leadAmmoBack;
                     frontColor = DustPalette.leadAmmoFront;
                     despawnEffect = Fx.hitBulletColor;
                     hitShake = 0.6f;
                     hitSound = Sounds.explosion;
-                    hitEffect = Fx.flakExplosion;
-                    shootEffect = Fx.shootBig;
-                    trailEffect = Fx.artilleryTrail;
-
-                    shrinkX = 0.15f;
-                    shrinkY = 0.63f;
-                    shrinkInterp = Interp.slope;
 
                     fragBullets = 6;
                     fragRandomSpread = 120f;
@@ -712,29 +696,17 @@ public class DustTurrets {
                         collidesGround = true;
                     }};
                 }},
-                graphite, new FlakBulletType(3f, 15f){{
+                graphite, new ArtilleryBulletType(3f, 15f){{
                     lifetime = 40;
                     width = height = 10;
                     splashDamage = 13f;
                     splashDamageRadius = 30f;
                     reloadMultiplier = 0.6f;
-                    collidesTiles = false;
-                    collides = false;
-                    collidesAir = false;
-                    scaleLife = true;
 
                     hitColor = backColor = trailColor = Pal.graphiteAmmoBack;
                     frontColor = Pal.graphiteAmmoFront;
                     despawnEffect = Fx.hitBulletColor;
-                    hitShake = 1f;
                     hitSound = Sounds.explosion;
-                    hitEffect = Fx.flakExplosion;
-                    shootEffect = Fx.shootBig;
-                    trailEffect = Fx.artilleryTrail;
-
-                    shrinkX = 0.15f;
-                    shrinkY = 0.63f;
-                    shrinkInterp = Interp.slope;
 
                     fragBullets = 3;
                     fragRandomSpread = 120f;
@@ -795,7 +767,7 @@ public class DustTurrets {
                     width = 7f;
                     height = 10f;
                     hitEffect = despawnEffect = new MultiEffect(
-                        waveEffect(Color.white.cpy(), DustPalette.chlorophyte, 8f, 25f),
+                        waveEffect(Color.white.cpy(), DustPalette.chlorophyte, 8f, 25f, "minedusty-shockwave"),
                         hitBulletSpread, new SoundEffect(DustSounds.hitMetal, Fx.none)
                     );
                     pierce = true;
@@ -820,7 +792,7 @@ public class DustTurrets {
                     width = 6f;
                     height = 8f;
                     hitEffect = despawnEffect = new MultiEffect(
-                        waveEffect(Color.white.cpy(), DustPalette.leadAmmoBack, 8f, 25f),
+                        waveEffect(Color.white.cpy(), DustPalette.leadAmmoBack, 8f, 25f, "minedusty-shockwave"),
                         hitBulletSpread, new SoundEffect(DustSounds.hitMetal, Fx.none)
                     );
                     splashDamage = 10f;
@@ -843,7 +815,7 @@ public class DustTurrets {
                     width = 7f;
                     height = 10f;
                     hitEffect = despawnEffect = new MultiEffect(
-                        waveEffect(Color.white.cpy(), Pal.siliconAmmoBack, 8f, 25f),
+                        waveEffect(Color.white.cpy(), Pal.siliconAmmoBack, 8f, 25f, "minedusty-shockwave"),
                         hitBulletSpread, new SEffect(DustSounds.hitMetal, Fx.none, 1.0f)
                     );
                     pierce = false;

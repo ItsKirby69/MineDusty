@@ -64,12 +64,12 @@ public class DustyEffects {
 		return partEffect(fromColor, toColor, width, 0f, life, conen, spinn, 1, 0f, flash);
 	}
 
-	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float lengthh, String flash){
+	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float lengthh, String tex){
 		return new ParticleEffect(){{
 			followParent = rotWithParent = true;
 			length = lengthh;
 			particles = parts;
-			region = flash;
+			region = tex;
 			lifetime = life;
 			cone = conen;
 			spin = spinn;
@@ -82,11 +82,15 @@ public class DustyEffects {
 	}
 
 	public static ParticleEffect waveEffect(Color fromColor, Color toColor, float width, float life){
+		return waveEffect(fromColor, toColor, width, life, "minedusty-splashwave");
+	}
+
+	public static ParticleEffect waveEffect(Color fromColor, Color toColor, float width, float life, String tex){
 		return new ParticleEffect(){{
 			followParent = false;
 			length = 0f;
 			particles = 1;
-			region = "minedusty-shockwave";
+			region = tex;
 			lifetime = life;
 			cone = 0f;
 			sizeFrom = 0f;
@@ -317,16 +321,15 @@ public class DustyEffects {
 	marshGas = new Effect(1200f, e -> {
 		color(Color.valueOf("#72a027ff"), Color.valueOf("#9fb12dff"), e.fin());
 
-		float progress = e.fin();
 		float sizeScale;
 		float alpha = 0f;
 
-		if (progress < 0.5f) {
-			sizeScale = Interp.pow3Out.apply(0f, 1f, progress * 2f);
-			alpha = Interp.pow4Out.apply(0, 0.6f, progress * 2f);
+		if (e.fin() < 0.5f) {
+			sizeScale = Interp.pow3Out.apply(0f, 1f, e.fin() * 2f);
+			alpha = Interp.pow4Out.apply(0, 0.6f, e.fin() * 2f);
 		} else {
-			sizeScale = Interp.pow2In.apply(1f, 0f, (progress - 0.5f) * 2f);
-			alpha = Interp.pow2In.apply(0.6f, 0f, (progress - 0.5f));
+			sizeScale = Interp.pow2In.apply(1f, 0f, (e.fin() - 0.5f) * 2f);
+			alpha = Interp.pow2In.apply(0.6f, 0f, (e.fin() - 0.5f));
 		}
 		alpha(alpha);
 
