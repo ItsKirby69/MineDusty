@@ -156,7 +156,6 @@ public class DustUnitTypes {
             health = 200;
             mechSideSway = 0.28f;
             range = 35f;
-            ammoType = new ItemAmmoType(Items.coal);
 
             weapons.add(new Weapon(){{
                 shootOnDeath = true;
@@ -261,7 +260,6 @@ public class DustUnitTypes {
 			mechSideSway = 0.5f;
 			mechFrontSway = 0.38f; //gotta test these values
 
-			ammoType = new ItemAmmoType(DustItems.divinityMatter);
 			weapons.add(new Weapon("minedusty-divine-mech-arm"){{
 				layerOffset = -0.0001f;
 				top = false;
