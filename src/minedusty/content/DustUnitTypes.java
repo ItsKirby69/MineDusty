@@ -1,15 +1,12 @@
 package minedusty.content;
 
 import arc.graphics.Color;
-import arc.math.Interp;
 import ent.anno.Annotations.*;
 import mindustry.ai.types.*;
 import mindustry.content.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.ParticleEffect;
-import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.effect.*;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootHelix;
 import mindustry.entities.units.WeaponMount;
@@ -17,11 +14,8 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.meta.BlockFlag;
-import minedusty.gen.WaterMoveUnit;
 import minedusty.graphics.DustPalette;
-import minedusty.type.unit.DivineUnitType;
-import minedusty.type.unit.DustUnitType;
-import minedusty.type.unit.TemporUnitType;
+import minedusty.type.unit.*;
 
 public class DustUnitTypes extends UnitTypes{
 
@@ -44,7 +38,7 @@ public class DustUnitTypes extends UnitTypes{
 	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer, divineCyst, divineGlaive, divineBulwark;
 
 	/** Tempor Faction */
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType actaea;
+	public static @EntityDef({Unitc.class, Mechc.class}) UnitType actaea, petunia;
 
 	//end region
 
@@ -300,7 +294,7 @@ public class DustUnitTypes extends UnitTypes{
 		
 		// Water units | Fishes
         minnow = new UnitType("minnow"){{
-			constructor = WaterMoveUnit::create;
+			constructor = UnitWaterMove::create;
             speed = 1.35f;
             drag = 0.13f;
             hitSize = 10f;
@@ -338,7 +332,7 @@ public class DustUnitTypes extends UnitTypes{
         }};
 
         sturgeon = new UnitType("sturgeon"){{
-			constructor = WaterMoveUnit::create;
+			constructor = UnitWaterMove::create;
             speed = 1.05f;
             drag = 0.15f;
             hitSize = 13f;
@@ -418,24 +412,108 @@ public class DustUnitTypes extends UnitTypes{
             health = 250;
 			armor = 2f;
             weapons.add(new Weapon("minedusty-tempor-weapon"){{
-                reload = 15f;
+                reload = 55f;
                 x = 4.4f;
                 y = 0f;
                 top = false;
                 ejectEffect = Fx.casing1;
-                bullet = new BasicBulletType(2.5f, 11){{
+                bullet = new BasicBulletType(2.5f, 13){{
 					frontColor = DustPalette.chlorophyteBullet;
 					backColor = DustPalette.chlorophyte;
 					shootEffect = DustyEffects.temporshootSmall;
 					
-					// status = DustStatusEffects.rotting;
-                    width = 7f;
-                    height = 10f;
+					status = DustStatusEffects.poison;
+                    width = 8f;
+                    height = 11.5f;
                     lifetime = 60f;
                 }};
-            }});
+            }}, new Weapon(""){{
+				reload = 55f;
+                x = 4.4f;
+                y = 0f;
+				shootSound = Sounds.none;
+				ejectEffect = Fx.none;
+				shoot = new ShootHelix(5f, 0.4f);
+				bullet = new BasicBulletType(2.5f, 6){{
+					frontColor = DustPalette.chlorophyteBullet;
+					backColor = DustPalette.chlorophyteBack;
+					shootEffect = DustyEffects.temporshootSmall;
+					
+					status = DustStatusEffects.poison;
+                    width = 5.5f;
+                    height = 8f;
+                    lifetime = 60f;
+					despawnEffect = hitEffect = Fx.none;
+				}};
+			}});
         }};
 
+		petunia = new TemporUnitType("petunia"){{
+			constructor = MechUnit::create;
+			speed = 1.0f;
+			hitSize = 9f;
+			health = 260f;
+			mechSideSway = 0.25f;
+			range = 20f;
+			armor = 1.5f;
+
+			weapons.add(new Weapon(){{
+				shootOnDeath = true;
+				targetUnderBlocks = false;
+				shootCone = 180f;
+				shootSound = Sounds.explosionCrawler;
+				x = shootY = 0f;
+				mirror = false;
+				bullet = new BulletType(){{
+					rangeOverride = 20f;
+					collides = false;
+					collidesTiles = false;
+                    speed = 0f;
+                    splashDamageRadius = 50f;
+					splashDamage = 30f;
+					status = StatusEffects.burning;
+                    instantDisappear = true;
+                    splashDamage = 70f;
+                    killShooter = true;
+                    hittable = false;
+                    collidesAir = true;
+
+					// What am I doing
+					// fragBullets = 16;
+					// fragSpread = 360f;
+					// fragVelocityMin = 0.3f;
+					// fragVelocityMax = 1.6f;
+					// fragBullet = new BasicBulletType(0.5f, 0f){{
+					// 	lifetime = 240f;
+					// 	status = StatusEffects.burning;
+					// 	statusDuration = 180f;
+					// 	pierce = true;
+					// 	pierceBuilding = true;
+					// 	collidesAir = false;
+					// 	collidesGround = true;
+					// 	collidesTiles = false;
+					// 	hittable = false;
+
+					// 	width = height = 22f;
+					// 	frontColor = Color.valueOf("#84cb54");
+					// 	backColor = Color.valueOf("#61b729");
+					// 	drawSize = 30f;
+
+					// 	shootEffect = Fx.none;
+
+					// 	despawnEffect = new WaveEffect(){{
+					// 		colorFrom = Color.valueOf("#60c04060");
+					// 		colorTo = Color.valueOf("#20401000");
+					// 		sizeFrom = 5f;
+					// 		sizeTo = 20f;
+					// 		strokeFrom = 3f;
+					// 		strokeTo = 0f;
+					// 		lifetime = 30f;
+					// 	}};
+					// }};
+				}};
+			}});
+		}};
 		//endregion
 		//region Divine
 		

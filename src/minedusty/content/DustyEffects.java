@@ -551,6 +551,14 @@ public class DustyEffects {
 		});
 	}),
 
+	poison = new Effect(35f, e -> {
+		color(Color.valueOf("#a9ed71"), Color.valueOf("#679836"), e.fin());
+
+		randLenVectors(e.id, 3, 2f + e.fin() * 7f, (x, y) -> {
+			Fill.circle(e.x + x, e.y + y, 0.1f + e.fout() * 1.4f);
+		});
+	}),
+
     shootRotFlame = new Effect(38f, 80f, e -> {
         color(DustPalette.divineBulletRed, DustPalette.divineBulletRedBack, DustPalette.divineOutline, e.fin());
 

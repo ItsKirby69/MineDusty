@@ -11,7 +11,7 @@ import mindustry.type.StatusEffect;
 import minedusty.graphics.DustPalette;
 
 public class DustStatusEffects {
-    public static StatusEffect rotting, healingWash, saltcorrosion;
+    public static StatusEffect rotting, poison, healingWash, saltcorrosion;
 
     public static StatusEffect drenched;
 
@@ -72,7 +72,7 @@ public class DustStatusEffects {
         }};
 
         rotting = new StatusEffect("rotting"){{
-            color = Color.valueOf("C32121");
+            color = Color.valueOf("#C32121");
             damage = 0.125f;
             effect = DustyEffects.rotting;
             transitionDamage = 5f;
@@ -84,6 +84,18 @@ public class DustStatusEffects {
                     DustyEffects.rotting.at(unit.x + Mathf.range(unit.bounds() / 2f), unit.y + Mathf.range(unit.bounds() / 2f));
                     result.set(rotting, Math.min(time + result.time, 300f));
                 });
+            });
+        }};
+
+        // WIP
+        poison = new StatusEffect("poison"){{
+            color = Color.valueOf("#679836");
+            damage = 0.15f;
+            effect = DustyEffects.poison;
+            transitionDamage = 10f;
+
+            init(() -> {
+                opposite(DustStatusEffects.rotting);
             });
         }};
     }
