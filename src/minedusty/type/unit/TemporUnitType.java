@@ -6,9 +6,7 @@ import arc.util.Time;
 import arc.util.Tmp;
 import mindustry.gen.Unit;
 import mindustry.type.*;
-import mindustry.type.ammo.ItemAmmoType;
 import mindustry.world.meta.Env;
-import minedusty.content.DustItems;
 import minedusty.graphics.DustPalette;
 
 public class TemporUnitType extends UnitType{
@@ -20,7 +18,6 @@ public class TemporUnitType extends UnitType{
         outlineColor = DustPalette.temporDarkOutline;
         mechLegColor = DustPalette.temporDarkOutline;
         envDisabled = Env.space;
-        ammoType = new ItemAmmoType(DustItems.chlorophyte);
     
         healColor = DustPalette.temporHeal;
     }
