@@ -21,7 +21,7 @@ buildscript{
 
 plugins{
     java
-    id("com.github.ItsKirby69.EntityAnno") apply false
+    id("com.github.GglLfr.EntityAnno") apply false
 }
 
 val arcVersion: String by project
@@ -50,7 +50,7 @@ fun mindustry(module: String): String{
 }
 
 fun entity(module: String): String{
-    return "com.github.ItsKirby69.EntityAnno$module:$entVersion"
+    return "com.github.GglLfr.EntityAnno$module:$entVersion"
 }
 
 allprojects{
@@ -78,7 +78,7 @@ allprojects{
         mavenCentral()
         maven("https://oss.sonatype.org/content/repositories/snapshots/")
         maven("https://oss.sonatype.org/content/repositories/releases/")
-        // maven("https://raw.githubusercontent.com/GglLfr/EntityAnnoMaven/main")
+        maven("https://raw.githubusercontent.com/GglLfr/EntityAnnoMaven/main")
 
         // Use xpdustry's non-buggy repository for release Mindustry and Arc builds.
         if(!useJitpack) maven("https://maven.xpdustry.com/mindustry")
@@ -99,7 +99,7 @@ allprojects{
 }
 
 project(":"){
-    apply(plugin = "com.github.ItsKirby69.EntityAnno")
+    apply(plugin = "com.github.GglLfr.EntityAnno")
     configure<EntityAnnoExtension>{
         modName = project.properties["modName"].toString()
         mindustryVersion = project.properties[if(useJitpack) "mindustryBEVersion" else "mindustryVersion"].toString()
