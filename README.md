@@ -2,9 +2,9 @@
   
 # <img src="media/title.gif" width=75%>
 
-[![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?color=a6d626&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=a6d626&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
-[![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=6083b0&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
-[![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?style=for-the-badge&label=⭐%20Star%20Me!&color=6083b0)](https://github.com/ItsKirby69/MineDusty)
+[![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?colorA=448a35&colorB=a3d72b&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=a3d72b&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
+[![Total Downloads](https://img.shields.io/github/downloads/Itskirby69/MineDusty/total?color=4e76b6&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
+[![Stars](https://img.shields.io/github/stars/Itskirby69/MineDusty?colorA=4e76b6&colorB=7dd8ff&style=for-the-badge&logo=macys&logoColor=ffdf32&label=Star%20Me!)](https://github.com/ItsKirby69/MineDusty)
 
 ***Campaign in development!***
 </div>
