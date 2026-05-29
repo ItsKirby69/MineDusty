@@ -8,7 +8,6 @@ import arc.math.*;
 import arc.math.geom.Vec2;
 import arc.util.Tmp;
 import mindustry.entities.*;
-import mindustry.entities.effect.*;
 import mindustry.graphics.*;
 import mindustry.world.Block;
 import minedusty.graphics.DustPalette;
@@ -20,87 +19,10 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 import static mindustry.Vars.*;
 
-
 public class DustyEffects {
 	
 	public static final Rand rand = new Rand();
 	public static final Vec2 v = new Vec2();
-
-	// Colors given effects (for turrets using same effect but diff ammo colors)
-	public static Effect colorEffect(Effect effect, Color color){
-		return new Effect(effect.lifetime, e -> {
-			e.color.set(color);
-			effect.renderer.get(e);
-		}){{
-			clip = effect.clip;
-			followParent = effect.followParent;
-			rotWithParent = effect.rotWithParent;
-			layer = effect.layer;
-		}};
-	}
-
-	public static Effect orbChargeBegin(float lifetime, Color color){
-		return colorEffect( new Effect(lifetime, e -> {
-			float margin = 1f - Mathf.curve(e.fin(), 0.9f);
-			float fin = Math.min(margin, e.fin());
-
-			color(e.color);
-			Fill.circle(e.x, e.y, fin * 6f);
-
-			color();
-			Fill.circle(e.x, e.y, fin * 4f);
-		}).followParent(true).rotWithParent(true), color);
-	}
-
-	public static ParticleEffect flashEffect(Color fromColor, Color toColor, float width, float life){
-		return flashEffect(fromColor, toColor, width, life, 0f, 0f,"minedusty-flash-hori");
-	}
-
-	public static ParticleEffect flashEffect(Color fromColor, Color toColor, float width, float life, float cone, float spin){
-		return flashEffect(fromColor, toColor, width, life, cone, spin, "minedusty-flash-hori");
-	}
-
-	public static ParticleEffect flashEffect(Color fromColor, Color toColor, float width, float life, float conen, float spinn, String flash){
-		return partEffect(fromColor, toColor, width, 0f, life, conen, spinn, 1, 0f, flash);
-	}
-
-	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float lengthh, String tex){
-		return new ParticleEffect(){{
-			followParent = rotWithParent = true;
-			length = lengthh;
-			particles = parts;
-			region = tex;
-			lifetime = life;
-			cone = conen;
-			spin = spinn;
-			sizeFrom = fromWidth;
-			sizeTo = toWidth;
-			colorFrom = fromColor;
-			colorTo = toColor.cpy().a(0f);
-			baseRotation = 90f;
-		}};
-	}
-
-	public static ParticleEffect waveEffect(Color fromColor, Color toColor, float width, float life){
-		return waveEffect(fromColor, toColor, width, life, "minedusty-splashwave");
-	}
-
-	public static ParticleEffect waveEffect(Color fromColor, Color toColor, float width, float life, String tex){
-		return new ParticleEffect(){{
-			followParent = false;
-			length = 0f;
-			particles = 1;
-			region = tex;
-			lifetime = life;
-			cone = 0f;
-			sizeFrom = 0f;
-			sizeTo = width;
-			colorFrom = fromColor;
-			colorTo = toColor.cpy().a(0f);
-			baseRotation = 180f;
-			interp = Interp.pow2Out;
-		}};
-	}
 
 	public static final Effect
 
@@ -389,107 +311,6 @@ public class DustyEffects {
 			Fill.circle(e.x + x, e.y + y, 7f + e.fin() * 3f);
 		});
 	}).layer(Layer.effect + 1.22f),
-
-	treeBreak = new Effect(120f, e -> {
-		rand.setSeed(e.id);
-
-		float cutThresh = 0.8f;
-		float fade = e.fin() <= cutThresh ? 1f : 1f - Mathf.clamp((e.fin() - cutThresh) / (1f - cutThresh));
-		int randCount = Mathf.randomSeed(e.id, 50, 80);
-
-		for (int i = 0; i < randCount; i++) {
-			
-			float rot = e.rotation + rand.range(180f);
-			int randRegion = rand.random(1, 4);
-			if (randRegion != 1) { //if leaves
-				Color base = e.color.cpy();
-				float darkFactor = rand.random(0.5f, 1f);
-				base.r *= darkFactor;
-				base.g *= darkFactor;
-				base.b *= darkFactor;
-				color(base, base.a(fade), e.fin());
-			} else {
-				color(Color.valueOf("ffffff"), Color.valueOf("ffffff").a(fade), e.fin());
-			}
-			TextureRegion region = Core.atlas.find("minedusty-tree-prop" + randRegion);
-
-			v.trns(rot, rand.random(0f, 12f) * e.finpow());
-			float fout = Math.max(e.fout(), 0.5f);
-			float size = fout * (region.width/3.2f) + 0.8f;
-			float rotFactor = rot + rand.random(-180f, 180f) * Interp.pow2Out.apply(Mathf.clamp(e.fin() / 0.8f));
-
-			float spawnRadius = rand.random(0f, 23f);
-			Draw.rect(region, e.x + Mathf.cosDeg(rot) * spawnRadius + v.x * 4f, e.y + Mathf.sinDeg(rot) * spawnRadius + v.y * 4f, size, size, rotFactor);
-		}
-	}).layer(Layer.blockOver),
-
-	treeBreakLarge = new Effect(180f, e -> {
-		rand.setSeed(e.id);
-
-		float cutThresh = 0.8f;
-		float fade = e.fin() <= cutThresh ? 1f : 1f - Mathf.clamp((e.fin() - cutThresh) / (1f - cutThresh));
-		int randCount = Mathf.randomSeed(e.id, 100, 120);
-
-		for (int i = 0; i < randCount; i++) {
-			
-			float rot = e.rotation + rand.range(180f);
-			int randRegion = rand.random(1, 5);
-			if (randRegion != 1) { //if leaves
-				Color base = e.color.cpy();
-				float darkFactor = rand.random(0.5f, 1f);
-				base.r *= darkFactor;
-				base.g *= darkFactor;
-				base.b *= darkFactor;
-				color(base, base.a(fade), e.fin());
-			} else {
-				color(Color.valueOf("ffffff"), Color.valueOf("ffffff").a(fade), e.fin());
-			}
-			TextureRegion region = Core.atlas.find("minedusty-tree-prop" + randRegion);
-
-			v.trns(rot, rand.random(0f, 12f) * e.finpow());
-			float fout = Math.max(e.fout(), 0.5f);
-			float size = fout * (region.width/2.6f) + 0.8f;
-			float rotFactor = rot + rand.random(-180f, 180f) * Interp.pow2Out.apply(Mathf.clamp(e.fin() / 0.8f));
-
-			float spawnRadius = rand.random(0f, 39f);
-			Draw.rect(region, e.x + Mathf.cosDeg(rot) * spawnRadius + v.x * 4f, e.y + Mathf.sinDeg(rot) * spawnRadius + v.y * 4f, size, size, rotFactor);
-		}
-	}).layer(Layer.blockOver),
-
-	treeBreakWhite = new Effect(120f, e -> {
-		rand.setSeed(e.id);
-
-		float cutThresh = 0.8f;
-		float fade = e.fin() <= cutThresh ? 1f : 1f - Mathf.clamp((e.fin() - cutThresh) / (1f - cutThresh));
-		int randCount = Mathf.randomSeed(e.id, 50, 80);
-
-		for (int i = 0; i < randCount; i++) {
-			
-			float rot = e.rotation + rand.range(180f);
-			int randRegion = rand.random(1, 4);
-			TextureRegion region;
-			if (randRegion != 1) { //if leaves
-				Color base = e.color.cpy();
-				float darkFactor = rand.random(0.5f, 1f);
-				base.r *= darkFactor;
-				base.g *= darkFactor;
-				base.b *= darkFactor;
-				color(base, base.a(fade), e.fin());
-				region = Core.atlas.find("minedusty-tree-prop" + randRegion);
-			} else {
-				color(Color.valueOf("ffffff"), Color.valueOf("ffffff").a(fade), e.fin());
-				region = Core.atlas.find("minedusty-tree-prop-white");
-			}
-
-			v.trns(rot, rand.random(0f, 12f) * e.finpow());
-			float fout = Math.max(e.fout(), 0.5f);
-			float size = fout * (region.width/3.2f) + 0.8f;
-			float rotFactor = rot + rand.random(-180f, 180f) * Interp.pow2Out.apply(Mathf.clamp(e.fin() / 0.8f));
-
-			float spawnRadius = rand.random(0f, 23f);
-			Draw.rect(region, e.x + Mathf.cosDeg(rot) * spawnRadius + v.x * 4f, e.y + Mathf.sinDeg(rot) * spawnRadius + v.y * 4f, size, size, rotFactor);
-		}
-	}).layer(Layer.debris),
 
 	flyingGrass = new Effect(280f, 150f, e ->{
 		rand.setSeed(e.id);

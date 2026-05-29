@@ -15,7 +15,7 @@ public class DustPlanets {
 		// theia's oceanic moon
 		nautilune;
 
-	// For frosty
+	// Which planets allows frost to accumulate from cold weathers
 	public static ObjectSet<String> frostPlanets = ObjectSet.with(
 		"minedusty-theia",
 		"minedusty-nautilune",

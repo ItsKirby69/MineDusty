@@ -28,6 +28,8 @@ import minedusty.world.blocks.defense.ChargeTurret;
 import minedusty.world.blocks.distribution.BuoyMassDriver;
 import minedusty.world.entities.bullets.BetterShootAlternate;
 
+import static minedusty.utils.EffectHelper.*;
+
 public class DustTurrets {
     // Basic turrets
     public static Block sandSpitter, sandHammer;
@@ -213,7 +215,7 @@ public class DustTurrets {
                     width = height = 15f;
                     lightRadius = 30f;
                     shrinkX = shrinkY = 0.25f;
-                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.chlorophyteWater), DustyEffects.orbChargeBegin(120f, DustPalette.chlorophyteWater));
+                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.chlorophyteWater), orbChargeBegin(120f, DustPalette.chlorophyteWater));
                     pierceCap = 10;
                     pierceBuilding = false;
                     backColor = DustPalette.chlorophyteBack;
@@ -231,7 +233,7 @@ public class DustTurrets {
                     //WIP
                     despawnEffect = hitEffect = new MultiEffect(
                         hitChloroSpark, Fx.hitLiquid, 
-                        DustyEffects.waveEffect(Color.white.cpy(), DustPalette.chlorophyteWater, 20f, 50f),
+                        waveEffect(Color.white.cpy(), DustPalette.chlorophyteWater, 20f, 50f),
                         new SoundEffect(DustSounds.hitOrb, Fx.none)
                     );
                 }},
@@ -241,7 +243,7 @@ public class DustTurrets {
                     lightRadius = 30f;
                     lightOpacity = 0.2f;
                     shrinkX = shrinkY = 0.25f;
-                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.saltColor), DustyEffects.orbChargeBegin(120f, DustPalette.saltColor));
+                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.saltColor), orbChargeBegin(120f, DustPalette.saltColor));
                     status = DustStatusEffects.saltcorrosion;
                     pierceCap = 5;
                     pierceBuilding = false;
@@ -260,7 +262,7 @@ public class DustTurrets {
                     // WIP
                     despawnEffect = hitEffect = new MultiEffect(
                         hitChloroSpark, Fx.hitLiquid, 
-                        DustyEffects.waveEffect(Color.white.cpy(), DustPalette.saltColor, 20f, 40f),
+                        waveEffect(Color.white.cpy(), DustPalette.saltColor, 20f, 40f),
                         new SoundEffect(DustSounds.hitOrb, Fx.none)
                     );
                 }},
@@ -270,7 +272,7 @@ public class DustTurrets {
                     lightRadius = 20f;
                     lightOpacity = 0.2f;
                     shrinkX = shrinkY = 0.25f;
-                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.waterFront), DustyEffects.orbChargeBegin(120f, DustPalette.waterFront));
+                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.waterFront), orbChargeBegin(120f, DustPalette.waterFront));
                     hitEffect = DustyEffects.hitChloroSpark;
                     status = StatusEffects.wet;
                     pierceCap = 10;
@@ -290,7 +292,7 @@ public class DustTurrets {
                     
                     despawnEffect = hitEffect = new MultiEffect(
                         hitChloroSpark, colorEffect(Fx.hitLiquid, Pal.water), 
-                        DustyEffects.waveEffect(Color.white.cpy(), DustPalette.waterFront, 16f, 25f),
+                        waveEffect(Color.white.cpy(), DustPalette.waterFront, 16f, 25f),
                         new SoundEffect(DustSounds.hitOrb, Fx.none)
                     );
                 }}
@@ -782,7 +784,7 @@ public class DustTurrets {
                     ammoMultiplier = 3f;
 
                     shootEffect = new MultiEffect(
-                        DustyEffects.flashEffect(Color.white.cpy(), DustPalette.chlorophyte, 14f, 10f, 0f, 4f, "minedusty-flash-cross"),
+                        flashEffect(Color.white.cpy(), DustPalette.chlorophyte, 14f, 10f, 0f, 4f, "minedusty-flash-cross"),
                         colorEffect(DustyEffects.shootSpikeColor, DustPalette.chlorophyteBullet),
                         Fx.colorSpark
                     );
@@ -805,7 +807,7 @@ public class DustTurrets {
                     inaccuracy = 2f;
                     reloadMultiplier = 1.15f;
                     shootEffect = new MultiEffect(
-                        DustyEffects.flashEffect(Color.white.cpy(), DustPalette.leadAmmoBack, 14f, 10f),
+                        flashEffect(Color.white.cpy(), DustPalette.leadAmmoBack, 14f, 10f),
                         DustyEffects.shootSpikeColor,
                         Fx.colorSpark
                     );
@@ -832,7 +834,7 @@ public class DustTurrets {
                     reloadMultiplier = 1.1f;
                     
                     shootEffect = new MultiEffect(
-                        DustyEffects.flashEffect(Color.white.cpy(), Pal.siliconAmmoFront, 14f, 10f),
+                        flashEffect(Color.white.cpy(), Pal.siliconAmmoFront, 14f, 10f),
                         DustyEffects.shootSpikeColor,
                         Fx.colorSpark
                     );

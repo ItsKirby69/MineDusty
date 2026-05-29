@@ -10,9 +10,9 @@ import mindustry.world.blocks.environment.*;
 
 import minedusty.world.blocks.environment.*;
 import minedusty.DustAttributes;
-import minedusty.content.DustItems;
-import minedusty.content.DustyEffects;
-import minedusty.utils.EffectHelper;
+import minedusty.content.*;
+
+import static minedusty.utils.EffectHelper.*;
 
 public class DustPlants {
 	// Trees
@@ -31,8 +31,7 @@ public class DustPlants {
 		/* Disabled for now since atlas is messed up
 		worldTree = new LivingTreeBlock("world-tree", 1){{
 			mapColor = Color.valueOf("#c32121");
-			breakEffect = DustyEffects.treeBreakWhite;
-			destroyEffect = DustyEffects.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(200f, 150, 5, "minedusty-tree-prop-white", 2.2f, 60f, Layer.debris), mapColor);
 			size = 12;
 			shadowOffset = -30f;
 			tallTree = true;
@@ -45,17 +44,15 @@ public class DustPlants {
 		divineTree = new LivingTreeBlock("divine-tree", 2){{
 			itemDrop = DustItems.divinityMatter; //for extraction in future
 			mapColor = Color.valueOf("#c32121");
-			breakEffect = DustyEffects.treeBreakWhite;
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreakWhite, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop-white", 3.2f, 23f, Layer.debris), mapColor);
 		}};
 		aliveTree = new LivingTreeBlock("alive-tree", 2){{
 			mapColor = Color.valueOf("#74d660");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 		}};
 		largealiveTree = new LivingTreeBlock("large-alive-tree", 1){{
 			mapColor = Color.valueOf("#74d660");
-			breakEffect = DustyEffects.treeBreakLarge;
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(180f, 100, 5, "minedusty-tree-prop", 2.6f, 39f, Layer.blockOver), mapColor);
 			fadeStart *= 2;
 			fadeEnd *= 2;
 			baseLayer = Layer.legUnit + 3.5f;
@@ -63,27 +60,26 @@ public class DustPlants {
 		}};
 		blossomTree = new LivingTreeBlock("blossom-tree", 1){{
 			mapColor = Color.valueOf("#df7a9c");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 		}};
 		elmTree = new LivingTreeBlock("elm-tree", 1){{
 			mapColor = Color.valueOf("#ECB01E");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 		}};
 		pineTree = new LivingTreeBlock("pine-tree", 1){{
 			mapColor = Color.valueOf("#398654");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 			rotateShadow = false;
 		}};
 		bogTree = new LivingTreeBlock("bog-tree", 1){{
 			requiresWater = true;
 			mapColor = Color.valueOf("#6d922b");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(150f, 80, 5, "minedusty-tree-prop", 3f, 26f, Layer.blockOver), mapColor);
 		}};
 		largebogTree = new LivingTreeBlock("large-bog-tree", 1) {{
 			requiresWater = true;
 			mapColor = Color.valueOf("#6d922b");
-			breakEffect = DustyEffects.treeBreakLarge;
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(180f, 100, 5, "minedusty-tree-prop", 2.6f, 39f, Layer.blockOver), mapColor);
 			fadeStart *= 2;
 			fadeEnd *= 2;
 			baseLayer = Layer.legUnit + 3.5f;
@@ -91,33 +87,33 @@ public class DustPlants {
 		}};
 		cheeseTree = new LivingTreeBlock("cheese-tree", 1){{
 			mapColor = Color.valueOf("#d7d177");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 		}};
 
 		//dead/static trees (trees with no layers)
 		burntTree = new TreeBlockEffect("burnt-tree"){{
 			mapColor = Color.valueOf("#172025");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 			effect = DustyEffects.fallingEmbers;
 			lightRadius = 50f;
 			lightColor = Color.valueOf("#ffd754dd");
 		}};
 		ashTree = new TreeBlockEffect("ash-tree"){{
 			mapColor = Color.valueOf("#98a3a8");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 			effect = DustyEffects.fallingEmbers;
 			lightRadius = 50f;
 			lightColor = Color.valueOf("#ffd754dd");
 		}};
 		deadTree = new TreeBlock("dead-tree"){{
 			mapColor = Color.valueOf("#744700");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 2;
 		}};
 		mossydeadTree = new TreeBlock("mossydead-tree"){{
 			mapColor = Color.valueOf("#744700");
-			destroyEffect = EffectHelper.withColor(DustyEffects.treeBreak, mapColor);
+			destroyEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 			buildVisibility = BuildVisibility.sandboxOnly;
 			variants = 2;
 		}};
