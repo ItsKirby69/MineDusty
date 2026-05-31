@@ -9,11 +9,13 @@ import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
 import arc.struct.ObjectSet;
+import arc.struct.Seq;
 import arc.util.*;
 import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.entities.Effect;
 import mindustry.gen.Building;
+import mindustry.type.Weather;
 import mindustry.world.Tile;
 import mindustry.world.blocks.liquid.LiquidBlock;
 import mindustry.world.blocks.production.GenericCrafter.GenericCrafterBuild;
@@ -45,6 +47,8 @@ public class FrostModule {
     /** Range at checking thermal blocks */
     public int heatRange = 7;
     public Effect meltEffect = DustyEffects.meltSteam;
+
+    private Weather[] frostingWeathers = {DustWeathers.snowFog, DustWeathers.snowStorm, Weathers.snow};
 
     public int actualStages;
     public TextureRegion[][] frostRegions;
@@ -111,7 +115,7 @@ public class FrostModule {
     
     public void update(Building build, FrostState state){
         if(!DustPlanets.frostPlanets.contains(Vars.state.rules.planet.name)) return;
-        boolean coldWeather = WeatherUtil.activeWeather(DustWeathers.snowStorm, Weathers.snow);
+        boolean coldWeather = WeatherUtil.activeWeather(frostingWeathers);
 
         state.heatTimer += Time.delta;
         // Update every half second (60fps)
