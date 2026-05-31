@@ -17,6 +17,8 @@ import mindustry.world.meta.BlockFlag;
 import minedusty.graphics.DustPalette;
 import minedusty.type.unit.*;
 
+import static minedusty.utils.EffectHelper.*;
+
 public class DustUnitTypes extends UnitTypes{
 
 	/** Sharded Faction */
@@ -225,7 +227,7 @@ public class DustUnitTypes extends UnitTypes{
 
 				cooldownTime = 100f;
 				ejectEffect = Fx.none;
-				MultiEffect multEff = new MultiEffect(DustyEffects.colorEffect(DustyEffects.orbCharge, DustPalette.chlorophyteWater), DustyEffects.orbChargeBegin(45f, DustPalette.chlorophyteWater));
+				MultiEffect multEff = new MultiEffect(colorEffect(DustyEffects.orbCharge, DustPalette.chlorophyteWater), orbChargeBegin(45f, DustPalette.chlorophyteWater));
 				shoot.firstShotDelay = multEff.lifetime;
 				parentizeEffects = true;
 

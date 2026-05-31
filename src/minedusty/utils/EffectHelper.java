@@ -70,7 +70,7 @@ public class EffectHelper {
 				} else {
 					color(Color.valueOf("ffffff"), Color.valueOf("ffffff").a(fade), e.fin());
 				}
-				TextureRegion region = Core.atlas.find(tex + randRegion);
+				TextureRegion region = Core.atlas.find(tex + randRegion, "minedusty-tree-prop" + randRegion);
 
 				DustyEffects.v.trns(rot, DustyEffects.rand.random(0f, 12f) * e.finpow());
 				float fout = Math.max(e.fout(), 0.5f);

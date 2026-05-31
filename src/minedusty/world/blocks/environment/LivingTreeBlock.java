@@ -1,14 +1,15 @@
 package minedusty.world.blocks.environment;
 
+import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.math.geom.Point2;
-import arc.math.geom.Vec2;
+import arc.math.geom.*;
 import arc.util.*;
 import mindustry.Vars;
-import mindustry.entities.Effect;
+import mindustry.entities.*;
 import mindustry.game.Team;
 import mindustry.gen.Building;
+import mindustry.gen.Groups;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.BuildVisibility;
@@ -16,6 +17,7 @@ import minedusty.content.*;
 import minedusty.graphics.DrawPseudo3D;
 
 import static arc.Core.*;
+import static minedusty.utils.EffectHelper.*;
 
 import arc.Core;
 
@@ -37,10 +39,10 @@ public class LivingTreeBlock extends Block{
 	public float effectRange = 6f;
 
 	public LivingTreeBlock(String name){
-		this(name, 3);
+		this(name, 3, "#000000");
 	}
 	
-	public LivingTreeBlock(String name, int variants){
+	public LivingTreeBlock(String name, int variants, String color){
 		super(name);
 		this.variants = variants;
 		customShadow = true;
@@ -48,11 +50,13 @@ public class LivingTreeBlock extends Block{
 		solid = true;
 		size = 3;
 		clipSize = 120;
-		update = false;
+		update = true;
 		breakSound = destroySound = DustSounds.destroyTree;
-		breakEffect = DustyEffects.treeBreak;
+		mapColor = Color.valueOf(color);
+		destroyEffect = breakEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 		buildVisibility = BuildVisibility.sandboxOnly;
 		destructible = true;
+		flammabilityScale = 10f;
 		breakable = false;
 		health = size * 800;
 		alwaysReplace = false;
@@ -152,6 +156,18 @@ public class LivingTreeBlock extends Block{
 		w = region.width * region.scl(), h = region.height * region.scl(),
 		scl = 30f, mag = 0.2f;
 
+		// Burn color WIP
+		/*
+		float intensity = ((LivingTreeBlockBuild)tile.build).burnIntensity;
+		Color result = Color.white.cpy().lerp(Color.valueOf("#2c2624"), intensity);
+		float[] hsv = result.toHsv(new float[3]);
+		hsv[1] *= Mathf.clamp(1f - intensity * 3f, 0f, 1f); //saturation
+		hsv[2] *= (1f - intensity * 0.3f); //darken
+		result.fromHsv(hsv[0], hsv[1], hsv[2]);
+
+		Draw.color(result); 
+		*/
+		
 		Draw.alpha(fade);
 		Draw.z(baseLayer);
 		Draw.rectv(variantRegions[variation], x, y, w, h, rot, vec -> vec.add(
@@ -164,17 +180,6 @@ public class LivingTreeBlock extends Block{
 			Draw.z(Layer.blockProp - 0.5f);
 			Draw.alpha(1f);
 			Draw.rect(trunkRegions[variation], x, y, rotStatic);
-		}
-
-		//Shadow above ground units
-		if (shadowRegions[variation].found()) { 
-			Draw.z(baseLayer - 2f);
-			Draw.alpha(1f);
-			if (rotateShadow == true){
-				Draw.rect(shadowRegions[variation], x + shadowOffset, y + shadowOffset, rot);
-			} else {
-				Draw.rect(shadowRegions[variation], x + shadowOffset, y + shadowOffset);
-			}
 		}
 
 		// Back leaves, behind base layer 🗣🗣🗣
@@ -236,7 +241,19 @@ public class LivingTreeBlock extends Block{
 				));
 			
 		}
+		Draw.color();
 		Draw.alpha(1f);
+
+		//Shadow above ground units
+		if (shadowRegions[variation].found()) { 
+			Draw.z(baseLayer - 2f);
+			Draw.alpha(1f);
+			if (rotateShadow == true){
+				Draw.rect(shadowRegions[variation], x + shadowOffset, y + shadowOffset, rot);
+			} else {
+				Draw.rect(shadowRegions[variation], x + shadowOffset, y + shadowOffset);
+			}
+		}
 		
 		// effects
 		if(Vars.state.isPaused()) return; // Particles stack when paused for some reason
@@ -253,8 +270,27 @@ public class LivingTreeBlock extends Block{
 	@Override
 	public void drawShadow(Tile tile){}
 
-	//prevents the tree from breaking during wave shockwave
 	public class LivingTreeBlockBuild extends Building{
+		public float burnIntensity = 0f;
+
+		@Override
+		public void updateTile(){
+			boolean nearFire = Groups.fire.contains(f -> Mathf.dst(f.x, f.y, x, y) < (size * Vars.tilesize * 2f));
+			if(nearFire){
+				damage(Time.delta * 2f);
+				burnIntensity = Mathf.clamp(burnIntensity + Time.delta * 0.001f, 0f, 1f);
+				if(Mathf.chanceDelta(0.008f)) {
+					Tile nearby = Vars.world.tile(tile.x + Mathf.range(3),tile.y + Mathf.range(3));
+					if(nearby != null && nearby.build != null) {
+						Fires.create(nearby);
+					}
+				}
+			}else{
+				burnIntensity = Mathf.clamp(burnIntensity - Time.delta * 0.0005f, 0f, 1f);
+			}
+		}
+
+		//prevents the tree from breaking during wave shockwave
 		@Override
 		public void damage(float amount){
 			if(amount >= 9e7f){
