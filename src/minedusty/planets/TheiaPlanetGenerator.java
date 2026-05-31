@@ -287,6 +287,7 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
         if(hasSnow){
             rules.weather.add(new WeatherEntry(Weathers.snow));
 			rules.weather.add(new WeatherEntry(DustWeathers.snowStorm));
+			rules.weather.add(new WeatherEntry(DustWeathers.snowFog));
         }
 
         if(hasRain){

@@ -1,7 +1,5 @@
 package minedusty.content;
 
-import static mindustry.Vars.bases;
-
 import arc.graphics.Color;
 import arc.util.Time;
 import mindustry.gen.*;
@@ -14,7 +12,8 @@ import minedusty.type.weather.SnowStormWeather;
 import minedusty.type.weather.StormWeather;
 
 public class DustWeathers {
-	public static Weather heavyRain, snowStorm, heatWave;
+	public static Weather heavyRain, heatWave;
+	public static Weather snowStorm, snowFog;
 
 	// Fun weathers
 	public static Weather pollenStorm, clouds;
@@ -69,13 +68,44 @@ public class DustWeathers {
 			attrs.set(Attribute.light, -0.35f);
 		}};
 
+        snowFog = new ParticleWeather("snow-fog"){{
+			particleRegion = "minedusty-snow";
+            color = Color.valueOf("#e6feff");
+            noiseColor = Color.valueOf("#b5e2e4");
+			drawNoise = true;
+            noisePath = "fog";
+            noiseLayers = 4;
+            noiseLayerAlphaM = 0.65f;
+            noiseLayerSpeedM = 0.5f;
+            noiseLayerSclM = 0.6f;
+            noiseScale = 1200f;
+            xspeed = 0.8f;
+            yspeed = -0.04f;
+            opacityMultiplier = 0.4f;
+			
+            useWindVector = true;
+            sizeMax = 22f;
+            sizeMin = 12f;
+            minAlpha = 0.2f;
+            maxAlpha = 0.7f;
+            density = 12000f;
+            baseSpeed = 3.2f;
+            sound = Sounds.wind2;
+            soundVol = 0f;
+            soundVolOscMag = 1.5f;
+            soundVolOscScl = 1100f;
+            soundVolMin = 0.02f;
+            duration = 8 * Time.toMinutes;
+			attrs.set(Attribute.light, -0.15f);
+        }};
+
 		pollenStorm = new BetterParticleWeather("pollen-storm"){{
 			noiseColor = color = Color.valueOf("#fffed5");
 			particleRegion = "minedusty-dandelion";
 			drawNoise = false;
 			useWindVector = false;
 			swayParticles = true;
-			density = 2000;
+			density = 10000;
 			sizeMin = 12f;
 			sizeMax = 18f;
 			baseSpeed = 3.0f;
