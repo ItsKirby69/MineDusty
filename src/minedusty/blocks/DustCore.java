@@ -12,6 +12,7 @@ import mindustry.world.draw.*;
 import mindustry.world.meta.BuildVisibility;
 import minedusty.content.DustUnitTypes;
 import minedusty.world.blocks.defense.ChloroMenderProjector;
+import minedusty.world.blocks.logic.PetroglyphBlock;
 import minedusty.world.blocks.power.LanternBlock;
 import mindustry.content.Items;
 import mindustry.graphics.*;
@@ -31,8 +32,17 @@ public class DustCore {
 
 	// Units (maybe different class?)
 	public static Block skyFactory, earthFactory;
+	
+	// Logic
+	public static Block petroglyphBlock;
 
 	public static void loadContent() {
+
+		petroglyphBlock = new PetroglyphBlock("petroglyph-block"){{
+			requirements(Category.logic, with(silicadust, 12));
+			size = 1;
+		}};
+
 		((UnitFactory)groundFactory).plans.add(new UnitFactory.UnitPlan(DustUnitTypes.cleave, 60f * 20, with(silicon, 15, lead, 20)));
 		((UnitFactory)navalFactory).plans.add(new UnitFactory.UnitPlan(DustUnitTypes.minnow, 60f * 32, with(silicon, 15, metaglass, 18)));
 		((Reconstructor)additiveReconstructor).addUpgrade(DustUnitTypes.minnow, DustUnitTypes.sturgeon);
