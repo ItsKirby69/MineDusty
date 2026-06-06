@@ -60,7 +60,7 @@ public class EffectHelper {
 				
 				float rot = e.rotation + DustyEffects.rand.range(180f);
 				int randRegion = DustyEffects.rand.random(1, maxRegionId);
-				if (randRegion != 1) { //if leaves
+				if (randRegion != 1) { //don't color the stick
 					Color base = e.color.cpy();
 					float darkFactor = DustyEffects.rand.random(0.5f, 1f);
 					base.r *= darkFactor;
@@ -81,6 +81,34 @@ public class EffectHelper {
 				Draw.rect(region, e.x + Mathf.cosDeg(rot) * spawnRadius + DustyEffects.v.x * 4f, e.y + Mathf.sinDeg(rot) * spawnRadius + DustyEffects.v.y * 4f, size, size, rotFactor);
 			}
 		}).layer(lay);
+	}
+	
+	// Generalized stump effect
+	public static Effect stumpBreakEffect(float life, int quantity, int maxRegionId, String tex, float sizeDiv, float spawnRad){
+		return new Effect(life, e -> {
+			DustyEffects.rand.setSeed(e.id);
+
+			float cutThresh = 0.8f;
+			float fade = e.fin() <= cutThresh ? 1f : 1f - Mathf.clamp((e.fin() - cutThresh) / (1f - cutThresh));
+			int randCount = Mathf.randomSeed(e.id, quantity, quantity + 5);
+
+			for (int i = 0; i < randCount; i++) {
+				
+				float rot = e.rotation + DustyEffects.rand.range(180f);
+				int randRegion = DustyEffects.rand.random(1, maxRegionId);
+				color(Color.valueOf("ffffff"), Color.valueOf("ffffff").a(fade), e.fin());
+				
+				TextureRegion region = Core.atlas.find(tex + randRegion, "minedusty-tree-stump" + randRegion);
+
+				DustyEffects.v.trns(rot, DustyEffects.rand.random(0f, 12f) * e.finpow());
+				float fout = Math.max(e.fout(), 0.5f);
+				float size = fout * (region.width/(sizeDiv * DustyEffects.rand.random(0.8f, 1f))) + 0.8f;
+				float rotFactor = rot + DustyEffects.rand.random(-180f, 180f) * Interp.pow2Out.apply(Mathf.clamp(e.fin() / 0.8f));
+
+				float spawnRadius = DustyEffects.rand.random(0f, spawnRad);
+				Draw.rect(region, e.x + Mathf.cosDeg(rot) * spawnRadius + DustyEffects.v.x * 4f, e.y + Mathf.sinDeg(rot) * spawnRadius + DustyEffects.v.y * 4f, size, size, rotFactor);
+			}
+		}).layer(Layer.blockOver);
 	}
 
 	// Generalized

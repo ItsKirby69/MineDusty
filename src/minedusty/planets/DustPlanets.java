@@ -56,7 +56,8 @@ public class DustPlanets {
 			clearSectorOnLose = true;
 			
 			defaultCore = DustCore.coreNest;
-			defaultEnv = DustEnvs.lush | Env.terrestrial & ~Env.spores;
+			defaultEnv = DustEnvs.lush | Env.terrestrial | Env.groundOil | Env.groundWater | Env.oxygen & ~Env.spores;
+
 			atmosphereColor = Color.valueOf("#1e3c40"); // 438e99
 			iconColor = Color.valueOf("#64e332ff"); // 2cc429
 			ruleSetter = r -> {

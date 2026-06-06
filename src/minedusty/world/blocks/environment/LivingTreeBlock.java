@@ -17,12 +17,14 @@ import minedusty.content.*;
 import minedusty.graphics.DrawPseudo3D;
 
 import static arc.Core.*;
+import static mindustry.Vars.tilesize;
 import static minedusty.utils.EffectHelper.*;
 
 import arc.Core;
 
 /** Unique TreeBlock class which renders trees having many layers. If toggled, trees will fade when nearby as well as shower falling leaves. */
 public class LivingTreeBlock extends Block{
+	public TextureRegion trunkShadow;
 	public TextureRegion[] trunkRegions, topRegions, middleRegions, centerRegions, backRegions, tallshadRegions, shadowRegions;
 	public float shadowOffset = -4f;
 
@@ -38,27 +40,30 @@ public class LivingTreeBlock extends Block{
 	public Effect effect = DustyEffects.fallingLeaves;
 	public float effectRange = 6f;
 
+	public Effect treeBreakEffect;
+	public Effect stumpBreakEffect = stumpBreakEffect(120f, 15, 2, "minedusty-tree-bark", 3f, 7f);
+
 	public LivingTreeBlock(String name){
 		this(name, 3, "#000000");
 	}
 	
-	public LivingTreeBlock(String name, int variants, String color){
+	public LivingTreeBlock(String name, int variants, String mapcolor){
 		super(name);
 		this.variants = variants;
 		customShadow = true;
-		hasShadow = false; //remove block shadow
 		solid = true;
 		size = 3;
 		clipSize = 120;
+		health = size * 500;
 		update = true;
 		breakSound = destroySound = DustSounds.destroyTree;
-		mapColor = Color.valueOf(color);
-		destroyEffect = breakEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
+		mapColor = Color.valueOf(mapcolor);
+		// Temporary setup for effects
+		destroyEffect = breakEffect = stumpBreakEffect;
+		treeBreakEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-tree-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 		buildVisibility = BuildVisibility.sandboxOnly;
 		destructible = true;
-		flammabilityScale = 10f;
 		breakable = false;
-		health = size * 800;
 		alwaysReplace = false;
 		createRubble = false;
 		targetable = false;
@@ -119,6 +124,7 @@ public class LivingTreeBlock extends Block{
 			shadowRegions[0] = atlas.find(name + "-shadow");
 		}
 		region = variantRegions[0];
+		trunkShadow = atlas.find("circle-shadow");
 	}
 
 	@Override
@@ -167,14 +173,89 @@ public class LivingTreeBlock extends Block{
 
 		Draw.color(result); 
 		*/
-		
-		Draw.alpha(fade);
-		Draw.z(baseLayer);
-		Draw.rectv(variantRegions[variation], x, y, w, h, rot, vec -> vec.add(
-			Mathf.sin(vec.y*3 + Time.time* timeFactor, scl, mag) + Mathf.sin(vec.x*3 - Time.time* timeFactor, 70, 0.8f),
-			Mathf.cos(vec.x*3 + Time.time* timeFactor + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time* timeFactor, 50, 0.2f)
-			));
-		
+
+		if(!((LivingTreeBlockBuild)tile.build).stump){
+			Draw.alpha(fade);
+			Draw.z(baseLayer);
+			Draw.rectv(variantRegions[variation], x, y, w, h, rot, vec -> vec.add(
+				Mathf.sin(vec.y*3 + Time.time* timeFactor, scl, mag) + Mathf.sin(vec.x*3 - Time.time* timeFactor, 70, 0.8f),
+				Mathf.cos(vec.x*3 + Time.time* timeFactor + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time* timeFactor, 50, 0.2f)
+				));
+
+			// Back leaves, behind base layer 🗣🗣🗣
+			if (backRegions[variation].found()) {
+				Draw.z(baseLayer - 1f);
+				Draw.alpha(fade);
+				Draw.rect(backRegions[variation], x, y, rot);
+			}
+
+			// Center leaves. Also just means those leaves from the edgemost of the tree branches.
+			if (centerRegions[variation].found()) {
+				float height = 0.0015f * size;
+				float drawX = DrawPseudo3D.xHeight(x, height);
+				float drawY = DrawPseudo3D.yHeight(y, height);
+
+				Draw.z(baseLayer + 1);
+				Draw.alpha(fade);
+				Draw.rectv(centerRegions[variation], drawX, drawY, w, h, rot, vec -> vec.add(
+					Mathf.sin(vec.y*2 + Time.time * timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 70, 0.8f),
+					Mathf.cos(vec.x*2 + Time.time * timeFactor + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
+					));
+			}
+
+			// Middle leaves in between Center leaves and the Top leaves.
+			if (middleRegions[variation].found()) {
+				float height = 0.002f * size;
+				float drawX = DrawPseudo3D.xHeight(x, height);
+				float drawY = DrawPseudo3D.yHeight(y, height);
+
+				Draw.z(tallTree ? Layer.flyingUnitLow + 1.5f : baseLayer + 2f);
+				Draw.alpha(fade);
+				Draw.rectv(middleRegions[variation], drawX, drawY, w, h, rot, vec -> vec.add(
+					Mathf.sin(vec.y*2 + Time.time * timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 55, 0.9f),
+					Mathf.cos(vec.x*2 + Time.time * timeFactor + 8, scl + 6f, mag * 1.0f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
+					));
+			}
+
+			// Shadow mask for the massive trees.
+			if (tallshadRegions[variation].found()) {			
+				Draw.z(Layer.flyingUnitLow + 1f);
+				Draw.alpha(1f);
+				Draw.rectv(tallshadRegions[variation], x, y, w, h, rot, vec -> vec.add(
+					Mathf.sin(vec.y*3 + Time.time* timeFactor, scl, mag) + Mathf.sin(vec.x*3 - Time.time* timeFactor, 70, 0.8f),
+					Mathf.cos(vec.x*3 + Time.time* timeFactor + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time* timeFactor, 50, 0.2f)
+					));
+			}
+
+			// Top leaves. Massive trees would have this above flying units.
+			if (topRegions[variation].found()) {
+				float height = 0.003f * size;
+				float drawX = DrawPseudo3D.xHeight(x, height);
+				float drawY = DrawPseudo3D.yHeight(y, height);
+
+				Draw.z(tallTree ? Layer.flyingUnitLow + 2f : baseLayer + 4f);
+				Draw.alpha(fade);
+				Draw.rectv(topRegions[variation], drawX, drawY, w, h, rot, vec -> vec.add(
+					Mathf.sin(vec.y*2 + Time.time* timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 70, 0.8f),
+					Mathf.cos(vec.x*2 + Time.time* timeFactor + 8, scl + 4f, mag * 1.4f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
+					));
+				
+			}
+			Draw.color();
+			Draw.alpha(1f);
+
+			//Shadow above ground units
+			if (shadowRegions[variation].found()) { 
+				Draw.z(baseLayer - 2f);
+				Draw.alpha(1f);
+				if (rotateShadow == true){
+					Draw.rect(shadowRegions[variation], x + shadowOffset, y + shadowOffset, rot);
+				} else {
+					Draw.rect(shadowRegions[variation], x + shadowOffset, y + shadowOffset);
+				}
+			}
+		}
+
 		// Trunk below base layer
 		if (trunkRegions[variation].found()) {
 			Draw.z(Layer.blockProp - 0.5f);
@@ -182,79 +263,13 @@ public class LivingTreeBlock extends Block{
 			Draw.rect(trunkRegions[variation], x, y, rotStatic);
 		}
 
-		// Back leaves, behind base layer 🗣🗣🗣
-		if (backRegions[variation].found()) {
-			Draw.z(baseLayer - 1f);
-			Draw.alpha(fade);
-			Draw.rect(backRegions[variation], x, y, rot);
+		if(((LivingTreeBlockBuild)tile.build).stump){
+			Draw.z(Layer.block - 1);
+			Draw.color(0f,0f,0f, BlockRenderer.shadowColor.a - 0.2f);
+			Draw.rect(trunkShadow, tile.drawx(), tile.drawy(), size * tilesize, size * tilesize);
+			Draw.color();
 		}
 
-		// Center leaves. Also just means those leaves from the edgemost of the tree branches.
-		if (centerRegions[variation].found()) {
-			float height = 0.0015f * size;
-			float drawX = DrawPseudo3D.xHeight(x, height);
-			float drawY = DrawPseudo3D.yHeight(y, height);
-
-			Draw.z(baseLayer + 1);
-			Draw.alpha(fade);
-			Draw.rectv(centerRegions[variation], drawX, drawY, w, h, rot, vec -> vec.add(
-				Mathf.sin(vec.y*2 + Time.time * timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 70, 0.8f),
-				Mathf.cos(vec.x*2 + Time.time * timeFactor + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
-				));
-		}
-
-		// Middle leaves in between Center leaves and the Top leaves.
-		if (middleRegions[variation].found()) {
-			float height = 0.002f * size;
-			float drawX = DrawPseudo3D.xHeight(x, height);
-			float drawY = DrawPseudo3D.yHeight(y, height);
-
-			Draw.z(tallTree ? Layer.flyingUnitLow + 1.5f : baseLayer + 2f);
-			Draw.alpha(fade);
-			Draw.rectv(middleRegions[variation], drawX, drawY, w, h, rot, vec -> vec.add(
-				Mathf.sin(vec.y*2 + Time.time * timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 55, 0.9f),
-				Mathf.cos(vec.x*2 + Time.time * timeFactor + 8, scl + 6f, mag * 1.0f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
-				));
-		}
-
-		// Shadow mask for the massive trees.
-		if (tallshadRegions[variation].found()) {			
-			Draw.z(Layer.flyingUnitLow + 1f);
-			Draw.alpha(1f);
-			Draw.rectv(tallshadRegions[variation], x, y, w, h, rot, vec -> vec.add(
-				Mathf.sin(vec.y*3 + Time.time* timeFactor, scl, mag) + Mathf.sin(vec.x*3 - Time.time* timeFactor, 70, 0.8f),
-				Mathf.cos(vec.x*3 + Time.time* timeFactor + 8, scl + 6f, mag * 1.1f) + Mathf.sin(vec.y*3 - Time.time* timeFactor, 50, 0.2f)
-				));
-		}
-
-		// Top leaves. Massive trees would have this above flying units.
-		if (topRegions[variation].found()) {
-			float height = 0.003f * size;
-			float drawX = DrawPseudo3D.xHeight(x, height);
-			float drawY = DrawPseudo3D.yHeight(y, height);
-
-			Draw.z(tallTree ? Layer.flyingUnitLow + 2f : baseLayer + 4f);
-			Draw.alpha(fade);
-			Draw.rectv(topRegions[variation], drawX, drawY, w, h, rot, vec -> vec.add(
-				Mathf.sin(vec.y*2 + Time.time* timeFactor, scl, mag) + Mathf.sin(vec.x*2 - Time.time* timeFactor, 70, 0.8f),
-				Mathf.cos(vec.x*2 + Time.time* timeFactor + 8, scl + 4f, mag * 1.4f) + Mathf.sin(vec.y*2 - Time.time* timeFactor, 50, 0.2f)
-				));
-			
-		}
-		Draw.color();
-		Draw.alpha(1f);
-
-		//Shadow above ground units
-		if (shadowRegions[variation].found()) { 
-			Draw.z(baseLayer - 2f);
-			Draw.alpha(1f);
-			if (rotateShadow == true){
-				Draw.rect(shadowRegions[variation], x + shadowOffset, y + shadowOffset, rot);
-			} else {
-				Draw.rect(shadowRegions[variation], x + shadowOffset, y + shadowOffset);
-			}
-		}
-		
 		// effects
 		if(Vars.state.isPaused()) return; // Particles stack when paused for some reason
 		int effectChance = settings.getInt("dusty-falling-density");
@@ -271,7 +286,9 @@ public class LivingTreeBlock extends Block{
 	public void drawShadow(Tile tile){}
 
 	public class LivingTreeBlockBuild extends Building{
-		public float burnIntensity = 0f;
+		public boolean stump = false;
+		float burnIntensity = 0f;
+		float stumpHealth = 0;
 
 		@Override
 		public void updateTile(){
@@ -297,6 +314,28 @@ public class LivingTreeBlock extends Block{
 				return;
 			}
 			super.damage(amount);
+		}
+
+		@Override
+		public void created(){
+			super.created();
+			stumpHealth = block.health * 2;
+			destroyEffect = breakEffect = stumpBreakEffect;
+		}
+
+		@Override
+		public void killed(){
+			if(!stump){
+				stump = true;
+				health = stumpHealth;
+				clampHealth();
+
+				((LivingTreeBlock)block).treeBreakEffect.at(x, y, (float)(8 * block.size));
+				if (!Vars.headless) this.playDestroySound();
+				return;
+			}
+			
+			super.killed();
 		}
 	}
 }
