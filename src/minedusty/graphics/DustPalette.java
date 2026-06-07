@@ -8,6 +8,8 @@ public class DustPalette {
 	laserColor2 = Color.valueOf("#ffe18f"),
 	turretOutline = Color.valueOf("#394147"),
 	chlorophyteWater = Color.valueOf("#7effdc"),
+	thermalColor = Color.valueOf("#f4a084"),
+	thermalDarkColor = Color.valueOf("#ff8a5f"),
 
 	carbon = Color.valueOf("#777c71"),
 

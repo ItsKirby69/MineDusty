@@ -67,7 +67,7 @@ public class SolidDefroster extends DefrosterBlock{
                 table.row();
                 table.table(t -> {
                     t.label(() -> {
-                        return "Heat: " + heat;
+                        return "[lightgray]Heat: " + heat;
                     }).left().growX();
                 }).growX();
             }

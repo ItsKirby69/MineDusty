@@ -5,6 +5,8 @@ import mindustry.graphics.Drawf;
 
 import static arc.Core.*;
 
+import arc.math.Mathf;
+
 public class ElectricDefroster extends DefrosterBlock{
 
     public ElectricDefroster(String name, int heat) {
@@ -33,7 +35,7 @@ public class ElectricDefroster extends DefrosterBlock{
                 table.row();
                 table.table(t -> {
                     t.label(() -> {
-                        return "Eff: " + efficiency;
+                        return "Efficiency: " + Mathf.round(efficiency * 100f, 1f) + "%";
                     }).left().growX();
                 }).growX();
             }

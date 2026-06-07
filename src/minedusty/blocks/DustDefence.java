@@ -24,7 +24,7 @@ public class DustDefence {
         crystalWall = new DustWall("crystal-wall"){{
             requirements(Category.defense, with(amethyst, 8));
             health = 170 * wallHealthMulti;
-            chanceDeflect = 25f;
+            chanceDeflect = 18f;
             deflectSound = DustSounds.brittle;
             variants = 2;
             schematicPriority = 10;
@@ -33,7 +33,7 @@ public class DustDefence {
         crystalWallLarge = new DustWall("crystal-wall-large"){{
             requirements(Category.defense, ItemStack.mult(crystalWall.requirements, 4));
             health = 170 * 4 * wallHealthMulti;
-            chanceDeflect = 35f;
+            chanceDeflect = 20f;
             deflectSound = DustSounds.brittle;
             size = 2;
             variants = 2;

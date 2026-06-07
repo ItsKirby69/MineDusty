@@ -19,13 +19,14 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 import minedusty.graphics.DrawHeatCrafterEff;
+import minedusty.graphics.DustPalette;
 import minedusty.world.meta.DustStatUnit;
 
 /** Block that defrosts defense blocks in surrounding area. */
 public class DefrosterBlock extends GenericCrafter{
     public int heatOutput = 1;
 
-    public Color baseColor = Color.valueOf("#f4a084");
+    public Color baseColor = DustPalette.thermalColor;
 
     public DefrosterBlock(String name, int h) {
         super(name);

@@ -83,10 +83,22 @@ public class OxideWall extends DustWall{
         @Override
         public void display(Table table){
             super.display(table);
+            // table.row();
+            // table.table(t -> {
+            //     t.label(() -> {
+            //         return "[lightgray]Stage Duration: " + Mathf.round(currStageDuration / (60f * timeScale), 1f) + "s/stage";
+            //     }).left().growX();
+            // }).growX();
             table.row();
             table.table(t -> {
                 t.label(() -> {
-                    return "Oxide Rate: " + Mathf.round(stageTimer/currStageDuration, 0.1f) + "%";
+                    return "[lightgray]O Stage/Rate: " + currentStage + " | x" + timeScale;
+                }).left().growX();
+            }).growX();
+            table.row();
+            table.table(t -> {
+                t.label(() -> {
+                    return "[lightgray]Oxide Duration: " + Mathf.round(stageTimer/currStageDuration * 100f, 1f) + "%";
                 }).left().growX();
             }).growX();
         }

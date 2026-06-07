@@ -29,7 +29,7 @@ public class FrostModule {
     /** How many visual stages will there be. +1 stage per extra size. */
     public int maxStages = 4;
     /** How long a stage takes to advance to. */
-    public float stageDur = 60f * 2f;
+    public float frostStageDur = 3600f * 0.5f;
     /** Randomness value. Randomly multiplies with stageDur then added to final time. */
     public float durationRandomness = 3f;
     /** How fast to frost the block to next stage. */
@@ -256,7 +256,7 @@ public class FrostModule {
             table.row();
             table.table(t -> {
                 t.label(() -> {
-                    return "Outside planets";
+                    return "[red]Outside frostable planets";
                 }).left().growX();
             }).growX();
             return;
@@ -265,25 +265,19 @@ public class FrostModule {
             table.row();
             table.table(t -> {
                 t.label(() -> {
-                    return "Heat: " + frostState.thermalPower;
+                    return "[lightgray]Heat: " + (frostState.thermalPower > 0 ? "[accent]" : "[red]") + frostState.thermalPower;
                 }).left().growX();
             }).growX();
             table.row();
             table.table(t -> {
                 t.label(() -> {
-                    return "Stage: " + frostState.currentFrostStage;
+                    return "[lightgray]F Stage/Rate: " + frostState.currentFrostStage + " | x" + frostState.frostRate;
                 }).left().growX();
             }).growX();
             table.row();
             table.table(t -> {
                 t.label(() -> {
-                    return "Frost Rate: " + frostState.frostRate;
-                }).left().growX();
-            }).growX();
-            table.row();
-            table.table(t -> {
-                t.label(() -> {
-                    return "Dur: " + Mathf.round(frostState.frostProg/frostState.effectiveStageDur, 0.1f) * 100 + "%";
+                    return "[lightgray]Frost Duration: " + Mathf.round((frostState.frostProg/frostState.effectiveStageDur) * 100f, 1f) + "%";
                 }).left().growX();
             }).growX();
         }
