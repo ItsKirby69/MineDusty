@@ -41,7 +41,7 @@ public class LivingTreeBlock extends Block{
 	public float effectRange = 6f;
 
 	public Effect treeBreakEffect;
-	public Effect stumpBreakEffect = stumpBreakEffect(120f, 15, 2, "minedusty-tree-bark", 3f, 7f);
+	public Effect stumpBreakEffect = stumpBreakEffect(90f, 15, 2, "minedusty-tree-bark", 3f, 7f);
 
 	public LivingTreeBlock(String name){
 		this(name, 3, "#000000");

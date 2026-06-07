@@ -43,37 +43,37 @@ public class DustPlants {
 		divineTree = new LivingTreeBlock("divine-tree", 2, "#c32121"){{
 			itemDrop = DustItems.divinityMatter; //for extraction in future
 			treeBreakEffect = colorEffect(treeBreakEffect(120f, 45, 4, "minedusty-white-prop", 3.2f, 23f, Layer.debris), mapColor);
-			stumpBreakEffect = stumpBreakEffect(120f, 15, 2, "minedusty-white-bark", 3f, 7f);
+			stumpBreakEffect = stumpBreakEffect(90f, 15, 2, "minedusty-white-bark", 3f, 7f);
 		}};
 		aliveTree = new LivingTreeBlock("alive-tree", 2, "#74d660");
 		largealiveTree = new LivingTreeBlock("large-alive-tree", 1, "#74d660"){{
 			treeBreakEffect = colorEffect(treeBreakEffect(150f, 100, 5, "minedusty-tree-prop", 2.6f, 39f, Layer.blockOver), mapColor);
-			stumpBreakEffect = stumpBreakEffect(180f, 30, 2, "minedusty-tree-bark", 3f, 12f);
+			stumpBreakEffect = stumpBreakEffect(110f, 30, 2, "minedusty-tree-bark", 3f, 12f);
 			fadeStart *= 2;
 			fadeEnd *= 2;
 			baseLayer = Layer.legUnit + 3.5f;
 			size = 5;
 		}};
 		blossomTree = new LivingTreeBlock("blossom-tree", 1, "#df7a9c"){{
-			stumpBreakEffect = stumpBreakEffect(120f, 15, 2, "minedusty-blossom-bark", 3f, 7f);
+			stumpBreakEffect = stumpBreakEffect(90f, 15, 2, "minedusty-blossom-bark", 3f, 7f);
 		}};
 		elmTree = new LivingTreeBlock("elm-tree", 1, "#ECB01E"){{
-			stumpBreakEffect = stumpBreakEffect(120f, 15, 2, "minedusty-elm-bark", 3f, 7f);
+			stumpBreakEffect = stumpBreakEffect(90f, 15, 2, "minedusty-elm-bark", 3f, 7f);
 		}};
 		pineTree = new LivingTreeBlock("pine-tree", 1, "#398654"){{
 			treeBreakEffect = colorEffect(treeBreakEffect(120f, 45, 5, "minedusty-pine-prop", 3.2f, 23f, Layer.blockOver), mapColor);
-			stumpBreakEffect = stumpBreakEffect(180f, 15, 2, "minedusty-pine-bark", 3f, 9f);
+			stumpBreakEffect = stumpBreakEffect(110f, 15, 2, "minedusty-pine-bark", 3f, 9f);
 			rotateShadow = false;
 		}};
 		bogTree = new LivingTreeBlock("bog-tree", 1, "#6d922b"){{
 			requiresWater = true;
 			treeBreakEffect = colorEffect(treeBreakEffect(150f, 80, 5, "minedusty-tree-prop", 3f, 26f, Layer.blockOver), mapColor);
-			stumpBreakEffect = stumpBreakEffect(150f, 15, 2, "minedusty-bog-bark", 3f, 8f);
+			stumpBreakEffect = stumpBreakEffect(100f, 15, 2, "minedusty-bog-bark", 3f, 8f);
 		}};
 		largebogTree = new LivingTreeBlock("large-bog-tree", 1, "#6d922b") {{
 			requiresWater = true;
 			treeBreakEffect = colorEffect(treeBreakEffect(150f, 100, 5, "minedusty-tree-prop", 2.6f, 39f, Layer.blockOver), mapColor);
-			stumpBreakEffect = stumpBreakEffect(150f, 30, 2, "minedusty-bog-bark", 3f, 11f);
+			stumpBreakEffect = stumpBreakEffect(100f, 30, 2, "minedusty-bog-bark", 3f, 11f);
 			fadeStart *= 2;
 			fadeEnd *= 2;
 			baseLayer = Layer.legUnit + 3.5f;

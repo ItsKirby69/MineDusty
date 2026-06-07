@@ -9,6 +9,7 @@ import static minedusty.content.DustyEffects.*;
 import arc.graphics.Color;
 import arc.math.Interp;
 import arc.struct.EnumSet;
+import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
@@ -16,6 +17,7 @@ import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.entities.part.DrawPart.PartProgress;
 import mindustry.entities.part.RegionPart;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
@@ -727,18 +729,52 @@ public class DustTurrets {
             );
             
             drawer = new DrawTurret("braced-"){{
-                // Borrowed and modified from Aquarion's Vector turret
-                parts.addAll(new RegionPart("-pellet") {{
-                    under = true;
-                    colorTo = new Color(1f, 1f, 1f, 0f);
-                    color = Color.white;
-                    progress = PartProgress.reload;
-                    recoilIndex = 0;
-                    mixColor = new Color(1f, 1f, 1f, 0f);
-                    mixColorTo = Color.black;
-                    y = 0f;
-                    moveY = -1f;
-                }});
+                setAmmoParts(
+                    aquamerium, Seq.with(new RegionPart("-pellet") {{
+                        under = true;
+                        colorTo = new Color(1f, 1f, 1f, 0f);
+                        color = Color.white;
+                        progress = PartProgress.reload;
+                        recoilIndex = 0;
+                        mixColor = new Color(1f, 1f, 1f, 0f);
+                        mixColorTo = Color.black;
+                        y = 0f;
+                        moveY = -1f;
+                    }}),
+                    lead, Seq.with(new RegionPart("-pellet-lead") {{
+                        under = true;
+                        colorTo = new Color(1f, 1f, 1f, 0f);
+                        color = Color.white;
+                        progress = PartProgress.reload;
+                        recoilIndex = 0;
+                        mixColor = new Color(1f, 1f, 1f, 0f);
+                        mixColorTo = Color.black;
+                        y = 0f;
+                        moveY = -1f;
+                    }}),
+                    graphite, Seq.with(new RegionPart("-pellet-graphite") {{
+                        under = true;
+                        colorTo = new Color(1f, 1f, 1f, 0f);
+                        color = Color.white;
+                        progress = PartProgress.reload;
+                        recoilIndex = 0;
+                        mixColor = new Color(1f, 1f, 1f, 0f);
+                        mixColorTo = Color.black;
+                        y = 0f;
+                        moveY = -1f;
+                    }})
+                );
+                // parts.add(new RegionPart("-pellet") {{
+                //     under = true;
+                //     colorTo = new Color(1f, 1f, 1f, 0f);
+                //     color = Color.white;
+                //     progress = PartProgress.reload;
+                //     recoilIndex = 0;
+                //     mixColor = new Color(1f, 1f, 1f, 0f);
+                //     mixColorTo = Color.black;
+                //     y = 0f;
+                //     moveY = -1f;
+                // }});
                 parts.add(new RegionPart("-back"){{
                     under = true;                    
                 }});
