@@ -12,7 +12,7 @@ public class DustyResetPopup extends BaseDialog{
     
     public DustyResetPopup(Runnable popup, int version){
         super("@popup.dusty-reset-campaign-save-title", Core.scene.getStyle(DialogStyle.class));
-        cont.add(Core.bundle.format("popup.reset-save-message", Vars.mods.getMod("minedusty").meta.version))
+        cont.add(Core.bundle.format("popup.reset-save-message", Vars.mods.getMod("minedusty").meta.version, settings.getInt("@settings.dusty-campaign-version"), version))
         .width(Core.app.isMobile() ? 450f: 600f)
         .wrap()
         .pad(4f)
