@@ -10,7 +10,9 @@ import mindustry.entities.Effect;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.graphics.Layer;
 import minedusty.content.DustyEffects;
+import minedusty.graphics.DustPalette;
 
+import static arc.math.Angles.*;
 import static arc.graphics.g2d.Draw.*;
 
 import arc.Core;
@@ -31,6 +33,16 @@ public class EffectHelper {
 			rotWithParent = originalEffect.rotWithParent;
 			layer = originalEffect.layer;
 		}};
+	}
+
+	public static Effect thermalEffect(float power){
+		return new Effect(40, e -> {
+			randLenVectors(e.id, e.fin(), 1, 20f, (x, y, pfin, fout) -> {
+				color(DustPalette.thermalColor, Color.gray, e.fin());
+				alpha((0.5f - Math.abs(pfin - 0.2f)) * 1.5f);
+				Fill.circle(e.x + x / 2f, e.y + y / 2f , 0.5f + (0.5f * power) + fout * 1f);
+			});
+		});
 	}
 
 	/** Specialized bullet orb creating effect */

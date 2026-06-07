@@ -5,6 +5,7 @@ import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
 import arc.util.*;
 import mindustry.content.Weathers;
+import mindustry.type.Weather;
 import minedusty.content.DustWeathers;
 import minedusty.utils.WeatherUtil;
 
@@ -19,9 +20,11 @@ public class OxideWall extends DustWall{
     /** Randomness value. Randomly multiplies with stageDur then added to final time for a proper stage duration. */
     public float durationOxideRandomness = 5f;
     /** How fast stagetime passes by if rainy weather */
-    public float rainAccel = 5f;
+    public float rainAccel = 2.5f;
 
     public TextureRegion[][] stageRegions;
+    private static final Weather[] oxidizingWeathers = {Weathers.rain, Weathers.fog, DustWeathers.heavyRain};
+    private static final Weather[] rustingWeathers = {DustWeathers.heavyRain};
 
     public OxideWall(String name){
         super(name);
@@ -65,7 +68,8 @@ public class OxideWall extends DustWall{
         @Override
         public void updateTile(){
             super.updateTile();
-            timeScale = WeatherUtil.activeWeather(Weathers.rain, Weathers.fog, DustWeathers.heavyRain) ? rainAccel : 1f;
+            boolean activeweather = WeatherUtil.activeWeather(oxidizingWeathers);
+            timeScale = activeweather ? (WeatherUtil.activeWeather(rustingWeathers) ? rainAccel * 2f : rainAccel) : 1f;
 
             if(currentStage < maxOxideStages - 1){
                 if(frostState.currentFrostStage == frostState.maxFrostStage) return; // Don't advance oxidation if fully frosted duh

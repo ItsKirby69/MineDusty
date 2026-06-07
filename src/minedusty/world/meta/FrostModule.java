@@ -9,7 +9,6 @@ import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
 import arc.struct.ObjectSet;
-import arc.struct.Seq;
 import arc.util.*;
 import mindustry.Vars;
 import mindustry.content.*;
@@ -22,6 +21,7 @@ import mindustry.world.blocks.production.GenericCrafter.GenericCrafterBuild;
 import minedusty.DustAttributes;
 import minedusty.content.*;
 import minedusty.planets.DustPlanets;
+import minedusty.utils.EffectHelper;
 import minedusty.utils.WeatherUtil;
 import minedusty.world.blocks.defense.DefrosterBlock.DefrosterBlockBuild;
 
@@ -48,7 +48,8 @@ public class FrostModule {
     public int heatRange = 7;
     public Effect meltEffect = DustyEffects.meltSteam;
 
-    private Weather[] frostingWeathers = {DustWeathers.snowFog, DustWeathers.snowStorm, Weathers.snow};
+    private static final Weather[] frostingWeathers = {DustWeathers.snowFog, DustWeathers.snowStorm, Weathers.snow};
+    private static final Weather[] freezingWeathers = {DustWeathers.snowStorm};
 
     public int actualStages;
     public TextureRegion[][] frostRegions;
@@ -77,7 +78,7 @@ public class FrostModule {
     
         public void init(Building build, FrostModule module){
             sizeResist = 1f + (build.block.size - 1) * module.resistanceFactor;
-            effectiveStageDur = module.stageDur + Mathf.random(0, module.stageDur * module.durationRandomness);
+            effectiveStageDur = module.frostStageDur + Mathf.random(0, module.frostStageDur * module.durationRandomness);
             maxFrostStage = module.actualStages - 1;
             variant = Mathf.randomSeed(build.tile.pos(), 0, Math.max(0, module.frostVariants - 1));
         }
@@ -130,7 +131,7 @@ public class FrostModule {
         if(coldWeather){
             state.maxFrostStage = Math.max(-1, actualStages - 1 - Mathf.floor(state.thermalPower));
 
-            state.frostRate = baseRate * (WeatherUtil.activeWeather(DustWeathers.snowStorm) ? 2.0f : 1f) - heatModifier;
+            state.frostRate = baseRate * (WeatherUtil.activeWeather(freezingWeathers) ? 2.0f : 1f) - heatModifier;
             state.frostRate = Math.max(state.frostRate, -1.5f * baseRate);
         }else{
             state.frostRate = -baseRate - heatModifier;
@@ -169,6 +170,14 @@ public class FrostModule {
                 brittleSound.at(build.x(), build.y(), Mathf.random(0.9f, 1.2f), 0.7f);
             }
         }else state.brittleTimer = 0f;
+
+        // Heat particles based on if thermal power (scaled)
+		if(state.thermalPower != 0 && Mathf.chanceDelta((0.002f + 0.001f * Mathf.clamp(state.thermalPower, 0, 4)) * build.block.size)){
+            EffectHelper.thermalEffect(state.thermalPower).at(
+				build.x() + Mathf.range(3f * build.block.size),
+				build.y() + Mathf.range(3f * build.block.size)
+            );
+		}
     }
     
     void updateHeat(Building build, FrostState state){
