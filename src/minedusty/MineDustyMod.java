@@ -10,6 +10,7 @@ import minedusty.utils.*;
 import minedusty.world.ui.DustSplashFrag;
 import arc.*;
 import arc.graphics.g2d.TextureRegion;
+import arc.input.KeyCode;
 import arc.math.Mathf;
 import arc.struct.Seq;
 import arc.util.*;
@@ -17,7 +18,9 @@ import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.core.GameState;
 import mindustry.game.EventType.*;
+import mindustry.graphics.MenuRenderer;
 import mindustry.mod.*;
+import mindustry.ui.fragments.MenuFragment;
 import mindustry.world.blocks.environment.Floor;
 
 import static arc.Core.*;
@@ -31,12 +34,30 @@ public class MineDustyMod extends Mod {
 
 	public MineDustyMod() {
 		Log.info("[lightgray]*cough* *cough* [][acid]MineDusty[] [white]is [][lightgray]*cough*[] [white]loaded");
-		/*
-		 * Events.on(EventType.ClientLoadEvent.class, e -> {
-		 * Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new
-		 * DustMenuRender());
-		 * });
-		 */
+		
+		Events.on(ClientLoadEvent.class, e -> {
+			try {
+				Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new DustMenuRender());
+			} catch (Exception ex) {
+				Log.err("Failed to replace renderer", ex);
+			}
+			// Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new DustMenuRender());
+		});
+		
+		Events.run(Trigger.update, () -> {
+			if(Vars.state.isMenu() && Core.input.keyTap(KeyCode.f2)){
+				try {
+					MenuRenderer old = Reflect.get(MenuFragment.class, Vars.ui.menufrag, "renderer");
+					if(old instanceof DustMenuRender dmr) dmr.dispose();
+					
+					Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new DustMenuRender());
+					Log.info("Menu renderer refreshed");
+				} catch (Exception e){
+					Log.err("Failed to replace renderer", e);
+				}
+			}
+		});
+		 
 
 		Events.on(StateChangeEvent.class, e -> {
 			if(e.to == GameState.State.menu){
