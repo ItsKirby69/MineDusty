@@ -35,28 +35,20 @@ public class MineDustyMod extends Mod {
 	public MineDustyMod() {
 		Log.info("[lightgray]*cough* *cough* [][acid]MineDusty[] [white]is [][lightgray]*cough*[] [white]loaded");
 		
-		Events.on(ClientLoadEvent.class, e -> {
-			try {
-				Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new DustMenuRender());
-			} catch (Exception ex) {
-				Log.err("Failed to replace renderer", ex);
-			}
-			// Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new DustMenuRender());
-		});
-		
-		Events.run(Trigger.update, () -> {
-			if(Vars.state.isMenu() && Core.input.keyTap(KeyCode.f2)){
-				try {
-					MenuRenderer old = Reflect.get(MenuFragment.class, Vars.ui.menufrag, "renderer");
-					if(old instanceof DustMenuRender dmr) dmr.dispose();
+		// Debugging
+		// Events.run(Trigger.update, () -> {
+		// 	if(Vars.state.isMenu() && Core.input.keyTap(KeyCode.f2)){
+		// 		try {
+		// 			MenuRenderer old = Reflect.get(MenuFragment.class, Vars.ui.menufrag, "renderer");
+		// 			if(old instanceof DustMenuRender dmr) dmr.dispose();
 					
-					Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new DustMenuRender());
-					Log.info("Menu renderer refreshed");
-				} catch (Exception e){
-					Log.err("Failed to replace renderer", e);
-				}
-			}
-		});
+		// 			Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new DustMenuRender());
+		// 			Log.info("Menu renderer refreshed");
+		// 		} catch (Exception e){
+		// 			Log.err("Failed to replace renderer", e);
+		// 		}
+		// 	}
+		// });
 		 
 
 		Events.on(StateChangeEvent.class, e -> {
@@ -73,6 +65,15 @@ public class MineDustyMod extends Mod {
 		
 		DustSettings.load();
 		Events.on(ClientLoadEvent.class, e -> {
+			// Menu renderer
+			if(settings.getBool("dusty-custom-menu-renderer")){
+				try {
+					Reflect.set(MenuFragment.class, Vars.ui.menufrag, "renderer", new DustMenuRender());
+				} catch (Exception ex) {
+					Log.err("Failed to replace renderer", ex);
+				}
+			}
+
 			// show dialog(s) upon startup
 			DustyResetPopup.check(CAMPAIGN_SAVE_VERSION, DustyPopup::check);
 			

@@ -12,18 +12,15 @@ import arc.util.*;
 import arc.util.noise.*;
 import mindustry.content.*;
 import mindustry.game.*;
-import mindustry.graphics.MenuRenderer;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
-import minedusty.blocks.DustEnv;
-import minedusty.blocks.DustPlants;
+import minedusty.blocks.*;
 import minedusty.content.*;
 
 import static mindustry.Vars.*;
 
-// TODO maybe have water be a completely separate thing? Instead of trying to make chance of water floors
-// Trees and props do not work properly (trees don't show up, need better options)
-// Probably rework biomes
+/** MenuRenderer revamped to use my modded blocks */
 public class DustMenuRender extends MenuRenderer{
     private static final float darkness = 0.3f;
     private final int width = !mobile ? 100 : 60, height = !mobile ? 50 : 40;
@@ -48,6 +45,32 @@ public class DustMenuRender extends MenuRenderer{
         Log.debug("Time to generate menu: @", Time.elapsed());
     }
 
+	private static final Block[][] selection = {
+		{Blocks.sand, Blocks.salt, Blocks.sandWall, Blocks.saltWall},
+		{Blocks.shale, Blocks.dirt, Blocks.shaleWall, Blocks.dirtWall},
+		{Blocks.grass, DustEnv.pattedGrass, Blocks.shrubs, Blocks.shrubs},
+		{Blocks.stone, Blocks.basalt, Blocks.stoneWall, Blocks.duneWall},
+		{DustEnv.clayFloor, Blocks.salt, DustEnv.hardenedClayWall, Blocks.saltWall},
+		{Blocks.dacite, Blocks.salt, Blocks.daciteWall, Blocks.saltWall},
+		{DustEnv.basaltFloor, Blocks.salt, DustEnv.basaltWall, Blocks.saltWall},
+		{DustEnv.calciteFloor, DustEnv.basaltFloor, DustEnv.calciteWall, DustEnv.basaltWall},
+		{Blocks.snow, Blocks.salt, Blocks.snowWall, Blocks.saltWall},
+		{DustEnv.permafrost, Blocks.snow, DustEnv.permafrostWall, Blocks.snowWall},
+		{Blocks.ice, Blocks.snow, Blocks.iceWall, Blocks.snowWall}
+	};
+
+	private static final Block[][] props = {
+		{Blocks.sand, DustPlants.sandyshrub, DustPlants.deadTree},
+		{Blocks.grass, DustPlants.shrub, DustPlants.aliveTree},
+		{DustEnv.clayFloor, DustPlants.clayshrub, DustEnv.clayBall},
+		{DustEnv.basaltFloor, DustPlants.dustyshrub, DustPlants.dustyshrub},
+		{Blocks.dacite, Blocks.daciteBoulder, Blocks.daciteBoulder},
+		{DustEnv.calciteFloor, DustEnv.calciteBoulder, DustEnv.divineSapling}
+	};
+
+	// private final Seq<int[]> treePropPos = new Seq<>();
+	// private Block treePropB;
+
     private void generate(){
         //suppress tile change events.
         world.setGenerating(true);
@@ -59,33 +82,41 @@ public class DustMenuRender extends MenuRenderer{
         int offset = Mathf.random(100000);
         int s1 = offset, s2 = offset + 1, s3 = offset + 2;
 
-		Block[][] selection = Structs.random();
-
         Block[] selected = Structs.random(
 			new Block[]{Blocks.sand, Blocks.sandWall},
 			new Block[]{Blocks.shale, Blocks.shaleWall},
-			new Block[]{Blocks.ice, Blocks.iceWall},
 			new Block[]{Blocks.sand, Blocks.sandWall},
-			new Block[]{Blocks.snow, Blocks.snowWall},
-			new Block[]{Blocks.ice, Blocks.iceWall},
 			new Block[]{Blocks.dirt, Blocks.dirtWall},
-			new Block[]{Blocks.mud, Blocks.dirtWall},
 			new Block[]{DustEnv.clayFloor, DustEnv.hardenedClayWall},
-			new Block[]{DustEnv.pattedGrass, Blocks.shrubs},
-			new Block[]{Blocks.dacite, Blocks.daciteWall}
+			new Block[]{Blocks.grass, Blocks.shrubs},
+			new Block[]{Blocks.dacite, Blocks.daciteWall},
+            new Block[]{DustEnv.calciteFloor, DustEnv.calciteWall},
+			new Block[]{Blocks.salt, Blocks.saltWall},
+            new Block[]{DustEnv.permafrost, DustEnv.permafrostWall},
+            new Block[]{Blocks.basalt, Blocks.duneWall}
         );
         Block[] selected2 = Structs.random(
 			new Block[]{Blocks.basalt, Blocks.duneWall},
 			new Block[]{Blocks.stone, Blocks.stoneWall},
-			new Block[]{Blocks.salt, Blocks.saltWall},
 			new Block[]{DustEnv.basaltFloor, DustEnv.basaltWall},
-			new Block[]{DustEnv.calciteFloor, DustEnv.calciteWall}
+			new Block[]{DustEnv.pattedGrass, Blocks.shrubs},
+            new Block[]{Blocks.snow, Blocks.snowWall},
+			new Block[]{Blocks.ice, Blocks.iceWall}
         );
 
-		Block[] selected3 = Structs.random(
-			new Block[]{DustPlants.shrub, DustPlants.aliveTree},
-			new Block[]{DustPlants.sandyshrub, DustPlants.deadTree}
-		);
+		Block[][] selected3 = {
+			{Blocks.grass, DustPlants.shrub, DustPlants.aliveTree},
+			{Blocks.sand, DustPlants.sandyshrub, DustPlants.deadTree},
+			{Blocks.sand, DustPlants.deadShrub, DustPlants.deadTree},
+			{DustEnv.clayFloor, DustEnv.clayBall, DustEnv.largeAmethystCrystals},
+			{DustEnv.basaltFloor, DustPlants.dustyshrub, DustPlants.elmTree},
+			{DustEnv.basaltFloor, Blocks.basaltBoulder, DustPlants.elmTree},
+			{DustEnv.calciteFloor, DustEnv.divineSapling, DustPlants.divineTree},
+			{Blocks.stone, Blocks.boulder, DustPlants.deadTree},
+			{Blocks.basalt, Blocks.basaltBoulder, DustPlants.deadTree},
+			{Blocks.dacite, Blocks.daciteBoulder, DustPlants.deadTree},
+            {DustEnv.permafrost, DustEnv.permafrostBoulder, DustPlants.deadTree}
+		};
 
         Block ore1 = ores.random();
         ores.remove(ore1);
@@ -100,7 +131,6 @@ public class DustMenuRender extends MenuRenderer{
 
         Block floord = selected[0], walld = selected[1];
         Block floord2 = selected2[0], walld2 = selected2[1];
-		Block prop1 = selected3[0], prop2 = selected3[1];
 
         for(int x = 0; x < width; x++){
             for(int y = 0; y < height; y++){
@@ -152,7 +182,7 @@ public class DustMenuRender extends MenuRenderer{
                     if(Simplex.noise2d(s1, 2, 1f / 10f, 0.5f, sclx, scly) > 0.4f && (mx == 0 || my == 0 || mx == secSize - 1 || my == secSize - 1)){
                         floor = Blocks.darkPanel3;
                         if(Mathf.dst(mx, my, secSize/2, secSize/2) > secSize/2f + 1){
-                            floor = Blocks.darkPanel4;
+                            floor = Mathf.chance(0.6f) ? Blocks.darkPanel4 : Blocks.darkPanel5;
                         }
 
 
@@ -172,30 +202,6 @@ public class DustMenuRender extends MenuRenderer{
                     }
                 }
 
-				if(wall != Blocks.air){
-					if(Mathf.chance(0.03)){
-						int s = prop2.size;
-						boolean fits = true;
-
-						int half = s/2;
-						for(int dx = -half; dx <= half && fits; dx++){
-							for(int dy = -half; dy <= half && fits; dy++){
-								Tile n = world.tile(x + dx, y + dy);
-								if(n == null || n.block() != Blocks.air){
-									fits = false;
-								}
-							}
-						}
-						if(fits){
-							wall = prop2;
-							continue;
-						}
-					}
-
-					if(Mathf.chance(0.01f)){
-						wall = prop1;
-					}
-				};
 
                 Tile tile;
                 tiles.set(x, y, (tile = new CachedTile()));
@@ -208,41 +214,44 @@ public class DustMenuRender extends MenuRenderer{
         }
 
 		// Props
-        // for(int x = 0; x < width; x++){
-        //     for(int y = 0; y < height; y++){
-		// 		Tile tile1 = world.tile(x, y);
-		// 		if(tile1 == null || tile1.block() != Blocks.air) continue;
+        for(int x = 0; x < width; x++){
+            for(int y = 0; y < height; y++){
+				Tile tile = tiles.get(x, y);
+				if(tile == null || tile.block() != Blocks.air) continue;
 
-		// 		if(Mathf.chance(0.003)){
-		// 			Block tree = prop2;
-		// 			int s = tree.size;
-		// 			boolean fits = true;
+				for(Block[] prop : selected3){
+					Block maskFloor = prop[0];
+					Block smallProp = prop[1];
+					// Block treeProp = prop[2];
 
-		// 			int half = s/2;
-		// 			for(int dx = -half; dx <= half && fits; dx++){
-		// 				for(int dy = -half; dy <= half && fits; dy++){
-		// 					Tile n = world.tile(x + dx, y + dy);
-		// 					if(n == null || n.block() != Blocks.air){
-		// 						fits = false;
-		// 					}
-		// 				}
-		// 			}
-		// 			if(fits){
-		// 				proop = tree;
-		// 				continue;
-		// 			}
-		// 		}
+					if(tile.floor() != maskFloor) continue;
 
-		// 		if(Mathf.chance(0.01f)){
-		// 			proop = prop1;
-		// 		}
+					// if(Mathf.chance(0.004f)){
+					// 	int s = treeProp.size;
+					// 	int half = s / 2;
+					// 	boolean fits = true;
+					// 	for(int dx = -half; dx <= half && fits; dx++){
+					// 		for(int dy = -half; dy <= half && fits; dy++){
+					// 			Tile n = world.tile(x + dx, y + dy);
+					// 			if(n == null || n.block() != Blocks.air){
+					// 				fits = false;
+					// 			}
+					// 		}
+					// 	}
+					// 	if(fits){
+					// 		treePropPos.add(new int[]{x, y});
+					// 		treePropB = treeProp;
+					// 		break;
+					// 	}
+					// }
+					if(Mathf.chance(0.04f)){
+						tile.setBlock(smallProp);
+					}
 
-		// 		tiles.set(x, y, (tile1 = new CachedTile()));
-        //         tile1.x = (short)x;
-        //         tile1.y = (short)y;
-		// 		tile1.setBlock(proop);
-		// 	}
-		// }
+					break;
+				}
+			}
+		}
         // //don't fire a world load event, it just causes lag and confusion
         world.setGenerating(false);
     }
@@ -310,6 +319,41 @@ public class DustMenuRender extends MenuRenderer{
         batch.beginDraw();
         batch.drawCache(cacheWall);
         batch.endDraw();
+
+        // Atrocious
+		// if(!treePropPos.isEmpty() && treePropB instanceof LivingTreeBlock tree){
+		// 	for(int[] pos : treePropPos){
+		// 		float wx = pos[0] * tilesize;
+		// 		float wy = pos[1] * tilesize;
+		// 		int variation = Mathf.randomSeed(Point2.pack(pos[0], pos[1]), 0, Math.max(0, tree.variantRegions.length - 1));
+		// 		int rot = Mathf.randomSeed(Point2.pack(pos[0], pos[1]), 0, 4) * 90;
+		// 		if(tree.shadowRegions[variation].found()){
+		// 			Draw.z(tree.baseLayer - 4f);
+		// 			Draw.rect(tree.shadowRegions[variation], wx + tree.shadowOffset, wy + tree.shadowOffset, rot);
+		// 		}
+		// 		if(tree.variantRegions[variation].found()){
+		// 			Draw.z(tree.baseLayer);
+		// 			Draw.rect(tree.variantRegions[variation], wx, wy, rot);
+		// 		}
+		// 		if(tree.backRegions[variation].found()){
+		// 			Draw.z(tree.baseLayer - 1f);
+		// 			Draw.rect(tree.backRegions[variation], wx, wy, rot);
+		// 		}
+		// 		if(tree.centerRegions[variation].found()){
+		// 			Draw.z(tree.baseLayer + 1f);
+		// 			Draw.rect(tree.centerRegions[variation], wx, wy, rot);
+		// 		}
+		// 		if(tree.middleRegions[variation].found()){
+		// 			Draw.z(tree.baseLayer + 2f);
+		// 			Draw.rect(tree.middleRegions[variation], wx, wy, rot);
+		// 		}
+		// 		if(tree.topRegions[variation].found()){
+		// 			Draw.z(tree.baseLayer + 4f);
+		// 			Draw.rect(tree.topRegions[variation], wx, wy, rot);
+		// 		}
+		// 	}
+		// 	Draw.flush();
+		// }
 
         drawFlyers();
 
