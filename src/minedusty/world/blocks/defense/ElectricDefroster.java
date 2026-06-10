@@ -31,14 +31,13 @@ public class ElectricDefroster extends DefrosterBlock{
         @Override
         public void display(Table table) {
             super.display(table);
-            if(settings.getBool("dusty-block-debug")){
-                table.row();
-                table.table(t -> {
-                    t.label(() -> {
-                        return "Efficiency: " + Mathf.round(efficiency * 100f, 1f) + "%";
-                    }).left().growX();
-                }).growX();
-            }
+            if(!settings.getBool("dusty-block-debug")) return;
+            table.row();
+            table.table(t -> {
+                t.label(() -> {
+                    return "Efficiency: " + Mathf.round(efficiency * 100f, 1f) + "%";
+                }).left().growX();
+            }).growX();
         }
     }
 }

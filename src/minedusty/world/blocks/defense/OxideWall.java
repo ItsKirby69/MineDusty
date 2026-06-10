@@ -93,6 +93,7 @@ public class OxideWall extends DustWall{
             //         return "[lightgray]Stage Duration: " + Mathf.round(currStageDuration / (60f * timeScale), 1f) + "s/stage";
             //     }).left().growX();
             // }).growX();
+            if(!settings.getBool("dusty-block-debug")) return;
             table.row();
             table.table(t -> {
                 t.label(() -> {

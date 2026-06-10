@@ -63,14 +63,14 @@ public class SolidDefroster extends DefrosterBlock{
         @Override
         public void display(Table table) {
             super.display(table);
-            if(settings.getBool("dusty-block-debug")){
-                table.row();
-                table.table(t -> {
-                    t.label(() -> {
-                        return "[lightgray]Heat: " + heat;
-                    }).left().growX();
-                }).growX();
-            }
+            if(!settings.getBool("dusty-block-debug")) return;
+            table.row();
+            table.table(t -> {
+                t.label(() -> {
+                    return "[lightgray]Heat: " + heat;
+                }).left().growX();
+            }).growX();
+            
         }
     }
 }

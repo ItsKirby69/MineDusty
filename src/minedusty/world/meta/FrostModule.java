@@ -270,26 +270,25 @@ public class FrostModule {
             }).growX();
             return;
         };
-        if(settings.getBool("dusty-block-debug")){
-            table.row();
-            table.table(t -> {
-                t.label(() -> {
-                    return "[lightgray]Heat: " + (frostState.thermalPower > 0 ? "[accent]" : "[red]") + frostState.thermalPower;
-                }).left().growX();
-            }).growX();
-            table.row();
-            table.table(t -> {
-                t.label(() -> {
-                    return "[lightgray]F Stage/Rate: " + frostState.currentFrostStage + " | x" + frostState.frostRate;
-                }).left().growX();
-            }).growX();
-            table.row();
-            table.table(t -> {
-                t.label(() -> {
-                    return "[lightgray]Frost Duration: " + Mathf.round((frostState.frostProg/frostState.effectiveStageDur) * 100f, 1f) + "%";
-                }).left().growX();
-            }).growX();
-        }
+        if(!settings.getBool("dusty-block-debug")) return;
+        table.row();
+        table.table(t -> {
+            t.label(() -> {
+                return "[lightgray]Heat: " + (frostState.thermalPower > 0 ? "[accent]" : "[red]") + frostState.thermalPower;
+            }).left().growX();
+        }).growX();
+        table.row();
+        table.table(t -> {
+            t.label(() -> {
+                return "[lightgray]F Stage/Rate: " + frostState.currentFrostStage + " | x" + frostState.frostRate;
+            }).left().growX();
+        }).growX();
+        table.row();
+        table.table(t -> {
+            t.label(() -> {
+                return "[lightgray]Frost Duration: " + Mathf.round((frostState.frostProg/frostState.effectiveStageDur) * 100f, 1f) + "%";
+            }).left().growX();
+        }).growX();
     }
 
     public void drawFrost(Building build, FrostState state, int frostVariants){
