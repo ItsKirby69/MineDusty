@@ -20,7 +20,7 @@ public class DustSectors {
         tropicalLake = new DustSectorPreset("tropicalLake", theia, 49){{
             addStartingItems = true;
             captureWave = 21;
-            difficulty = 3;
+            difficulty = 6;
             overrideLaunchDefaults = true;
             startWaveTimeMultiplier = 1.5f;
         }};
@@ -38,7 +38,7 @@ public class DustSectors {
         basalticShore = new DustSectorPreset("basalticShore", theia, 50){{
             addStartingItems = true;
             captureWave = 15;
-            difficulty = 3;
+            difficulty = 4;
             overrideLaunchDefaults = true;
             startWaveTimeMultiplier = 1.5f;
         }};
@@ -71,7 +71,7 @@ public class DustSectors {
         sandyEminence = new DustSectorPreset("sandyEminence", theia, 51){{
             addStartingItems = true;
             captureWave = 20;
-            difficulty = 4;
+            difficulty = 3;
             overrideLaunchDefaults = true;
             startWaveTimeMultiplier = 1.5f;
         }};
