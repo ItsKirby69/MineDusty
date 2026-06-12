@@ -209,7 +209,8 @@ public class TheiaTechTree {
                     new Research(crystalBore)
                 ), () -> {
                     node(tropicalLake, Seq.with(
-                        new SectorComplete(basalticShore)
+                        new SectorComplete(basalticShore),
+                        new SectorComplete(lushCorridors)
                     ), () -> {});
                     node(frostedFault, Seq.with(
                         new Research(electricFurnace)
