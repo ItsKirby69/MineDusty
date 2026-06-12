@@ -52,7 +52,7 @@ public class DustTurrets {
             DustItems.oxidecopper, new BasicBulletType(2f, 9){{
                 width = 7f;
                 height = 9f;
-                lifetime = 60f;
+                lifetime = 80f;
                 ammoMultiplier = 2;
 
                 trailLength = 3;
