@@ -126,7 +126,7 @@ public class DustCrafters {
 		carbonicConcentrator = new GenericCrafter("carbonic-concentrator"){{
 			requirements(Category.crafting, with(oxidecopper, 30, Items.lead, 50));
 			researchCost = with(oxidecopper, 100);
-			craftTime = 175f;
+			craftTime = 180f;
 			size = 2;
 			health = 340;
 			outputItem = new ItemStack(carbonicWaste, 2);
