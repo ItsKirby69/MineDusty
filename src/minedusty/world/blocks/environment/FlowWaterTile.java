@@ -93,6 +93,11 @@ public class FlowWaterTile extends Block {
                 effectTimer = 0f;
             }
         }
+        
+        @Override
+        public boolean shouldShowConfigure(Player player) {
+            return Vars.state.rules.infiniteResources || Vars.state.rules.editor;
+        }
 
         @Override
         public Integer config(){
