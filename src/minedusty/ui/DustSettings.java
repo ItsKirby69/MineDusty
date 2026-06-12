@@ -23,7 +23,7 @@ public class DustSettings {
             t.checkPref("dusty-fade-enabled", true);
             t.checkPref("dusty-toggle-mouse-fade", false);
             t.sliderPref("dusty-fade-opacity", 0, 0, 100, 5, s -> s + "%");
-            t.sliderPref("dusty-godray-opacity", 70, 0, 100, 5, s -> s + "%");
+            t.sliderPref("dusty-godray-opacity", 35, 0, 100, 5, s -> s + "%");
             t.sliderPref("dusty-falling-density", 3, 1, 15, 1, s -> s + "");
             t.sliderPref("dusty-fade-dist-multi", 1, 1, 4, 1, s -> s + "");
             t.checkPref("dusty-custom-menu-renderer", true);
