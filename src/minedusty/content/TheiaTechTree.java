@@ -72,7 +72,9 @@ public class TheiaTechTree {
                     });
                 });
                 node(DustDrills.chloroDrill, () -> {
-                    node(DustDrills.offshoreDrill, () -> {});
+                    node(DustDrills.offshoreDrill, Seq.with(
+                        new Research(solarPump)
+                    ), () -> {});
                     node(oilTap, () -> {});
                 });
 
@@ -87,7 +89,9 @@ public class TheiaTechTree {
                             new Produce(silicadust)
                         ),() -> {});
                     });
-                    node(bioSludgeChamber, () -> {
+                    node(bioSludgeChamber, Seq.with(
+                        new OnSector(basalticShore)
+                    ), () -> {
                         node(chlorophyteCultivator, () -> {});
                     });
                     // TODO until there is a better use
