@@ -49,7 +49,7 @@ public class DustCore {
 
 		skyFactory = new UnitFactory("sky-factory"){{
             requirements(Category.units, with(oxidecopper, 70, lead, 150, silicon, 80));
-			researchCost = with(oxidecopper, 1200, lead, 1000, silicon, 1000);
+			researchCost = with(oxidecopper, 800, lead,6800, silicon, 600);
 			plans.add(new UnitPlan(DustUnitTypes.dazzle, 60f * 17, with(silicon, 12, graphite, 5)));
             size = 3;
 			configurable = false;
@@ -59,7 +59,7 @@ public class DustCore {
 
 		earthFactory = new UnitFactory("earth-factory"){{
             requirements(Category.units, with(oxidecopper, 60, lead, 50, silicon, 60));
-			researchCost = with(oxidecopper, 1200, lead, 1000, silicon, 1000);
+			researchCost = with(oxidecopper, 800, lead, 600, silicon, 600);
 			plans.add(new UnitPlan(DustUnitTypes.bulbus, 60f * 30, with(silicon, 25, chlorophyte, 30, lead, 15)));
             size = 3;
 			configurable = false;
