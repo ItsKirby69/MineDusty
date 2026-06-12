@@ -219,7 +219,7 @@ public class DustCrafters {
 		}};
 		
 		salinator = new AttributeCrafter("salinator"){{
-			requirements(Category.crafting, with(oxidecopper, 45, Items.lead, 25, chlorophyte, 40));
+			requirements(Category.crafting, with(oxidecopper, 45, Items.lead, 65));
 			researchCost = with(Items.lead, 150, oxidecopper, 200);
 			outputLiquid = new LiquidStack(saltWater, 12f/60f);
 			craftTime = 100f;
