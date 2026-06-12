@@ -155,6 +155,8 @@ public class DustUnitTypes extends UnitTypes{
             drag = 0.04f;
             flying = true;
             health = 170;
+			itemCapacity = 0;
+			crashDamageMultiplier = 2f;
             engineOffset = 5.75f;
             targetFlags = new BlockFlag[]{BlockFlag.generator, null};
             hitSize = 10;
