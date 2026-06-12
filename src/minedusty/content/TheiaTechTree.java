@@ -66,7 +66,7 @@ public class TheiaTechTree {
                         });
                     });
                     node(salinator, Seq.with(
-                        new SectorComplete(sandyEminence)
+                        new OnSector(sandyEminence)
                     ), () -> {
                         node(fluidBed, () -> {});
                     });
@@ -189,7 +189,9 @@ public class TheiaTechTree {
 
             node(verdantSpills, () -> {
                 node(sandyEminence, Seq.with(
-                    new SectorComplete(thicketValley)
+                    new SectorComplete(thicketValley),
+                    new SectorComplete(basalticShore),
+                    new Research(solarPump)
                 ), () -> {});
                 node(thicketValley, Seq.with(
                     new SectorComplete(verdantSpills),
@@ -204,7 +206,7 @@ public class TheiaTechTree {
                 });
                 node(lushCorridors, Seq.with(
                     new SectorComplete(thicketValley),
-                    new Research(skyFactory)
+                    new Research(crystalBore)
                 ), () -> {
                     node(tropicalLake, Seq.with(
                         new SectorComplete(basalticShore)
