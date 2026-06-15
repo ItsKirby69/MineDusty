@@ -9,14 +9,16 @@ public class DustItems {
 	// The game doesn't automatically resizes the sprites so textures with margins make the item appear
 	// Much smaller than you'd expect.
 	// Annealed Copper? Gangue? 
-	//Ores
-	public static Item galena, oxidecopper, salt, amethyst, electrum, gold, silver, silicadust;
-	public static Item chlorophyte, aquamerium, divinityMatter, quartz, rosequartz, dustquartz;
-	public static Item aluminum;
-	public static Item sediment;
 
-	//Other stuff
-	public static Item carbonicWaste, bioplastic, silumin;
+	// Theia
+	public static Item oxidecopper, salt, silicadust, carbonicWaste, aquamerium, chlorophyte, amethyst;
+	public static Item bioplastic, galena, gold, silver, electrum, divinityMatter;
+	
+	// Nautilune
+	public static Item aluminum, silumin;
+	
+	//Potential items
+	public static Item sediment;
 	
 	public static void load(){
 		sediment = new Item("item-sediment", Color.valueOf("#dbbe94")){{
@@ -77,20 +79,6 @@ public class DustItems {
 		carbonicWaste = new Item("item-carbonicwaste", DustPalette.carbonicWaste){{
 			flammability = 1.5f;
 			explosiveness = 0.4f;
-		}};
-		
-		//quartz can be made using silicon and a machine. idk what yet.
-		quartz = new Item("ore-quartz", DustPalette.quartz){{
-			flammability = 0.25f;
-			hardness = 2;
-		}};
-		//quartz needs a machine to create pink quartz.
-		rosequartz = new Item("ore-pink-quartz", DustPalette.rosequartz){{
-			flammability = 0.25f;
-			hardness = 2;
-		}};
-		//crushed quartz
-		dustquartz = new Item("quartz-dust", DustPalette.dustquartz){{
 		}};
 	}
 }
