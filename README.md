@@ -2,7 +2,7 @@
   
 # <img src="media/title.gif" width=75%>
 
-[![Download](https://img.shields.io/github/v/release/ItsKirby69/MineDusty?colorA=448a35&colorB=a3d72b&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=a3d72b&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
+[![Download](https://img.shields.io/github/v/release/Itskirby69/MineDusty?colorA=448a35&colorB=a3d72b&include_prereleases&label=DOWNLOAD%20LATEST%20RELEASE&logo=github&logoColor=a3d72b&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
 [![Total Downloads](https://img.shields.io/github/downloads/ItsKirby69/MineDusty/total?color=4e76b6&label&logo=docusign&logoColor=white&style=for-the-badge)](https://github.com/ItsKirby69/MineDusty/releases)
 [![Stars](https://img.shields.io/github/stars/ItsKirby69/MineDusty?colorA=4e76b6&colorB=7dd8ff&style=for-the-badge&logo=macys&logoColor=ffdf32&label=Star%20Me!)](https://github.com/ItsKirby69/MineDusty)
 
