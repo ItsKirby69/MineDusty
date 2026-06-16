@@ -247,15 +247,15 @@ public class DustyEffects {
 		float alpha = 0f;
 
 		if (e.fin() < 0.5f) {
-			sizeScale = Interp.pow3Out.apply(0f, 1f, e.fin() * 2f);
+			sizeScale = Interp.pow3Out.apply(0.5f, 1f, e.fin() * 2f);
 			alpha = Interp.pow4Out.apply(0, 0.6f, e.fin() * 2f);
 		} else {
-			sizeScale = Interp.pow2In.apply(1f, 0f, (e.fin() - 0.5f) * 2f);
-			alpha = Interp.pow2In.apply(0.6f, 0f, (e.fin() - 0.5f));
+			sizeScale = Interp.pow2In.apply(1f, 0.7f, (e.fin() - 0.5f) * 2f);
+			alpha = Interp.pow2In.apply(0.6f, 0f, (e.fin() - 0.5f) * 2f);
 		}
 		alpha(alpha);
 
-		float baseSize = 20f * sizeScale * Mathf.randomSeed(e.id, 1f, 1.8f);
+		float baseSize = 30f * sizeScale * Mathf.randomSeed(e.id, 1f, 1.5f);
 		randLenVectors(e.id, 1, 2f + sizeScale * 20f, (x, y) -> {
 			float finalSize = baseSize + sizeScale * 30f;
 			rect(Core.atlas.find("minedusty-circool"), e.x + x, e.y + y, finalSize, finalSize);
