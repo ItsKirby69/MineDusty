@@ -25,6 +25,7 @@ public class DustSounds {
 		brittle = new Sound(),
 		envBubble = new Sound(),
 		destroyTree = new Sound(),
+		weaveHum = new Sound(),
 
 		// Weather SFX
 		rainStorm = new Sound(),
@@ -46,6 +47,7 @@ public class DustSounds {
 			brittle = loadSound("brittle");
 			envBubble = loadSound("envBubble");
 			destroyTree = loadSound("destroyTree");
+			weaveHum = loadSound("weaveHum");
 
 			rainStorm = loadSound("rainStorm");
 			snowStorm = loadSound("snowStorm");
