@@ -13,23 +13,42 @@ import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.liquid.LiquidJunction;
 import mindustry.world.blocks.liquid.LiquidRouter;
+import minedusty.world.blocks.liquid.HotConduit;
+import minedusty.world.blocks.liquid.HotLiquidRouter;
 
 public class DustDistribution {
 	
 	public static Block copperConveyor, copperJunction, copperRouter, 
     copperOverflowGate, copperUnderflowGate,
     copperSorter, copperInvertedSorter;
+    public static Block aquameriumConveyor;
 
+    public static Block siliconPipe, siliconValve;
     public static Block aquameriumConduit, aquaLiquidRouter, aquaLiquidJunction;
     
-    public static Block aquameriumConveyor;
     public static Block armoredGalenaConveyor; // a heavily armored conveyor. Perhaps instead make it chlorophyte that heals itself?
     public static Block electrumConveyor; // A power requiring stack conveyor?
 
-    public static Block shipCargoLoader;
-
 	public static void loadContent(){
         // region conduits
+        siliconValve = new HotLiquidRouter("silicon-valve"){{
+            requirements(Category.liquid, with(silicon, 2, Items.graphite, 4));
+            liquidCapacity = 60f;
+            underBullets = true;
+            solid = false;
+            squareSprite = false;
+            liquidPadding = 1f;
+            explosivenessScale = flammabilityScale = 6f/20f;
+        }};
+
+        siliconPipe = new HotConduit("silicon-pipe"){{
+            requirements(Category.liquid, with(silicon, 2));
+            liquidCapacity = 15f;
+            health = 35;
+            explosivenessScale = flammabilityScale = 10f/20f;
+            botColor = Color.white;
+        }};
+
         aquaLiquidRouter = new LiquidRouter("aqua-liquid-router"){{
             requirements(Category.liquid, with(aquamerium, 2, Items.graphite, 4));
             liquidCapacity = 150f;
