@@ -6,13 +6,19 @@ import mindustry.type.CellLiquid;
 import mindustry.type.Liquid;
 
 public class DustLiquids {
-	public static Liquid bioLiquid, saltWater;
+	public static Liquid bioLiquid, saltWater, chlorine, sodiumHydroxide;
 
 	public static Liquid bioFuel, sap, smog;
 	public static Liquid coldWater;
 	
 	//temp
 	public static void load(){
+		sodiumHydroxide = new Liquid("sodium-hydroxide", Color.valueOf("#f28b9c")){{
+			// further corrosive liquid?
+		}};
+		chlorine = new Liquid("chlorine", Color.valueOf("#e1eda9")){{
+			gas = true;
+		}};
 		saltWater = new Liquid("liquid-salt-water", Color.valueOf("#a2c9e4ff")){{
 			// effect = DustStatusEffects.saltcorrosion;
 		}};
