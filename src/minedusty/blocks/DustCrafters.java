@@ -412,20 +412,6 @@ public class DustCrafters {
 				new DrawDefault()
 			);
 		}};
-
-		// Mines chlorophyte from walls //TODO laster drill for oxide resource on oxide walls
-	    miniCrusher = new WallCrafter("mini-wall-crusher"){{
-            requirements(Category.production, with(Items.graphite, 25, Items.copper, 15));
-            consumePower(18 / 60f);
-
-            drillTime = 160f;
-            size = 1;
-            attribute = DustAttributes.chlorophyte;
-            output = DustItems.chlorophyte;
-            researchCost = with(Items.copper, 100, Items.graphite, 40);
-            ambientSound = Sounds.loopDrill;
-            ambientSoundVolume = 0.04f;
-        }};
 		//endregion
 	}
 }
