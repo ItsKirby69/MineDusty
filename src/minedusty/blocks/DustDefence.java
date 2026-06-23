@@ -41,11 +41,12 @@ public class DustDefence {
         }};
 
         siliconWallLarge = new DustWall("silicon-wall-large"){{
-            requirements(Category.defense, with(silicon, 5, chlorophyte, 1));
+            requirements(Category.defense, with(silicon, 50, chlorophyte, 1));
             health = 150 * 4 * wallHealthMulti;
             absorbLasers = true;
             size = 2;
             schematicPriority = 10;
+            buildTime = 60f * 8f;
         }};
 
 		chloroWall = new HealWall("chlorophyte-wall") {{
