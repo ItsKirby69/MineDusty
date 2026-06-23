@@ -25,6 +25,7 @@ public class DustCrafters {
 	// A sintering machine for high melting point metals?
 	public static Block silicaForge, carbonicPress;
 	public static Block carbonicConcentrator, carbonicRefinery;
+	public static Block brineElectrolyzer;
 
 	// Extractors/Mixers
 	public static Block oilTap;
@@ -37,6 +38,55 @@ public class DustCrafters {
 	
 	public static void loadContent() {
 		//region Crafters
+		brineElectrolyzer = new GenericCrafter("brine-electrolyzer"){{
+            requirements(Category.crafting, with(Items.silicon, 50, Items.graphite, 70, oxidecopper, 130, amethyst, 60));
+            size = 3;
+
+            researchCostMultiplier = 1.2f;
+            craftTime = 10f;
+            rotate = true;
+            invertFlip = true;
+            group = BlockGroup.liquids;
+            itemCapacity = 0;
+
+            liquidCapacity = 60f;
+
+            consumeLiquid(DustLiquids.saltWater, 8f / 60f);
+            consumePower(120f/60f);
+
+			outputLiquids = new LiquidStack[]{
+				new LiquidStack(Liquids.hydrogen, 4f/60f),
+				new LiquidStack(DustLiquids.chlorine, 4f/60f),
+				new LiquidStack(DustLiquids.sodiumHydroxide, 8f/60f)
+			};
+
+            drawer = new DrawMulti(
+                new DrawRegion("-bottom"),
+                new DrawLiquidTile(DustLiquids.saltWater, 2f),
+                new DrawBubbles(Color.valueOf("#bac7eb")){{
+                    sides = 10;
+                    recurrence = 3f;
+                    spread = 6;
+                    radius = 1.5f;
+                    amount = 20;
+                }},
+                new DrawRegion(),
+				new DrawGlowRegion(){{
+                    alpha = 0.7f;
+                    color = Color.valueOf("#c4bdf3");
+                    glowIntensity = 0.3f;
+                    glowScale = 6f;
+                }},
+                new DrawLiquidOutputs()
+            );
+
+            ambientSound = Sounds.loopElectricHum;
+            ambientSoundVolume = 0.08f;
+
+            regionRotated1 = 3;
+            liquidOutputDirections = new int[]{1, 2, 3};
+        }};
+
 		chlorophyteCultivator = new SolarAttributeCrafter("chlorophyte-cultivator"){{
 			requirements(Category.crafting, with(Items.silicon, 40, graphite, 55, chlorophyte, 75, amethyst, 40));
 			researchCost = with(graphite, 500, amethyst, 500);
@@ -90,7 +140,7 @@ public class DustCrafters {
         }};
 		
 		carbonicRefinery = new GenericCrafter("carbonic-refinery"){{
-			requirements(Category.crafting, with(oxidecopper, 130, chlorophyte, 150, Items.graphite, 75, Items.silicon, 120, Items.lead, 110));
+			requirements(Category.crafting, with(oxidecopper, 130, chlorophyte, 50, Items.graphite, 75, Items.silicon, 120, Items.lead, 110));
 			researchCost = with(Items.graphite, 400, Items.silicon, 300, chlorophyte, 1000, oxidecopper, 500);
 			craftTime = 250f;
 			size = 3;
@@ -102,25 +152,35 @@ public class DustCrafters {
 
 			drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
-				new DrawLiquidTile(Liquids.slag){{
-					drawLiquidLight = true;
+				new DrawLiquidTile(Liquids.oil){{
 					alpha = 0.7f;
 				}},
-				new DrawLiquidTile(Liquids.oil){{
+				new DrawSoftParticles(){{
+					alpha = 0.3f;
+					particleRad = 12f;
+					particleSize = 9f;
+					particleLife = 120f;
+					particles = 27;
+					color = Color.valueOf("#986fe3");
+					color2 = Color.valueOf("#74688b");
+				}},
+				new DrawParticles() {{
+					color = DustPalette.carbon;
 					alpha = 0.5f;
+					particleSize = 3.5f;
+					particles = 17;
+					particleRad = 6f;
+					rotateScl = 3f;
+					particleLife = 75f;
 				}},
 				new DrawDefault(),
-				new DrawHeatRegion("-heat"),
-				new DrawPress("-top"){{
-					cycles = 8f;
-					thresholdFall = 0.5f;
-					easeUp = 0.7f;
-					x = -3.4f;
-					y = -3.4f;
+				new DrawGlowRegion(){{
+					alpha = 0.25f;
 				}}
 			);
 			consumePower(90f/60f);
-			consumeLiquids(LiquidStack.with(Liquids.slag, 12f/60f, Liquids.oil, 7f/60f));
+			consumeItem(lead, 5);
+			consumeLiquids(LiquidStack.with(Liquids.oil, 12f/60f));
 		}};
 
 		carbonicConcentrator = new GenericCrafter("carbonic-concentrator"){{
@@ -346,8 +406,8 @@ public class DustCrafters {
 					particleRad = 9;
 					alpha = 0.40f;
 					particles = 25;
-					color = Color.valueOf("b0ff00");
-					color2 = Color.valueOf("ffb000");
+					color = Color.valueOf("#b0ff00");
+					color2 = Color.valueOf("#ffb000");
 				}},
 				new DrawDefault()
 			);
