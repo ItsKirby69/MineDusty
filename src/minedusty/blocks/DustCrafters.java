@@ -25,7 +25,7 @@ public class DustCrafters {
 	// A sintering machine for high melting point metals?
 	public static Block silicaForge, carbonicPress;
 	public static Block carbonicConcentrator, carbonicRefinery;
-	public static Block brineElectrolyzer;
+	public static Block brineElectrolyzer, atmosphericConcenerator;
 
 	// Extractors/Mixers
 	public static Block oilTap;
@@ -51,13 +51,13 @@ public class DustCrafters {
 
             liquidCapacity = 60f;
 
-            consumeLiquid(DustLiquids.saltWater, 8f / 60f);
+            consumeLiquid(DustLiquids.saltWater, 12f / 60f);
             consumePower(120f/60f);
 
 			outputLiquids = new LiquidStack[]{
-				new LiquidStack(Liquids.hydrogen, 4f/60f),
-				new LiquidStack(DustLiquids.chlorine, 4f/60f),
-				new LiquidStack(DustLiquids.sodiumHydroxide, 8f/60f)
+				new LiquidStack(Liquids.hydrogen, 6f/60f),
+				new LiquidStack(DustLiquids.chlorine, 6f/60f),
+				new LiquidStack(DustLiquids.sodiumHydroxide, 12f/60f)
 			};
 
             drawer = new DrawMulti(
@@ -130,7 +130,7 @@ public class DustCrafters {
             size = 2;
             liquidCapacity = 16f;
             rotateSpeed = 1.4f;
-			itemUseTime = 60f;
+			itemUseTime = 120f;
 			baseEfficiency = 0f;
             attribute = Attribute.oil;
 			
