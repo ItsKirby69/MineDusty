@@ -13,7 +13,7 @@ public class DustLiquids {
 	
 	//temp
 	public static void load(){
-		sodiumHydroxide = new Liquid("sodium-hydroxide", Color.valueOf("#f28b9c")){{
+		sodiumHydroxide = new Liquid("sodium-hydroxide", Color.valueOf("#f8a2ad")){{
 			// further corrosive liquid?
 		}};
 		chlorine = new Liquid("chlorine", Color.valueOf("#e1eda9")){{
