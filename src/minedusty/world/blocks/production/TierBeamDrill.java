@@ -3,27 +3,26 @@ package minedusty.world.blocks.production;
 import static mindustry.Vars.tilesize;
 
 import arc.Core;
-import arc.graphics.Blending;
+import arc.graphics.*;
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Lines;
-import arc.graphics.g2d.TextureRegion;
+import arc.graphics.g2d.*;
 import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.geom.Geometry;
 import arc.math.geom.Point2;
 import arc.struct.ObjectMap;
 import arc.struct.Seq;
-import arc.util.Eachable;
-import arc.util.Time;
-import arc.util.Tmp;
+import arc.util.*;
 import mindustry.content.Items;
 import mindustry.entities.units.BuildPlan;
-import mindustry.graphics.Drawf;
-import mindustry.graphics.Layer;
+import mindustry.graphics.*;
 import mindustry.type.Item;
+import mindustry.type.Liquid;
 import mindustry.world.Tile;
 import mindustry.world.blocks.production.BeamDrill;
+import mindustry.world.consumers.ConsumeLiquid;
+import mindustry.world.meta.*;
+import minedusty.world.meta.DustStat;
 
 
 /** A beam drill with capabilities to mine higher tiered ores. Same like TierDrill.java */
@@ -31,19 +30,101 @@ public class TierBeamDrill extends BeamDrill{
     public TextureRegion darktopRegion, gemRegion;
     public ObjectMap<Item, Item> tierMap = new ObjectMap<>();
 
+    public Seq<BoostEntry> boostLiquids = new Seq<>();
+
     public TierBeamDrill(String name){
         super(name);
         blockedItems = Seq.with(Items.beryllium, Items.thorium);
+    }
+
+    /** A boost... entry... */
+    public static class BoostEntry {
+        /** Suffix for laser textures */
+        public String suffix;
+        public Liquid liquid;
+        public float amount;
+
+        public Color heatColor = null, sparkColor = null;
+
+        public TextureRegion laser = null, laserEnd = null, laserCenter = null;
+        
+        public ConsumeLiquid consumer;
+        
+        public BoostEntry(Liquid liquid, float amount){
+            this.liquid = liquid;
+            this.amount = amount;
+        }
+
+        public BoostEntry heatColor(Color c){
+            this.heatColor = c;
+            return this;
+        }
+
+        public BoostEntry sparkColor(Color c){
+            this.sparkColor = c;
+            return this;
+        }
+
+        public BoostEntry laser(String suffif){
+            this.suffix = suffif;
+            return this;
+        }
+    }
+
+    public BoostEntry addBoost(Liquid liquid, float amount){
+        BoostEntry entry = new BoostEntry(liquid, amount);
+        boostLiquids.add(entry);
+
+        return entry;
     }
 
     @Override
     public TextureRegion[] icons(){
         return new TextureRegion[]{region, topRegion, gemRegion};
     }
+    
+    @Override
+    public void setStats(){
+        super.setStats();
+        if(!boostLiquids.isEmpty()){
+            stats.add(DustStat.boostItems, t -> {
+                for(ObjectMap.Entry<Item, Item> entry : tierMap){
+                    Item raw = entry.key;
+                    Item boosted = entry.value;
+                    DustStat.boostedItems(raw, boosted).display(t);
+                    t.row();
+                }
+            });
+            stats.replace(Stat.booster, t -> {
+                for(BoostEntry entry : boostLiquids){
+                    StatValues.speedBoosters("{0}" + StatUnit.timesSpeed.localized(), 
+                        entry.amount, optionalBoostIntensity, true, entry.consumer::consumes).display(t);
+                    t.row();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void init(){
+        for(BoostEntry entry : boostLiquids){
+            entry.consumer = consumeLiquid(entry.liquid, entry.amount);
+            entry.consumer.booster = true;
+            entry.consumer.optional = true;
+        }
+        super.init();
+    }
 
     @Override
     public void load(){
         super.load();
+        for(BoostEntry entry : boostLiquids){
+            if(entry.suffix != null){
+                entry.laser = Core.atlas.find(name + "-beam-boost-" + entry.suffix, laserBoost);
+                entry.laserEnd = Core.atlas.find(name + "-beam-boost-end-" + entry.suffix, laserEndBoost);
+                entry.laserCenter = Core.atlas.find(name + "-beam-boost-center-" + entry.suffix, laserCenterBoost);
+            }
+        }
         darktopRegion = Core.atlas.find(name + "-darktop");
         gemRegion = Core.atlas.find(name + "-gem");
     }
@@ -56,6 +137,15 @@ public class TierBeamDrill extends BeamDrill{
     }
 
     public class TierBeamDrillBuild extends BeamDrillBuild{
+        protected BoostEntry activeBoost = null;
+
+        protected BoostEntry resolveActiveBoost(){
+            for(BoostEntry entry : boostLiquids){
+                if(entry.consumer.efficiency(this) > 0f) return entry;
+            }
+            return null;
+        }
+
         @Override
         public void updateTile(){
             if(lasers[0] == null) updateLasers();
@@ -64,15 +154,18 @@ public class TierBeamDrill extends BeamDrill{
 
             updateFacing();
 
-            float multiplier = Mathf.lerp(1f, optionalBoostIntensity, optionalEfficiency);
+            activeBoost = resolveActiveBoost();
+            float boost = activeBoost != null ? 1f : 0f;
+
+            float multiplier = Mathf.lerp(1f, optionalBoostIntensity, boost);
             float drillTime = getDrillTime(lastItem);
-            boostWarmup = Mathf.lerpDelta(boostWarmup, optionalEfficiency, 0.1f);
+            boostWarmup = Mathf.lerpDelta(boostWarmup, boost, 0.1f);
             lastDrillSpeed = (facingAmount * multiplier * timeScale) / drillTime * efficiency;
 
             time += edelta() * multiplier;
 
             if(time >= drillTime){
-                boolean isBoosted = optionalEfficiency > 0f;
+                boolean isBoosted = boost > 0f;
                 for(Tile tile : facing){
                     Item drop = tile == null ? null : tile.wallDrop();
                     if(items.total() < itemCapacity && drop != null){
@@ -87,6 +180,24 @@ public class TierBeamDrill extends BeamDrill{
             if(timer(timerDump, dumpTime / timeScale)){
                 dump();
             }
+        }
+
+        protected Color activeHeatColor(){
+            return activeBoost != null && activeBoost.heatColor != null ? activeBoost.heatColor : heatColor;
+        }
+
+        protected Color activeSparkColor(){
+            return activeBoost != null && activeBoost.sparkColor != null ? activeBoost.sparkColor : sparkColor;
+        }
+
+        protected TextureRegion activeLaser(){
+            return activeBoost != null && activeBoost.laser != null ? activeBoost.laser : laserBoost;
+        }
+        protected TextureRegion activeLaserEnd(){
+            return activeBoost != null && activeBoost.laserEnd != null ? activeBoost.laserEnd : laserEndBoost;
+        }
+        protected TextureRegion activeLaserCenter(){
+            return activeBoost != null && activeBoost.laserCenter != null ? activeBoost.laserCenter : laserCenterBoost;
         }
 
         @Override
@@ -124,7 +235,7 @@ public class TierBeamDrill extends BeamDrill{
 
                         if(boostWarmup > 0.01f){
                             Draw.alpha(boostWarmup);
-                            Draw.rect(laserCenterBoost, lx, ly);
+                            Draw.rect(activeLaserCenter(), lx, ly);
                         }
 
                         Draw.scl();
@@ -138,7 +249,7 @@ public class TierBeamDrill extends BeamDrill{
 
                         if(boostWarmup > 0.001f){
                             Draw.alpha(boostWarmup);
-                            Drawf.laser(laserBoost, laserEndBoost, lsx, lsy, lx, ly, width);
+                            Drawf.laser(activeLaser(), activeLaserEnd(), lsx, lsy, lx, ly, width);
                         }
                     }
                     Draw.color();
@@ -148,7 +259,7 @@ public class TierBeamDrill extends BeamDrill{
                     Lines.stroke(warmup);
                     rand.setState(i, id);
                     Color col = drop.color;
-                    Color spark = Tmp.c3.set(sparkColor).lerp(boostHeatColor, boostWarmup);
+                    Color spark = Tmp.c3.set(activeSparkColor()).lerp(activeHeatColor(), boostWarmup);
                     for(int j = 0; j < sparks; j++){
                         float fin = (Time.time / sparkLife + rand.random(sparkRecurrence + 1f)) % sparkRecurrence;
                         float or = rand.range(2f);
@@ -165,7 +276,7 @@ public class TierBeamDrill extends BeamDrill{
             if(glowRegion.found()){
                 Draw.z(Layer.blockAdditive);
                 Draw.blend(Blending.additive);
-                Draw.color(Tmp.c1.set(heatColor).lerp(boostHeatColor, boostWarmup), warmup * (heatColor.a * (1f - heatPulse + Mathf.absin(heatPulseScl, heatPulse))));
+                Draw.color(Tmp.c1.set(heatColor).lerp(activeHeatColor(), boostWarmup), warmup * (heatColor.a * (1f - heatPulse + Mathf.absin(heatPulseScl, heatPulse))));
                 Draw.rect(glowRegion, x, y, rotdeg());
                 Draw.blend();
                 Draw.color();

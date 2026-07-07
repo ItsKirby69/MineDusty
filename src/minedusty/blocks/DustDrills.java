@@ -70,7 +70,6 @@ public class DustDrills {
             requirements(Category.production, with(Items.graphite, 15, Items.lead, 30));
             researchCost = with(oxidecopper, 350, Items.graphite, 100);
 			consumePower(13 / 60f);
-            consumeLiquid(bioLiquid, 0.25f/60).boost();
 
             drillTime = 160f;
             size = 2;
@@ -78,8 +77,15 @@ public class DustDrills {
             tier = 2;
             tierMap.put(silicadust, amethyst);
 
-            sparkColor = Color.valueOf("#fd818e");
-            boostHeatColor = Color.valueOf("#9df572").cpy().mul(0.87f);
+            // sparkColor = Color.valueOf("#fd818e");
+            // boostHeatColor = Color.valueOf("#9df572").cpy().mul(0.87f);
+            addBoost(bioLiquid, 0.25f/60f)
+            .heatColor(Color.valueOf("#9df572").cpy().mul(0.87f))
+            .sparkColor(Color.valueOf("#e6fd81"));
+            addBoost(Liquids.hydrogen, 0.25f/60f)
+            .heatColor(Color.valueOf("#72cef5").cpy().mul(0.87f))
+            .sparkColor(Color.valueOf("#81e8fd"))
+            .laser("hydrogen");
             
             fogRadius = 2;
             ambientSound = Sounds.loopDrill;

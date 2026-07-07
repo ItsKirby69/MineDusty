@@ -575,28 +575,28 @@ public class DustEnv {
 			variants = 2;
 			clipSize = 140f;
 			itemDrop = DustItems.silicadust;
-			attributes.set(DustAttributes.crystal, 0.75f);
+			// attributes.set(DustAttributes.crystal, 0.75f);
 		}};
 
 		quartzCrystals = new TallBlock("quartz-crystals"){{
 			variants = 2;
 			clipSize = 140f;
 			itemDrop = DustItems.silicadust;
-			attributes.set(DustAttributes.crystal, 0.75f);
+			// attributes.set(DustAttributes.crystal, 0.75f);
 		}};
 
 		largeAmethystCrystals = new BetterTallBlock("large-amethyst-crystals"){{
 			// size = 3;
 			clipSize = 240f;
 			itemDrop = DustItems.silicadust;
-			attributes.set(DustAttributes.crystal, 1.25f);
+			// attributes.set(DustAttributes.crystal, 1.25f);
 		}};
 
 		largeQuartzCrystals = new BetterTallBlock("large-quartz-crystals"){{
 			// size = 3;
 			clipSize = 240f;
 			itemDrop = DustItems.silicadust;
-			attributes.set(DustAttributes.crystal, 1.25f);
+			// attributes.set(DustAttributes.crystal, 1.25f);
 		}};
 
 		hardenedClayWall = new StaticWall("hardened-clay-wall"){{
