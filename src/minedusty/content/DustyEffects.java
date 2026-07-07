@@ -106,7 +106,7 @@ public class DustyEffects {
         });
     }),
 
-    corrosionSalt = new Effect(70f, e -> {
+    corrosion = new Effect(70f, e -> {
         color(e.color);
         alpha(Interp.pow2Out.apply(e.fslope()) * 0.45f);
 

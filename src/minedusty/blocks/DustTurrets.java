@@ -395,6 +395,19 @@ public class DustTurrets {
                     puddleSize = 12;
                     puddleAmount = 18;
                     despawnHit = true;
+                    statusDuration = 60 * 6f;
+                }},
+                // Make the gas disappear once shot out
+                chlorine, new LiquidBulletType(chlorine){{
+                    status = DustStatusEffects.chlorinecorrosion;
+                    drag = 0.015f;
+                    // puddleLiquid = ;
+                    // puddles = 4;
+                    // puddleSize = 12;
+                    // puddleAmount = 18;
+                    boilTime = 10f;
+                    despawnHit = true;
+                    statusDuration = 60 * 6f;
                 }}
             );
             drawer = new DrawTurret("braced-");

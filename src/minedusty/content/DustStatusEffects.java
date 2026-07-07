@@ -9,9 +9,11 @@ import mindustry.content.*;
 import mindustry.game.EventType.Trigger;
 import mindustry.type.StatusEffect;
 import minedusty.graphics.DustPalette;
+import minedusty.utils.EffectHelper;
 
 public class DustStatusEffects {
-    public static StatusEffect rotting, poison, healingWash, saltcorrosion;
+    public static StatusEffect rotting, poison, healingWash;
+    public static StatusEffect saltcorrosion, chlorinecorrosion;
 
     public static StatusEffect drenched;
 
@@ -43,7 +45,7 @@ public class DustStatusEffects {
             damageMultiplier = 0.95f;
 
             effectChance = 0.08f;
-            effect = DustyEffects.corrosionSalt;
+            effect = DustyEffects.corrosion;
             transitionDamage = 10f;
 
             init(() -> {
@@ -54,6 +56,27 @@ public class DustStatusEffects {
                         Events.fire(Trigger.shock);
                     }
                 });
+                affinity(StatusEffects.wet, (unit, result, time) -> {
+                    result.time = Math.max(0f, result.time - time * 2f);
+                });
+                affinity(drenched, (unit, result, time) -> {
+                    result.time = Math.max(0f, result.time - time * 4f);
+                });
+            });
+        }};
+
+        chlorinecorrosion = new StatusEffect("chlorine-corrosion"){{
+            color = Color.valueOf("#ebf9af");
+            intervalDamage = 25f;
+            intervalDamageTime = 80f;
+            damageMultiplier = 0.85f;
+            reloadMultiplier = 0.85f;
+
+            effectChance = 0.08f;
+            effect = DustyEffects.corrosion;
+            transitionDamage = 0f;
+
+            init(() -> {
                 affinity(StatusEffects.wet, (unit, result, time) -> {
                     result.time = Math.max(0f, result.time - time * 2f);
                 });
