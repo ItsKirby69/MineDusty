@@ -210,11 +210,8 @@ public class GenBundles {
                 String nameKey = baseKey + ".name";
 
                 String existinvgValue = existingBundles.getProperty(nameKey);
-                if(existinvgValue != null && !existinvgValue.trim().isEmpty()){
-                    out.println(nameKey + " = " + existinvgValue);
-                } else {
-                    out.println(nameKey + " = ");
-                }
+                out.println(nameKey + " = " + (existinvgValue != null ? existinvgValue.trim() : ""));
+                
                 // Could technically be a custom object but ehh
                 if (description) writeKey(out, baseKey + ".description");
                 if (details) writeKey(out, baseKey + ".details");

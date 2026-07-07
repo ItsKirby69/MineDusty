@@ -120,8 +120,6 @@ public class MineDustyMod extends Mod {
 		DustPlanets.load();
 		DustSectors.load();
 		TheiaTechTree.load();
-		// WIP
-		GenBundles.generate();
 
 		FrostCandyWrappers.loadFrostedBlocks();
 		Core.atlas.addRegion("logo", randomizeLogo());

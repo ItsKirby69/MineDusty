@@ -262,12 +262,13 @@ project(":"){
             }
         }
     }
-    
-    // task.register("genBundles"){
+    // Pain
+    // tasks.register<JavaExec>("genBundles"){
+    //     dependsOn("runGame")
     //     group = "modding"
     //     description = "Generates a bundle file with the latest content"
-    //     classpath = sourceSets["main"].runtimeClasspath
+
+    //     classpath = sourceSets["main"].runtimeClasspath + configurations.compileClasspath.get()
     //     mainClass.set("minedusty.utils.GenBundles")
-    //     workingDir = projectDirectory
     // }
 }
