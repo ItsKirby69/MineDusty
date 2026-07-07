@@ -20,6 +20,8 @@ public class TemporUnitType extends UnitType{
         envDisabled = Env.space;
     
         healColor = DustPalette.temporHeal;
+
+        useUnitCap = false;
     }
 
     @Override

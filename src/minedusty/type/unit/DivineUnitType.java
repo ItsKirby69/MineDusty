@@ -16,6 +16,6 @@ public class DivineUnitType extends UnitType{
     
         healColor = DustPalette.divineHeal;
         
-    
+        useUnitCap = false;
     }
 }
