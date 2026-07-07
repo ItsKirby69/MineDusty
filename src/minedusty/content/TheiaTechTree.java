@@ -65,6 +65,9 @@ public class TheiaTechTree {
                             node(aquaLiquidRouter);
                         });
                     });
+                    node(siliconPipe, () -> {
+                        node(siliconValve);
+                    });
                     node(salinator, Seq.with(
                         new OnSector(sandyEminence)
                     ), () -> {
@@ -94,10 +97,13 @@ public class TheiaTechTree {
                     ), () -> {
                         node(chlorophyteCultivator, () -> {});
                     });
-                    // TODO until there is a better use
-                    // node(carbonicRefinery, Seq.with(
-                    //     new SectorComplete(basalticShore)
-                    // ), () -> {});
+                    node(brineElectrolyzer, Seq.with(
+                        new SectorComplete(lushCorridors),
+                        new Research(salinator)
+                    ), () -> {});
+                    node(carbonicRefinery, Seq.with(
+                        new SectorComplete(basalticShore)
+                    ), () -> {});
                 });
 
 
