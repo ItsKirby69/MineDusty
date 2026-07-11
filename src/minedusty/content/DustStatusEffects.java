@@ -9,7 +9,6 @@ import mindustry.content.*;
 import mindustry.game.EventType.Trigger;
 import mindustry.type.StatusEffect;
 import minedusty.graphics.DustPalette;
-import minedusty.utils.EffectHelper;
 
 public class DustStatusEffects {
     public static StatusEffect rotting, poison, healingWash;
