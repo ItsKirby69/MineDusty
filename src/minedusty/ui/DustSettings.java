@@ -27,6 +27,7 @@ public class DustSettings {
             t.sliderPref("dusty-falling-density", 3, 1, 15, 1, s -> s + "");
             t.sliderPref("dusty-fade-dist-multi", 1, 1, 4, 1, s -> s + "");
             t.checkPref("dusty-custom-menu-renderer", true);
+            t.checkPref("dusty-custom-menu-logo", true);
 
             t.pref(new Title("@settings.dusty-misc-title"));
 

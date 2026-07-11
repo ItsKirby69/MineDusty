@@ -52,7 +52,7 @@ public class MineDustyMod extends Mod {
 		 
 
 		Events.on(StateChangeEvent.class, e -> {
-			if(e.to == GameState.State.menu){
+			if(e.to == GameState.State.menu && settings.getBool("dusty-custom-menu-logo")){
 				Core.atlas.addRegion("logo", randomizeLogo());
 			}
 		});
@@ -83,8 +83,10 @@ public class MineDustyMod extends Mod {
 			((Floor)Blocks.ice).blendId = ((Floor)Blocks.snow).blendId - 1;
 			((Floor)Blocks.grass).blendId = ((Floor)DustEnv.wildGrass).blendId - 1;
 
-			Core.atlas.addRegion("logo", randomizeLogo());
-			new DustSplashFrag().build(ui.menuGroup);
+			if(settings.getBool("dusty-custom-menu-logo")){
+				Core.atlas.addRegion("logo", randomizeLogo());
+				new DustSplashFrag().build(ui.menuGroup);
+			}
 		});
 	}
 
@@ -122,7 +124,10 @@ public class MineDustyMod extends Mod {
 		TheiaTechTree.load();
 
 		FrostCandyWrappers.loadFrostedBlocks();
-		Core.atlas.addRegion("logo", randomizeLogo());
+		
+		if(settings.getBool("dusty-custom-menu-logo")){
+			Core.atlas.addRegion("logo", randomizeLogo());
+		}
 	}
 
 	TextureRegion randomizeLogo(){
