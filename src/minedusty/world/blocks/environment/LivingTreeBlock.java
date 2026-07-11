@@ -273,7 +273,7 @@ public class LivingTreeBlock extends Block{
 		// effects
 		if(Vars.state.isPaused()) return; // Particles stack when paused for some reason
 		int effectChance = settings.getInt("dusty-falling-density");
-		if(settings.getBool("dusty-falling-leaves-enabled") && Mathf.chanceDelta((effectChance * 0.001f) * size)){
+		if(settings.getBool("dusty-falling-leaves-enabled") && Mathf.chanceDelta((effectChance * 0.001f) * size * (tallTree ? 3f : 1f))){
 			effect.at(
 				tile.worldx() + Mathf.range(effectRange) * size,
 				tile.worldy() + Mathf.range(effectRange) * size,
