@@ -407,7 +407,6 @@ public class DustTurrets {
                     layer = Layer.bullet - 2f;
                 }},
                 bioLiquid, new LiquidBulletType(bioLiquid){{
-                    damage = 2f;
                     splashDamage = 1f;
                     splashDamageRadius = 10f;
                     drag = 0.01f;
