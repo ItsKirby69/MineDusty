@@ -21,6 +21,9 @@ import mindustry.entities.part.DrawPart.PartProgress;
 import mindustry.entities.part.RegionPart;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.consumers.ConsumeLiquid;
+import mindustry.world.consumers.ConsumeLiquidFilter;
+import mindustry.world.consumers.ConsumeLiquids;
 import mindustry.world.draw.DrawTurret;
 import mindustry.world.meta.BlockFlag;
 import minedusty.content.*;
@@ -166,7 +169,7 @@ public class DustTurrets {
 
             scaledHealth = 180;
             shootSound = Sounds.shootScatter;
-            coolant = consumeCoolant(0.2f);
+            coolant = consume(new ConsumeLiquidFilter(liquid -> liquid == Liquids.hydrogen || liquid == DustLiquids.bioLiquid, 6f/60f));
             depositCooldown = 0.5f;
 
             limitRange(2);
@@ -205,7 +208,7 @@ public class DustTurrets {
             drawer = new DrawTurret("braced-");
 
             consumePower(3f);
-            coolant = consumeCoolant(4.5f/60f);
+            coolant = consume(new ConsumeLiquidFilter(liquid -> liquid == Liquids.water || liquid == Liquids.hydrogen || liquid == DustLiquids.saltWater, 4.5f/60f));
         }};
 
         pistil = new ChargeTurret("pistil"){{
@@ -559,7 +562,7 @@ public class DustTurrets {
                     frontColor = DustPalette.amethyst;
                 }}
             );
-            coolant = consumeLiquid(Liquids.water, 6f/60f);
+            coolant = consume(new ConsumeLiquidFilter(liquid -> liquid == Liquids.water || liquid == DustLiquids.bioLiquid, 6f/60f));
             coolantMultiplier = 10f;
 
             drawer = new DrawTurret("braced-"){{
@@ -666,8 +669,8 @@ public class DustTurrets {
                     splashDamage = 15f;
                     splashDamageRadius = 24f;
 
-                    hitColor = backColor = trailColor = DustPalette.aquameriumBack;
-                    frontColor = DustPalette.aquamerium;
+                    hitColor = backColor = DustPalette.aquameriumBack;
+                    frontColor = trailColor= DustPalette.aquamerium;
                     despawnEffect = Fx.hitBulletColor;
                     hitSound = Sounds.explosion;
 
@@ -680,8 +683,8 @@ public class DustTurrets {
                         height = 10;
                         shrinkY = 1;
                         lifetime = 20;
-                        backColor = trailColor = DustPalette.aquameriumBack;
-                        hitColor = frontColor = DustPalette.aquamerium;
+                        backColor = DustPalette.aquameriumBack;
+                        hitColor = frontColor = trailColor = DustPalette.aquamerium;
                         despawnEffect = Fx.none;
                         collidesGround = true;
                     }};
@@ -777,17 +780,6 @@ public class DustTurrets {
                         moveY = -1f;
                     }})
                 );
-                // parts.add(new RegionPart("-pellet") {{
-                //     under = true;
-                //     colorTo = new Color(1f, 1f, 1f, 0f);
-                //     color = Color.white;
-                //     progress = PartProgress.reload;
-                //     recoilIndex = 0;
-                //     mixColor = new Color(1f, 1f, 1f, 0f);
-                //     mixColorTo = Color.black;
-                //     y = 0f;
-                //     moveY = -1f;
-                // }});
                 parts.add(new RegionPart("-back"){{
                     under = true;                    
                 }});
@@ -802,6 +794,9 @@ public class DustTurrets {
             shootSound = Sounds.shootArtillerySmall;
             itemCapacity = 6;
             outlineColor = DustPalette.turretOutline;
+
+            coolant = consume(new ConsumeLiquidFilter(liquid -> liquid == Liquids.hydrogen || liquid == Liquids.water, 6f/60f));
+            coolantMultiplier = 3f;
 
             limitRange(0);
         }};
@@ -909,9 +904,7 @@ public class DustTurrets {
             shootSound = Sounds.shootBreach;
             outlineColor = DustPalette.turretOutline;
 
-            // TODO replace particle effect with custom effect class
-
-            // consumeLiquid(Liquids.water, 12f/60f).boost();
+            coolant = consume(new ConsumeLiquidFilter(liquid -> liquid == Liquids.water || liquid == DustLiquids.bioLiquid, 12f/60f));
 
             limitRange(2);
         }};
