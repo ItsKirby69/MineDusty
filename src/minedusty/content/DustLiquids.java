@@ -14,6 +14,7 @@ public class DustLiquids {
 	//temp
 	public static void load(){
 		sodiumHydroxide = new Liquid("sodium-hydroxide", Color.valueOf("#f8a2ad")){{
+			heatCapacity = 0.65f;
 			// further corrosive liquid?
 		}};
 		chlorine = new Liquid("chlorine", Color.valueOf("#e1eda9")){{
@@ -25,6 +26,7 @@ public class DustLiquids {
 		bioLiquid = new Liquid("bio-liquid", Color.valueOf("#05dd83ff")){{
 			effect = DustStatusEffects.healingWash;
 			boilPoint = 0.5f;
+			heatCapacity = 0.75f;
 			lightColor = Color.valueOf("#0bceceff").a(0.45f);
             gasColor = Color.valueOf("#a9f2e4");
         }};
