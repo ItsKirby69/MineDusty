@@ -36,7 +36,7 @@ public class DustCrafters {
 	// Legacy crafters
 	public static Block nitroplastChamber, bioLiquidMixer, bioFuelCombustionChamber, miniCrusher;
 	
-	public static void loadContent() {
+	public static void loadContent(){
 		//region Crafters
 		brineElectrolyzer = new GenericCrafter("brine-electrolyzer"){{
             requirements(Category.crafting, with(Items.silicon, 50, Items.graphite, 70, oxidecopper, 130, amethyst, 60));
@@ -136,7 +136,6 @@ public class DustCrafters {
 			
 			consumeItem(sand);
 			consumePower(45f/60f);
-            // consumeLiquid(Liquids.water, 0.1f);
         }};
 		
 		carbonicRefinery = new GenericCrafter("carbonic-refinery"){{
@@ -180,7 +179,7 @@ public class DustCrafters {
 			);
 			consumePower(90f/60f);
 			consumeItem(lead, 5);
-			consumeLiquids(LiquidStack.with(Liquids.oil, 12f/60f));
+			consumeLiquids(LiquidStack.with(Liquids.oil, 12f/60f, Liquids.hydrogen, 6f/60f));
 		}};
 
 		carbonicConcentrator = new GenericCrafter("carbonic-concentrator"){{
@@ -252,6 +251,7 @@ public class DustCrafters {
             ambientSoundVolume = 0.07f;
 
             consumeItems(with(carbonicWaste, 1, silicadust, 3));
+			// consumeLiquid(sodiumHydroxide, 6f/ 60f).boost();
             consumePower(35f/ 60f);
         }};
 
