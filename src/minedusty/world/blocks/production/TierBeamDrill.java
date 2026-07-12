@@ -1,10 +1,10 @@
 package minedusty.world.blocks.production;
 
 import static mindustry.Vars.tilesize;
+import static mindustry.Vars.world;
 
 import arc.Core;
 import arc.graphics.*;
-import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Angles;
 import arc.math.Mathf;
@@ -25,7 +25,8 @@ import mindustry.world.meta.*;
 import minedusty.world.meta.DustStat;
 
 
-/** A beam drill with capabilities to mine higher tiered ores. Same like TierDrill.java */
+/** A beam drill with capabilities to mine higher tiered ores (when boosted). Same as {@link TierDrill} */
+// TODO hovering over doesn't display correct resource being extracted when boosted
 public class TierBeamDrill extends BeamDrill{
     public TextureRegion darktopRegion, gemRegion;
     public ObjectMap<Item, Item> tierMap = new ObjectMap<>();
@@ -145,6 +146,32 @@ public class TierBeamDrill extends BeamDrill{
             }
             return null;
         }
+    
+        @Override
+        public void onProximityUpdate(){
+            //when rotated.
+            updateLasers();
+            updateFacing();
+        }
+
+        @Override
+        public void drawSelect(){
+            drawItemSelection(resolveDisplayItem());
+        }
+
+        public Item resolveDisplayItem(){
+            for(Tile tile : facing){
+                Item drop = tile == null ? null : tile.wallDrop();
+                if(drop != null) return resolveTierDrop(drop);
+            }
+            return lastItem;
+        }
+
+        public Item resolveTierDrop(Item Drop){
+            boolean isBoosted = (resolveActiveBoost() != null ? 1f : 0f) > 0f;
+            return isBoosted && tierMap.containsKey(Drop) ? tierMap.get(Drop) : Drop;
+        }
+
 
         @Override
         public void updateTile(){
@@ -165,13 +192,13 @@ public class TierBeamDrill extends BeamDrill{
             time += edelta() * multiplier;
 
             if(time >= drillTime){
-                boolean isBoosted = boost > 0f;
                 for(Tile tile : facing){
                     Item drop = tile == null ? null : tile.wallDrop();
                     if(items.total() < itemCapacity && drop != null){
-                        Item tierDrop = isBoosted && tierMap.containsKey(drop) ? tierMap.get(drop) : drop;
+                        Item tierDrop = resolveTierDrop(drop);
                         items.add(tierDrop, 1);
                         produced(tierDrop);
+                        lastItem = tierDrop;
                     }
                 }
                 time %= drillTime;

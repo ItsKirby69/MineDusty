@@ -25,9 +25,7 @@ public class ModifiedDrill extends TierDrill{
         teamRegion = Core.atlas.find(name + "-team", Core.atlas.find("clear"));
     }
 
-    public class ModifiedDrillBuild extends DrillBuild {
-        public float boost1, boost2;
-
+    public class ModifiedDrillBuild extends TierDrillBuild {
         @Override
         public void draw(){
             float s = 0.3f;

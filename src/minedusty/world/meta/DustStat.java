@@ -29,40 +29,15 @@ public class DustStat{
 
     boostItems = new Stat("boostitems", StatCat.optional);
 
-    public static StatValue speedBoosters(String unit, float amount, float speed, boolean strength, Boolf<Liquid> filter, ObjectMap<Item, Item> tierMap){
-        return table -> {
-            table.row();
-            table.table(c -> {
-                for(Liquid liquid : content.liquids()){
-                    if(!filter.get(liquid)) continue;
-
-                    c.table(Styles.grayPanel, b -> {
-                        b.image(liquid.uiIcon).size(40).pad(10f).left().scaling(Scaling.fit).with(i -> StatValues.withTooltip(i, liquid, false));
-                        b.table(info -> {
-                            info.add(liquid.localizedName).left().row();
-                            info.add(Strings.autoFixed(amount * 60f, 2) + StatUnit.perSecond.localized()).left().color(Color.lightGray);
-                        });
-                        
-                        b.image(liquid.uiIcon).size(40).pad(10f).center().scaling(Scaling.fit).with(i -> StatValues.withTooltip(i, liquid, false));
-
-                        b.table(bt -> {
-                            bt.right().defaults().padRight(3).left();
-                            if(speed != Float.MAX_VALUE) bt.add(unit.replace("{0}", "[stat]" + Strings.autoFixed(speed * (strength ? liquid.heatCapacity : 1f) + (strength ? 1f : 0f), 2) + "[lightgray]")).pad(5);
-                        }).right().grow().pad(10f).padRight(15f);
-                    }).growX().pad(5).row();
-                }
-            }).growX().colspan(table.getColumns());
-            table.row();
-        };
-    }
-
-    public static StatValue boostedItems(Item raw, Item boosted){
+    public static StatValue boostedItems(Item raw, Item boosted, Boolf<Block> matches){
         return table -> {
             table.row();
             table.table(c -> {
                 c.table(Styles.grayPanel, b -> {
                     var blocks = Vars.content.blocks()
-                    .select(block -> indexer.isBlockPresent(block) && block.itemDrop == raw && !((block instanceof Floor f && f.isDeep())));
+                        .select(block -> indexer.isBlockPresent(block) 
+                        && !(block instanceof Floor f && f.isDeep())
+                        && matches.get(block));
                     
                     b.table(info -> {
                         if(blocks.any()){
@@ -90,5 +65,9 @@ public class DustStat{
             }).growX().colspan(table.getColumns());
             table.row();
         };
+    }
+
+    public static StatValue boostedItems(Item raw, Item boosted){
+        return boostedItems(raw, boosted, block -> block.itemDrop == raw);
     }
 }
