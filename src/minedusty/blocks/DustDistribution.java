@@ -20,11 +20,12 @@ public class DustDistribution {
 	
 	public static Block copperConveyor, copperJunction, copperRouter, 
     copperOverflowGate, copperUnderflowGate,
-    copperSorter, copperInvertedSorter;
+    copperSorter, copperInvertedSorter,
+    copperBridge;
     public static Block aquameriumConveyor;
 
     public static Block siliconPipe, siliconValve;
-    public static Block aquameriumConduit, aquaLiquidRouter, aquaLiquidJunction;
+    public static Block aquameriumConduit, aquaLiquidRouter, aquaLiquidDistributor, aquaLiquidJunction;
     
     public static Block armoredGalenaConveyor; // a heavily armored conveyor. Perhaps instead make it chlorophyte that heals itself?
     public static Block electrumConveyor; // A power requiring stack conveyor?
@@ -54,6 +55,17 @@ public class DustDistribution {
             liquidCapacity = 150f;
             underBullets = true;
             solid = false;
+            squareSprite = false;
+            liquidPadding = 1f;
+            explosivenessScale = flammabilityScale = 4f/20f;
+        }};
+
+        aquaLiquidDistributor = new LiquidRouter("aqua-liquid-distributor"){{
+            requirements(Category.liquid, with(aquamerium, 4, Items.graphite, 6));
+            liquidCapacity = 170f * 4;
+            underBullets = true;
+            solid = false;
+            size = 2;
             squareSprite = false;
             liquidPadding = 1f;
             explosivenessScale = flammabilityScale = 4f/20f;
@@ -102,6 +114,16 @@ public class DustDistribution {
 
             ((Conveyor) copperConveyor).junctionReplacement = this;
             ((Conveyor) aquameriumConveyor).junctionReplacement = this;
+        }};
+
+        copperBridge = new BufferedItemBridge("copper-bridge"){{
+            requirements(Category.distribution, with(Items.lead, 6, oxidecopper, 12));
+            fadeIn = moveArrows = false;
+            range = 4;
+            speed = 100f; //74f
+            arrowSpacing = 6f;
+            bufferCapacity = 14;
+            crushFragile = true;
         }};
 
         copperRouter = new Router("copper-router"){{
