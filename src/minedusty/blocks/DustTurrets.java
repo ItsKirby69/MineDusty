@@ -682,6 +682,7 @@ public class DustTurrets {
             outlineColor = DustPalette.turretOutline;
             shootSound = Sounds.shootFuse;
             shootSoundVolume = 0.8f;
+            coolant = consume(new ConsumeLiquid(Liquids.water, 12f/60f));
         }};
 
         sleet = new ItemTurret("sleet"){{
