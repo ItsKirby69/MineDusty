@@ -21,9 +21,7 @@ import mindustry.entities.part.DrawPart.PartProgress;
 import mindustry.entities.part.RegionPart;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
-import mindustry.world.consumers.ConsumeLiquid;
-import mindustry.world.consumers.ConsumeLiquidFilter;
-import mindustry.world.consumers.ConsumeLiquids;
+import mindustry.world.consumers.*;
 import mindustry.world.draw.DrawTurret;
 import mindustry.world.meta.BlockFlag;
 import minedusty.content.*;
@@ -264,10 +262,39 @@ public class DustTurrets {
 
                     splashDamage = 25f;
                     splashDamageRadius = 16f;
-                    // WIP
+
                     despawnEffect = hitEffect = new MultiEffect(
                         hitChloroSpark, Fx.hitLiquid, 
                         waveEffect(Color.white.cpy(), DustPalette.saltColor, 20f, 40f),
+                        new SoundEffect(DustSounds.hitOrb, Fx.none)
+                    );
+                }},
+                chlorine, new BasicBulletType(1.4f, 45f, "minedusty-energy-orb"){{
+                    lifetime = 180f;
+                    width = height = 18f;
+                    lightRadius = 30f;
+                    lightOpacity = 0.2f;
+                    shrinkX = shrinkY = 0.25f;
+                    chargeEffect = new MultiEffect(colorEffect(orbCharge, DustPalette.chlorineBullet), orbChargeBegin(120f, DustPalette.chlorineBullet));
+                    status = DustStatusEffects.chlorinecorrosion;
+                    pierceCap = 3;
+                    pierceBuilding = false;
+                    reloadMultiplier = 1.25f;
+                    backColor = DustPalette.chlorineBulletBack;
+                    lightColor = frontColor = hitColor = trailColor = DustPalette.chlorineBullet;
+                    ammoMultiplier = 0.25f;
+                    trailInterval = 8f;
+                    trailEffect = Fx.missileTrail;
+
+                    homingPower = 0.02f;
+                    homingRange = 120f;
+
+                    splashDamage = 20f;
+                    splashDamageRadius = 25f;
+                    
+                    despawnEffect = hitEffect = new MultiEffect(
+                        hitChloroSpark, Fx.hitLiquid, 
+                        waveEffect(Color.white.cpy(), DustPalette.chlorineBullet, 20f, 40f),
                         new SoundEffect(DustSounds.hitOrb, Fx.none)
                     );
                 }},

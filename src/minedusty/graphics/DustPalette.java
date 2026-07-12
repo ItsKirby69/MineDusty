@@ -52,6 +52,8 @@ public class DustPalette {
 
 	chlorophyteBullet = Color.valueOf("#d6fda4"),
 	aquameriumBullet = Color.valueOf("#caf5ff"),
+	chlorineBullet = Color.valueOf("#e1eda9"),
+	chlorineBulletBack = Color.valueOf("#cadd78"),
 
 	// Divine palette
 	divineHeal = Color.valueOf("#ff4a34"),
