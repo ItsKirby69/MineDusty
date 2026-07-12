@@ -51,6 +51,9 @@ public class TheiaTechTree {
                         ), () -> {});
                         node(stockpile, () -> {});
                     });
+                node(copperBridge, Seq.with(
+                    new SectorComplete(verdantSpills)
+                ), () -> {});
                 });
             });
 
@@ -62,7 +65,9 @@ public class TheiaTechTree {
                     node(lobePump, () -> {});
                     node(aquameriumConduit, () -> {
                         node(aquaLiquidJunction, () -> {
-                            node(aquaLiquidRouter);
+                            node(aquaLiquidRouter, () -> {
+                                node(aquaLiquidDistributor);
+                            });
                         });
                     });
                     node(siliconPipe, () -> {
