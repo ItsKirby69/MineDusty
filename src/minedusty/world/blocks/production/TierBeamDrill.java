@@ -1,7 +1,6 @@
 package minedusty.world.blocks.production;
 
-import static mindustry.Vars.tilesize;
-import static mindustry.Vars.world;
+import static mindustry.Vars.*;
 
 import arc.Core;
 import arc.graphics.*;
@@ -15,18 +14,20 @@ import arc.struct.Seq;
 import arc.util.*;
 import mindustry.content.Items;
 import mindustry.entities.units.BuildPlan;
+import mindustry.gen.Building;
 import mindustry.graphics.*;
 import mindustry.type.Item;
 import mindustry.type.Liquid;
+import mindustry.ui.Bar;
 import mindustry.world.Tile;
 import mindustry.world.blocks.production.BeamDrill;
 import mindustry.world.consumers.ConsumeLiquid;
 import mindustry.world.meta.*;
+import minedusty.world.blocks.production.TierBeamDrill.BoostEntry;
 import minedusty.world.meta.DustStat;
 
 
 /** A beam drill with capabilities to mine higher tiered ores (when boosted). Same as {@link TierDrill} */
-// TODO hovering over doesn't display correct resource being extracted when boosted
 public class TierBeamDrill extends BeamDrill{
     public TextureRegion darktopRegion, gemRegion;
     public ObjectMap<Item, Item> tierMap = new ObjectMap<>();
@@ -105,6 +106,20 @@ public class TierBeamDrill extends BeamDrill{
             });
         }
     }
+    
+    @Override
+        public void setBars(){
+            super.setBars();
+
+            for(BoostEntry entry : boostLiquids){
+                removeBar("liquid-" + entry.liquid.name);
+            }
+
+            addLiquidBar((TierBeamDrillBuild build) -> {
+                BoostEntry boost = build.storedBoostEntry();
+                return boost == null ? null : boost.liquid;
+            });
+        }
 
     @Override
     public void init(){
@@ -146,10 +161,26 @@ public class TierBeamDrill extends BeamDrill{
             }
             return null;
         }
+
+        // Store only one liquid at a time because bars look uglyyy
+        protected BoostEntry storedBoostEntry(){
+            for(BoostEntry entry : boostLiquids){
+                if(liquids.get(entry.liquid) > 0.001f) return entry;
+            }
+            return null;
+        }
+
+        @Override
+        public boolean acceptLiquid(Building source, Liquid liquid){
+            BoostEntry stored = storedBoostEntry();
+            if(stored != null && stored.liquid != liquid){
+                return false;   
+            }
+            return super.acceptLiquid(source, liquid);
+        }
     
         @Override
         public void onProximityUpdate(){
-            //when rotated.
             updateLasers();
             updateFacing();
         }
@@ -161,8 +192,10 @@ public class TierBeamDrill extends BeamDrill{
 
         public Item resolveDisplayItem(){
             for(Tile tile : facing){
-                Item drop = tile == null ? null : tile.wallDrop();
-                if(drop != null) return resolveTierDrop(drop);
+                if(tile == null) continue;
+
+                Item wallDrop = tile.wallDrop();
+                if(wallDrop != null) return resolveTierDrop(wallDrop);
             }
             return lastItem;
         }
@@ -171,7 +204,6 @@ public class TierBeamDrill extends BeamDrill{
             boolean isBoosted = resolveActiveBoost() != null;
             return isBoosted && tierMap.containsKey(Drop) ? tierMap.get(Drop) : Drop;
         }
-
 
         @Override
         public void updateTile(){
@@ -193,9 +225,11 @@ public class TierBeamDrill extends BeamDrill{
 
             if(time >= drillTime){
                 for(Tile tile : facing){
-                    Item drop = tile == null ? null : tile.wallDrop();
-                    if(items.total() < itemCapacity && drop != null){
-                        Item tierDrop = resolveTierDrop(drop);
+                    if(tile == null) continue;
+                    Item wallDrop = tile.wallDrop();
+
+                    if(items.total() < itemCapacity && wallDrop != null){
+                        Item tierDrop = resolveTierDrop(wallDrop);
                         items.add(tierDrop, 1);
                         produced(tierDrop);
                         lastItem = tierDrop;

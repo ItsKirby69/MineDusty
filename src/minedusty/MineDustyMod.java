@@ -92,7 +92,7 @@ public class MineDustyMod extends Mod {
 
 	@Override
 	public void loadContent() {
-		/** Ranomized mod subtitles in the loaded mod page */
+		/** Ranomized mod subtitles in the loaded mod page. Keep in mind, must be less than 40 characters (including specials) */
 		subtitles = new Seq<>(bundle.get("minedusty-subtitle.lines").split("/"));
 		Vars.mods.list().each(mod -> {
 			if(mod.main == this){

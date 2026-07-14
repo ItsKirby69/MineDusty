@@ -77,8 +77,6 @@ public class DustDrills {
             tier = 2;
             tierMap.put(silicadust, amethyst);
 
-            // sparkColor = Color.valueOf("#fd818e");
-            // boostHeatColor = Color.valueOf("#9df572").cpy().mul(0.87f);
             addBoost(bioLiquid, 0.25f/60f)
             .heatColor(Color.valueOf("#9df572").cpy().mul(0.87f))
             .sparkColor(Color.valueOf("#e6fd81"));

@@ -117,7 +117,7 @@ public class DustWeathers {
 			xspeed = -0.75f;
 		}};
 
-		//heavy rain and we need thunder storm aswell TODO: make heavy rain more heavier and darker
+		//heavy rain and we need thunder storm aswell
 		heavyRain = new StormWeather("heavy-rain"){{
 			yspeed = 13f;
 			xspeed = 10f;

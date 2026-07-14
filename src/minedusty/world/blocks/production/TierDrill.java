@@ -74,7 +74,6 @@ public class TierDrill extends Drill {
         @Override
         public void updateTile(){
             boolean boosted = isBoosted();
-            Log.info("build: @", buildType);
             if(boosted != wasBoosted){
                 wasBoosted = boosted;
                 onProximityUpdate();

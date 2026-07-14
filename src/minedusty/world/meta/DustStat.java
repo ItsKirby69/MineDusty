@@ -1,17 +1,12 @@
 package minedusty.world.meta;
 
 import static arc.Core.bundle;
-import static mindustry.Vars.content;
-import static mindustry.Vars.indexer;
+import static mindustry.Vars.*;
 
 import arc.func.Boolf;
-import arc.graphics.Color;
-import arc.struct.ObjectMap;
-import arc.util.Scaling;
-import arc.util.Strings;
+import arc.util.*;
 import mindustry.Vars;
-import mindustry.type.Item;
-import mindustry.type.Liquid;
+import mindustry.type.*;
 import mindustry.ui.Styles;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;

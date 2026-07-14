@@ -384,7 +384,6 @@ public class DustEnv {
 		//end region
 
 		//region Water Tiles
-		// TODO replace with just an effect block with direction arro
 
 		tropicalWater = new WaterFloor("trop-shallow-water"){{
 			statusDuration = 90f;
