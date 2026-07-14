@@ -61,7 +61,8 @@ public class DustSectors {
         }};
 
         grassyPlains = new DustSectorPreset("grassyPlains", theia, 109){{
-            addStartingItems = true;
+            addStartingItems = false;
+            overrideLaunchDefaults = true;
             allowLaunchLoadout = true;
             captureWave = 13;
             difficulty = 4;
