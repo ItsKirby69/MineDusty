@@ -1,5 +1,7 @@
 package minedusty.content;
 
+import static minedusty.content.DustyEffects.steam;
+
 import arc.Core;
 import arc.assets.AssetDescriptor;
 import arc.assets.loaders.SoundLoader;
@@ -17,6 +19,7 @@ public class DustSounds {
 
 		chargeOrb = new Sound(),
 		shootOrb = new Sound(),
+		shootDuoCrystal = new Sound(),
 		hitOrb = new Sound(),
 		hitMetal = new Sound(),
 
@@ -40,6 +43,7 @@ public class DustSounds {
 
 			chargeOrb = loadSound("chargeOrb");
 			shootOrb = loadSound("shootOrb");
+			shootDuoCrystal = loadSound("shootDuoCrystal");
 			hitOrb = loadSound("hitOrb");
 			hitMetal = loadSound("hitMetal");
 			

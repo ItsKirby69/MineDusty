@@ -586,6 +586,7 @@ public class DustTurrets {
                     despawnEffect = Fx.hitBulletColor;
                     hitColor = backColor = trailColor = DustPalette.amethystBack;
                     frontColor = DustPalette.amethyst;
+                    shootSound = DustSounds.shootDuoCrystal;
                 }}
             );
             coolant = consume(new ConsumeLiquidFilter(liquid -> liquid == Liquids.water || liquid == DustLiquids.bioLiquid, 6f/60f));
