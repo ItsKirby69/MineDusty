@@ -168,7 +168,7 @@ public class TierBeamDrill extends BeamDrill{
         }
 
         public Item resolveTierDrop(Item Drop){
-            boolean isBoosted = (resolveActiveBoost() != null ? 1f : 0f) > 0f;
+            boolean isBoosted = resolveActiveBoost() != null;
             return isBoosted && tierMap.containsKey(Drop) ? tierMap.get(Drop) : Drop;
         }
 
