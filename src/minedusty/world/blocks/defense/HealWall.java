@@ -1,20 +1,32 @@
 package minedusty.world.blocks.defense;
 
 import arc.graphics.Color;
+import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
 import arc.util.*;
+import mindustry.world.meta.StatUnit;
 import minedusty.content.DustyEffects;
+import minedusty.world.meta.DustStat;
 
 /** Wall that heals in pulses after a delay when damaged. */
 public class HealWall extends DustWall{
     
-    public float healPercent = 0.05f;
-    public float healDelay = 6f * 60f;
+    public float healMinPercent = 0.03f;
+    public float healMaxPercent = 0.05f;
+    public float healDelay = 10f * 60f;
     public float healInterval = 1.5f * 60f;
 
     public HealWall(String name){
         super(name);
         update = true;
+    }
+
+    @Override
+    public void setStats(){
+        super.setStats();
+        stats.add(DustStat.wallHealRange, (int)(healMaxPercent * 100f) + "-" + (int)(healMinPercent * 100f) + "%", StatUnit.none);
+        stats.add(DustStat.wallHealDelay, (int)(healDelay / 60f), StatUnit.seconds);
+        stats.add(DustStat.wallHealPulse, (float)(healInterval / 60f), StatUnit.seconds);
     }
 
     public class HealWallBuild extends DustWallBuild{
@@ -34,7 +46,8 @@ public class HealWall extends DustWall{
                     
                     // Pulses of healing
                     if (healtimer >= healInterval) {
-                        heal(maxHealth * healPercent);
+                        float healthFrac = health / maxHealth;
+                        heal(maxHealth * Mathf.lerp(healMaxPercent, healMinPercent, healthFrac));
                         healtimer = 0f;
 
                         DustyEffects.healWallhealing.at(x, y, block.size, Color.valueOf("#84f491"), block);
@@ -65,7 +78,7 @@ public class HealWall extends DustWall{
                         if(damageTimer < healDelay){
                             return "[lightgray]Healing in: " + String.format("%.1f", (healDelay - damageTimer) / 60f) + "s";
                         }else{
-                            return "[green]Healing: +" + healPercent + "/s";
+                            return "[green]Healing: +" + (int)(maxHealth * Mathf.lerp(healMinPercent, healMaxPercent, health / maxHealth)) + " hp";
                         }
                     }).left().growX();
                 }).growX();

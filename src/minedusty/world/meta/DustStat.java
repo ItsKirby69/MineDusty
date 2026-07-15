@@ -22,7 +22,11 @@ public class DustStat{
 
     heatEfficiency = new Stat("heatefficiency", StatCat.crafting),
 
-    boostItems = new Stat("boostitems", StatCat.optional);
+    boostItems = new Stat("boostitems", StatCat.optional),
+
+    wallHealRange = new Stat("wallhealrange", StatCat.function),
+    wallHealDelay = new Stat("wallhealdelay", StatCat.function),
+    wallHealPulse = new Stat("wallhealpulse", StatCat.function);
 
     public static StatValue boostedItems(Item raw, Item boosted, Boolf<Block> matches){
         return table -> {

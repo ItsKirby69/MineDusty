@@ -51,6 +51,7 @@ public class DustDefence {
 
 		chloroWall = new HealWall("chlorophyte-wall") {{
 			requirements(Category.defense, with(chlorophyte, 6));
+            healDelay = 6 * 60f;
 			health = 90 * wallHealthMulti;
 		}};
 
