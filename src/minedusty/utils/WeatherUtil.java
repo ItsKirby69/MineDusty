@@ -12,6 +12,7 @@ public class WeatherUtil {
     /** Returns true if given any of the given weathers are active. */
 
     public static boolean activeWeather(Weather... weathers){
+        // Is this necessary anymore...
         if (!state.isGame() || state.rules == null || state.rules.weather == null) return false;
 
         try {
