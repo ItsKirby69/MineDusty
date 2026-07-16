@@ -325,16 +325,6 @@ public class DustyEffects {
 		});
 	}).layer(Layer.darkness + 1),
 
-	fallingLeaves = new Effect(450f, 150f, e ->{
-		color(e.color, e.color, e.fslope());
-		alpha(e.fslope() * 3f);
-
-		float drift = -20f * e.fin() * 4f;
-		randLenVectors(e.id, 1, 30f + e.finpow() * 40f, (x, y) -> {
-			Draw.rect(atlas.find("minedusty-tree-prop3"), e.x + x + drift, e.y + y + drift, 16f, 16f, e.fin() * 360f);
-		});
-	}).layer(Layer.darkness + 1),
-
 	fallingEmbers = new Effect(140f, e ->{
 		float a = Mathf.sin(e.fin() * Mathf.PI) * 0.9f;
 		a = Mathf.clamp(a, 0f, 0.8f);

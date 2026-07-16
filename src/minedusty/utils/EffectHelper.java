@@ -123,6 +123,18 @@ public class EffectHelper {
 		}).layer(Layer.blockOver);
 	}
 
+	public static Effect fallingLeaves(String texture){
+		return new Effect(450f, 150f, e ->{
+			color(e.color, e.color, e.fslope());
+			alpha(e.fslope() * 3f);
+
+			float drift = -20f * e.fin() * 4f;
+			randLenVectors(e.id, 1, 30f + e.finpow() * 40f, (x, y) -> {
+				Draw.rect(Core.atlas.find("minedusty-" + texture), e.x + x + drift, e.y + y + drift, 16f, 16f, e.fin() * 360f);
+			});
+		}).layer(Layer.darkness + 1);
+	}
+
 	// Generalized
 	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float lengthh, String tex){
 		return partEffect(fromColor, toColor, fromWidth, toWidth, life, conen, spinn, parts, lengthh, tex, true, Interp.linear);

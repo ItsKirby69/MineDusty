@@ -38,7 +38,7 @@ public class LivingTreeBlock extends Block{
 	public float fadeStart = 50f;
 	public float fadeEnd = 15f;
 	/** Effects for falling leaves */
-	public Effect effect = DustyEffects.fallingLeaves;
+	public Effect effect = EffectHelper.fallingLeaves("tree-prop3");
 	public float effectRange = 6f;
 
 	public Effect treeBreakEffect;

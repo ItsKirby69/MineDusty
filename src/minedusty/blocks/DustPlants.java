@@ -11,6 +11,7 @@ import mindustry.world.blocks.environment.*;
 import minedusty.world.blocks.environment.*;
 import minedusty.DustAttributes;
 import minedusty.content.*;
+import minedusty.utils.EffectHelper;
 
 import static minedusty.utils.EffectHelper.*;
 
@@ -61,6 +62,7 @@ public class DustPlants {
 			stumpBreakEffect = stumpBreakEffect(90f, 15, 2, "minedusty-elm-bark", 3f, 7f);
 		}};
 		pineTree = new LivingTreeBlock("pine-tree", 1, "#398654"){{
+			effect = EffectHelper.fallingLeaves("pine-prop3");
 			treeBreakEffect = colorEffect(treeBreakEffect(120f, 45, 5, "minedusty-pine-prop", 3.2f, 23f, Layer.blockOver), mapColor);
 			stumpBreakEffect = stumpBreakEffect(110f, 15, 2, "minedusty-pine-bark", 3f, 9f);
 			rotateShadow = false;

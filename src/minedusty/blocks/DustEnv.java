@@ -715,16 +715,8 @@ public class DustEnv {
 			size = 2;
 		}};
 
-		fallingLeavesEffect = new TileEffect("falling-leaves"){{
-			addEffect(DustyEffects.fallingLeaves, Color.valueOf("c32121"));
-		}};
-
 		flowingWaterEffect = new FlowWaterTile("flow-water"){{
 			//addEffect(DustyEffects.flowWater, 1.0f, 8f, true);
-		}};
-
-		waterSmokeEffect = new WaterEffectTile("water-smoke"){{
-			addEffect(DustyEffects.mistCloud, 1.0f, 20f);
 		}};
 
 		logoBlock = new BoulderProp("icon-block"){{
