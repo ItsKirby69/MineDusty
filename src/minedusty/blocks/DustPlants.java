@@ -29,17 +29,18 @@ public class DustPlants {
 
 	public static void loadContent() {
 		//region Trees
-		/* Disabled for now since atlas is messed up
 		worldTree = new LivingTreeBlock("world-tree", 1, "#c32121"){{
-			treeBreakEffect = colorEffect(treeBreakEffect(200f, 150, 5, "minedusty-tree-prop-white", 2.2f, 60f, Layer.debris), mapColor);
+			treeBreakEffect = colorEffect(treeBreakEffect(200f, 350, 5, "minedusty-tree-prop-white", 2.2f, 360f, Layer.debris), mapColor);
+			stumpBreakEffect = stumpBreakEffect(90f, 40, 2, "minedusty-white-bark", 2f, 20f);
 			size = 12;
 			shadowOffset = -30f;
 			tallTree = true;
 			clipSize = 1536; //512*3 | 1536
-			fadeStart = 230f;
-			fadeEnd = 100f;
+			fadeStart = 320f;
+			fadeEnd = 180f;
 			effectRange = 18f;
-		}};*/
+			buildVisibility = BuildVisibility.hidden;
+		}};
 
 		divineTree = new LivingTreeBlock("divine-tree", 2, "#c32121"){{
 			itemDrop = DustItems.divinityMatter; //for extraction in future
