@@ -15,6 +15,7 @@ import mindustry.world.*;
 import mindustry.world.meta.BuildVisibility;
 import minedusty.content.*;
 import minedusty.graphics.DrawPseudo3D;
+import minedusty.utils.EffectHelper;
 
 import static arc.Core.*;
 import static mindustry.Vars.tilesize;
@@ -77,6 +78,25 @@ public class LivingTreeBlock extends Block{
 	public boolean canBreak(Tile tile){
 		// breakable in sandBox or in-game editor
 		return Vars.state.rules.infiniteResources || Vars.state.rules.editor;
+	}
+
+	@Override
+	protected TextureRegion[] icons(){
+		return new TextureRegion[]{
+			TexExists(backRegions, region),
+			region,
+			TexExists(centerRegions),
+			TexExists(middleRegions),
+			TexExists(topRegions)
+		};
+	}
+
+	public TextureRegion TexExists(TextureRegion[] texs){
+		return texs != null && texs.length > 0 && texs[0] != null && texs[0].found() ? texs[0] : Core.atlas.find("clear");
+	}
+
+	public TextureRegion TexExists(TextureRegion[] texs, TextureRegion backup){
+		return texs != null && texs.length > 0 && texs[0] != null && texs[0].found() ? texs[0] : backup;
 	}
 
 	@Override
