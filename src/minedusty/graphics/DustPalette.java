@@ -18,10 +18,6 @@ public class DustPalette {
 	oxidecopperMid = Color.valueOf("#78bd87"),
 	oxidecopperBack = Color.valueOf("#475f5b"),
 
-	quartz = Color.valueOf("#a997a6"),
-	rosequartz = Color.valueOf("#c26ab3"),
-	dustquartz = Color.valueOf("#a39ea2"),
-
 	chlorophyte = Color.valueOf("#89ca1e"),
 	chlorophyteBack = Color.valueOf("#4b7a09ff"),
 	aquamerium = Color.valueOf("#a4ecfd"),
@@ -42,6 +38,10 @@ public class DustPalette {
 
 	amethyst = Color.valueOf("#e9e0f5"),
 	amethystBack = Color.valueOf("#c68bdc"),
+
+	galena = Color.valueOf("#ebd7f9"),
+	galenaSecond = Color.valueOf("#f7d2f4"),
+	galenaBack = Color.valueOf("#785e82"),
 
 	waterFront = Color.valueOf("#bad7ff"),
 

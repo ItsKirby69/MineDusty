@@ -83,6 +83,7 @@ public class LivingTreeBlock extends Block{
 	@Override
 	protected TextureRegion[] icons(){
 		return new TextureRegion[]{
+			shadowRegions[0],
 			TexExists(backRegions, region),
 			region,
 			TexExists(centerRegions),

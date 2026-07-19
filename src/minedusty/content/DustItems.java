@@ -32,7 +32,7 @@ public class DustItems {
 			hardness = 3;
 		}};
 
-		galena = new Item("item-galena", Color.valueOf("#9492a7")){{
+		galena = new Item("item-galena", Color.valueOf("#bdb6c5")){{
 			hardness = 1;
 		}};
 		

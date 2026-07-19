@@ -17,6 +17,7 @@ import mindustry.world.meta.BlockFlag;
 import minedusty.graphics.DustPalette;
 import minedusty.type.unit.*;
 
+import static minedusty.content.DustyEffects.*;
 import static minedusty.utils.EffectHelper.*;
 
 public class DustUnitTypes extends UnitTypes{
@@ -243,8 +244,15 @@ public class DustUnitTypes extends UnitTypes{
 					homingRange = 80f;
 					splashDamage = 15;
 					splashDamageRadius = 12f;
+					trailInterval = 5.5f;
+                    trailEffect = Fx.missileTrail;
+					
                     chargeEffect = multEff;
-                    hitEffect = DustyEffects.hitChloroSpark;
+                    despawnEffect = hitEffect = new MultiEffect(
+                        hitChloroSpark, Fx.hitLiquid, 
+                        waveEffect(Color.white.cpy(), DustPalette.chlorophyteWater, 20f, 50f),
+                        new SoundEffect(DustSounds.hitOrb, Fx.none)
+                    );
 
                     backColor = DustPalette.chlorophyteBack;
                     lightColor = DustPalette.chlorophyte;

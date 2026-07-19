@@ -133,10 +133,14 @@ public class EffectHelper {
 	}
 
 	// Generalized
-	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float lengthh, String tex){
-		return partEffect(fromColor, toColor, fromWidth, toWidth, life, conen, spinn, parts, lengthh, tex, true, Interp.linear);
+	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float brot, float lengthh, String tex){
+		return partEffect(fromColor, toColor, fromWidth, toWidth, life, conen, spinn, parts, brot, lengthh, tex, true, Interp.linear);
 	}
-	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float lengthh, String tex, Boolean booeal, Interp inter){
+
+	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float lengthh, String tex){
+		return partEffect(fromColor, toColor, fromWidth, toWidth, life, conen, spinn, parts, 90f, lengthh, tex, true, Interp.linear);
+	}
+	public static ParticleEffect partEffect(Color fromColor, Color toColor, float fromWidth, float toWidth, float life, float conen, float spinn, int parts, float brot, float lengthh, String tex, Boolean booeal, Interp inter){
 		return new ParticleEffect(){{
 			followParent = rotWithParent = booeal;
 			length = lengthh;
@@ -149,7 +153,7 @@ public class EffectHelper {
 			sizeTo = toWidth;
 			colorFrom = fromColor;
 			colorTo = toColor.cpy().a(0f);
-			baseRotation = 90f;
+			baseRotation = brot;
 			interp = inter;
 		}};
 	}
@@ -167,12 +171,16 @@ public class EffectHelper {
 		return partEffect(fromColor, toColor, width, 0f, life, conen, spinn, 1, 0f, flash);
 	}
 
+	public static ParticleEffect flashEffect(Color fromColor, Color toColor, float width, float life, float conen, float spinn, float brot, String flash){
+		return partEffect(fromColor, toColor, width, 0f, life, conen, spinn, 1, brot, 0f,  flash);
+	}
+
 	// Waves
 	public static ParticleEffect waveEffect(Color fromColor, Color toColor, float width, float life){
 		return waveEffect(fromColor, toColor, width, life, "minedusty-splashwave");
 	}
 
 	public static ParticleEffect waveEffect(Color fromColor, Color toColor, float width, float life, String tex){
-		return partEffect(fromColor, toColor, 0f, width, life, 0f, 0f, 1, 0f, "minedusty-splashwave", false, Interp.pow2Out);
+		return partEffect(fromColor, toColor, 0f, width, life, 0f, 0f, 1, 90f,0f, "minedusty-splashwave", false, Interp.pow2Out);
 	}
 }

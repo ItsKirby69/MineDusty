@@ -20,6 +20,7 @@ public class DustSounds {
 		chargeOrb = new Sound(),
 		shootOrb = new Sound(),
 		shootDuoCrystal = new Sound(),
+		shootPellucidMagic = new Sound(),
 		hitOrb = new Sound(),
 		hitMetal = new Sound(),
 
@@ -34,7 +35,6 @@ public class DustSounds {
 		rainStorm = new Sound(),
 		snowStorm = new Sound();
 
-
 		public static void load(){
 			chromaPew1 = loadSound("chromaPew1");
 			chromaPew2 = loadSound("chromaPew2");
@@ -44,6 +44,7 @@ public class DustSounds {
 			chargeOrb = loadSound("chargeOrb");
 			shootOrb = loadSound("shootOrb");
 			shootDuoCrystal = loadSound("shootDuoCrystal");
+			shootPellucidMagic = loadSound("shootPellucidMagic");
 			hitOrb = loadSound("hitOrb");
 			hitMetal = loadSound("hitMetal");
 			
