@@ -209,13 +209,13 @@ public class DustUnitTypes extends UnitTypes{
             researchCostMultiplier = 0.5f;
             speed = 0.46f;
             hitSize = 9f;
-            health = 175f;
+            health = 300f;
             stepSoundVolume = 0.4f;
 			
 			loopSound = Sounds.none;
 
             weapons.add(new Weapon("minedusty-bulbus-weapon"){{
-                reload = 140f;
+                reload = 200f;
                 top = false;
 				mirror = false;
                 ejectEffect = Fx.casing1;
@@ -240,10 +240,11 @@ public class DustUnitTypes extends UnitTypes{
 					shrinkX = shrinkY = 0.1f;
 					pierceCap = 3;
 					pierceBuilding = false;
+					hittable = false;
 					homingPower = 0.015f;
 					homingRange = 80f;
 					splashDamage = 15;
-					splashDamageRadius = 12f;
+					splashDamageRadius = 20f;
 					trailInterval = 5.5f;
                     trailEffect = Fx.missileTrail;
 					
@@ -256,7 +257,7 @@ public class DustUnitTypes extends UnitTypes{
 
                     backColor = DustPalette.chlorophyteBack;
                     lightColor = DustPalette.chlorophyte;
-                    frontColor = hitColor= DustPalette.chlorophyteWater;
+                    frontColor = hitColor = trailColor = DustPalette.chlorophyteWater;
 
 					healPercent = 8;
 					collidesTeam = true;
