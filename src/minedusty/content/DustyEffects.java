@@ -85,7 +85,7 @@ public class DustyEffects {
     }).followParent(true).rotWithParent(true),
 
     cregenParticle = new Effect(70f, e -> {
-        color(Pal.heal);
+        color(DustPalette.chloromend);
 		alpha(1 -e.fin());
 
         Fill.square(e.x, e.y, e.fslope() * 1.5f + 0.14f, 45f);

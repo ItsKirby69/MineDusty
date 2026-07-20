@@ -5,6 +5,7 @@ import arc.graphics.Color;
 public class DustPalette {
 	public static Color
 	// Random stuff
+	chloromend = Color.valueOf("#a3d72b"),
 	laserColor2 = Color.valueOf("#ffe18f"),
 	turretOutline = Color.valueOf("#394147"),
 	chlorophyteWater = Color.valueOf("#7effdc"),

@@ -4,13 +4,12 @@ import static mindustry.type.ItemStack.with;
 
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.storage.CoreBlock;
-import mindustry.world.blocks.storage.StorageBlock;
-import mindustry.world.blocks.units.Reconstructor;
-import mindustry.world.blocks.units.UnitFactory;
+import mindustry.world.blocks.storage.*;
+import mindustry.world.blocks.units.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.BuildVisibility;
 import minedusty.content.DustUnitTypes;
+import minedusty.graphics.DustPalette;
 import minedusty.world.blocks.defense.ChloroMenderProjector;
 import minedusty.world.blocks.logic.PetroglyphBlock;
 import minedusty.world.blocks.power.LanternBlock;
@@ -87,7 +86,7 @@ public class DustCore {
             health = 100;
 
 			baseColor = Color.valueOf("#c5ff98");
-            Color col = Color.valueOf("#a3d72b");
+            Color col = DustPalette.chloromend;
 
             drawer = new DrawMulti(new DrawDefault(), new DrawPulseShape(false){{
                 layer = Layer.effect;
