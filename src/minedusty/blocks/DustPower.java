@@ -69,6 +69,7 @@ public class DustPower {
             researchCost = with(Items.lead, 800, Items.silicon, 1000, aquamerium, 500);
             powerProduction = 200f / 60f;
             maxEfficiency = 2.5f;
+            heating = 0.12f/60f;
             size = 3;
 
             outputLiquid = new LiquidStack(Liquids.slag, 24f / 60f);
