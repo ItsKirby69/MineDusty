@@ -9,6 +9,7 @@ import mindustry.content.*;
 import mindustry.game.EventType.Trigger;
 import mindustry.type.StatusEffect;
 import minedusty.graphics.DustPalette;
+import minedusty.type.DustStatusEffect;
 
 public class DustStatusEffects {
     public static StatusEffect rotting, poison, healingWash;
@@ -18,7 +19,7 @@ public class DustStatusEffects {
 
     public static void load(){
         // TODO icons
-        drenched = new StatusEffect("drenched"){{
+        drenched = new DustStatusEffect("drenched"){{
             color = Color.valueOf("#3b51b1");
             speedMultiplier = 0.9f;
             effect = Fx.wet;
@@ -37,7 +38,7 @@ public class DustStatusEffects {
             });
         }};
 
-        saltcorrosion = new StatusEffect("salt-corrosion"){{
+        saltcorrosion = new DustStatusEffect("salt-corrosion"){{
             color = Color.valueOf("#c8d7e2");
             intervalDamage = 10f;
             intervalDamageTime = 50f;
@@ -64,7 +65,7 @@ public class DustStatusEffects {
             });
         }};
 
-        chlorinecorrosion = new StatusEffect("chlorine-corrosion"){{
+        chlorinecorrosion = new DustStatusEffect("chlorine-corrosion"){{
             color = Color.valueOf("#ebf9af");
             intervalDamage = 25f;
             intervalDamageTime = 80f;
@@ -85,7 +86,7 @@ public class DustStatusEffects {
             });
         }};
 
-        healingWash = new StatusEffect("healing-wash"){{;
+        healingWash = new DustStatusEffect("healing-wash"){{;
             color = DustPalette.chlorophyteWater;
             effect = DustyEffects.healingwet;
             effectChance = 0.09f;
@@ -93,8 +94,8 @@ public class DustStatusEffects {
             healthMultiplier = 1f;
         }};
 
-        rotting = new StatusEffect("rotting"){{
-            color = Color.valueOf("#C32121");
+        rotting = new DustStatusEffect("rotting"){{
+            color = DustPalette.divineBulletRedBack;
             damage = 0.125f;
             effect = DustyEffects.rotting;
             transitionDamage = 5f;
@@ -110,7 +111,7 @@ public class DustStatusEffects {
         }};
 
         // WIP
-        poison = new StatusEffect("poison"){{
+        poison = new DustStatusEffect("poison"){{
             color = Color.valueOf("#679836");
             damage = 0.15f;
             effect = DustyEffects.poison;
