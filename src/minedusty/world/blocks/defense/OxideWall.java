@@ -28,14 +28,13 @@ public class OxideWall extends DustWall{
 
     public OxideWall(String name){
         super(name);
-        update = true;
     }
 
     @Override
     public void load(){
         super.load();
 
-        stageRegions = new TextureRegion[maxOxideStages][variants];
+        stageRegions = new TextureRegion[maxOxideStages][Math.max(variants, 1)];
 
         for(int i = 0; i < maxOxideStages; i++){
             for(int v = 0; v < (variants > 0 ? variants : 1); v++){

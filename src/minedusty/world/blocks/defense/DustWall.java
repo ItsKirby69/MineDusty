@@ -13,7 +13,16 @@ public class DustWall extends Wall {
     public DustWall(String name){
         super(name);
         update = true;
+        drawDynamic = true;
+        drawCached = false;
         variants = 0;
+    }
+
+    @Override
+    public void init(){
+        super.init();
+        drawDynamic = true;
+        drawCached = false;
     }
 
     @Override
@@ -55,6 +64,11 @@ public class DustWall extends Wall {
         public void draw(){
             super.draw();
             frost.drawFrost(this, frostState, frostVariants);
+        }
+
+        @Override
+        public void drawCached(){
+            draw();
         }
     }
 }
