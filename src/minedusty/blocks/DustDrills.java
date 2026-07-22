@@ -27,6 +27,36 @@ public class DustDrills {
     public static Block gyratoryDrill; // DrawMultiRotationRegion?
 
     public static void loadContent(){
+        copperDrill = new ModifiedDrill("copper-drill"){{
+            requirements(Category.production, with(oxidecopper, 15));
+            alwaysUnlocked = true;
+            tier = 2;
+            drillTime = 700;
+            envEnabled ^= Env.space;
+
+            consumeLiquid(Liquids.water, 0.04f).boost();
+        }};
+
+        chloroDrill = new ModifiedDrill("chloro-drill"){{
+            requirements(Category.production, with(lead, 12, chlorophyte, 6));
+            researchCost = with(oxidecopper, 400, chlorophyte, 50);
+            tier = 3;
+            drillTime = 500;
+            drawTopUnder = true;
+
+            consumeLiquid(DustLiquids.bioLiquid, 0.06f).boost();
+        }};
+
+        offshoreDrill = new OffshoreDrill("offshore-drill"){{
+            requirements(Category.production, with(graphite, 30, oxidecopper, 25, lead, 30));
+            researchCost = with(oxidecopper, 400, graphite, 150);
+            tier = 3;
+            drillTime = 700;
+
+            liquidBoostIntensity = 1.25f;
+            consumeLiquid(DustLiquids.bioLiquid, 0.06f).boost();
+        }};
+
         solarPump = new SolarPump("solar-pump"){{
             requirements(Category.liquid, with(graphite, 5, oxidecopper, 8));
             pumpAmount = 8f/60f;
@@ -88,36 +118,6 @@ public class DustDrills {
             fogRadius = 2;
             ambientSound = Sounds.loopDrill;
             ambientSoundVolume = 0.04f;
-        }};
-
-        copperDrill = new ModifiedDrill("copper-drill"){{
-            requirements(Category.production, with(oxidecopper, 15));
-            alwaysUnlocked = true;
-            tier = 2;
-            drillTime = 700;
-            envEnabled ^= Env.space;
-
-            consumeLiquid(Liquids.water, 0.04f).boost();
-        }};
-
-        chloroDrill = new ModifiedDrill("chloro-drill"){{
-            requirements(Category.production, with(lead, 12, chlorophyte, 6));
-            researchCost = with(oxidecopper, 400, chlorophyte, 50);
-            tier = 3;
-            drillTime = 500;
-            drawTopUnder = true;
-
-            consumeLiquid(DustLiquids.bioLiquid, 0.06f).boost();
-        }};
-
-        offshoreDrill = new OffshoreDrill("offshore-drill"){{
-            requirements(Category.production, with(graphite, 30, oxidecopper, 25, lead, 30));
-            researchCost = with(oxidecopper, 400, graphite, 150);
-            tier = 3;
-            drillTime = 700;
-
-            liquidBoostIntensity = 1.25f;
-            consumeLiquid(DustLiquids.bioLiquid, 0.06f).boost();
         }};
     }
 }
