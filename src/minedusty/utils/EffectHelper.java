@@ -35,7 +35,7 @@ public class EffectHelper {
 	public static Effect thermalEffect(float power){
 		return new Effect(40, e -> {
 			randLenVectors(e.id, e.fin(), 1, 20f, (x, y, pfin, fout) -> {
-				color(DustPalette.thermalColor, Color.gray, e.fin());
+				color(DustPalette.thermalColor, Color.gray.cpy().a(1f), e.fin());
 				alpha((0.5f - Math.abs(pfin - 0.2f)) * 1.5f);
 				Fill.circle(e.x + x / 2f, e.y + y / 2f , 0.5f + (0.5f * Math.min(power, 6f)) + fout * 1f);
 			});
