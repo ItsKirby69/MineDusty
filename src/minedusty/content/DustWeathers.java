@@ -139,7 +139,7 @@ public class DustWeathers {
 			splashTimeScale = 12f;
 
 			status = DustStatusEffects.drenched;
-			sound = Sounds.rain;
+			sound = DustSounds.rainStorm;
 			force = 0.7f;
 			soundVol = 0.8f;
 			duration = 7f * Time.toMinutes;
