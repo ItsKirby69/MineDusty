@@ -3,6 +3,8 @@ package minedusty.world.blocks.production;
 import arc.Core;
 import arc.audio.Sound;
 import arc.math.Mathf;
+import arc.util.Log;
+import arc.util.Time;
 import mindustry.Vars;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
@@ -20,6 +22,7 @@ public class SolarCrafter extends BetterGenericCrafter{
     public float minSolar = 0.25f;
 
     public Sound craftSound = Sounds.none;
+    public float craftSoundVolume = 0.7f;
 
     public SolarCrafter(String name) {
         super(name);
@@ -50,16 +53,18 @@ public class SolarCrafter extends BetterGenericCrafter{
         public float solarLevel;
 
         @Override
+        public void craft(){
+            super.craft();
+            craftSound.play(craftSoundVolume, Mathf.random(0.95f, 1.1f), 0f);
+        }
+
+        @Override
         public void updateTile(){
             solarLevel = Mathf.maxZero(Attribute.light.env() +
                 (Vars.state.rules.lighting ?
                     1f - Vars.state.rules.ambientLight.a :
                     1f));
-
             super.updateTile();
-            if(progress >= 1f){
-                craftSound.play(ambientSoundVolume);
-            }
         }
 
         @Override

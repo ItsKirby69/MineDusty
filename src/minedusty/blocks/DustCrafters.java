@@ -131,18 +131,18 @@ public class DustCrafters {
 		fluidBed = new SolarCrafter("fluid-bed"){{
 			requirements(Category.crafting, with(Items.lead, 45, Items.graphite, 40));
 			researchCost = with(Items.graphite, 400);
-			outputItem = new ItemStack(salt, 1);
+			outputItem = new ItemStack(salt, 2);
 			craftEffect = DustyEffects.meltSteam;
-			craftSound = DustSounds.brittle;
+			craftSound = DustSounds.steam;
 			size = 2;
 			health = 250;
 			minSolar = 0.8f;
-			craftTime = 320f;
+			craftTime = 360f;
 
             drawer = new DrawMulti(
 				new DrawRegion("-bottom"),
 				new DrawLiquidTile(saltWater){{
-					alpha = 0.5f;
+					drawLiquidLight = true;
 				}},
 				new DrawDefault(), //ffef99
 				new DrawSolarHeat(0f)
@@ -155,7 +155,7 @@ public class DustCrafters {
 			requirements(Category.crafting, with(oxidecopper, 45, Items.lead, 65));
 			researchCost = with(Items.lead, 150, oxidecopper, 200);
 			outputLiquid = new LiquidStack(saltWater, 12f/60f);
-			craftTime = 100f;
+			craftTime = 120f;
 			baseEfficiency = 0f;
 			size = 2;
 			health = 320;
