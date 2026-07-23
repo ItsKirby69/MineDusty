@@ -49,7 +49,9 @@ public class TheiaTechTree {
                         node(aquameriumConveyor, Seq.with(
                             new SectorComplete(verdantSpills)
                         ), () -> {});
-                        node(stockpile, () -> {});
+                        node(stockpile, () -> {
+                            node(copperUnloader);
+                        });
                     });
                 node(copperBridge, Seq.with(
                     new SectorComplete(verdantSpills)
