@@ -41,6 +41,16 @@ public class DustyEffects {
         }
     }).layer(Layer.darkness - 1),
 
+	hitBulletSpreadSmall = new Effect(13, e -> {
+        color(Color.white, e.color, e.fin());
+        stroke(0.3f + e.fout() * 1.25f);
+
+        randLenVectors(e.id, 3, e.finpow() * 20f, e.rotation, 34f, (x, y) -> {
+            float ang = Mathf.angle(x, y);
+            lineAngle(e.x + x, e.y + y, ang, e.fout() * 4 + 1.5f);
+        });
+    }),
+
     hitBulletSpread = new Effect(13, e -> {
         color(Color.white, e.color, e.fin());
         stroke(0.5f + e.fout() * 1.5f);

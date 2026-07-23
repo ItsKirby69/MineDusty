@@ -17,6 +17,7 @@ import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.entities.part.DrawPart.PartProgress;
 import mindustry.entities.part.RegionPart;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.*;
@@ -856,15 +857,15 @@ public class DustTurrets {
                     reloadMultiplier = 1.15f;
 
                     shootEffect = new MultiEffect(
-                        flashEffect(Color.white.cpy(), DustPalette.chlorophyte, 14f, 10f, 0f, 1f, 45f, "minedusty-flash-cross"),
+                        flashEffect(DustPalette.chlorophyte, Color.white.cpy(), 14f, 10f, 0f, 1f, 45f, "minedusty-flash-cross"),
                         colorEffect(DustyEffects.shootSpikeColor, DustPalette.chlorophyteBullet),
                         Fx.colorSpark
                     );
                 }},
-                galena, new BasicBulletType(4.5f, 24){{
+                galena, new BasicBulletType(4.5f, 24, "minedusty-magibullet"){{
                     lifetime = 50f;
                     width = 7f;
-                    height = 10f;
+                    height = 12f;
                     hitEffect = despawnEffect = new MultiEffect(
                         waveEffect(Color.white.cpy(), DustPalette.galenaSecond, 8f, 25f, "minedusty-shockwave"),
                         hitBulletSpread, new SoundEffect(DustSounds.hitMetal, Fx.none)
@@ -874,17 +875,41 @@ public class DustTurrets {
                     pierceBuilding = true;
                     hitColor = backColor = DustPalette.galenaBack;
                     trailColor = DustPalette.galenaBack.cpy().a(0.7f);
-                    frontColor = DustPalette.galena;
+                    frontColor = lightColor = DustPalette.galena;
                     shootSound = DustSounds.shootPellucidMagic;
                     trailWidth = 2f;
                     trailLength = 5;
                     ammoMultiplier = 3f;
 
                     shootEffect = new MultiEffect(
-                        flashEffect(Color.white.cpy(), DustPalette.galenaSecond, 14f, 10f, 0f, 1f, 45f, "minedusty-flash-ciross"),
+                        flashEffect(DustPalette.galena, DustPalette.galenaBack, 14f, 10f, 0f, 1f, 45f, "minedusty-flash-ciross"),
                         colorEffect(DustyEffects.shootSpikeColor, DustPalette.galena),
                         Fx.colorSpark
                     );
+
+                    fragBullets = 2;
+                    fragBullet = new BasicBulletType(3.5f, 12f, "minedusty-magifrag"){{
+                        width = 3f;
+                        height = 7f;
+                        lifetime = 15f;
+                        hitColor = backColor = DustPalette.galenaBack;
+                        trailColor = DustPalette.galenaBack.cpy().a(0.7f);
+                        frontColor = lightColor = DustPalette.galenaSecond;
+                        collidesGround = true;
+                        collidesAir = false;
+                        pierce = false;
+                        pierceCap = 3;
+                        pierceBuilding = true;
+                        rotateSpeed = 12f;
+                        trailWidth = 1.3f;
+                        trailLength = 5;
+                        hitEffect = despawnEffect = new MultiEffect(
+                            waveEffect(Color.white.cpy(), DustPalette.galenaSecond, 6f, 15f, "minedusty-shockwave"),
+                            hitBulletSpreadSmall, new SoundEffect(DustSounds.hitMetal, Fx.none){{
+                                minPitch = 1.5f; maxPitch = 1.8f; minVolume = maxVolume = 0.6f;
+                            }}
+                        );
+                    }};
                 }},
                 lead, new BasicBulletType(4.5f, 12){{
                     lifetime = 50f;
@@ -901,10 +926,10 @@ public class DustTurrets {
                     trailWidth = 1.2f;
                     trailLength = 4;
                     ammoMultiplier = 2f;
-                    shoot.shotDelay = 12f;
+                    shoot.shotDelay = 40f;
                     inaccuracy = 2f;
                     shootEffect = new MultiEffect(
-                        flashEffect(Color.white.cpy(), DustPalette.leadAmmoBack, 14f, 10f),
+                        flashEffect(DustPalette.leadAmmoBack, Color.white.cpy(), 14f, 10f),
                         DustyEffects.shootSpikeColor,
                         Fx.colorSpark
                     );
@@ -931,7 +956,7 @@ public class DustTurrets {
                     reloadMultiplier = 1.1f;
                     
                     shootEffect = new MultiEffect(
-                        flashEffect(Color.white.cpy(), Pal.siliconAmmoFront, 14f, 10f),
+                        flashEffect(Pal.siliconAmmoFront, Pal.siliconAmmoBack, 14f, 10f),
                         DustyEffects.shootSpikeColor,
                         Fx.colorSpark
                     );

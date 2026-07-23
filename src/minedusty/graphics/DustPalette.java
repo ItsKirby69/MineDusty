@@ -40,9 +40,9 @@ public class DustPalette {
 	amethyst = Color.valueOf("#e9e0f5"),
 	amethystBack = Color.valueOf("#c68bdc"),
 
-	galena = Color.valueOf("#ebd7f9"),
-	galenaSecond = Color.valueOf("#f7d2f4"),
-	galenaBack = Color.valueOf("#785e82"),
+	galena = Color.valueOf("#c9b8d5"),
+	galenaSecond = Color.valueOf("#d6b6d3"),
+	galenaBack = Color.valueOf("#695571"),
 
 	waterFront = Color.valueOf("#bad7ff"),
 
