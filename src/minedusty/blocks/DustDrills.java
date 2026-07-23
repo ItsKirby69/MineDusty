@@ -6,6 +6,7 @@ import mindustry.type.Category;
 import mindustry.world.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
+import mindustry.world.meta.Attribute;
 import mindustry.world.meta.Env;
 import minedusty.content.*;
 import minedusty.graphics.*;
@@ -23,7 +24,7 @@ import static mindustry.content.Items.*;
 public class DustDrills {
     public static Block offshoreDrill, copperDrill, chloroDrill, solarPump, lobePump;
 
-	public static Block crystalBore;
+	public static Block crystalBore, oilTap;
     public static Block gyratoryDrill; // DrawMultiRotationRegion?
 
     public static void loadContent(){
@@ -118,6 +119,23 @@ public class DustDrills {
             fogRadius = 2;
             ambientSound = Sounds.loopDrill;
             ambientSoundVolume = 0.04f;
+        }};
+        
+		oilTap = new Fracker("oil-tap"){{
+            requirements(Category.production, with(aquamerium, 30, graphite, 50, lead, 30, oxidecopper, 20));
+            researchCost = with(graphite, 300, aquamerium, 200);
+			result = Liquids.oil;
+			updateEffect = Fx.pulverize;
+            pumpAmount = 4f/60f;
+            size = 2;
+            liquidCapacity = 16f;
+            rotateSpeed = 1.4f;
+			itemUseTime = 120f;
+			baseEfficiency = 0f;
+            attribute = Attribute.oil;
+			
+			consumeItem(sand);
+			consumePower(45f/60f);
         }};
     }
 }

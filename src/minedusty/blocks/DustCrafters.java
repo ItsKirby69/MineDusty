@@ -28,7 +28,6 @@ public class DustCrafters {
 	public static Block brineElectrolyzer, atmosphericConcenerator;
 
 	// Extractors/Mixers
-	public static Block oilTap;
 	public static Block salinator, fluidBed;
 	public static Block bioSludgeChamber, chlorophyteCultivator;
 	public static Block sifter; // TODO for gold
@@ -38,23 +37,6 @@ public class DustCrafters {
 	
 	public static void loadContent(){
 		//region Crafters
-		oilTap = new Fracker("oil-tap"){{
-            requirements(Category.production, with(aquamerium, 30, graphite, 50, lead, 30, oxidecopper, 20));
-            researchCost = with(graphite, 300, aquamerium, 200);
-			result = Liquids.oil;
-			updateEffect = Fx.pulverize;
-            pumpAmount = 4f/60f;
-            size = 2;
-            liquidCapacity = 16f;
-            rotateSpeed = 1.4f;
-			itemUseTime = 120f;
-			baseEfficiency = 0f;
-            attribute = Attribute.oil;
-			
-			consumeItem(sand);
-			consumePower(45f/60f);
-        }};
-
 		carbonicConcentrator = new GenericCrafter("carbonic-concentrator"){{
 			requirements(Category.crafting, with(oxidecopper, 30, Items.lead, 50));
 			researchCost = with(oxidecopper, 100);

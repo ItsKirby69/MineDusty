@@ -10,18 +10,17 @@ import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.blocks.distribution.*;
-import mindustry.world.blocks.liquid.Conduit;
-import mindustry.world.blocks.liquid.LiquidJunction;
-import mindustry.world.blocks.liquid.LiquidRouter;
-import minedusty.world.blocks.liquid.HotConduit;
-import minedusty.world.blocks.liquid.HotLiquidRouter;
+import mindustry.world.blocks.liquid.*;
+import mindustry.world.blocks.storage.Unloader;
+import mindustry.world.meta.BlockGroup;
+import minedusty.world.blocks.liquid.*;
 
 public class DustDistribution {
 	
 	public static Block copperConveyor, copperJunction, copperRouter, 
     copperOverflowGate, copperUnderflowGate,
     copperSorter, copperInvertedSorter,
-    copperBridge;
+    copperBridge, copperUnloader;
     public static Block aquameriumConveyor;
 
     public static Block siliconPipe, siliconValve;
@@ -126,12 +125,6 @@ public class DustDistribution {
             crushFragile = true;
         }};
 
-        copperRouter = new Router("copper-router"){{
-            requirements(Category.distribution, with(oxidecopper, 4));
-            buildCostMultiplier = 3f;
-            hasItems = true;
-        }};
-
         copperSorter = new Sorter("copper-sorter"){{
             requirements(Category.distribution, with(Items.lead, 2, oxidecopper, 3));
             buildCostMultiplier = 2.5f;
@@ -143,6 +136,12 @@ public class DustDistribution {
             invert = true;
         }};
 
+        copperRouter = new Router("copper-router"){{
+            requirements(Category.distribution, with(oxidecopper, 4));
+            buildCostMultiplier = 3f;
+            hasItems = true;
+        }};
+
         copperOverflowGate = new OverflowGate("copper-overflow-gate"){{
             requirements(Category.distribution, with(Items.lead, 3, oxidecopper, 4));
             buildCostMultiplier = 2.5f;
@@ -152,6 +151,12 @@ public class DustDistribution {
             requirements(Category.distribution, with(Items.lead, 3, oxidecopper, 4));
             buildCostMultiplier = 2.5f;
             invert = true;
+        }};
+
+        copperUnloader = new Unloader("copper-unloader"){{
+            requirements(Category.distribution, with(aquamerium, 35, Items.silicon, 20));
+            speed = 60f / 3f;
+            group = BlockGroup.transportation;
         }};
         // end region
 	}
