@@ -1,5 +1,6 @@
 package minedusty.world.blocks.defense;
 
+import arc.graphics.g2d.Draw;
 import arc.scene.ui.layout.Table;
 import mindustry.world.blocks.defense.*;
 import minedusty.world.meta.FrostModule;
@@ -12,17 +13,17 @@ public class DustWall extends Wall {
 
     public DustWall(String name){
         super(name);
-        update = true;
-        drawDynamic = true;
-        drawCached = false;
         variants = 0;
+        update = true;        
+        drawCached = false;
+        drawDynamic = true;
     }
 
     @Override
     public void init(){
         super.init();
-        drawDynamic = true;
         drawCached = false;
+        drawDynamic = true;
     }
 
     @Override
@@ -62,13 +63,8 @@ public class DustWall extends Wall {
 
         @Override
         public void draw(){
-            super.draw();
+            Draw.rect(region, x, y);
             frost.drawFrost(this, frostState, frostVariants);
-        }
-
-        @Override
-        public void drawCached(){
-            draw();
         }
     }
 }
