@@ -20,6 +20,7 @@ import mindustry.core.GameState;
 import mindustry.game.EventType.*;
 import mindustry.graphics.MenuRenderer;
 import mindustry.mod.*;
+import mindustry.ui.dialogs.PlanetDialog;
 import mindustry.ui.fragments.MenuFragment;
 import mindustry.world.blocks.environment.Floor;
 
@@ -62,6 +63,7 @@ public class MineDustyMod extends Mod {
 	public void init() {
 		// Events.run(EventType.Trigger.draw, Renderer::draw);
 		addModdedSubtitles();
+		// PlanetDialog.debugSelect=true;
 		
 		DustSettings.load();
 		Events.on(ClientLoadEvent.class, e -> {
@@ -124,6 +126,8 @@ public class MineDustyMod extends Mod {
 		TheiaTechTree.load();
 
 		FrostCandyWrappers.loadFrostedBlocks();
+
+		GenBundles.generate();
 		
 		if(settings.getBool("dusty-custom-menu-logo")){
 			Core.atlas.addRegion("logo", randomizeLogo());

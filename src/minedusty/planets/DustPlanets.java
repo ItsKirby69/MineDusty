@@ -7,6 +7,8 @@ import mindustry.graphics.g3d.*;
 import mindustry.type.*;
 import mindustry.world.meta.*;
 import minedusty.blocks.*;
+import minedusty.world.ObjMesh;
+import minedusty.world.ShadowMultiMesh;
 import minedusty.world.meta.DustEnvs;
 
 public class DustPlanets {
@@ -27,15 +29,14 @@ public class DustPlanets {
 			icon = "theia";
 			generator = new TheiaPlanetGenerator();
 			meshLoader = () -> new MultiMesh(
-					// new AtmosphereHexMesh(this, 6),
-					new HexMesh(this, 6));
+				new HexMesh(this, 6));
 			cloudMeshLoader = () -> new MultiMesh(
-					new HexSkyMesh(this, 0, 0.85f, 0.13f, 5, 
-							Color.white.cpy().lerp(Color.valueOf("#b8d5e0ff"), 0.7f).a(0.5f), 2,
-							0.5f, 0.8f, 0.3f),
-					new HexSkyMesh(this, 0, 0.8f, 0.16f, 5,
-							Color.white.cpy().lerp(Color.valueOf("#89bfcdff"), 0.55f).a(0.5f), 2, 
-							0.55f, 0.85f, 0.35f));
+				new HexSkyMesh(this, 0, 0.85f, 0.13f, 5, 
+					Color.white.cpy().lerp(Color.valueOf("#b8d5e0ff"), 0.7f).a(0.5f), 2,
+						0.5f, 0.8f, 0.3f),
+				new HexSkyMesh(this, 0, 0.8f, 0.16f, 5,
+					Color.white.cpy().lerp(Color.valueOf("#89bfcdff"), 0.55f).a(0.5f), 2, 
+					0.55f, 0.85f, 0.35f));
 
 			startSector = 111;
 
@@ -73,8 +74,11 @@ public class DustPlanets {
 
 		nautilune = new Planet("nautilune", DustPlanets.theia, 0.8f, 1) {{
 			generator = new NautilunePlanetGenerator();
-			meshLoader = () -> new HexMesh(this, 4);
-			accessible = false;
+			meshLoader = () -> {
+				ObjMesh ring = new ObjMesh(this, "models/ship.obj", 1.2f);
+				return new ShadowMultiMesh(this, ring, new HexMesh(this, 4));
+			};
+			// accessible = false;
 			visible = true;
 			alwaysUnlocked = false;
 			atmosphereColor = Color.valueOf("3db899");
