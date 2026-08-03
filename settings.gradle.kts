@@ -3,9 +3,8 @@ pluginManagement{
         gradlePluginPortal()
         mavenLocal()
         maven("https://raw.githubusercontent.com/GglLfr/EntityAnnoMaven/main")
-        maven("https://maven.xpdustry.com/mindustry")
-        maven("https://jitpack.io")
     }
+
     plugins{
         val entVersion = providers.gradleProperty("entVersion").get()
         id("com.github.GglLfr.EntityAnno") version(entVersion)

@@ -1,22 +1,24 @@
-import arc.files.*
-import arc.util.*
-import arc.util.serialization.*
-import ent.*
+import arc.files.Fi
+import arc.util.OS
+import arc.util.serialization.Jval
+import ent.EntityAnnoExtension
 import java.io.*
+import java.util.jar.*
 import java.net.*
 
 buildscript{
     val mindustryVersion = providers.gradleProperty("mindustryVersion").get()
+    val mindustry = if(mindustryVersion == "be") "MindustryBuilds" else "Mindustry"
 
     dependencies{
-        classpath("com.github.Anuken.Mindustry:core:$mindustryVersion")
+        classpath("Anuken:$mindustry:$mindustryVersion")
     }
 
     configurations.configureEach{
         // Resolve the correct Mindustry dependency.
         resolutionStrategy.eachDependency{
-            if(requested.group == "com.github.Anuken.Mindustry"){
-                useVersion(mindustryVersion)
+            if(requested.group == "Anuken" && requested.name.startsWith("Mindustry")){
+                useTarget("Anuken:$mindustry:$mindustryVersion")
             }
         }
     }
@@ -33,7 +35,7 @@ buildscript{
                 metadataSources{artifact()}
             }
             content{
-                includeVersion("com.github.Anuken.Mindustry", "core", mindustryVersion)
+                includeVersion("Anuken", mindustry, mindustryVersion)
             }
         }
     }
@@ -45,6 +47,7 @@ plugins{
 }
 
 val mindustryVersion = providers.gradleProperty("mindustryVersion").get()
+val mindustry = if(mindustryVersion == "be") "MindustryBuilds" else "Mindustry"
 val entVersion = providers.gradleProperty("entVersion").get()
 
 val modName = providers.gradleProperty("modName").get()
@@ -53,8 +56,8 @@ val modFetch = providers.gradleProperty("modFetch").get()
 val modGenSrc = providers.gradleProperty("modGenSrc").get()
 val modGen = providers.gradleProperty("modGen").get()
 
-fun mindustry(module: String): String{
-    return "com.github.Anuken.Mindustry$module:$mindustryVersion"
+fun mindustry(): String{
+    return "Anuken:$mindustry:$mindustryVersion"
 }
 
 fun entity(module: String): String{
@@ -64,26 +67,53 @@ fun entity(module: String): String{
 allprojects{
     apply(plugin = "java")
     sourceSets["main"].java.setSrcDirs(listOf(layout.projectDirectory.dir("src")))
+    dependencies{
+        abstract class TrimSources : TransformAction<TransformParameters.None>{
+            @get:InputArtifact
+            abstract val file: Provider<FileSystemLocation>
+
+            override fun transform(outputs: TransformOutputs){
+                val input = file.get().asFile
+                val classes = outputs.file(input.name)
+
+                JarFile(input).use{jar ->
+                    val entries = jar.entries()
+                    JarOutputStream(FileOutputStream(classes)).use{classes ->
+                        for(entry in entries){
+                            if(entry.name.endsWith(".java")) continue
+
+                            classes.putNextEntry(JarEntry(entry.name))
+                            jar.getInputStream(entry).use{it.copyTo(classes)}
+                            classes.closeEntry()
+                        }
+                    }
+                }
+            }
+        }
+
+        registerTransform(TrimSources::class){
+            from.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, ArtifactTypeDefinition.JAR_TYPE)
+            to.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "jar-stripped")
+        }
+    }
 
     configurations.configureEach{
         // Resolve the correct Mindustry dependency.
         resolutionStrategy.eachDependency{
-            if(requested.group == "com.github.Anuken.Mindustry"){
-                useVersion(mindustryVersion)
+            if(requested.group == "Anuken" && requested.name.startsWith("Mindustry")){
+                useTarget("Anuken:$mindustry:$mindustryVersion")
             }
         }
     }
 
+    configurations.matching{it.isCanBeResolved}.configureEach{
+        attributes{
+            attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "jar-stripped")
+        }
+    }
+
     repositories{
-        // Necessary Maven repositories to pull dependencies from.
-        mavenLocal()
-        mavenCentral()
-        maven("https://oss.sonatype.org/content/repositories/snapshots/")
-        maven("https://oss.sonatype.org/content/repositories/releases/")
-        maven("https://raw.githubusercontent.com/GglLfr/EntityAnnoMaven/main")
-        maven("https://maven.xpdustry.com/mindustry")
-        maven("https://jitpack.io")
-        
+
         // Use Ivy repository for Mindustry builds.
         ivy{
             url = uri("https://github.com")
@@ -96,14 +126,22 @@ allprojects{
                 metadataSources{artifact()}
             }
             content{
-                includeVersion("com.github.Anuken.Mindustry", "core", mindustryVersion)
+                includeVersion("Anuken", mindustry, mindustryVersion)
             }
         }
+
+        // Necessary Maven repositories to pull dependencies from.
+        mavenLocal()
+        mavenCentral()
+        maven("https://oss.sonatype.org/content/repositories/snapshots/")
+        maven("https://oss.sonatype.org/content/repositories/releases/")
+        maven("https://raw.githubusercontent.com/GglLfr/EntityAnnoMaven/main")
     }
 
     tasks.withType<JavaCompile>().configureEach{
         options.apply{
             compilerArgs.add("-Xlint:-options")
+            compilerArgs.add("-implicit:none")
             compilerArgs.addAll(providers.gradleProperty("org.gradle.jvmargs").get()
                 .split(Regex("\\s+"))
                 .filter{it.startsWith("--add-opens")}
@@ -139,20 +177,17 @@ project(":"){
         compileOnly(entity(":entity"))
         add("kapt", entity(":entity"))
 
-        compileOnly(mindustry(":core"))
+        compileOnly(mindustry())
     }
 
     val jar = tasks.named<Jar>("jar"){
         archiveFileName = "${modArtifact}Desktop.jar"
-
-        val meta = layout.projectDirectory.file("$temporaryDir/mod.json")
 
         // Deliberately check if the mod meta is actually written in HJSON, since, well, some people actually use
         // it. But this is also not mentioned in the `README.md`, for the mischievous reason of driving beginners
         // into using JSON instead.
         val metaJson = layout.projectDirectory.file("mod.json")
         val metaHjson = layout.projectDirectory.file("mod.hjson")
-        val localModName = modName
 
         if(metaJson.asFile.exists() && metaHjson.asFile.exists()){
             throw IllegalStateException("Ambiguous mod meta: both `mod.json` and `mod.hjson` exist.")
@@ -162,7 +197,6 @@ project(":"){
 
         val isJson = metaJson.asFile.exists()
         val usedMeta = if(isJson) metaJson else metaHjson
-        inputs.files(usedMeta)
 
         from(
             files(sourceSets["main"].output.classesDirs),
@@ -171,18 +205,15 @@ project(":"){
 
             files(layout.projectDirectory.dir("assets")),
             layout.projectDirectory.file("icon.png"),
-            meta
+            usedMeta
         )
 
         metaInf.from(layout.projectDirectory.file("LICENSE"))
+        val localModName = modName
         doFirst{
-
-            val map = usedMeta.asFile
-                .reader(Charsets.UTF_8)
-                .use{Jval.read(it)}
-
-            map.put("name", localModName)
-            meta.asFile.writer(Charsets.UTF_8).use{file -> BufferedWriter(file).use{map.writeTo(it, Jval.Jformat.formatted)}}
+            if(usedMeta.asFile.reader(Charsets.UTF_8).use{Jval.read(it)}.getString("name") != localModName) {
+                throw GradleException("Mod name mismatch in `${usedMeta.asFile.name}`; please synchronize with `gradle.properties`")
+            }
         }
     }
 
@@ -204,8 +235,8 @@ project(":"){
         doFirst{
             // Find Android SDK root.
             val sdkRoot = File(
-                OS.env("ANDROID_SDK_ROOT") ?: OS.env("ANDROID_HOME") ?:
-                throw IllegalStateException("Neither `ANDROID_SDK_ROOT` nor `ANDROID_HOME` is set.")
+                OS.env("ANDROID_SDK_ROOT") ?: OS.env("ANDROID_HOME")
+                ?: throw IllegalStateException("Neither `ANDROID_SDK_ROOT` nor `ANDROID_HOME` is set.")
             )
 
             // Find `d8`.
