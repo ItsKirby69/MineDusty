@@ -1,7 +1,5 @@
 package minedusty.content;
 
-import static minedusty.content.DustyEffects.steam;
-
 import arc.Core;
 import arc.assets.AssetDescriptor;
 import arc.assets.loaders.SoundLoader;
@@ -21,6 +19,7 @@ public class DustSounds {
 		shootOrb = new Sound(),
 		shootDuoCrystal = new Sound(),
 		shootPellucidMagic = new Sound(),
+		shootActaea = new Sound(),
 		hitOrb = new Sound(),
 		hitMetal = new Sound(),
 
@@ -29,6 +28,8 @@ public class DustSounds {
 		brittle = new Sound(),
 		envBubble = new Sound(),
 		destroyTree = new Sound(),
+		thunder = new Sound(), // TODO
+
 		weaveHum = new Sound(),
 
 		// Weather SFX
@@ -45,6 +46,7 @@ public class DustSounds {
 			shootOrb = loadSound("shootOrb");
 			shootDuoCrystal = loadSound("shootDuoCrystal");
 			shootPellucidMagic = loadSound("shootPellucidMagic");
+			shootActaea = loadSound("shootActaea");
 			hitOrb = loadSound("hitOrb");
 			hitMetal = loadSound("hitMetal");
 			
@@ -52,6 +54,8 @@ public class DustSounds {
 			brittle = loadSound("brittle");
 			envBubble = loadSound("envBubble");
 			destroyTree = loadSound("destroyTree");
+			thunder = loadSound("thunder");
+
 			weaveHum = loadSound("weaveHum");
 
 			rainStorm = loadSound("rainStorm");

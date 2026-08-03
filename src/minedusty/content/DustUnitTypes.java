@@ -430,6 +430,7 @@ public class DustUnitTypes extends UnitTypes{
                 y = 0f;
                 top = false;
                 ejectEffect = Fx.casing1;
+				shootSound = DustSounds.shootActaea;
                 bullet = new BasicBulletType(2.5f, 13){{
 					frontColor = DustPalette.chlorophyteBullet;
 					backColor = DustPalette.chlorophyte;
@@ -439,6 +440,9 @@ public class DustUnitTypes extends UnitTypes{
                     width = 8f;
                     height = 11.5f;
                     lifetime = 60f;
+					trailColor = DustPalette.chlorophyteBullet;
+					trailWidth = 2f;
+					trailLength = 4;
                 }};
             }}, new Weapon(""){{
 				reload = 55f;
