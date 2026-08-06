@@ -119,8 +119,9 @@ public class MineDustyMod extends Mod {
 
 		// blocks
 		DustBlocks.load();
-
-		DustEnvRenderers.init();
+		if (!headless) {
+			DustEnvRenderers.init();
+		}
 		DustPlanets.load();
 		DustSectors.load();
 		TheiaTechTree.load();
