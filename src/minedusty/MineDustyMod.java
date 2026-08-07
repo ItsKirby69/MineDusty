@@ -65,7 +65,9 @@ public class MineDustyMod extends Mod {
 		addModdedSubtitles();
 		// PlanetDialog.debugSelect=true;
 		
-		DustSettings.load();
+		if(!headless && ui != null){
+			DustSettings.load();
+		}
 		Events.on(ClientLoadEvent.class, e -> {
 			// Menu renderer
 			if(settings.getBool("dusty-custom-menu-renderer")){
