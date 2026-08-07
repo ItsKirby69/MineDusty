@@ -178,8 +178,8 @@ public class LivingTreeBlock extends Block{
 		rand.setSeed(tile.pos());
 
 		float x = tile.worldx(), y = tile.worldy(),
-		rot = Mathf.randomSeed(tile.pos(), 0, 4) * 90 + Mathf.sin(Time.time* timeFactor + x, 50f, 0.5f) + Mathf.sin(Time.time* timeFactor - y, 65f, 0.9f) + Mathf.sin(Time.time* timeFactor + y - x, 85f, 0.9f),
 		rotStatic = Mathf.randomSeed(tile.pos(), 0, 4) * 90,
+		rot = rotStatic + Mathf.sin(Time.time* timeFactor + x, 50f, 0.5f) + Mathf.sin(Time.time* timeFactor - y, 65f, 0.9f) + Mathf.sin(Time.time* timeFactor + y - x, 85f, 0.9f),
 		w = region.width * region.scl(), h = region.height * region.scl(),
 		scl = 30f, mag = 0.2f;
 
