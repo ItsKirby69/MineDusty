@@ -16,18 +16,36 @@ public class DustWeathers {
 	public static Weather snowStorm, snowFog;
 
 	// Fun weathers
-	public static Weather pollenStorm, clouds;
+	public static Weather pollenStorm, clouds, stratocumulusClouds; // maybe change clouds to cumulusClouds
 
 	public static void load() {
 		// WIP
 		clouds = new CloudyWeather("clouds"){{
-			baseColor = Color.valueOf("#d3f5ff");
+			// baseColor = Color.valueOf("#d3f5ff");
+		}};
+
+		stratocumulusClouds = new ParticleWeather("stratocumulus-clouds"){{
+			duration = 15f * Time.toMinutes;
+            noiseLayers = 3;
+            noiseLayerSclM = 0.7f;
+            noiseLayerAlphaM = 0.85f;
+            noiseLayerSpeedM = 1.7f;
+            baseSpeed = 0.07f;
+            color = noiseColor = Color.valueOf("#eefdff");
+            noiseScale = 2500f;
+            noisePath = "clouds";
+            drawParticles = false;
+            drawNoise = true;
+            useWindVector = false;
+            xspeed = 1f;
+            yspeed = 0.04f;
+            attrs.set(Attribute.light, -0.2f);
+            opacityMultiplier = 0.27f;
 		}};
 
         heatWave = new ParticleWeather("heatwave"){{
             duration = 15f * Time.toMinutes;
             noiseLayers = 4;
-            noiseLayerSclM = 0.8f;
             noiseLayerAlphaM = 0.6f;
             noiseLayerSpeedM = 1.7f;
             noiseLayerSclM = 0.6f;
