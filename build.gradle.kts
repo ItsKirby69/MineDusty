@@ -286,7 +286,7 @@ project(":"){
         }
     }
     
-    tasks.register("runGame"){
+    tasks.register("runClient"){
         dependsOn("install")
         group = "modding"
         description = "Downloads (if missing) and runs .jar file of Mindustry with installed mod on version specified in gradle.properties"
@@ -329,7 +329,7 @@ project(":"){
     }
     // Pain
     // tasks.register<JavaExec>("genBundles"){
-    //     dependsOn("runGame")
+    //     dependsOn("runClient")
     //     group = "modding"
     //     description = "Generates a bundle file with the latest content"
 
