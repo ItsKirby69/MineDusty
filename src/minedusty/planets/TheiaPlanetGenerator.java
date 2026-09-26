@@ -97,8 +97,13 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 
 		float divineMask = Simplex.noise3d(baseSeed+17, 2, 0.2, 0.2f, pos.x, pos.y, pos.z);
 		float divineBiome = Simplex.noise3d(baseSeed+14, 5, 0.4f, 0.55f, position.x, position.y, position.z);
+		float divineRoots = Ridged.noise3d(baseSeed+1, pos.x + divineBiome, pos.y - divineBiome, pos.z + divineBiome, 4, 0.5f);
 		float divineVoronoi = MSimplex.voronoi3d(baseSeed-1, 3, 0, 1.1, pos.x, pos.y, pos.z);
 		
+		float divineDotMask = Mathf.clamp(position.dot(
+			-1f, 0.5f, 0.6f
+		));
+
 		// For deserts
 		if ((desertBiome * depth )> 0.32 && height < 0.56f && height > waterLevel + 0.1f && Math.abs(position.y) < 0.37){
 			if (getSlope(position, 0.065f) > 0.072f){
@@ -110,7 +115,8 @@ public class TheiaPlanetGenerator extends PlanetGenerator{
 		}
 
 		// For the Divine Factions
-		if (divineBiome * (pole * 0.5f) + divineMask * 1.8f > 1.35f){
+		if ((divineDotMask * 0.8 + divineRoots * divineMask)*(0.4+pole) > 0.7f){
+		// if (divineBiome * (pole * 0.5f) + divineMask * 1.8f > 1.35f){
 			if (height > waterLevel){
 				// Beaches
 				if (height < waterLevel + 0.08f){
