@@ -20,3 +20,4 @@ build/
 *.png~
 *.log
 /assets/bundles/generated_bundles.properties
+/client

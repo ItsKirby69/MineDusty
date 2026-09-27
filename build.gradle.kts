@@ -293,12 +293,12 @@ project(":"){
 
         val providers = project.providers
         val applicationVersion = providers.gradleProperty("applicationVersion").get()
-        val mindustryDirectory = providers.gradleProperty("mindustryDirectory").get()
+        val clientDir = layout.projectDirectory.dir("client");
         
         doLast {
             // Gets directory to check for game jar
-            val dir = File(System.getProperty("user.home"), mindustryDirectory)
-            if (!dir.exists()) dir.mkdirs()
+            val dir = clientDir.asFile;
+            dir.mkdirs();
 
             val mindustryJar = File(dir, "Mindustry$applicationVersion.jar")
             val url = "https://github.com/Anuken/Mindustry/releases/download/$applicationVersion/Mindustry.jar"
