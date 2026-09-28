@@ -57,6 +57,7 @@ public class LivingTreeBlock extends Block{
 		size = 3;
 		clipSize = 120;
 		health = size * 500;
+		flammabilityScale = 5;
 		update = true;
 		breakSound = destroySound = DustSounds.destroyTree;
 		mapColor = Color.valueOf(mapcolor);
@@ -295,12 +296,14 @@ public class LivingTreeBlock extends Block{
 		// effects
 		if(Vars.state.isPaused()) return; // Particles stack when paused for some reason
 		int effectChance = settings.getInt("dusty-falling-density");
-		if(settings.getBool("dusty-falling-leaves-enabled") && Mathf.chanceDelta((effectChance * 0.001f) * size * (tallTree ? 3f : 1f))){
-			effect.at(
-				tile.worldx() + Mathf.range(effectRange) * size,
-				tile.worldy() + Mathf.range(effectRange) * size,
-				mapColor
-			);
+		if(!((LivingTreeBlockBuild)tile.build).isStump){
+			if(settings.getBool("dusty-falling-leaves-enabled") && Mathf.chanceDelta((effectChance * 0.001f) * size * (tallTree ? 3f : 1f))){
+				effect.at(
+					tile.worldx() + Mathf.range(effectRange) * size,
+					tile.worldy() + Mathf.range(effectRange) * size,
+					mapColor
+				);
+			}
 		}
 	}
 
