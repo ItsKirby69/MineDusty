@@ -175,7 +175,7 @@ project(":"){
     dependencies{
         // Use the entity generation annotation processor.
         compileOnly(entity(":entity"))
-        add("kapt", entity(":entity"))
+        annotationProcessor(entity(":entity"))
 
         compileOnly(mindustry())
     }

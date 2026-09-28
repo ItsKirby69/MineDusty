@@ -105,6 +105,7 @@ public class MineDustyMod extends Mod {
 		});
 		
 		EntityRegistry.register();
+
 		if (!headless) {
 			DustShaders.load();
 			DustCacheLayers.load();
@@ -130,11 +131,13 @@ public class MineDustyMod extends Mod {
 
 		FrostCandyWrappers.loadFrostedBlocks();
 
-		GenBundles.generate();
+		// GenBundles.generate();
 		
 		if(settings.getBool("dusty-custom-menu-logo")){
 			Core.atlas.addRegion("logo", randomizeLogo());
 		}
+
+		EntityRegistry.registerUnits();
 	}
 
 	TextureRegion randomizeLogo(){

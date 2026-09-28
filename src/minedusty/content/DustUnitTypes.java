@@ -26,22 +26,22 @@ public class DustUnitTypes extends UnitTypes{
 	public static UnitType cricket, locust, mantis;
 
 	// Airborne
-	public static @EntityDef({Unitc.class}) UnitType dazzle;
+	public static @EntityPoint(UnitEntity.class) UnitType dazzle;
 	// Earthborne
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType bulbus;
+	public static @EntityPoint(MechUnit.class) UnitType bulbus;
 
 	//region Enemy units
 
 	/** Crux Faction */
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType cleave;
-	public static @EntityDef({Unitc.class, WaterMovec.class}) UnitType minnow, sturgeon;
+	public static @EntityPoint(MechUnit.class) UnitType cleave;
+	public static @EntityPoint(UnitWaterMove.class) UnitType minnow, sturgeon;
 
 	/** Divine Faction */
-	public static @EntityDef({Unitc.class, Legsc.class}) UnitType divineFlathead, devineNanitic; // WIP
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType divineSwarmer, divineCyst, divineGlaive, divineBulwark;
+	public static @EntityPoint(LegsUnit.class) UnitType divineFlathead, devineNanitic; // WIP
+	public static @EntityPoint(MechUnit.class) UnitType divineSwarmer, divineCyst, divineGlaive, divineBulwark;
 
 	/** Tempor Faction */
-	public static @EntityDef({Unitc.class, Mechc.class}) UnitType actaea, petunia;
+	public static @EntityPoint(MechUnit.class) UnitType actaea, petunia;
 
 	//end region
 
@@ -53,9 +53,6 @@ public class DustUnitTypes extends UnitTypes{
 			controller = u -> u.team.isAI() ? new BuilderAI(true, 400f) : new CommandAI();
 			//aiController = BuilderAI::new;
 			isEnemy = false;
-			
-			constructor = UnitEntity::create;
-
 			targetBuildingsMobile = false;
             lowAltitude = true;
 			flying = true;
@@ -106,9 +103,6 @@ public class DustUnitTypes extends UnitTypes{
 			drawCell = false;
 			aiController = BuilderAI::new;
 			isEnemy = false;
-
-			constructor = UnitEntity::create;
-
 			flying = true;
 			mineSpeed = 8f;
 			mineTier = 2;
@@ -149,7 +143,6 @@ public class DustUnitTypes extends UnitTypes{
 
 		// Airborne | Effects
         dazzle = new DustUnitType("dazzle"){{
-			constructor = UnitEntity::create;
             researchCostMultiplier = 0.5f;
             speed = 2.5f;
             accel = 0.08f;
@@ -205,7 +198,6 @@ public class DustUnitTypes extends UnitTypes{
 
 		// Earthborne | Plant-spinoffs
         bulbus = new DustUnitType("bulbus"){{
-			constructor = MechUnit::create;
             researchCostMultiplier = 0.5f;
             speed = 0.46f;
             hitSize = 9f;
@@ -279,13 +271,12 @@ public class DustUnitTypes extends UnitTypes{
 
 		// Ground unit | Knives
         cleave = new UnitType("cleave"){{
-			constructor = MechUnit::create;
             researchCostMultiplier = 0.5f;
             speed = 0.48f;
             hitSize = 9f;
             health = 425;
             stepSoundVolume = 0.5f;
-			outlineColor = DustPalette.turretOutline;
+			// outlineColor = DustPalette.turretOutline;
 
             weapons.add(new Weapon("minedusty-larger-weapon"){{
                 reload = 60f;
@@ -295,7 +286,7 @@ public class DustUnitTypes extends UnitTypes{
                 ejectEffect = Fx.casing1;
 				shoot.shots = 3;
 				shoot.shotDelay = 4f;
-				outlineColor = DustPalette.turretOutline;
+				// outlineColor = DustPalette.turretOutline;
                 bullet = new BasicBulletType(3.25f, 10){{
                     width = 7f;
                     height = 9f;
@@ -307,7 +298,6 @@ public class DustUnitTypes extends UnitTypes{
 		
 		// Water units | Fishes
         minnow = new UnitType("minnow"){{
-			constructor = UnitWaterMove::create;
             speed = 1.35f;
             drag = 0.13f;
             hitSize = 10f;
@@ -345,7 +335,6 @@ public class DustUnitTypes extends UnitTypes{
         }};
 
         sturgeon = new UnitType("sturgeon"){{
-			constructor = UnitWaterMove::create;
             speed = 1.05f;
             drag = 0.15f;
             hitSize = 13f;
@@ -418,7 +407,6 @@ public class DustUnitTypes extends UnitTypes{
 
 		// Poisonous plants
         actaea = new TemporUnitType("actaea"){{
-			constructor = MechUnit::create;
 			// drawCell = false;
             speed = 0.5f;
             hitSize = 10f;
@@ -466,7 +454,6 @@ public class DustUnitTypes extends UnitTypes{
         }};
 
 		petunia = new TemporUnitType("petunia"){{
-			constructor = MechUnit::create;
 			speed = 1.0f;
 			hitSize = 9f;
 			health = 260f;
@@ -536,7 +523,6 @@ public class DustUnitTypes extends UnitTypes{
 		
 		// WIP
 		devineNanitic = new DivineUnitType("divine-nanitic"){{
-            constructor = LegsUnit::create;
 			drawCell = false;
             drag = 0.08f;
             speed = 0.65f;
@@ -649,7 +635,6 @@ public class DustUnitTypes extends UnitTypes{
 		}};
 
         divineSwarmer = new DivineUnitType("divine-swarmer"){{
-			constructor = MechUnit::create;
 			drawCell = false;
             speed = 1.1f;
             hitSize = 9f;
@@ -686,7 +671,6 @@ public class DustUnitTypes extends UnitTypes{
         }};
 		
         divineCyst = new DivineUnitType("divine-cyst"){{
-			constructor = MechUnit::create;
 			drawCell = false;
             speed = 0.5f;
             hitSize = 10f;
@@ -710,7 +694,6 @@ public class DustUnitTypes extends UnitTypes{
         }};
 
 		divineGlaive = new DivineUnitType("divine-glaive"){{
-			constructor = MechUnit::create;
 			drawCell = false;
 			speed = 0.5f;
 			hitSize = 10f;
@@ -749,7 +732,6 @@ public class DustUnitTypes extends UnitTypes{
 		}};
 
 		divineBulwark = new DivineUnitType("divine-bulwark"){{
-			constructor = MechUnit::create;
 			drawCell = false;
 			speed = 0.45f;
 			hitSize = 10f;
@@ -788,7 +770,6 @@ public class DustUnitTypes extends UnitTypes{
 		}};
 
         divineFlathead = new DivineUnitType("divine-flathead"){{
-            constructor = LegsUnit::create;
 			drawCell = false;
             drag = 0.12f;
             speed = 0.45f;

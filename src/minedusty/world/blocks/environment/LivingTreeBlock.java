@@ -9,6 +9,7 @@ import mindustry.Vars;
 import mindustry.entities.*;
 import mindustry.game.Team;
 import mindustry.gen.Building;
+import mindustry.gen.Fire;
 import mindustry.gen.Groups;
 import mindustry.graphics.*;
 import mindustry.world.*;
@@ -313,11 +314,11 @@ public class LivingTreeBlock extends Block{
 
 		@Override
 		public void updateTile(){
-			boolean nearFire = Groups.fire.contains(f -> Mathf.dst(f.x, f.y, x, y) < (size * Vars.tilesize * 2f));
+			boolean nearFire = Groups.all.contains(e -> e instanceof Fire f && Mathf.dst(f.x, f.y, x, y) < (size * Vars.tilesize * 2f));
 			if(nearFire){
 				damage(Time.delta * 2f);
 				burnIntensity = Mathf.clamp(burnIntensity + Time.delta * 0.001f, 0f, 1f);
-				if(Mathf.chanceDelta(0.008f)) {
+				if(Mathf.chanceDelta(0.012f)) {
 					Tile nearby = Vars.world.tile(tile.x + Mathf.range(3),tile.y + Mathf.range(3));
 					if(nearby != null && nearby.build != null) {
 						Fires.create(nearby);
