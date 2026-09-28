@@ -197,7 +197,7 @@ public class LivingTreeBlock extends Block{
 		Draw.color(result); 
 		*/
 
-		if(!((LivingTreeBlockBuild)tile.build).stump){
+		if(!((LivingTreeBlockBuild)tile.build).isStump){
 			Draw.alpha(fade);
 			Draw.z(baseLayer);
 			Draw.rectv(variantRegions[variation], x, y, w, h, rot, vec -> vec.add(
@@ -286,7 +286,7 @@ public class LivingTreeBlock extends Block{
 			Draw.rect(trunkRegions[variation], x, y, rotStatic);
 		}
 
-		if(((LivingTreeBlockBuild)tile.build).stump){
+		if(((LivingTreeBlockBuild)tile.build).isStump){
 			Draw.z(Layer.block - 1);
 			Draw.color(0f,0f,0f, BlockRenderer.shadowColor.a - 0.2f);
 			Draw.rect(trunkShadow, tile.drawx(), tile.drawy(), size * tilesize, size * tilesize);
@@ -311,7 +311,7 @@ public class LivingTreeBlock extends Block{
 	public void drawShadow(Tile tile){}
 
 	public class LivingTreeBlockBuild extends Building{
-		public boolean stump = false;
+		public boolean isStump = false;
 		float burnIntensity = 0f;
 		float stumpHealth = 0;
 
@@ -350,8 +350,8 @@ public class LivingTreeBlock extends Block{
 
 		@Override
 		public void killed(){
-			if(!stump){
-				stump = true;
+			if(!isStump){
+				isStump = true;
 				health = stumpHealth;
 				clampHealth();
 

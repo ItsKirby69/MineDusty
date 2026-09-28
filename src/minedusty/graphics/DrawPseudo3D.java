@@ -1,6 +1,7 @@
 package minedusty.graphics;
 
 import arc.math.*;
+import arc.util.Log;
 import mindustry.*;
 
 import static arc.Core.*;
@@ -31,7 +32,7 @@ public class DrawPseudo3D{
     }
 
     public static float hMul(float height){
-        return height * Vars.renderer.getDisplayScale();
+        return Math.min(height * Vars.renderer.getDisplayScale(), height * 4f);
     }
 
     public static float layerOffset(float x, float y){
