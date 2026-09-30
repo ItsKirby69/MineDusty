@@ -7,8 +7,11 @@ import java.util.jar.*
 import java.net.*
 
 buildscript{
-    val mindustryVersion = providers.gradleProperty("mindustryVersion").get()
-    val mindustry = if(mindustryVersion == "be") "MindustryBuilds" else "Mindustry"
+    val (mindustry, mindustryVersion) = when(val version = providers.gradleProperty("mindustryVersion").get()){
+        "latest" -> "Mindustry" to "latest"
+        "be" -> "MindustryBuilds" to "latest"
+        else -> "Mindustry" to version
+    }
 
     dependencies{
         classpath("Anuken:$mindustry:$mindustryVersion")
@@ -46,23 +49,17 @@ plugins{
     id("com.github.GglLfr.EntityAnno") apply false
 }
 
-val mindustryVersion = providers.gradleProperty("mindustryVersion").get()
-val mindustry = if(mindustryVersion == "be") "MindustryBuilds" else "Mindustry"
+val (mindustry, mindustryVersion) = when(val version = providers.gradleProperty("mindustryVersion").get()){
+    "latest" -> "Mindustry" to "latest"
+    "be" -> "MindustryBuilds" to "latest"
+    else -> "Mindustry" to version
+}
 val entVersion = providers.gradleProperty("entVersion").get()
 
-val modName = providers.gradleProperty("modName").get()
 val modArtifact = providers.gradleProperty("modArtifact").get()
 val modFetch = providers.gradleProperty("modFetch").get()
 val modGenSrc = providers.gradleProperty("modGenSrc").get()
 val modGen = providers.gradleProperty("modGen").get()
-
-fun mindustry(): String{
-    return "Anuken:$mindustry:$mindustryVersion"
-}
-
-fun entity(module: String): String{
-    return "com.github.GglLfr.EntityAnno$module:$entVersion"
-}
 
 allprojects{
     apply(plugin = "java")
@@ -161,10 +158,8 @@ allprojects{
 project(":"){
     apply(plugin = "com.github.GglLfr.EntityAnno")
 
-    val localModName = modName
     val localMindustryVersion = mindustryVersion
     configure<EntityAnnoExtension>{
-        modName = localModName
         mindustryVersion = localMindustryVersion
         revisionDir = layout.projectDirectory.dir("revisions").asFile
         fetchPackage = modFetch
@@ -174,10 +169,10 @@ project(":"){
 
     dependencies{
         // Use the entity generation annotation processor.
-        compileOnly(entity(":entity"))
-        annotationProcessor(entity(":entity"))
+        compileOnly("com.github.GglLfr.EntityAnno:entity:$entVersion")
+        annotationProcessor("com.github.GglLfr.EntityAnno:entity:$entVersion")
 
-        compileOnly(mindustry())
+        compileOnly("Anuken:$mindustry:$mindustryVersion")
     }
 
     val jar = tasks.named<Jar>("jar"){
@@ -209,15 +204,10 @@ project(":"){
         )
 
         metaInf.from(layout.projectDirectory.file("LICENSE"))
-        val localModName = modName
-        doFirst{
-            if(usedMeta.asFile.reader(Charsets.UTF_8).use{Jval.read(it)}.getString("name") != localModName) {
-                throw GradleException("Mod name mismatch in `${usedMeta.asFile.name}`; please synchronize with `gradle.properties`")
-            }
-        }
     }
 
     val dex = tasks.register<Jar>("dex"){
+        description = "Builds an Android-compatible JAR from the desktop-only JAR. Use this file for GitHub release."
         inputs.files(jar)
         archiveFileName = "$modArtifact.jar"
 
@@ -236,7 +226,7 @@ project(":"){
             // Find Android SDK root.
             val sdkRoot = File(
                 OS.env("ANDROID_SDK_ROOT") ?: OS.env("ANDROID_HOME")
-                ?: throw IllegalStateException("Neither `ANDROID_SDK_ROOT` nor `ANDROID_HOME` is set.")
+                ?: throw IllegalStateException("Neither `ANDROID_SDK_ROOT` nor `ANDROID_HOME` are set.") // lol
             )
 
             // Find `d8`.
@@ -265,6 +255,7 @@ project(":"){
     }
 
     tasks.register<DefaultTask>("install"){
+        description = "Installs the desktop JAR to your `mods/` folder."
         inputs.files(jar)
 
         val desktopJar = jar.flatMap{it.archiveFile}
