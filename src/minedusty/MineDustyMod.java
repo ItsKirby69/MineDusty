@@ -119,6 +119,9 @@ public class MineDustyMod extends Mod {
 		DustAttributes.load();
 		DustWeathers.load();
 		DustUnitTypes.load();
+		
+		// register units
+		EntityRegistry.registerUnits();
 
 		// blocks
 		DustBlocks.load();
@@ -136,8 +139,6 @@ public class MineDustyMod extends Mod {
 		if(settings.getBool("dusty-custom-menu-logo")){
 			Core.atlas.addRegion("logo", randomizeLogo());
 		}
-
-		EntityRegistry.registerUnits();
 	}
 
 	TextureRegion randomizeLogo(){

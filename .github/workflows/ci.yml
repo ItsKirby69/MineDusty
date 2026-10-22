@@ -26,17 +26,24 @@ jobs:
       - name: Build mod artifact
         run: |
           chmod +x gradlew
-          ./gradlew clean dex
+          ./gradlew deploy
+      - name: Read artifact name
+        id: artifact
+        shell: bash
+        run: |
+          mod_artifact=$(sed -nE 's/^[[:space:]]*modArtifact[[:space:]]*=[[:space:]]*(.*)/\1/p' gradle.properties | tr -d '\r')
+          test -n "$mod_artifact" || { echo "Missing modArtifact in gradle.properties"; exit 1; }
+          echo "name=${mod_artifact}.jar" >> "$GITHUB_OUTPUT"
       - name: Upload built mod artifact as a GitHub Action artifact
         uses: actions/upload-artifact@v7
         if: github.event_name == 'push' || github.event_name == 'pull_request'
         with:
-          name: MineDusty (zipped)
-          path: build/libs/MineDusty.jar
+          name: ${{ steps.artifact.outputs.name }}
+          path: build/libs/${{ steps.artifact.outputs.name }}
           if-no-files-found: error
-          compression-level: 0
+          archive: false
       - name: Upload built mod artifact into release
         uses: softprops/action-gh-release@v3
         if: github.event_name == 'release' && github.event.action == 'created'
         with:
-          files: build/libs/MineDusty.jar
+          files: build/libs/${{ steps.artifact.outputs.name }}
